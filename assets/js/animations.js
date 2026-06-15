@@ -1577,7 +1577,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (index === 0) {
           // --- SLIDE 0: Already visible, just add overlay + text ---
-          // Phase 1: Hold on images (already visible)
+          // Phase 1: Hold on images (already visible) and collapse the section header
+          const header = volunteeringSection.querySelector('.awards-header');
+          if (header) {
+            tl.to(header, {
+              opacity: 0,
+              height: 0,
+              marginBottom: 0,
+              marginTop: 0,
+              overflow: 'hidden',
+              duration: 0.8
+            }, 0);
+          }
           tl.to({}, {}, "+=0.8");
 
           // Phase 2: Darken overlay and show text
@@ -1752,7 +1763,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (index === 0) {
           // --- SLIDE 0: Already visible, just add overlay + text ---
-          // Phase 1: Hold on images (already visible)
+          // Phase 1: Hold on images (already visible) and collapse the section header
+          const header = awardsSection.querySelector('.experience-header');
+          if (header) {
+            tl.to(header, {
+              opacity: 0,
+              height: 0,
+              marginBottom: 0,
+              marginTop: 0,
+              overflow: 'hidden',
+              duration: 0.8
+            }, 0);
+          }
           tl.to({}, {}, "+=0.8");
 
           // Phase 2: Darken overlay and show text

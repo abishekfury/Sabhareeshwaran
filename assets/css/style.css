@@ -1090,9 +1090,11 @@ button {
   padding-right: 8px;
 }
 
-.work-item:hover .work-item-preview {
-  opacity: 1;
-  transform: translateY(-50%) scale(1) rotate(0deg);
+}
+
+#publications .work-item-preview {
+  height: auto;
+  min-height: 180px;
 }
 
 /* ===== SECTION 4: EXPERTISE ===== */
@@ -2291,6 +2293,20 @@ button {
   .work-item.touch-active .work-item-preview {
     opacity: 1;
     transform: translateY(-50%) scale(1) rotate(0deg);
+  }
+
+  #publications .work-item-preview {
+    left: 50% !important;
+    right: auto !important;
+    width: 90% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    min-height: 140px !important;
+    transform: translate(-50%, -50%) scale(0.85) rotate(-2deg) !important;
+  }
+
+  #publications .work-item.touch-active .work-item-preview {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
   }
 
   .expertise-detail {
