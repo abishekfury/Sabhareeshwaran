@@ -35,14 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
-    ScrollTrigger.scrollerProxy(document.body, {
-      scrollTop(value) {
-        return arguments.length ? lenis.scrollTo(value, { immediate: true }) : lenis.scroll;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-      },
-    });
     lenis.on('scroll', ScrollTrigger.update);
   }
 

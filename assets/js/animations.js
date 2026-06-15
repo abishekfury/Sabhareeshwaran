@@ -35,19 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     gsap.ticker.lagSmoothing(0);
 
-    // ScrollTrigger proxy so GSAP and Lenis stay in sync
-    ScrollTrigger.scrollerProxy(document.body, {
-      scrollTop(value) {
-        if (typeof value === 'number') {
-          lenis.scrollTo(value, { immediate: true });
-        }
-        return lenis.scroll;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-      },
-    });
-
     lenis.on('scroll', ScrollTrigger.update);
   }
 
