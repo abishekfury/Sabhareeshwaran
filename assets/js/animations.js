@@ -2,18 +2,20 @@
    HERO SECTION SCROLLTRIGGER ANIMATIONS
    ============================================================ */
 
+// Declare lenis in global scope so it's accessible in resize/unload handlers
+let lenis;
+
 document.addEventListener('DOMContentLoaded', () => {
   // Register GSAP plugin
   gsap.registerPlugin(ScrollTrigger);
 
   // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
+
   /* ============================================================
      LENIS SMOOTH SCROLL
      ============================================================ */
-  let lenis;
-  
+
   function initSmoothScroll() {
     if (prefersReducedMotion) return;
 
@@ -60,9 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const scrollTop = lenis ? lenis.scroll : window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      
+
       progressBar.style.width = progress + '%';
-      
+
       // Add glow effect when scrolling
       if (progress > 0) {
         progressBar.style.boxShadow = `0 0 ${Math.min(20, progress / 5)}px rgba(255, 69, 0, 0.6)`;
@@ -93,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function splitIntoLines(element) {
     const text = element.innerHTML;
     const words = text.split(/(\s+)/);
-    element.innerHTML = words.map(word => 
+    element.innerHTML = words.map(word =>
       word.trim() ? `<span class="line-word">${word}</span>` : word
     ).join('');
     return element.querySelectorAll('.line-word');
@@ -109,12 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     headings.forEach(heading => {
       const words = splitIntoLines(heading);
-      
+
       // Set initial state with overflow hidden on parent
       heading.style.overflow = 'hidden';
-      gsap.set(words, { 
-        yPercent: 100, 
-        opacity: 0 
+      gsap.set(words, {
+        yPercent: 100,
+        opacity: 0
       });
 
       gsap.to(words, {
@@ -169,11 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(({ selector, stagger }) => {
       const elements = document.querySelectorAll(selector);
-      
+
       elements.forEach((el, index) => {
-        gsap.fromTo(el, 
-          { 
-            opacity: 0, 
+        gsap.fromTo(el,
+          {
+            opacity: 0,
             y: 50,
             scale: 0.95
           },
@@ -260,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statNumbers = document.querySelectorAll('.stat-number');
     statNumbers.forEach(num => {
       gsap.fromTo(num,
-        { 
+        {
           color: 'rgba(255, 255, 255, 0.3)',
           textShadow: '0 0 0px rgba(255, 69, 0, 0)'
         },
@@ -308,15 +310,15 @@ document.addEventListener('DOMContentLoaded', () => {
      ============================================================ */
   function initRippleEffect() {
     const rippleButtons = document.querySelectorAll('.nav-cta, .connect-btn');
-    
+
     rippleButtons.forEach(btn => {
       btn.classList.add('ripple-btn');
-      
-      btn.addEventListener('click', function(e) {
+
+      btn.addEventListener('click', function (e) {
         const rect = this.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const ripple = document.createElement('span');
-        
+
         ripple.classList.add('ripple-circle');
         ripple.style.cssText = `
           width: ${size}px;
@@ -324,9 +326,9 @@ document.addEventListener('DOMContentLoaded', () => {
           left: ${e.clientX - rect.left - size / 2}px;
           top: ${e.clientY - rect.top - size / 2}px;
         `;
-        
+
         this.appendChild(ripple);
-        
+
         // Remove ripple after animation
         ripple.addEventListener('animationend', () => {
           ripple.remove();
@@ -341,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function initNavActiveSection() {
     const sections = document.querySelectorAll('section[id], footer[id]');
     const navLinks = document.querySelectorAll('.mobile-menu-content a, .nav-cta');
-    
+
     if (!navLinks.length) return;
 
     sections.forEach(section => {
@@ -479,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.innerWidth <= 768) return; // Disable on mobile
 
     const expertiseBanners = document.querySelectorAll('.expertise-banner');
-    
+
     expertiseBanners.forEach((banner, bannerIndex) => {
       // Layer 1: Background Japanese text
       const bgText = banner.querySelector('.expertise-banner-bg-text');
@@ -608,7 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const rect = item.getBoundingClientRect();
           const x = (e.clientX - rect.left) / rect.width;
           const y = (e.clientY - rect.top) / rect.height;
-          
+
           gsap.to(preview, {
             x: (x - 0.5) * 30,
             y: (y - 0.5) * 20,
@@ -617,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: 'power2.out'
           });
         });
-        
+
         item.addEventListener('mouseleave', () => {
           gsap.to(preview, {
             x: 0,
@@ -634,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ===== INTRO HERO PARALLAX ===== */
   function initIntroHeroParallax() {
     const heroImg = document.querySelector('.intro-hero-bg img');
-    
+
     if (heroImg) {
       // Parallax effect on hero image
       gsap.to(heroImg, {
@@ -733,11 +735,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ===== HERO IMAGES HOVER EFFECTS ===== */
   function initHeroImageEffects() {
     const inlineImages = document.querySelectorAll('.hero-img-inline');
-    
+
     inlineImages.forEach(imgContainer => {
       const img = imgContainer.querySelector('img');
       if (!img) return;
-      
+
       imgContainer.addEventListener('mouseenter', () => {
         gsap.to(img, {
           scale: 1.15,
@@ -746,7 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ease: 'power2.out'
         });
       });
-      
+
       imgContainer.addEventListener('mouseleave', () => {
         gsap.to(img, {
           scale: 1,
@@ -765,12 +767,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const introHero = document.querySelector('.intro-hero');
       if (introHero) {
         // Smooth fade in after preloader
-        gsap.fromTo(introHero, 
+        gsap.fromTo(introHero,
           { opacity: 0, scale: 1.05 },
-          { 
-            opacity: 1, 
+          {
+            opacity: 1,
             scale: 1,
-            duration: 1.5, 
+            duration: 1.5,
             ease: 'power3.out'
           }
         );
@@ -781,7 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ===== HERO SECTION SCALE ON SCROLL ===== */
   function initHeroScaleEffect() {
     const heroSection = document.querySelector('.intro-hero');
-    
+
     if (heroSection) {
       gsap.to(heroSection, {
         scale: 0.95,
@@ -809,10 +811,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const rect = card.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        
+
         const rotateX = ((e.clientY - centerY) / rect.height) * -8;
         const rotateY = ((e.clientX - centerX) / rect.width) * 8;
-        
+
         gsap.to(card, {
           rotationX: rotateX,
           rotationY: rotateY,
@@ -889,12 +891,12 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger: '.stats',
         start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(stat, 
-            { 
+          gsap.fromTo(stat,
+            {
               textShadow: '0 0 0px rgba(255, 69, 0, 0)',
               color: 'rgba(255, 255, 255, 0.4)'
             },
-            { 
+            {
               textShadow: '0 0 40px rgba(255, 69, 0, 0.8), 0 0 80px rgba(255, 69, 0, 0.3)',
               color: 'rgba(255, 255, 255, 1)',
               duration: 1.2,
@@ -912,15 +914,15 @@ document.addEventListener('DOMContentLoaded', () => {
      ============================================================ */
   function initLinkUnderlines() {
     const links = document.querySelectorAll('.footer-email-address, .mobile-menu-content a, .nav-cta');
-    
+
     links.forEach(link => {
       link.classList.add('animated-underline');
-      
+
       // Create underline element
       const underline = document.createElement('span');
       underline.className = 'link-underline-element';
       link.appendChild(underline);
-      
+
       link.addEventListener('mouseenter', () => {
         gsap.to(underline, {
           scaleX: 1,
@@ -928,7 +930,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ease: 'power3.out',
         });
       });
-      
+
       link.addEventListener('mouseleave', () => {
         gsap.to(underline, {
           scaleX: 0,
@@ -949,19 +951,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLogo = document.querySelector('.nav-logo svg');
     if (navLogo) {
       const logoParent = navLogo.closest('a');
-      
+
       logoParent.addEventListener('mouseenter', () => {
-        gsap.fromTo(navLogo, 
+        gsap.fromTo(navLogo,
           { rotation: 0, scale: 1 },
-          { 
-            rotation: 15, 
+          {
+            rotation: 15,
             scale: 1.1,
-            duration: 0.3, 
+            duration: 0.3,
             ease: 'back.out(1.7)'
           }
         );
       });
-      
+
       logoParent.addEventListener('mouseleave', () => {
         gsap.to(navLogo, {
           rotation: 0,
@@ -995,7 +997,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ease: 'back.out(1.7)'
         });
       });
-      
+
       menuBtn.addEventListener('mouseleave', () => {
         gsap.to(menuBtn, {
           scale: 1,
@@ -1045,7 +1047,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollDirectionImages();
   initDynamicExpertiseHighlights();
   initReviewRowHighlights();
-  initJapaneseScramble();
+  initTamilScramble();
+  initAboutImageAndTextAnimations();
+  initVolunteeringAnimations();
+  initAwardsAnimations();
 
   /* ============================================================
      REVIEW ROW MOUSE HOVER HIGHLIGHT
@@ -1190,18 +1195,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ============================================================
-     JAPANESE TEXT SCRAMBLE → ENGLISH ON CLICK
+     TAMIL TEXT SCRAMBLE → ENGLISH ON CLICK (GLOBAL TOGGLE)
      ============================================================ */
-  function initJapaneseScramble() {
-    const jpToEn = {
-      'サイバーセキュリティ': 'CYBERSECURITY',
-      '専門分野': 'EXPERTISE',
-      'レビュー': 'REVIEWS',
-      '経験': 'EXPERIENCE',
-      'これまでのクライアント': 'OUR CLIENTS',
-      '認定機関': 'CERT BODIES',
-      'サービス': 'SERVICES',
-      '選ぶ理由': 'WHY CHOOSE',
+  function initTamilScramble() {
+    const taToEn = {
+      'அனுபவம்': 'EXPERIENCE',
+      'திறன்கள்': 'SKILLS',
+      'சான்றிதழ்கள்': 'CERTIFICATIONS',
+      'கல்வி': 'EDUCATION',
+      'தன்னார்வம்': 'VOLUNTEERING',
+      'விருதுகள்': 'HONORS & AWARDS',
+      'பரிந்துரைகள்': 'RECOMMENDATIONS',
+      'வெளியீடுகள்': 'PUBLICATIONS',
     };
 
     const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@%&!?';
@@ -1212,54 +1217,109 @@ document.addEventListener('DOMContentLoaded', () => {
       '.expertise-banner-sticky-jp',
     ];
 
+    const labels = [];
     selectors.forEach(sel => {
       document.querySelectorAll(sel).forEach(el => {
-        const jpText = el.textContent.trim();
-        const enText = jpToEn[jpText];
-        if (!enText) return;
+        const taText = el.textContent.trim();
+        const enText = taToEn[taText];
+        if (enText) {
+          el.dataset.taText = taText;
+          el.dataset.enText = enText;
+          el.dataset.state = 'ta';
+          el.style.cursor = 'pointer';
+          el.title = 'Click to translate all';
+          labels.push(el);
+        }
+      });
+    });
 
-        el.dataset.jpText = jpText;
-        el.dataset.enText = enText;
-        el.dataset.state = 'jp';
-        el.style.cursor = 'pointer';
-        el.title = 'Click to translate';
+    let isTranslatingGlobal = false;
 
-        el.addEventListener('click', () => {
-          if (el.dataset.animating === 'true') return;
-          el.dataset.animating = 'true';
+    labels.forEach(el => {
+      el.addEventListener('click', () => {
+        if (isTranslatingGlobal) return;
+        isTranslatingGlobal = true;
 
-          const target = el.dataset.state === 'jp' ? enText : jpText;
-          const totalDuration = 2000;
-          const tickInterval = 45;
+        // Toggle state for all labels based on clicked element
+        const nextState = el.dataset.state === 'ta' ? 'en' : 'ta';
+        let completedCount = 0;
+
+        labels.forEach(item => {
+          item.dataset.animating = 'true';
+          const targetText = nextState === 'en' ? item.dataset.enText : item.dataset.taText;
+          const totalDuration = 1000;
+          const tickInterval = 40;
           const totalTicks = Math.round(totalDuration / tickInterval);
           let tick = 0;
 
           const timer = setInterval(() => {
             tick++;
             const progress = tick / totalTicks;
-            const lockedCount = Math.floor(progress * target.length);
+            const lockedCount = Math.floor(progress * targetText.length);
 
             let display = '';
-            for (let i = 0; i < target.length; i++) {
+            for (let i = 0; i < targetText.length; i++) {
               if (i < lockedCount) {
-                display += target[i];
-              } else if (target[i] === ' ') {
+                display += targetText[i];
+              } else if (targetText[i] === ' ') {
                 display += ' ';
               } else {
                 display += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
               }
             }
-            el.textContent = display;
+            item.textContent = display;
 
             if (tick >= totalTicks) {
               clearInterval(timer);
-              el.textContent = target;
-              el.dataset.state = el.dataset.state === 'jp' ? 'en' : 'jp';
-              el.dataset.animating = 'false';
+              item.textContent = targetText;
+              item.dataset.state = nextState;
+              item.dataset.animating = 'false';
+
+              completedCount++;
+              if (completedCount === labels.length) {
+                isTranslatingGlobal = false;
+              }
             }
           }, tickInterval);
         });
       });
+    });
+  }
+
+  /* ============================================================
+     ABOUT PORTRAIT IMAGE SCROLL TO BLACK & TEXT COLOR SHIFT
+     ============================================================ */
+  function initAboutImageAndTextAnimations() {
+    // 1. Image turns to black/dark on scroll down
+    const aboutImg = document.querySelector('.about-portrait img');
+    if (aboutImg) {
+      gsap.set(aboutImg, { filter: 'grayscale(0%) brightness(1) contrast(1)' });
+      gsap.to(aboutImg, {
+        filter: 'grayscale(100%) brightness(0.25) contrast(1.15)',
+        scrollTrigger: {
+          trigger: '.about-portrait',
+          start: 'top 35%',
+          end: 'bottom 10%',
+          scrub: true,
+        }
+      });
+    }
+
+    // 2. Text color shift from light white to dark white (gray)
+    const aboutParagraphs = document.querySelectorAll('.about-bio p');
+    aboutParagraphs.forEach(p => {
+      gsap.fromTo(p,
+        { color: 'rgba(255, 255, 255, 0.95)' }, // light white
+        {
+          color: 'rgba(255, 255, 255, 0.35)', // dark white
+          scrollTrigger: {
+            trigger: p,
+            start: 'top 50%',
+            end: 'bottom 20%',
+            scrub: true,
+          }
+        }
+      );
     });
   }
 
@@ -1273,7 +1333,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let lastScrollY = 0;
     let scrollDirection = 'down';
-    
+
     // Track scroll direction
     function updateScrollDirection() {
       const currentScrollY = window.scrollY;
@@ -1304,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     imageSelectors.forEach(selector => {
       const elements = document.querySelectorAll(selector);
-      
+
       elements.forEach(element => {
         if (isMobile) {
           // On mobile: always add visible when element enters viewport, no direction check
@@ -1397,11 +1457,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Use the same scroll direction tracking from image visibility
     let lastScrollY = 0;
     let scrollDirection = 'down';
-    
+
     // Mouse direction tracking
     let lastMouseY = 0;
     let mouseDirection = 'down';
-    
+
     function updateScrollDirection() {
       const currentScrollY = window.scrollY;
       scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
@@ -1430,7 +1490,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Get each expertise section separately to highlight one item per section
     const expertiseSections = document.querySelectorAll('.expertise-detail');
-    
+
     expertiseSections.forEach((section) => {
       const listItems = section.querySelectorAll('.expertise-list-item');
 
@@ -1460,11 +1520,364 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ============================================================
+     VOLUNTEERING & AWARDS SCROLL-DRIVEN STORYTELLING
+     ============================================================ */
+  function initVolunteeringAnimations() {
+    if (prefersReducedMotion) return;
+
+    const mm = gsap.matchMedia();
+
+    // 1. DESKTOP STORYTELLING PINNING PATTERN (all screen widths)
+    mm.add("(min-width: 0px)", () => {
+      const volunteeringSection = document.getElementById("volunteering");
+      const slides = gsap.utils.toArray("#volunteering .vol-story-slide");
+
+      if (!volunteeringSection || slides.length === 0) return;
+
+      // Reset initial state for all slides and generate background text dynamically
+      slides.forEach((slide, i) => {
+        // Generate dynamic background text if not already present
+        if (!slide.querySelector('.slide-bg-text-top')) {
+          const org = slide.querySelector('.vol-org');
+          if (org) {
+            const bgText = document.createElement('div');
+            bgText.className = 'slide-bg-text slide-bg-text-top';
+            bgText.textContent = org.textContent;
+            slide.appendChild(bgText);
+          }
+        }
+        if (!slide.querySelector('.slide-bg-text-bottom')) {
+          const role = slide.querySelector('.vol-role');
+          if (role) {
+            const bgText = document.createElement('div');
+            bgText.className = 'slide-bg-text slide-bg-text-bottom';
+            bgText.textContent = role.textContent;
+            slide.appendChild(bgText);
+          }
+        }
+
+        if (i === 0) {
+          gsap.set(slide, { opacity: 1, autoAlpha: 1, pointerEvents: "auto", '--overlay-opacity': 0 });
+          const wrappers = slide.querySelectorAll('.vol-img-wrapper');
+          wrappers.forEach(w => gsap.set(w, { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, scale: 1 }));
+          const textCard = slide.querySelector('.vol-info');
+          if (textCard) gsap.set(textCard, { opacity: 0, y: 30 });
+        } else {
+          gsap.set(slide, { opacity: 0, autoAlpha: 0, pointerEvents: "none", '--overlay-opacity': 0 });
+          const wrappers = slide.querySelectorAll('.vol-img-wrapper');
+          wrappers.forEach(w => gsap.set(w, { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0, scale: 1.1 }));
+          const textCard = slide.querySelector('.vol-info');
+          if (textCard) gsap.set(textCard, { opacity: 0, y: 30 });
+        }
+      });
+
+      // Create scroll-driven master timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: volunteeringSection,
+          start: "top top",
+          end: `+=${slides.length * 250}%`,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1
+        }
+      });
+
+      // For each slide: Phase 1 = images, Phase 2 = overlay + text, Phase 3 = hold, Phase 4 = transition out
+      slides.forEach((slide, index) => {
+        const textCard = slide.querySelector('.vol-info');
+        const wrappers = slide.querySelectorAll('.vol-img-wrapper');
+
+        if (index === 0) {
+          // --- SLIDE 0: Already visible, just add overlay + text ---
+          // Phase 1: Hold on images (already visible)
+          tl.to({}, {}, "+=0.8");
+
+          // Phase 2: Darken overlay and show text
+          tl.to(slide, { '--overlay-opacity': 1, duration: 1 });
+          if (textCard) {
+            tl.to(textCard, { opacity: 1, y: 0, duration: 1 }, "-=1");
+          }
+
+          // Phase 3: Hold for reading
+          tl.to({}, {}, "+=2");
+        } else {
+          const prevSlide = slides[index - 1];
+          const prevTextCard = prevSlide.querySelector('.vol-info');
+
+          // Phase 4 of previous slide: Transition OUT
+          if (prevTextCard) {
+            tl.to(prevTextCard, { opacity: 0, y: -30, duration: 0.6 });
+          }
+          tl.to(prevSlide, { opacity: 0, autoAlpha: 0, pointerEvents: "none", duration: 0.6 }, "-=0.4");
+
+          // Phase 1: Images reveal IN
+          tl.set(slide, { opacity: 1, autoAlpha: 1, pointerEvents: "auto", '--overlay-opacity': 0 });
+          if (wrappers.length > 0) {
+            wrappers.forEach((wrapper, wIndex) => {
+              tl.fromTo(wrapper,
+                { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0, scale: 1.1 },
+                { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, scale: 1, duration: 1.2, ease: 'power3.inOut' },
+                wIndex === 0 ? "-=0.1" : "-=0.9"
+              );
+            });
+          }
+
+          // Hold on images
+          tl.to({}, {}, "+=0.8");
+
+          // Phase 2: Darken overlay and show text
+          tl.to(slide, { '--overlay-opacity': 1, duration: 1 });
+          if (textCard) {
+            tl.to(textCard, { opacity: 1, y: 0, duration: 1 }, "-=1");
+          }
+
+          // Phase 3: Hold for reading
+          tl.to({}, {}, "+=2");
+        }
+      });
+
+      tl.to({}, {}, "+=0.1"); // end padding
+
+      return () => {
+        document.querySelectorAll('.slide-bg-text').forEach(el => el.remove());
+      };
+    });
+
+    // 2. MOBILE FALLBACK (disabled to prevent conflict)
+    mm.add("(max-width: -1px)", () => {
+      const volBlocks = document.querySelectorAll('#volunteering .vol-block');
+
+      volBlocks.forEach((block) => {
+        const infoElements = block.querySelectorAll('.vol-info > *');
+        if (infoElements.length > 0) {
+          gsap.fromTo(infoElements,
+            { opacity: 0, y: 35 },
+            {
+              opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12,
+              scrollTrigger: {
+                trigger: block,
+                start: 'top 90%',
+                toggleActions: 'play none none none'
+              }
+            }
+          );
+        }
+
+        const wrappers = block.querySelectorAll('.vol-img-wrapper');
+        wrappers.forEach((wrapper, index) => {
+          gsap.set(wrapper, { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0, scale: 0.95 });
+
+          gsap.to(wrapper, {
+            clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, scale: 1, duration: 1.3, ease: 'power4.inOut', delay: index * 0.18,
+            scrollTrigger: {
+              trigger: block,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          });
+
+          const parallaxContainer = wrapper.querySelector('.vol-img-parallax');
+          if (parallaxContainer) {
+            gsap.fromTo(parallaxContainer,
+              { yPercent: -8 },
+              {
+                yPercent: 8, ease: 'none',
+                scrollTrigger: {
+                  trigger: block,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: true
+                }
+              }
+            );
+          }
+        });
+      });
+    });
+  }
+
+  function initAwardsAnimations() {
+    if (prefersReducedMotion) return;
+
+    const mm = gsap.matchMedia();
+
+    // 1. DESKTOP STORYTELLING PINNING PATTERN (all screen widths)
+    mm.add("(min-width: 0px)", () => {
+      const awardsSection = document.getElementById("awards");
+      const slides = gsap.utils.toArray("#awards .award-story-slide");
+
+      if (!awardsSection || slides.length === 0) return;
+
+      // Reset initial state for all slides
+      slides.forEach((slide, i) => {
+        // Generate dynamic background text if not already present
+        if (!slide.querySelector('.slide-bg-text-top')) {
+          const title = slide.querySelector('.award-showcase-title');
+          if (title) {
+            const bgText = document.createElement('div');
+            bgText.className = 'slide-bg-text slide-bg-text-top';
+            bgText.textContent = title.textContent;
+            slide.appendChild(bgText);
+          }
+        }
+        if (!slide.querySelector('.slide-bg-text-bottom')) {
+          const event = slide.querySelector('.award-showcase-event');
+          if (event) {
+            const bgText = document.createElement('div');
+            bgText.className = 'slide-bg-text slide-bg-text-bottom';
+            bgText.textContent = event.textContent;
+            slide.appendChild(bgText);
+          }
+        }
+
+        if (i === 0) {
+          gsap.set(slide, { opacity: 1, autoAlpha: 1, pointerEvents: "auto", '--overlay-opacity': 0 });
+          const wrappers = slide.querySelectorAll('.award-img-wrapper');
+          wrappers.forEach(w => gsap.set(w, { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, scale: 1 }));
+          const textCard = slide.querySelector('.award-showcase-info');
+          if (textCard) gsap.set(textCard, { opacity: 0, y: 30 });
+        } else {
+          gsap.set(slide, { opacity: 0, autoAlpha: 0, pointerEvents: "none", '--overlay-opacity': 0 });
+          const wrappers = slide.querySelectorAll('.award-img-wrapper');
+          wrappers.forEach(w => gsap.set(w, { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0, scale: 1.1 }));
+          const textCard = slide.querySelector('.award-showcase-info');
+          if (textCard) gsap.set(textCard, { opacity: 0, y: 30 });
+        }
+      });
+
+      // Create scroll-driven master timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: awardsSection,
+          start: "top top",
+          end: `+=${slides.length * 250}%`,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1
+        }
+      });
+
+      // For each slide: Phase 1 = images, Phase 2 = overlay + text, Phase 3 = hold, Phase 4 = transition out
+      slides.forEach((slide, index) => {
+        const textCard = slide.querySelector('.award-showcase-info');
+        const wrappers = slide.querySelectorAll('.award-img-wrapper');
+
+        if (index === 0) {
+          // --- SLIDE 0: Already visible, just add overlay + text ---
+          // Phase 1: Hold on images (already visible)
+          tl.to({}, {}, "+=0.8");
+
+          // Phase 2: Darken overlay and show text
+          tl.to(slide, { '--overlay-opacity': 1, duration: 1 });
+          if (textCard) {
+            tl.to(textCard, { opacity: 1, y: 0, duration: 1 }, "-=1");
+          }
+
+          // Phase 3: Hold for reading
+          tl.to({}, {}, "+=2");
+        } else {
+          const prevSlide = slides[index - 1];
+          const prevTextCard = prevSlide.querySelector('.award-showcase-info');
+
+          // Phase 4 of previous slide: Transition OUT
+          if (prevTextCard) {
+            tl.to(prevTextCard, { opacity: 0, y: -30, duration: 0.6 });
+          }
+          tl.to(prevSlide, { opacity: 0, autoAlpha: 0, pointerEvents: "none", duration: 0.6 }, "-=0.4");
+
+          // Phase 1: Images reveal IN
+          tl.set(slide, { opacity: 1, autoAlpha: 1, pointerEvents: "auto", '--overlay-opacity': 0 });
+          if (wrappers.length > 0) {
+            wrappers.forEach((wrapper, wIndex) => {
+              tl.fromTo(wrapper,
+                { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0, scale: 1.1 },
+                { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, scale: 1, duration: 1.2, ease: 'power3.inOut' },
+                wIndex === 0 ? "-=0.1" : "-=0.9"
+              );
+            });
+          }
+
+          // Hold on images
+          tl.to({}, {}, "+=0.8");
+
+          // Phase 2: Darken overlay and show text
+          tl.to(slide, { '--overlay-opacity': 1, duration: 1 });
+          if (textCard) {
+            tl.to(textCard, { opacity: 1, y: 0, duration: 1 }, "-=1");
+          }
+
+          // Phase 3: Hold for reading
+          tl.to({}, {}, "+=2");
+        }
+      });
+
+      tl.to({}, {}, "+=0.1"); // end padding
+
+      return () => {
+        document.querySelectorAll('.slide-bg-text').forEach(el => el.remove());
+      };
+    });
+
+    // 2. MOBILE FALLBACK (disabled to prevent conflict)
+    mm.add("(max-width: -1px)", () => {
+      const awardBlocks = document.querySelectorAll('#awards .award-showcase');
+
+      awardBlocks.forEach((block) => {
+        const infoElements = block.querySelectorAll('.award-showcase-info > *');
+        if (infoElements.length > 0) {
+          gsap.fromTo(infoElements,
+            { opacity: 0, y: 35 },
+            {
+              opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12,
+              scrollTrigger: {
+                trigger: block,
+                start: 'top 90%',
+                toggleActions: 'play none none none'
+              }
+            }
+          );
+        }
+
+        const wrappers = block.querySelectorAll('.award-img-wrapper');
+        wrappers.forEach((wrapper, index) => {
+          gsap.set(wrapper, { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0, scale: 0.95 });
+
+          gsap.to(wrapper, {
+            clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, scale: 1, duration: 1.3, ease: 'power4.inOut', delay: index * 0.18,
+            scrollTrigger: {
+              trigger: block,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          });
+
+          const parallaxContainer = wrapper.querySelector('.award-img-parallax');
+          if (parallaxContainer) {
+            gsap.fromTo(parallaxContainer,
+              { yPercent: -8 },
+              {
+                yPercent: 8, ease: 'none',
+                scrollTrigger: {
+                  trigger: block,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: true
+                }
+              }
+            );
+          }
+        });
+      });
+    });
+  }
+
+  /* ============================================================
      SMOOTH SCROLL ANCHOR LINKS
      ============================================================ */
   function initSmoothAnchorLinks() {
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    
+
     anchorLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         const targetId = link.getAttribute('href');
@@ -1474,7 +1887,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!target) return;
 
         e.preventDefault();
-        
+
         if (lenis) {
           lenis.scrollTo(target, {
             offset: -80, // Account for fixed navbar
@@ -1491,7 +1904,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ============================================================
+     INTERACTIVE PINNED SCROLL FOOTER ANIMATION
+     ============================================================ */
+  function initFooterScrollerAnimation() {
+    const scroller = document.querySelector('.footer-scroller');
+    const pinnedWrapper = document.querySelector('.footer-pinned-wrapper');
+    if (!scroller || !pinnedWrapper) return;
+
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 0px)", () => {
+      // Set initial centering offsets that preserve GSAP properties
+      gsap.set('.footer-img-container', { xPercent: -50, yPercent: -50 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: scroller,
+          start: 'top top',
+          end: '+=250%',
+          pin: true,
+          scrub: true,
+          anticipatePin: 1
+        }
+      });
+
+      // Phase 1: Scale image container to full screen, fade out background text, fade in CTA button
+      tl.to('.footer-img-container', {
+        width: '100vw',
+        height: '100vh',
+        borderRadius: 0,
+        duration: 1,
+        ease: 'none'
+      }, 0)
+        .to('.footer-bg-text', {
+          opacity: 0,
+          duration: 0.8,
+          ease: 'none'
+        }, 0)
+        .to('.footer-cta-overlay', {
+          opacity: 1,
+          pointerEvents: 'auto',
+          duration: 0.5,
+          ease: 'none'
+        }, 0.5);
+
+      // Phase 2: Slide up image and reveal the footer content panel
+      tl.to('.footer-img-container', {
+        y: () => -document.querySelector('.footer-content-panel').offsetHeight * 0.5,
+        duration: 1,
+        ease: 'none'
+      }, 1)
+        .to('.footer-content-panel', {
+          y: () => -document.querySelector('.footer-content-panel').offsetHeight,
+          duration: 1,
+          ease: 'none'
+        }, 1);
+
+      return () => {
+        gsap.set('.footer-img-container', { clearProps: 'all' });
+        gsap.set('.footer-bg-text', { clearProps: 'all' });
+        gsap.set('.footer-cta-overlay', { clearProps: 'all' });
+        gsap.set('.footer-content-panel', { clearProps: 'all' });
+      };
+    });
+  }
+
   initSmoothAnchorLinks();
+  initFooterScrollerAnimation();
+
+
+
 
   // Refresh ScrollTrigger after initialization
   ScrollTrigger.refresh();

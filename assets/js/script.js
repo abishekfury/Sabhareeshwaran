@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initParallaxEffects();
   initWorkItemTransitions();
+  initStatsRedirects();
 });
 
 /* ===== PRELOADER ===== */
@@ -156,6 +157,16 @@ function initMobileMenu() {
     document.body.classList.toggle('no-scroll');
   });
 
+  // Close button trigger
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', () => {
+      menuBtn.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    });
+  }
+
   // Close menu when clicking on links
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
@@ -164,6 +175,30 @@ function initMobileMenu() {
       document.body.classList.remove('no-scroll');
     });
   });
+}
+
+/* ===== STATS REDIRECTS ===== */
+function initStatsRedirects() {
+  const linkedinStat = document.getElementById('stat-linkedin');
+  const certsStat = document.getElementById('stat-certifications');
+
+  if (linkedinStat) {
+    linkedinStat.addEventListener('click', () => {
+      window.open('https://www.linkedin.com/in/sabhareeshwaran/', '_blank');
+    });
+  }
+
+  if (certsStat) {
+    certsStat.addEventListener('click', () => {
+      const target = document.querySelector('#certifications');
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  }
 }
 
 /* ===== HERO TYPOGRAPHY ANIMATION ===== */
@@ -317,6 +352,10 @@ function animateCounter(el) {
     return 1 - Math.pow(1 - t, 3);
   }
 
+  function fmtNum(n) {
+    return n.toLocaleString('en-IN');
+  }
+
   function update(now) {
     const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
@@ -325,20 +364,20 @@ function animateCounter(el) {
     // Preserve the sup element
     const sup = el.querySelector('sup');
     if (sup) {
-      el.textContent = value;
+      el.textContent = fmtNum(value);
       el.appendChild(sup);
     } else {
-      el.textContent = value;
+      el.textContent = fmtNum(value);
     }
 
     if (progress < 1) {
       requestAnimationFrame(update);
     } else {
       if (sup) {
-        el.textContent = target;
+        el.textContent = fmtNum(target);
         el.appendChild(sup);
       } else {
-        el.textContent = target;
+        el.textContent = fmtNum(target);
       }
     }
   }

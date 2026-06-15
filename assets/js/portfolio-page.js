@@ -224,21 +224,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ===== OTHER WORK REVEALS ===== */
-  function initOtherWork() {
-    const items = document.querySelectorAll('.other-work-item');
-    if (!items.length) return;
-    gsap.from(items, {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'expo.out',
+  function initCoursesLogos() {
+    const container = document.querySelector('.courses-logos');
+    if (!container) return;
+    // Move the logos to the left as the user scrolls down, creating a right‑ward motion effect
+    gsap.to(container, {
+      x: '-200%', // translate full width of the flex row
+      ease: 'none',
       scrollTrigger: {
-        trigger: '.other-work-list',
-        start: 'top 85%',
-      }
+        trigger: '.courses-logos',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+        anticipatePin: 1,
+      },
     });
   }
+
 
   /* ===== PORTFOLIO FOOTER CLOCKS ===== */
   function initFooterClocks() {
@@ -333,6 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   initResults();
   initOtherWork();
+  initCoursesLogos();
   initFooterClocks();
   initTagsHover();
   initCursorDot();

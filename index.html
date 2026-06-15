@@ -1,587 +1,937 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CYBERENTITYZ — Ethical Hacking Society</title>
-  <meta name="description" content="CYBERENTITYZ is a leading cybersecurity training institute specializing in ethical hacking, penetration testing, and global certifications with 5+ years of excellence.">
+  <title>Sabhareeshwaran (SAB) S — Cybersecurity Professional</title>
+  <meta name="description"
+    content="Senior IT-Security &amp; Governance Officer | ISO 27001:2022 Lead Auditor | CEH | CCNA | Information Security &amp; Cyber Security Instructor — Chennai, Tamil Nadu, India.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+Tamil:wght@400;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- GSAP + ScrollTrigger -->
+  <link rel="stylesheet" href="assets/css/portfolio-page.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <!-- Lenis Smooth Scroll -->
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 </head>
+
 <body>
 
-  <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Preloader -->
   <div class="preloader" id="preloader">
-    <div class="preloader-text">
-      <span>C</span><span>Y</span><span>B</span><span>E</span><span>R</span><span>E</span><span>N</span><span>T</span><span>I</span><span>T</span><span>Y</span><span>Z</span>
-    </div>
+    <div class="preloader-text"><span>S</span><span>A</span><span>B</span></div>
     <div class="preloader-bar">
       <div class="preloader-bar-fill"></div>
     </div>
   </div>
 
-  <!-- Navigation (appears after scrolling past hero) -->
   <nav class="navbar" id="navbar">
     <a href="#intro-hero" class="nav-logo">
-      <div style="color: var(--red); font-weight: 900; font-size: 24px; letter-spacing: -0.5px;">CYBERENTITYZ</div>
+      <div style="color:var(--red);font-weight:900;font-size:24px;letter-spacing:-0.5px;">SAB</div>
     </a>
     <div class="nav-right">
-      <a href="tel:09500551090" class="nav-cta">Call Us</a>
-      <button class="nav-menu-btn" id="menuBtn" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-      </button>
+      <a href="#certifications" class="nav-cta nav-cert-cta"
+        style="margin-right: 12px; border-color: var(--white); color: var(--white);">Certifications</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- Side Badge -->
-  <div class="side-badge">
-    <div class="badge-w">⭐</div>
-    <div class="badge-text">5.0 Rating</div>
-  </div>
-
-  <!-- Mobile Menu (used by scrolled navbar) -->
   <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&#10005;</button>
     <div class="mobile-menu-content">
-        <a href="#services">Services</a>
-        <a href="#expertise">Certifications</a>
-        <a href="#about">About</a>
-        <a href="#testimonials">Reviews</a>
-        <a href="#contact">Contact</a>
-        <a href="tel:09500551090">Call Now</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#education">Education</a>
+      <a href="#volunteering">Volunteering</a>
+      <a href="#awards">Honors</a>
+      <a href="#recommendations">Reviews</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
 
-  <!-- ==================== SECTION 1: SPLIT HERO ==================== -->
+  <!-- HERO -->
   <section class="split-hero" id="intro-hero">
-
-    <!-- LEFT PANEL — Orange/Red -->
     <div class="split-hero-left">
-
-      <!-- Top controls overlaid on left panel -->
       <div class="split-hero-topbar">
-        <a href="tel:09500551090" class="split-hero-cta">Call Us</a>
-        <button class="split-hero-menu-btn" id="splitMenuBtn" aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-        </button>
+        <a href="#certifications" class="split-hero-cta"
+          style="margin-right: 15px; border-color: rgba(0, 0, 0, 0.45); color: var(--black);">Certifications</a>
+        <a href="#contact" class="split-hero-cta">Contact</a>
+        <button class="split-hero-menu-btn" id="splitMenuBtn"
+          aria-label="Toggle menu"><span></span><span></span></button>
       </div>
-
-      <!-- Background slideshow -->
-      <div class="intro-hero-bg hero-slideshow">
-        <img src="assets/images/1.png" alt="Cybersecurity Expert" class="hero-slide active">
-        <img src="assets/images/2.png" alt="Cybersecurity Expert" class="hero-slide">
-        <img src="assets/images/3.png" alt="Cybersecurity Expert" class="hero-slide">
-        <img src="assets/images/4.png" alt="Cybersecurity Expert" class="hero-slide">
-        <img src="assets/images/5.png" alt="Cybersecurity Expert" class="hero-slide">
+      <div class="intro-hero-bg">
+        <img src="assets/images/hero.png" alt="Sabhareeshwaran SAB S"
+          style="width:100%;height:100%;object-fit:cover;object-position:center top;">
       </div>
-
-      <!-- Hero content -->
       <div class="intro-hero-content">
-        <span class="intro-hero-subtitle">ETHICAL HACKING SOCIETY</span>
-        <h1 class="intro-hero-name">CYBERENTITYZ</h1>
+        <span class="intro-hero-subtitle">INFORMATION SECURITY &amp; CYBER SECURITY PROFESSIONAL</span>
+        <h1 class="intro-hero-name">SAB</h1>
       </div>
-
-      <!-- Bottom info -->
       <div class="intro-hero-bottom">
-        <span>SECURITY • VULNERABILITY ASSESSMENT • ETHICAL HACKING</span>
-        <span>5+ YEARS OF EXCELLENCE IN CYBERSECURITY TRAINING</span>
-        <span>CHENNAI, TAMIL NADU</span>
+        <span>ISO 27001:2022 LEAD AUDITOR • CEH • CCNA • SC-200</span>
+        <span>SENIOR OFFICER IT-SECURITY &amp; GOVERNANCE @ DVARA KGFS</span>
+        <span>CHENNAI, TAMIL NADU, INDIA</span>
       </div>
-
-    </div><!-- /split-hero-left -->
-
-    <!-- RIGHT PANEL — Black navigation (desktop visible / mobile overlay) -->
+    </div>
     <div class="split-hero-right" id="splitHeroNav">
       <button class="split-hero-close" id="splitNavClose" aria-label="Close menu">&#10005;</button>
       <nav class="split-nav-list">
-        <a href="#services"      class="split-nav-link">Services</a>
-        <a href="#expertise"     class="split-nav-link">Certifications</a>
-        <a href="#about"         class="split-nav-link">About</a>
-        <a href="#testimonials"  class="split-nav-link">Reviews</a>
-        <a href="#contact"       class="split-nav-link">Contact</a>
-        <a href="tel:09500551090" class="split-nav-link">Call Now</a>
-        <a href="https://cyberentityz.com" target="_blank" rel="noopener" class="split-nav-link">Visit Site</a>
+        <a href="#about" class="split-nav-link">About</a>
+        <a href="#experience" class="split-nav-link">Experience</a>
+        <a href="#certifications" class="split-nav-link">Certifications</a>
+        <a href="#education" class="split-nav-link">Education</a>
+        <a href="#volunteering" class="split-nav-link">Volunteering</a>
+        <a href="#awards" class="split-nav-link">Honors</a>
+        <a href="#recommendations" class="split-nav-link">Reviews</a>
+        <a href="#contact" class="split-nav-link">Contact</a>
       </nav>
-    </div><!-- /split-hero-right -->
+    </div>
+  </section>
 
-  </section><!-- /split-hero -->
-
-  <!-- ==================== SECTION 2: HERO TYPOGRAPHY ==================== -->
+  <!-- HERO TYPOGRAPHY -->
   <section class="hero" id="hero">
     <div class="hero-content">
       <h2 class="hero-title">
         <span class="hero-line">IN A WORLD WHERE</span>
         <span class="hero-line">CYBER THREATS</span>
-        <span class="hero-line">EVOLVE DAILY, <span class="hero-img-inline"><img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=120&h=80&fit=crop" alt="Security"></span> WE</span>
-        <span class="hero-line">PREPARE THE NEXT</span>
-        <span class="hero-line hero-line-gray">GENERATION OF <span class="hero-img-inline"><img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=120&h=80&fit=crop" alt="Professionals"></span></span>
-        <span class="hero-line hero-line-gray">CYBERSECURITY</span>
-        <span class="hero-line hero-line-gray">PROFESSIONALS <span class="hero-img-inline hero-img-color"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=120&h=80&fit=crop" alt="Training"></span> THROUGH</span>
-        <span class="hero-line hero-line-gray">REAL-WORLD TRAINING</span>
-        <span class="hero-line hero-line-gray">AND CERTIFICATION.</span>
+        <span class="hero-line">EVOLVE DAILY, <span class="hero-img-inline"><img src="assets/images/img1.jpeg"
+              alt="SAB"></span> I</span>
+        <span class="hero-line">SAFEGUARD DIGITAL</span>
+        <span class="hero-line hero-line-gray">ECOSYSTEMS AND <span class="hero-img-inline"><img
+              src="assets/images/img2.jpeg" alt="SAB Award"></span></span>
+        <span class="hero-line hero-line-gray">MENTOR THE NEXT</span>
+        <span class="hero-line hero-line-gray">GENERATION OF <span class="hero-img-inline hero-img-color"><img
+              src="assets/images/img6.jpeg" alt="Volunteering"></span></span>
+        <span class="hero-line hero-line-gray">CYBER DEFENDERS.</span>
       </h2>
     </div>
   </section>
 
-  <!-- ==================== SECTION 3: FEATURED WORK ==================== -->
-  <section class="featured-work" id="services">
-    <div class="featured-work-top-bar"></div>
-    <div class="featured-work-container">
-      <div class="featured-work-header">
-        <div class="featured-work-left">
-          <div class="section-label">OUR SERVICES</div>
-          <div class="section-label-jp">サイバーセキュリティ</div>
-        </div>
-        <div class="featured-work-right">
-          <h2 class="featured-work-heading">COMPREHENSIVE CYBERSECURITY TRAINING & CERTIFICATION</h2>
-        </div>
-      </div>
-      <div class="featured-work-list">
-        <div class="work-item" href="work/Global-Training.html">
-          <span class="work-item-name">Global Certification Training</span>
-          <span class="work-item-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2"/></svg>
-          </span>
-          <div class="work-item-preview"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop" alt="Certification Training"></div>
-        </div>
-        <div class="work-item" href="work/Skill-Programs.html">
-          <span class="work-item-name">Skill Training Programmes</span>
-          <span class="work-item-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2"/></svg>
-          </span>
-          <div class="work-item-preview"><img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400&h=300&fit=crop" alt="Skills Training"></div>
-        </div>
-        <div class="work-item" href="work/Pearson-VUE.html">
-          <span class="work-item-name">Pearson VUE Test Centre</span>
-          <span class="work-item-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2"/></svg>
-          </span>
-          <div class="work-item-preview"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop" alt="Test Centre"></div>
-        </div>
-        <div class="work-item" href="work/Service-Academia.html">
-          <span class="work-item-name">Services for Academia</span>
-          <span class="work-item-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2"/></svg>
-          </span>
-          <div class="work-item-preview"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=300&fit=crop" alt="Academia Services"></div>
-        </div>
-        <div class="work-item" href="work/Service-Organiztions.html">
-          <span class="work-item-name">Services for IT Organizations</span>
-          <span class="work-item-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2"/></svg>
-          </span>
-          <div class="work-item-preview"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop" alt="IT Organizations"></div>
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-bg-text"><span>CYBER</span><span>SECURITY</span></div>
+    <div class="about-dot-pattern about-dot-tl"></div>
+    <div class="about-dot-pattern about-dot-tr"></div>
+    <div class="about-dot-pattern about-dot-bl"></div>
+    <div class="about-portrait">
+      <img src="assets/images/img1.jpeg" alt="Sabhareeshwaran SAB S">
+    </div>
+    <div class="about-bio">
+      <p>I am a results-driven and detail-oriented Information Security Professional, dedicated to safeguarding digital
+        ecosystems and strengthening organizational resilience. With a deep understanding of evolving cyber threats,
+        cutting-edge technologies, and global security frameworks, I bring both technical expertise and a strategic
+        mindset to the ever-changing cybersecurity landscape.</p>
+      <p>Core competencies: Risk assessment, vulnerability management, penetration testing (VAPT), incident response,
+        and compliance audits. I excel at identifying vulnerabilities, designing proactive defense strategies, and
+        delivering actionable solutions that align with business objectives while ensuring regulatory adherence.</p>
+      <p>Continuous learning: Actively keeping pace with cloud security, zero trust, identity threat detection, and
+        advanced SOC practices to support CISOs and leadership teams in adopting best-in-class security controls.</p>
+      <p>Cybersecurity educator &amp; mentor: Guiding students and young professionals with hands-on skills, bridging
+        theoretical knowledge with real-world application to build the next generation of cyber defenders.</p>
+      <p>Approach: Grounded in professional ethics, analytical problem-solving, and cross-functional collaboration. I
+        translate complex technical risks into clear, business-relevant insights, making security an enabler of trust
+        and growth.</p>
+      <div style="margin-top:2.5rem;">
+        <div class="section-label" style="margin-bottom:1rem;">SERVICES OFFERED</div>
+        <div class="skills-tags">
+          <span class="skill-tag">Cybersecurity</span>
+          <span class="skill-tag">Information Security</span>
+          <span class="skill-tag">Career Development Coaching</span>
+          <span class="skill-tag">Leadership Development</span>
+          <span class="skill-tag">IT Law</span>
+          <span class="skill-tag">Technical Support</span>
+          <span class="skill-tag">Computer Networking</span>
+          <span class="skill-tag">Educational Consulting</span>
+          <span class="skill-tag">IT Consulting</span>
+          <span class="skill-tag">Research Skills</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SECTION 4: CERTIFICATIONS ==================== -->
-  <section class="expertise" id="expertise">
+  <!-- STATS -->
+  <section class="stats" id="stats">
+    <div class="stats-dot-pattern"></div>
+    <div class="stats-container">
+      <div class="stat-row clickable" id="stat-linkedin" title="Go to LinkedIn Profile">
+        <div class="stat-number" data-target="23975">0<sup>+</sup></div>
+        <div class="stat-label">LinkedIn<br>Followers</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-row clickable" id="stat-certifications" title="Go to Certifications Section">
+        <div class="stat-number" data-target="143">0<sup>+</sup></div>
+        <div class="stat-label">Certifications<br>Earned</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-row">
+        <div class="stat-number" data-target="3">0<sup>+</sup></div>
+        <div class="stat-label">Years<br>Teaching</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-row">
+        <div class="stat-number" data-target="10">0</div>
+        <div class="stat-label">LinkedIn<br>Recommendations</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="experience-container">
+      <div class="experience-header">
+        <div class="experience-left">
+          <div class="section-label-dark">EXPERIENCE</div>
+          <div class="section-label-jp-dark">அனுபவம்</div>
+        </div>
+        <div class="experience-right">
+          <h2 class="experience-heading">PROFESSIONAL JOURNEY IN INFORMATION SECURITY &amp; GOVERNANCE.</h2>
+        </div>
+      </div>
+      <div class="experience-list">
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">Dvara KGFS</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">Senior Information Technology Officer (SITO) — GRC-IS &amp; Cyber Security
+                  Operations (CISO Team)</span>
+                <p class="exp-summary">Sep 2024 – Present &middot; Chennai, Tamil Nadu &middot; On-site</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">1 yr 10 mos</span>
+                <ul class="exp-details">
+                  <li>Oversee comprehensive security measures to protect sensitive information across the organization.
+                  </li>
+                  <li>Lead VAPT processes using Burp Suite, Nessus, and OpenVAS.</li>
+                  <li>Develop and enforce incident response protocols to detect, respond to, and mitigate security
+                    incidents.</li>
+                  <li>Conduct structured risk assessments; design and enforce IT policies; oversee internal audits and
+                    compliance checks.</li>
+                  <li>Provide detailed compliance and audit reports to senior management.</li>
+                  <li>Ensure security and reliability of IT systems; implement infrastructure security measures.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">Freelance — Information Security Instructor</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">Information Security Instructor</span>
+                <p class="exp-summary">Jan 2023 – Present &middot; Chennai, Tamil Nadu &middot; Hybrid</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">3 yrs 6 mos</span>
+                <ul class="exp-details">
+                  <li>Deliver courses on Networking, Cyber Security, Information Security, VAPT, and offensive security
+                    techniques.</li>
+                  <li>Certifications taught: CCNA, AWS, CEH, CompTIA Security+, MCSA, RHEL, IoT.</li>
+                  <li>Programming languages: C, C++, Java, HTML, CSS, SQL, Python.</li>
+                  <li>Collaborated with Systech Center to enhance curriculum with real-world scenarios.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">ACTE.in — International Instructor</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">International Instructor — Cyber Security &amp; VAPT (Freelance)</span>
+                <p class="exp-summary">Sep 2023 – Aug 2025 &middot; Chennai, Tamil Nadu &middot; Hybrid</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">2 yrs</span>
+                <ul class="exp-details">
+                  <li>Specialized in VAPT; taught international students from Singapore, Australia, Pakistan,
+                    Afghanistan, Europe, and the UK.</li>
+                  <li>Certificates covered: CCNA, CCNP, N+, Sec+, CySA+, Pen+, SecX, OSCP.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">Fourth Dimension Technologies — Cloud Security</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">Cloud Security — Practice Team</span>
+                <p class="exp-summary">Feb 2024 – Aug 2024 &middot; Chennai &middot; On-site</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">7 mos</span>
+                <ul class="exp-details">
+                  <li>Handled DNIF (SIEM, SOAR, ZTNA), RSA ID+ (MFA), Lansweeper, and VAPT.</li>
+                  <li>Knowledge management and team leadership responsibilities.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">Fourth Dimension Technologies — Executive</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">Executive in Cyber Security &amp; Information Security</span>
+                <p class="exp-summary">Jul 2023 – Feb 2024 &middot; Chennai</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">8 mos</span>
+                <ul class="exp-details">
+                  <li>Spearheaded management of DNIF for threat detection, incident response, and log management.</li>
+                  <li>Product management, security architecture, and analytics.</li>
+                  <li>Streamlined security processes, improving incident response times.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">SYSTECH — Junior Cyber Security</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">Junior Cyber Security (Part-time)</span>
+                <p class="exp-summary">Jun 2022 – Aug 2023 &middot; Tiruchirappalli, Tamil Nadu &middot; On-site</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">1 yr 3 mos</span>
+                <ul class="exp-details">
+                  <li>Delivered hands-on instruction for CCNA, CEH, MCSA, AWS with focus on practical lab sessions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="clients" id="skills">
+    <div class="clients-container">
+      <div class="clients-left">
+        <div class="section-label">SKILLS</div>
+        <div class="section-label-jp">திறன்கள்</div>
+        <h2 class="clients-heading">EXPERTISE ACROSS SECURITY OPERATIONS, GRC, TOOLS &amp; PROGRAMMING.</h2>
+        <a href="#contact" class="connect-btn">Get in Touch <span class="connect-arrow"><svg width="14" height="14"
+              viewBox="0 0 14 14" fill="none">
+              <path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="2" />
+            </svg></span></a>
+      </div>
+      <div class="clients-right">
+        <div class="accordion">
+          <div class="accordion-item active">
+            <button class="accordion-header">
+              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
+                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
+                </svg></span>
+              <span class="accordion-title">Industry Knowledge</span>
+            </button>
+            <div class="accordion-body">
+              <ul>
+                <li>ISO Standards &amp; ISO 27001 Lead Auditor</li>
+                <li>Vulnerability Management &amp; VAPT</li>
+                <li>Information Security Management System (ISMS)</li>
+                <li>Security Operations &amp; IT Security Operations</li>
+                <li>IT Governance &amp; Corporate Governance</li>
+                <li>IT Risk Management &amp; IT GRC</li>
+                <li>Penetration Testing &amp; Red Teaming</li>
+                <li>Incident Response &amp; Forensics</li>
+                <li>SIEM / SOAR</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">
+              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
+                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
+                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+                </svg></span>
+              <span class="accordion-title">Tools &amp; Technologies</span>
+            </button>
+            <div class="accordion-body">
+              <ul>
+                <li>Active Directory &amp; Lansweeper</li>
+                <li>CrowdStrike EDR</li>
+                <li>DNIF SIEM &amp; SOAR</li>
+                <li>RSA SecurID / RSA ID+ / RSA G&amp;L</li>
+                <li>Fortinet Firewall &amp; Checkpoint Harmony</li>
+                <li>AlienVault OSSIM &amp; Qualys</li>
+                <li>Cisco Firewall, Duo, AWS (IAM, Lambda, Elastic Beanstalk)</li>
+                <li>Azure &amp; Microsoft Security Operations</li>
+                <li>Burp Suite, Nessus, OpenVAS, Nmap, Wireshark</li>
+                <li>VMware, VirtualBox, GNS3, Packet Tracer</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">
+              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
+                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
+                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+                </svg></span>
+              <span class="accordion-title">Programming &amp; OS</span>
+            </button>
+            <div class="accordion-body">
+              <ul>
+                <li>Python, C, C++, Java, JavaScript</li>
+                <li>SQL &amp; MySQL</li>
+                <li>HTML / CSS</li>
+                <li>Windows Server &amp; Linux (RHEL)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">
+              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
+                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
+                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+                </svg></span>
+              <span class="accordion-title">Soft Skills &amp; Other</span>
+            </button>
+            <div class="accordion-body">
+              <ul>
+                <li>Incident Response &amp; Audit Analysis</li>
+                <li>Project &amp; Program Management</li>
+                <li>Data Analytics</li>
+                <li>Presales Technical Support</li>
+                <li>Corporate Communications &amp; Presentations</li>
+                <li>Interviewing &amp; Career Coaching</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="expertise" id="certifications">
     <div class="expertise-header">
       <div class="expertise-left-header">
-        <div class="expertise-label">OUR SERVICES</div>
-        <div class="expertise-label-jp">サービス</div>
+        <div class="expertise-label">CERTIFICATIONS</div>
+        <div class="expertise-label-jp">சான்றிதழ்கள்</div>
       </div>
       <div class="expertise-right-header">
-        <h2 class="expertise-main-heading">COMPREHENSIVE CYBERSECURITY TRAINING & CERTIFICATION EXCELLENCE</h2>
+        <h2 class="expertise-main-heading">143 CERTIFICATIONS SPANNING SECURITY, CLOUD, GOVERNANCE &amp; BEYOND</h2>
       </div>
     </div>
 
-    <!-- SERVICE 01 — GLOBAL CERTIFICATION TRAINING -->
-    <div class="expertise-banner-sticky-bar">
-      <span>OUR SERVICES</span>
-      <span class="expertise-banner-sticky-jp">サービス</span>
-    </div>
+    <div class="expertise-banner-sticky-bar"><span>CERTIFICATIONS</span><span
+        class="expertise-banner-sticky-jp">சான்றிதழ்கள்</span></div>
     <div class="expertise-banner expertise-banner-red expertise-banner-03">
-      <div class="expertise-banner-bg-text">CERTIFICATION</div>
-      <div class="expertise-banner-image">
-        <img src="assets/images/1.png" alt="Cybersecurity Expert">
-      </div>
+      <div class="expertise-banner-bg-text">SECURITY</div>
+      <div class="expertise-banner-image"><img src="assets/images/01image.png" alt="SAB"></div>
       <div class="expertise-banner-content">
         <span class="expertise-banner-num">// 01</span>
-        <h3 class="expertise-banner-title">GLOBAL<br>CERTIFICATION<br>TRAINING</h3>
+        <h3 class="expertise-banner-title">CORE<br>SECURITY<br>CERTS</h3>
       </div>
     </div>
     <div class="expertise-detail">
       <div class="expertise-detail-inner">
         <div class="expertise-number">01</div>
         <div class="expertise-info">
-          <h3 class="expertise-info-title">INDUSTRY-RECOGNIZED CERTIFICATIONS FOR A CAREER IN CYBERSECURITY</h3>
-          <p class="expertise-info-desc">We prepare students for globally recognized cybersecurity certifications from CompTIA, EC-Council, ISACA, Offensive Security, and more. Our training is aligned with industry standards, delivering expert-led sessions, hands-on labs, mock tests, interview preparation, and career guidance to ensure your success.</p>
+          <h3 class="expertise-info-title">FOUNDATION CERTIFICATIONS IN CYBERSECURITY &amp; ETHICAL HACKING</h3>
+          <p class="expertise-info-desc">Globally recognized security certifications covering ethical hacking, network
+            defense, security operations, and cloud security from leading bodies.</p>
           <div class="expertise-list">
-            <div class="expertise-list-item"><span>CompTIA (A+, Network+, Security+, CySA+, PenTest+, SecurityX)</span><span>01</span></div>
-            <div class="expertise-list-item"><span>EC-Council (CEH, CEH Master, CPENT, CCISO, CHFI)</span><span>02</span></div>
-            <div class="expertise-list-item"><span>ISACA (CISA, CISM, CRISC, CDPSE)</span><span>03</span></div>
-            <div class="expertise-list-item"><span>Offensive Security (OSCP, OSCP+)</span><span>04</span></div>
-            <div class="expertise-list-item"><span>Cisco (CCNA, CCNP) & PMI (PMP)</span><span>05</span></div>
-            <div class="expertise-list-item"><span>ISC2 (CISSP) & ISO/IEC 27001:2022 ISMS</span><span>06</span></div>
+            <div class="expertise-list-item"><span>Certified Ethical Hacker (CEH) — EC-Council (Jan 2024, exp. Jan
+                2027)</span><span>01</span></div>
+            <div class="expertise-list-item"><span>Microsoft Security Operations Analyst Associate (SC-200) — Microsoft
+                (Feb 2024)</span><span>02</span></div>
+            <div class="expertise-list-item"><span>CompTIA Security+ (CompTIA, Jan 2024)</span><span>03</span></div>
+            <div class="expertise-list-item"><span>Google Cybersecurity Certificate (Coursera,
+                2023)</span><span>04</span></div>
+            <div class="expertise-list-item"><span>CCNA (Cisco Networking Academy, Feb 2023)</span><span>05</span></div>
+            <div class="expertise-list-item"><span>EC-Council NDE / Various EC-Council Labs (2023)</span><span>06</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SERVICE 02 — SKILL TRAINING PROGRAMMES -->
-    <div class="expertise-banner-sticky-bar">
-      <span>OUR SERVICES</span>
-      <span class="expertise-banner-sticky-jp">サービス</span>
-    </div>
+    <div class="expertise-banner-sticky-bar"><span>CERTIFICATIONS</span><span
+        class="expertise-banner-sticky-jp">சான்றிதழ்கள்</span></div>
     <div class="expertise-banner expertise-banner-red expertise-banner-03">
-      <div class="expertise-banner-bg-text">TRAINING</div>
-      <div class="expertise-banner-image">
-        <img src="assets/images/2.png" alt="Cybersecurity Expert">
-      </div>
+      <div class="expertise-banner-bg-text">GOVERNANCE</div>
+      <div class="expertise-banner-image"><img src="assets/images/02image.png" alt="ISO Cert"></div>
       <div class="expertise-banner-content">
         <span class="expertise-banner-num">// 02</span>
-        <h3 class="expertise-banner-title">SKILL TRAINING<br>PROGRAMMES</h3>
+        <h3 class="expertise-banner-title">GRC &amp;<br>AUDIT<br>CERTS</h3>
       </div>
     </div>
     <div class="expertise-detail">
       <div class="expertise-detail-inner">
         <div class="expertise-number">02</div>
         <div class="expertise-info">
-          <h3 class="expertise-info-title">HANDS-ON TRAINING ACROSS ALL KEY CYBERSECURITY DOMAINS</h3>
-          <p class="expertise-info-desc">Comprehensive, industry-focused programmes covering every essential area of cybersecurity and IT infrastructure. Delivered through practical labs, real-world tools, and structured learning paths to ensure job-ready skills across all critical domains.</p>
+          <h3 class="expertise-info-title">ISO, GRC &amp; AUDIT CERTIFICATIONS</h3>
+          <p class="expertise-info-desc">Deep expertise in governance, risk, and compliance frameworks — from ISO 27001
+            Lead Auditor to enterprise audit and advisory certifications.</p>
           <div class="expertise-list">
-            <div class="expertise-list-item"><span>Hardware & Networking</span><span>01</span></div>
-            <div class="expertise-list-item"><span>Server & Linux</span><span>02</span></div>
-            <div class="expertise-list-item"><span>Ethical Hacking & Pentest Tools</span><span>03</span></div>
-            <div class="expertise-list-item"><span>Dark Web Security</span><span>04</span></div>
-            <div class="expertise-list-item"><span>Cloud Security</span><span>05</span></div>
-            <div class="expertise-list-item"><span>Governance, Risk & Compliance (GRC)</span><span>06</span></div>
-            <div class="expertise-list-item"><span>Security Audit & SOC</span><span>07</span></div>
-            <div class="expertise-list-item"><span>VAPT Core</span><span>08</span></div>
+            <div class="expertise-list-item"><span>ISO/IEC 27001:2022 Certified Lead Auditor — GAQM (Sep
+                2024)</span><span>01</span></div>
+            <div class="expertise-list-item"><span>ISO/IEC 27001 Information Security Associate — SkillFront (Oct
+                2024)</span><span>02</span></div>
+            <div class="expertise-list-item"><span>ISO/IEC 20000 IT Service Management Associate — SkillFront (Jan
+                2025)</span><span>03</span></div>
+            <div class="expertise-list-item"><span>Technology Risk — EY (Mar 2026)</span><span>04</span></div>
+            <div class="expertise-list-item"><span>Internal Audit — Goldman Sachs (Jan 2026)</span><span>05</span></div>
+            <div class="expertise-list-item"><span>Infrastructure Audit – Risk Assessment — KPMG (Jan
+                2026)</span><span>06</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SERVICE 03 — PEARSON VUE TEST CENTRE -->
-    <div class="expertise-banner-sticky-bar">
-      <span>OUR SERVICES</span>
-      <span class="expertise-banner-sticky-jp">サービス</span>
-    </div>
+    <div class="expertise-banner-sticky-bar"><span>CERTIFICATIONS</span><span
+        class="expertise-banner-sticky-jp">சான்றிதழ்கள்</span></div>
     <div class="expertise-banner expertise-banner-red expertise-banner-03">
-      <div class="expertise-banner-bg-text">TEST CENTRE</div>
-      <div class="expertise-banner-image">
-        <img src="assets/images/3.png" alt="Cybersecurity Expert">
-      </div>
+      <div class="expertise-banner-bg-text">CLOUD</div>
+      <div class="expertise-banner-image"><img src="assets/images/03image.png" alt="Cloud"></div>
       <div class="expertise-banner-content">
         <span class="expertise-banner-num">// 03</span>
-        <h3 class="expertise-banner-title">PEARSON VUE<br>TEST CENTRE</h3>
+        <h3 class="expertise-banner-title">CLOUD &amp;<br>AI<br>CERTS</h3>
       </div>
     </div>
     <div class="expertise-detail">
       <div class="expertise-detail-inner">
         <div class="expertise-number">03</div>
         <div class="expertise-info">
-          <h3 class="expertise-info-title">SECURE, AUTHORIZED TESTING FOR GLOBALLY RECOGNIZED CERTIFICATIONS</h3>
-          <p class="expertise-info-desc">CYBERENTITYZ is a Pearson VUE Authorized Test Centre, providing a secure and professional testing environment for globally recognized certification exams from CompTIA, EC-Council, Cisco, Microsoft, and many more — meeting all international testing standards.</p>
+          <h3 class="expertise-info-title">CLOUD, AI &amp; ADVANCED TECHNOLOGY CERTIFICATIONS</h3>
+          <p class="expertise-info-desc">Staying ahead in cloud security, AI technologies, and emerging infrastructure —
+            spanning AWS, Anthropic Claude, and enterprise consulting platforms.</p>
           <div class="expertise-list">
-            <div class="expertise-list-item"><span>Secure, Exam-Ready Infrastructure</span><span>01</span></div>
-            <div class="expertise-list-item"><span>Quiet & Fully Monitored Environment</span><span>02</span></div>
-            <div class="expertise-list-item"><span>Multiple Global Certification Exams</span><span>03</span></div>
-            <div class="expertise-list-item"><span>Easy Scheduling & Candidate Assistance</span><span>04</span></div>
-            <div class="expertise-list-item"><span>CompTIA · EC-Council · Cisco · Microsoft</span><span>05</span></div>
-            <div class="expertise-list-item"><span>Standardized International Testing Standards</span><span>06</span></div>
+            <div class="expertise-list-item"><span>AWS Solutions Architecture — AWS (Jan 2026)</span><span>01</span>
+            </div>
+            <div class="expertise-list-item"><span>Claude – Google Vertex AI / Amazon Bedrock / MCP — Anthropic (Mar–Apr
+                2026)</span><span>02</span></div>
+            <div class="expertise-list-item"><span>Artificial Intelligence Engineer — Vista Equity Partners (Jan
+                2026)</span><span>03</span></div>
+            <div class="expertise-list-item"><span>IT Architecture — BCG Platinion (Jan 2026)</span><span>04</span>
+            </div>
+            <div class="expertise-list-item"><span>Infrastructure Technology Engineering — Lloyds Banking Group (Jan
+                2026)</span><span>05</span></div>
+            <div class="expertise-list-item"><span>Commercial Project Manager — Siemens Digital Industries Software (Mar
+                2026)</span><span>06</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SERVICE 04 — SERVICES FOR ACADEMIA -->
-    <div class="expertise-banner-sticky-bar">
-      <span>OUR SERVICES</span>
-      <span class="expertise-banner-sticky-jp">サービス</span>
-    </div>
+    <div class="expertise-banner-sticky-bar"><span>CERTIFICATIONS</span><span
+        class="expertise-banner-sticky-jp">சான்றிதழ்கள்</span></div>
     <div class="expertise-banner expertise-banner-red expertise-banner-03">
-      <div class="expertise-banner-bg-text">ACADEMIA</div>
-      <div class="expertise-banner-image">
-        <img src="assets/images/4.png" alt="Cybersecurity Expert">
-      </div>
+      <div class="expertise-banner-bg-text">RED TEAM</div>
+      <div class="expertise-banner-image"><img src="assets/images/04image.png" alt="Red Team"></div>
       <div class="expertise-banner-content">
         <span class="expertise-banner-num">// 04</span>
-        <h3 class="expertise-banner-title">SERVICES FOR<br>ACADEMIA</h3>
+        <h3 class="expertise-banner-title">OFFENSIVE &amp;<br>RED TEAM<br>CERTS</h3>
       </div>
     </div>
     <div class="expertise-detail">
       <div class="expertise-detail-inner">
         <div class="expertise-number">04</div>
         <div class="expertise-info">
-          <h3 class="expertise-info-title">BRIDGING THE GAP BETWEEN ACADEMIC LEARNING AND INDUSTRY REQUIREMENTS</h3>
-          <p class="expertise-info-desc">We collaborate with schools and colleges to deliver industry-relevant cybersecurity education, equipping students, faculty, and institutions with practical knowledge and hands-on experience. Our goal is to create job-ready graduates and future-proof academic institutions.</p>
+          <h3 class="expertise-info-title">OFFENSIVE SECURITY &amp; RED TEAM CERTIFICATIONS</h3>
+          <p class="expertise-info-desc">Advanced offensive and red team certifications covering AppSec, blockchain, and
+            operational security for enterprise environments.</p>
           <div class="expertise-list">
-            <div class="expertise-list-item"><span>Cybersecurity Awareness Programs</span><span>01</span></div>
-            <div class="expertise-list-item"><span>Hands-on Workshops & Industrial Visits</span><span>02</span></div>
-            <div class="expertise-list-item"><span>Internship Programs with Real-Time Projects</span><span>03</span></div>
-            <div class="expertise-list-item"><span>Webinars & Expert Sessions</span><span>04</span></div>
-            <div class="expertise-list-item"><span>Faculty Awareness & Development Programs</span><span>05</span></div>
-            <div class="expertise-list-item"><span>Mock Interviews & Resume / ATS Optimization</span><span>06</span></div>
-            <div class="expertise-list-item"><span>College Lab Setup & Network Architecture Consulting</span><span>07</span></div>
-            <div class="expertise-list-item"><span>Global Certification Guidance</span><span>08</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SERVICE 05 — SERVICES FOR IT ORGANIZATIONS -->
-    <div class="expertise-banner-sticky-bar">
-      <span>OUR SERVICES</span>
-      <span class="expertise-banner-sticky-jp">サービス</span>
-    </div>
-    <div class="expertise-banner expertise-banner-red expertise-banner-03">
-      <div class="expertise-banner-bg-text">ENTERPRISE</div>
-      <div class="expertise-banner-image">
-        <img src="assets/images/5.png" alt="Cybersecurity Expert">
-      </div>
-      <div class="expertise-banner-content">
-        <span class="expertise-banner-num">// 05</span>
-        <h3 class="expertise-banner-title">SERVICES FOR<br>IT ORGANIZATIONS</h3>
-      </div>
-    </div>
-    <div class="expertise-detail">
-      <div class="expertise-detail-inner">
-        <div class="expertise-number">05</div>
-        <div class="expertise-info">
-          <h3 class="expertise-info-title">STRENGTHENING YOUR SECURITY POSTURE FROM THE INSIDE OUT</h3>
-          <p class="expertise-info-desc">We help organizations protect critical assets, reduce risks, and ensure compliance through comprehensive cybersecurity solutions tailored to modern business environments — from employee awareness training to advanced penetration testing and virtual CISO services.</p>
-          <div class="expertise-list">
-            <div class="expertise-list-item"><span>Cybersecurity Awareness Training (Employees)</span><span>01</span></div>
-            <div class="expertise-list-item"><span>Phishing Simulation & Training</span><span>02</span></div>
-            <div class="expertise-list-item"><span>Vulnerability Assessment & Penetration Testing (VAPT)</span><span>03</span></div>
-            <div class="expertise-list-item"><span>Certification Consulting</span><span>04</span></div>
-            <div class="expertise-list-item"><span>Incident Response & Forensics</span><span>05</span></div>
-            <div class="expertise-list-item"><span>Infrastructure Architecture Consulting</span><span>06</span></div>
-            <div class="expertise-list-item"><span>vCISO (Virtual Chief Information Security Officer)</span><span>07</span></div>
+            <div class="expertise-list-item"><span>OpSec &amp; Anonymity for Red Teams / CRTOM — redteamleaders (Jan
+                2026)</span><span>01</span></div>
+            <div class="expertise-list-item"><span>Certified Appsec Practitioner / Certified Blockchain Practitioner —
+                The SecOps Group (Aug 2024)</span><span>02</span></div>
+            <div class="expertise-list-item"><span>Chronicle SOAR Fundamentals V6 / SIEM Fundamentals I / CCSA — Google
+                Cloud Security (Mar–Apr 2024)</span><span>03</span></div>
+            <div class="expertise-list-item"><span>RSA Governance &amp; Lifecycle Certified Administrator — RSA Security
+                (Jun 2024)</span><span>04</span></div>
+            <div class="expertise-list-item"><span>FCSS – Advanced Analytics / Zero Trust Access — Fortinet
+                (2023)</span><span>05</span></div>
+            <div class="expertise-list-item"><span>RSA ID+ Certified Associate / IAM Solutions / SecurID — RSA Security
+                (2023)</span><span>06</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SECTION 5: STATS ==================== -->
-  <section class="stats" id="stats">
-    <div class="stats-dot-pattern"></div>
-    <div class="stats-container">
-      <div class="stat-row">
-        <div class="stat-number" data-target="1000">0<sup>+</sup></div>
-        <div class="stat-label">Students Trained</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-row">
-        <div class="stat-number" data-target="5">0<sup>+</sup></div>
-        <div class="stat-label">Years of<br>Excellence</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-row">
-        <div class="stat-number" data-target="50">0<sup>+</sup></div>
-        <div class="stat-label">Global<br>Certifications</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SECTION 6: GOOGLE REVIEWS ==================== -->
-  <section class="awards" id="testimonials">
-    <div class="awards-container">
-      <div class="awards-header">
-        <div class="awards-left">
-          <div class="section-label">GOOGLE REVIEWS</div>
-          <div class="section-label-jp">レビュー</div>
-        </div>
-        <div class="awards-right">
-          <h2 class="awards-heading">⭐ 5.0 / 5.0 — WHAT OUR STUDENTS SAY ABOUT CYBERENTITYZ</h2>
-        </div>
-      </div>
-      <div class="awards-table">
-        <div class="awards-row">
-          <div class="award-company">Vijay Vijay</div>
-          <div class="award-org">CCNA Training</div>
-          <div class="award-title">"I attended the CCNA 200-301 Switching class at CyberEntityz. The training was very good and easy to understand. Certified tutors explain the concepts clearly and provide practical learning. Highly recommended for networking and cybersecurity training."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row highlight">
-          <div class="award-company">Girish Naidu</div>
-          <div class="award-org">Cybersecurity Training</div>
-          <div class="award-title">"I had a great learning experience at this cybersecurity institution. The trainers explain concepts clearly and provide hands-on practice with real-time tools and projects. I highly recommend this institute to anyone who wants to build a strong career in cybersecurity, at affordable price."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Jeevapriyan</div>
-          <div class="award-org">Internship Program</div>
-          <div class="award-title">"I joined Cyberentityz as an intern and my experience has been excellent. The mentors are supportive, the training is practical, and I'm learning real-world cybersecurity skills. It's a great place for students who want hands-on experience."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Prasanna Stony</div>
-          <div class="award-org">Workshop</div>
-          <div class="award-title">"I've attended workshop on 21/02/2026. The work was too good. The knowledge provided by the mentors are so precise. The whole team was so approachable. Learned something new today. Thanks to the team."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Veera Kumar</div>
-          <div class="award-org">CISM Course</div>
-          <div class="award-title">"I have completed the CISM course and examination with Cyberentityz. It was a great experience, and the staffs were highly knowledgeable and provided excellent guidance and exam support."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Rajesh S G</div>
-          <div class="award-org">CEH Online Training</div>
-          <div class="award-title">"I completed my online Cybersecurity Certificate in CEH with Cyberentityz, and it was a great experience. The training helped me understand the concepts clearly and pass the exam with confidence. Special thanks to my instructor Sabhareeshwaran — he's the best."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Arjun S</div>
-          <div class="award-org">Cybersecurity Training</div>
-          <div class="award-title">"The teachers are very professional and friendly. Their teaching is clear, and the lab experience helps learn in a practical and effective way."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Bala</div>
-          <div class="award-org">Penetration Testing & VAPT</div>
-          <div class="award-title">"Really good place to learn cybersecurity. I joined the Penetration Testing + VAPT course and the teaching is easy to understand. They provide real-time server access where we can configure and practice. The staff have strong core knowledge, making it a great choice for beginners."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Naresh</div>
-          <div class="award-org">Penetration Testing & VAPT</div>
-          <div class="award-title">"One of the best institutions I have seen for learning Penetration Testing and VAPT. The staff have strong core knowledge and explain concepts very clearly. As a beginner in WiFi penetration testing, I'm able to understand and learn easily. Highly recommended for anyone starting in cybersecurity."</div>
-          <div class="award-year">⭐⭐⭐⭐⭐</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SECTION 7: ABOUT ==================== -->
-  <section class="about" id="about">
-    <div class="about-bg-text">
-      <span>CYBER</span>
-      <span>SECURITY</span>
-    </div>
-    <div class="about-dot-pattern about-dot-tl"></div>
-    <div class="about-dot-pattern about-dot-tr"></div>
-    <div class="about-dot-pattern about-dot-bl"></div>
-    <div class="about-portrait">
-      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=800&fit=crop" alt="CYBERENTITYZ Training">
-    </div>
-    <div class="about-bio">
-      <p>At CYBERENTITYZ, we are committed to shaping the next generation of cybersecurity professionals through practical, real-world training. In an era where digital threats are constantly evolving, we focus on equipping students with the skills, knowledge, and confidence needed to secure modern digital environments.</p>
-      <p>Our training programs are designed and delivered by active industry professionals, ensuring that learners gain exposure to real-time cybersecurity practices. We specialize in key domains such as Cybersecurity, Network Security, GRC (Governance, Risk & Compliance), Security Audits, VAPT (Vulnerability Assessment & Penetration Testing), Ethical Hacking, and Advanced Security Techniques.</p>
-      <p>What sets us apart is our hands-on, practical approach. Every course is built around real-world scenarios, supported by live labs and licensed industry tools, allowing students to move beyond theory and develop job-ready skills. We also extend our expertise to schools, colleges, and organizations, offering cybersecurity awareness programs, workshops, internship training, and global certification guidance.</p>
-      <p>With over 5+ years of experience in delivering international certification training, we have successfully helped students and institutions build strong foundations in cybersecurity. At CYBERENTITYZ, we believe in more than just education — we focus on building future-ready professionals who can confidently tackle cyber threats and contribute to a safer digital world.</p>
-    </div>
-  </section>
-
-  <!-- ==================== SECTION 8: WHY CHOOSE US ==================== -->
-  <section class="experience" id="why-us">
+  <!-- EDUCATION -->
+  <section class="experience" id="education" style="background:#fff;">
     <div class="experience-container">
       <div class="experience-header">
         <div class="experience-left">
-          <div class="section-label-dark">WHY CHOOSE US</div>
-          <div class="section-label-jp-dark">選ぶ理由</div>
+          <div class="section-label-dark">EDUCATION</div>
+          <div class="section-label-jp-dark">கல்வி</div>
         </div>
         <div class="experience-right">
-          <h2 class="experience-heading">WHAT MAKES OUR TRAINING EFFECTIVE AND INDUSTRY-LEADING.</h2>
+          <h2 class="experience-heading">ACADEMIC BACKGROUND BRIDGING TECHNOLOGY, BUSINESS &amp; CYBERSECURITY.</h2>
         </div>
       </div>
       <div class="experience-list">
-        <!-- Expert Trainers -->
+
         <div class="exp-item">
           <button class="exp-header">
-            <span class="exp-company">Expert-Led Training</span>
-            <span class="exp-toggle">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-              </svg>
-            </span>
+            <span class="exp-company">Lovely Professional University (LPU)</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
           </button>
           <div class="exp-body">
             <div class="exp-meta">
               <div class="exp-meta-left">
-                <span class="exp-role-tag">Real-Time Industry Professionals</span>
-                <p class="exp-summary">Every session is led by active cybersecurity practitioners who bring real-world knowledge and current industry insights directly to the classroom.</p>
+                <span class="exp-role-tag">MBA — Information Technology</span>
+                <p class="exp-summary">Mar 2025 – Mar 2027 &middot; In Progress</p>
               </div>
               <div class="exp-meta-right">
-                <span class="exp-location">5+ Years · 1000+ Students Trained</span>
+                <span class="exp-location">In Progress</span>
                 <ul class="exp-details">
-                  <li>Trainers with active industry experience in ethical hacking, VAPT, GRC, and security operations.</li>
-                  <li>Up-to-date curriculum aligned with current exam patterns and industry demands.</li>
-                  <li>Direct access to mentors for doubt resolution, career advice, and technical guidance.</li>
-                  <li>Sessions structured to bridge the gap between theoretical concepts and real-world application.</li>
+                  <li>Focus: IT strategy, risk management, business analytics, and the intersection of business and
+                    cybersecurity.</li>
+                  <li>Activities: Tech-driven discussions, cybersecurity communities, leadership activities.</li>
+                  <li>Skills: Program Management, Information Security Management.</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-        <!-- Hands-On Labs -->
+
         <div class="exp-item">
           <button class="exp-header">
-            <span class="exp-company">Hands-On Lab Environment</span>
-            <span class="exp-toggle">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-              </svg>
-            </span>
+            <span class="exp-company">University of Madras</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
           </button>
           <div class="exp-body">
             <div class="exp-meta">
               <div class="exp-meta-left">
-                <span class="exp-role-tag">Real-World Tools & Scenarios</span>
-                <p class="exp-summary">Learn by doing. Our lab environment uses licensed industry tools and real-time server access so students gain practical, job-ready experience beyond textbooks.</p>
+                <span class="exp-role-tag">MSc — Cyber Forensics and Information Security</span>
+                <p class="exp-summary">Jan 2024 – Dec 2025</p>
               </div>
               <div class="exp-meta-right">
-                <span class="exp-location">Live Labs · Licensed Tools · Real Servers</span>
+                <span class="exp-location">Completed</span>
                 <ul class="exp-details">
-                  <li>Hands-on penetration testing labs with real-time server configurations.</li>
-                  <li>Practice environments for ethical hacking, network security, VAPT, and SOC analysis.</li>
-                  <li>Industry-licensed tools used by professional security practitioners worldwide.</li>
-                  <li>Scenario-based exercises that mirror actual enterprise cybersecurity challenges.</li>
+                  <li>Focus: Cybersecurity architecture, threat landscapes, security operations, governance frameworks,
+                    risk management.</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-        <!-- Career Support -->
+
         <div class="exp-item">
           <button class="exp-header">
-            <span class="exp-company">Certification & Career Support</span>
-            <span class="exp-toggle">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-              </svg>
-            </span>
+            <span class="exp-company">Jamal Mohamed College, Tiruchirappalli</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
           </button>
           <div class="exp-body">
             <div class="exp-meta">
               <div class="exp-meta-left">
-                <span class="exp-role-tag">Mock Tests · Interview Prep · Guidance</span>
-                <p class="exp-summary">We prepare you for the full journey — from acing your certification exam to landing your first or next cybersecurity role with confidence.</p>
+                <span class="exp-role-tag">BCA — Computer Science</span>
+                <p class="exp-summary">2020 – 2023 &middot; Grade: 82.28%</p>
               </div>
               <div class="exp-meta-right">
-                <span class="exp-location">50+ Global Certifications Supported</span>
+                <span class="exp-location">82.28%</span>
                 <ul class="exp-details">
-                  <li>Certification-oriented curriculum with updated exam patterns and practice questions.</li>
-                  <li>Mock tests simulating real exam conditions to build confidence and readiness.</li>
-                  <li>Interview preparation sessions covering technical and HR rounds.</li>
-                  <li>Resume preparation and ATS optimization to maximize job selection chances.</li>
-                  <li>Ongoing career guidance and mentorship from placement to professional growth.</li>
+                  <li>Role: Join Secretary — BCA &amp; IT Department.</li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">SYSTECH Hardware and Networking Academy, Trichy</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">HW/NW, RHEL, AWS, MCSA, MCSE, CCNA, CCNP, CEH</span>
+                <p class="exp-summary">Jun 2021 – Jun 2023 &middot; Grade A+</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">Grade A+</span>
+                <ul class="exp-details">
+                  <li>Comprehensive hardware, networking, and cybersecurity professional program.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <button class="exp-header">
+            <span class="exp-company">Computer Software College</span>
+            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
+              </svg></span>
+          </button>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div class="exp-meta-left">
+                <span class="exp-role-tag">CCP (Python) &amp; HDCP (Honours Diploma in Computer Application)</span>
+                <p class="exp-summary">Mar 2019 – Present &middot; Grade A</p>
+              </div>
+              <div class="exp-meta-right">
+                <span class="exp-location">Grade A</span>
+                <ul class="exp-details">
+                  <li>Subjects: C, C++, Internet &amp; HTML, SQL Server &amp; PHP, XML, Core Java, RMI &amp; Servlets,
+                    JavaScript &amp; JSP, Java Beans &amp; EJB.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLUNTEERING -->
+  <section class="awards" id="volunteering">
+    <div class="awards-container">
+      <div class="awards-header">
+        <div class="awards-left">
+          <div class="section-label">VOLUNTEERING</div>
+          <div class="section-label-jp">தன்னார்வம்</div>
+        </div>
+        <div class="awards-right">
+          <h2 class="awards-heading">SHARING KNOWLEDGE — CYBERSECURITY AWARENESS, WORKSHOPS &amp; MENTORSHIP</h2>
+        </div>
+      </div>
+
+      <div class="vol-story-wrapper">
+        <div class="vol-story-slides">
+          <!-- Vol 1 -->
+          <div class="vol-block vol-story-slide">
+            <div class="vol-info">
+              <div class="vol-org">SRM IST Chennai</div>
+              <div class="vol-role">Red Team Operation &amp; Cybersecurity Awareness</div>
+              <div class="vol-date">Dec 2025 – Present &middot; Science &amp; Technology</div>
+              <p class="vol-desc">Conducted awareness sessions, real-time tool demos, VAPT / SIEM / IAM / Cloud Security
+                workshops for students and faculty at SRM Institute of Science and Technology, Chennai.</p>
+            </div>
+            <div class="vol-images vol-images-one">
+              <div class="vol-img-wrapper vol-img-wrapper-full">
+                <div class="vol-img-parallax">
+                  <img src="assets/images/img6.jpeg" alt="Red Team Operation — SRM IST Chennai" class="vol-img">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vol 2 -->
+          <div class="vol-block vol-block-reverse vol-story-slide">
+            <div class="vol-info">
+              <div class="vol-org">Sathyabama Institute of Science &amp; Technology, Chennai</div>
+              <div class="vol-role">Hacking and Cyber Crime Speaker</div>
+              <div class="vol-date">Jan 2026 – Present &middot; Education</div>
+              <p class="vol-desc">Delivered real-time hacking demonstrations, cybercrime prevention guidance, and career
+                mentoring sessions. Topics included social engineering, intrusion detection, and secure coding
+                practices.
+              </p>
+            </div>
+            <div class="vol-images vol-images-two">
+              <div class="vol-img-wrapper">
+                <div class="vol-img-parallax">
+                  <img src="assets/images/img7.jpeg" alt="Hacking Speaker 1" class="vol-img">
+                </div>
+              </div>
+              <div class="vol-img-wrapper">
+                <div class="vol-img-parallax">
+                  <img src="assets/images/img11.jpeg" alt="Hacking Speaker 2" class="vol-img">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vol 3 -->
+          <div class="vol-block vol-story-slide">
+            <div class="vol-info">
+              <div class="vol-org">Care Group of Institutions</div>
+              <div class="vol-role">Network Security &amp; Infrastructure Architecture Expositor</div>
+              <div class="vol-date">Dec 2025 – Present &middot; Education</div>
+              <p class="vol-desc">Delivered sessions covering firewalls, VPNs, IDS/IPS, SIEM, IAM, and endpoint
+                security.
+                Hands-on demonstrations of real-world infrastructure protection strategies for engineering students.</p>
+            </div>
+            <div class="vol-images vol-images-three">
+              <div class="vol-img-wrapper">
+                <div class="vol-img-parallax">
+                  <img src="assets/images/img8.jpeg" alt="Network Security Expositor 1" class="vol-img">
+                </div>
+              </div>
+              <div class="vol-img-wrapper">
+                <div class="vol-img-parallax">
+                  <img src="assets/images/img9.jpeg" alt="Network Security Expositor 2" class="vol-img">
+                </div>
+              </div>
+              <div class="vol-img-wrapper">
+                <div class="vol-img-parallax">
+                  <img src="assets/images/img10.jpeg" alt="Network Security Expositor 3" class="vol-img">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vol 4 (text-only) -->
+          <div class="vol-block vol-story-slide" style="grid-template-columns:1fr;">
+            <div class="vol-info" style="max-width:640px;">
+              <div class="vol-org">Paul Jerimy — Cybersecurity Certification Roadmap</div>
+              <div class="vol-role">Mentor &amp; Certification Consultant</div>
+              <div class="vol-date">Jan 2023 – Present &middot; Science &amp; Technology</div>
+              <p class="vol-desc">Serving as a Cybersecurity Trainer and Certification Consultant, guiding candidates
+                through certification roadmaps and career pathways in information security.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONORS & AWARDS -->
+  <section class="experience" id="awards">
+    <div class="experience-container">
+      <div class="experience-header">
+        <div class="experience-left">
+          <div class="section-label-dark">HONORS &amp; AWARDS</div>
+          <div class="section-label-jp-dark">விருதுகள்</div>
+        </div>
+        <div class="experience-right">
+          <h2 class="experience-heading">RECOGNIZED FOR LEADERSHIP, COMMUNICATION &amp; TECHNICAL EXCELLENCE.</h2>
+        </div>
+      </div>
+
+      <div class="award-story-wrapper">
+        <div class="award-story-slides">
+          <!-- Slide 1 -->
+          <div class="award-showcase award-story-slide">
+            <div class="award-showcase-info">
+              <div class="award-showcase-title">Join Secretary</div>
+              <div class="award-showcase-event">VARIT2K23 — National Level Technical Symposium</div>
+              <div class="award-showcase-org">Jamal Mohamed College &middot; IT &amp; Computer Science Department</div>
+              <div class="award-showcase-date">Jun 2023</div>
+              <p class="award-showcase-desc">Served as Join Secretary for the National Level Technical Symposium
+                VARIT2K23,
+                demonstrating leadership and organizational skills at the departmental level.</p>
+            </div>
+            <div class="award-showcase-images award-images-two">
+              <div class="award-img-wrapper">
+                <div class="award-img-parallax">
+                  <img src="assets/images/img3.jpeg" alt="Join Secretary 2" class="award-img">
+                </div>
+              </div>
+              <div class="award-img-wrapper">
+                <div class="award-img-parallax">
+                  <img src="assets/images/img2.jpeg" alt="Join Secretary 1" class="award-img">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="award-showcase award-showcase-reverse award-story-slide">
+            <div class="award-showcase-info">
+              <div class="award-showcase-title">&#11088; STAR OF FISTOHIT 2K23 — First Prize (Overall)</div>
+              <div class="award-showcase-event">FASTOHIT — Technical Symposium</div>
+              <div class="award-showcase-org">Bishop Heber College &middot; Department of IT</div>
+              <div class="award-showcase-date">Mar 2023</div>
+              <p class="award-showcase-desc">Won First Prize (Overall) at the FASTOHIT Technical Symposium, recognized
+                for
+                outstanding Communication, Management &amp; Leadership skills.</p>
+            </div>
+            <div class="award-showcase-images award-images-two">
+              <div class="award-img-wrapper">
+                <div class="award-img-parallax">
+                  <img src="assets/images/img5.jpeg" alt="STAR OF FISTOHIT 2" class="award-img">
+                </div>
+              </div>
+              <div class="award-img-wrapper">
+                <div class="award-img-parallax">
+                  <img src="assets/images/img4.jpeg" alt="STAR OF FISTOHIT 1" class="award-img">
+                </div>
               </div>
             </div>
           </div>
@@ -590,222 +940,280 @@
     </div>
   </section>
 
-  <!-- ==================== SECTION 9: CERTIFICATION BODIES ==================== -->
-  <section class="clients" id="certifications">
-    <div class="clients-container">
-      <div class="clients-left">
-        <div class="section-label">CERTIFICATION BODIES</div>
-        <div class="section-label-jp">認定機関</div>
-        <h2 class="clients-heading">GLOBALLY RECOGNIZED CERTIFICATIONS ACROSS ALL KEY CYBERSECURITY DOMAINS.</h2>
-        <a href="#contact" class="connect-btn">
-          Enroll Now
-          <span class="connect-arrow">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-        </a>
+  <!-- RECOMMENDATIONS -->
+  <section class="awards" id="recommendations">
+    <div class="awards-container">
+      <div class="awards-header">
+        <div class="awards-left">
+          <div class="section-label">RECOMMENDATIONS</div>
+          <div class="section-label-jp">பரிந்துரைகள்</div>
+        </div>
+        <div class="awards-right">
+          <h2 class="awards-heading">10 LINKEDIN RECOMMENDATIONS — WHAT COLLEAGUES &amp; STUDENTS SAY</h2>
+        </div>
       </div>
-      <div class="clients-right">
-        <div class="accordion">
-          <!-- CompTIA -->
-          <div class="accordion-item active">
-            <button class="accordion-header">
-              <span class="accordion-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                </svg>
-              </span>
-              <span class="accordion-title">CompTIA Certifications</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
-                <li>CompTIA ITF+</li>
-                <li>CompTIA Tech+</li>
-                <li>CompTIA A+</li>
-                <li>CompTIA Network+</li>
-                <li>CompTIA Security+</li>
-                <li>CompTIA Cloud+</li>
-                <li>CompTIA Linux+</li>
-                <li>CompTIA Server+</li>
-                <li>CompTIA CySA+</li>
-                <li>CompTIA PenTest+</li>
-                <li>CompTIA SecurityX</li>
-              </ul>
-            </div>
-          </div>
-          <!-- EC-Council -->
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-                </svg>
-              </span>
-              <span class="accordion-title">EC-Council Certifications</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
-                <li>C|NDC</li>
-                <li>C|EH (Certified Ethical Hacker)</li>
-                <li>C|EH Master</li>
-                <li>C|PENT</li>
-                <li>C|SA</li>
-                <li>C|TIA</li>
-                <li>C|HFI</li>
-                <li>C|CISO</li>
-              </ul>
-            </div>
-          </div>
-          <!-- ISACA -->
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-                </svg>
-              </span>
-              <span class="accordion-title">ISACA Certifications</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
-                <li>CDPSE</li>
-                <li>CRISC</li>
-                <li>CISA</li>
-                <li>CISM</li>
-              </ul>
-            </div>
-          </div>
-          <!-- Offensive Security -->
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-                </svg>
-              </span>
-              <span class="accordion-title">Offensive Security</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
-                <li>OSCP</li>
-                <li>OSCP+</li>
-              </ul>
-            </div>
-          </div>
-          <!-- Cisco & PMI -->
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-                </svg>
-              </span>
-              <span class="accordion-title">Cisco & PMI</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
-                <li>Cisco CCNA</li>
-                <li>Cisco CCNP</li>
-                <li>PMI – PMP</li>
-              </ul>
-            </div>
-          </div>
-          <!-- ISC2 & ISO -->
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v"/>
-                </svg>
-              </span>
-              <span class="accordion-title">ISC2 & ISO Standards</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
-                <li>ISC2 – CISSP</li>
-                <li>ISO/IEC 27001:2022 ISMS</li>
-                <li>ISO/IEC 42001</li>
-              </ul>
-            </div>
-          </div>
+      <div class="awards-table">
+        <div class="awards-row highlight">
+          <div class="award-company">Sathiskumar R</div>
+          <div class="award-org">Senior DevOps Engineer @ Dvara KGFS &middot; Oct 2025</div>
+          <div class="award-title">"Best in VAPT and Red Teaming; has the capability to grow into a CISO role."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Mohammed Umar Khan</div>
+          <div class="award-org">Software Engineer @ Dvara KGFS &middot; Oct 2025</div>
+          <div class="award-title">"One of the best in Cyber Security; kind, positive, and delivers engaging sessions
+            that make complex topics easy to understand."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Sasi Kumar</div>
+          <div class="award-org">Assistant Manager @ Dvara KGFS &middot; Dec 2024</div>
+          <div class="award-title">"Unmatched expertise in real-time VAPT and security awareness; reliable,
+            knowledgeable, and always going above and beyond."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Neha Swaminathan</div>
+          <div class="award-org">Cybersecurity &amp; GRC Professional &middot; Dec 2024</div>
+          <div class="award-title">"Helped me achieve CompTIA Security+; clear explanations and dedicated support
+            throughout the entire journey."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Tony Regan</div>
+          <div class="award-org">Founder &amp; CEO @ SYSTECH &middot; Aug 2024 (Direct Manager)</div>
+          <div class="award-title">"Absorbs new concepts incredibly quickly; phenomenal skills across cybersecurity and
+            networking training delivery."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Yuvaraj R</div>
+          <div class="award-org">Cloud Technical Consultant &middot; Aug 2024</div>
+          <div class="award-title">"Best InfoSec &amp; Cyber Security person I know; excellent presentation skills and
+            deep domain expertise."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Ramki M</div>
+          <div class="award-org">Cloud Engineer &middot; Jul 2024</div>
+          <div class="award-title">"Top-tier cybersecurity expert who led a seamless MFA implementation; incredibly
+            professional and knowledgeable."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">K K Santosh</div>
+          <div class="award-org">Cyber Security Researcher &middot; Aug 2024</div>
+          <div class="award-title">"Grateful for guidance on Security+, Network+, Pentest+, and CySA+. A true mentor in
+            the cybersecurity field."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Gokulnaath K</div>
+          <div class="award-org">Student &middot; Aug 2024</div>
+          <div class="award-title">"Grateful for the amazing guidance on CompTIA Network+ and Security+. Patient,
+            thorough, and genuinely invested in student success."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        </div>
+        <div class="awards-row">
+          <div class="award-company">Mohamed Rafi U</div>
+          <div class="award-org">Middleware Integration Engineer &middot; Jun 2024</div>
+          <div class="award-title">"Best Cyber Security and Ethical Hacking enthusiast I've met — passionate, skilled,
+            and always ready to share knowledge."</div>
+          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SECTION 10: FOOTER ==================== -->
-  <footer class="footer" id="contact">
-    <div class="footer-top-bar"></div>
-    <div class="footer-container">
-      <div class="footer-contact">
-        <div class="footer-inquiries">
-          <h3>Contact CYBERENTITYZ</h3>
+  <!-- PUBLICATIONS -->
+  <section class="featured-work" id="publications">
+    <div class="featured-work-top-bar"></div>
+    <div class="featured-work-container">
+      <div class="featured-work-header">
+        <div class="featured-work-left">
+          <div class="section-label">PUBLICATIONS</div>
+          <div class="section-label-jp">வெளியீடுகள்</div>
         </div>
-        <div class="footer-email">
-          <span class="footer-email-label">Email</span>
-          <a href="mailto:info@cyberentityz.com" class="footer-email-address">info@cyberentityz.com</a>
-        </div>
-        <div class="footer-phone">
-          <span class="footer-email-label">Phone</span>
-          <a href="tel:09500551090" class="footer-email-address">095005 51090</a>
+        <div class="featured-work-right">
+          <h2 class="featured-work-heading">PUBLISHED ARTICLES ON CYBERSECURITY AWARENESS &amp; EDUCATION</h2>
         </div>
       </div>
-      <div class="footer-about">
-        <div class="footer-about-row">
-          <div class="footer-about-label">Address</div>
-          <p class="footer-about-text">1st Floor, Kundan Complex, No.1 Parthasarathy Pettai Street, Anna Salai, Teynampet, Chennai, Tamil Nadu – 600086</p>
-        </div>
-        <div class="footer-about-row">
-          <div class="footer-about-label">Follow Us</div>
-          <div class="footer-social-links">
-            <a href="https://www.instagram.com/cyberentityz?igsh=MWExbGViMnpjZDRhOQ==" target="_blank" rel="noopener" class="footer-social-link">Instagram — @cyberentityz</a>
-            <a href="https://www.facebook.com/share/1CWFML5nvn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="footer-social-link">Facebook — cyberentityz</a>
-            <a href="https://www.linkedin.com/company/cyberentityz/" target="_blank" rel="noopener" class="footer-social-link">LinkedIn — cyberentityz</a>
+      <div class="featured-work-list">
+
+        <div class="work-item">
+          <span class="work-item-name">Building a Culture of Cybersecurity Awareness in the Workplace</span>
+          <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+            </svg></span>
+          <div class="work-item-preview"
+            style="background:#111;padding:1.5rem;font-size:0.8rem;color:#ccc;line-height:1.6;">
+            <strong style="color:#fff;display:block;margin-bottom:0.5rem;">May 13, 2024</strong>
+            Understanding cyber threats &middot; Best practices for cyber hygiene &middot; Role of leadership &middot;
+            Interactive training &middot; Case studies
           </div>
         </div>
+
+        <div class="work-item">
+          <span class="work-item-name">Navigating the Cybersecurity Landscape with Confidence</span>
+          <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+            </svg></span>
+          <div class="work-item-preview"
+            style="background:#111;padding:1.5rem;font-size:0.8rem;color:#ccc;line-height:1.6;">
+            <strong style="color:#fff;display:block;margin-bottom:0.5rem;">Sep 2, 2023 — Cybersecurity Roadmap
+              Services</strong>
+            Assessment &amp; analysis &middot; Strategic planning &middot; Implementation support &middot; Training
+            &amp; awareness &middot; Continuous improvement
+          </div>
+        </div>
+
+        <div class="work-item">
+          <span class="work-item-name">Cybersecurity Education and Training Services</span>
+          <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+            </svg></span>
+          <div class="work-item-preview"
+            style="background:#111;padding:1.5rem;font-size:0.8rem;color:#ccc;line-height:1.6;">
+            <strong style="color:#fff;display:block;margin-bottom:0.5rem;">Mar 8, 2023 — Cybersecurity Teaching
+              Services</strong>
+            CEH &middot; CND &middot; Security+ &middot; Network+ &middot; CySA+ &middot; CASP+ &middot; CISA &middot;
+            CISM &middot; CRISC &middot; ISO 27001 ISMS
+          </div>
+        </div>
+
       </div>
-      <div class="footer-big-name">
-        <span>CYBERENTITYZ</span>
-      </div>
-      <div class="footer-clocks">
-        <div class="clock-item">
-          <span class="clock-dot"></span>
-          <span class="clock-city">CHENNAI</span>
-          <span class="clock-time" data-tz="Asia/Kolkata"></span>
-        </div>
-        <div class="clock-item">
-          <span class="clock-dot"></span>
-          <span class="clock-city">DELHI</span>
-          <span class="clock-time" data-tz="Asia/Kolkata"></span>
-        </div>
-        <div class="clock-item">
-          <span class="clock-dot"></span>
-          <span class="clock-city">MUMBAI</span>
-          <span class="clock-time" data-tz="Asia/Kolkata"></span>
-        </div>
-        <div class="clock-item">
-          <span class="clock-dot"></span>
-          <span class="clock-city">BANGALORE</span>
-          <span class="clock-time" data-tz="Asia/Kolkata"></span>
-        </div>
-      </div>
-      <div class="footer-bottom-line"></div>
     </div>
-  </footer>
+  </section>
+
+  <!-- COURSES TAUGHT -->
+  <section class="stats" id="courses" style="background:#0a0a0a;">
+    <div class="stats-dot-pattern"></div>
+    <div style="padding:5rem 4vw;width:100%;">
+      <div class="section-label" style="color:#fff;margin-bottom:2rem;">COURSES TAUGHT</div>
+      <div class="courses-logos">
+        <div class="courses-logos-track">
+          <!-- First set -->
+          <figure class="course-logo-item"><img src="assets/images/aws.jpg" alt="AWS Cloud" /><figcaption>AWS Cloud</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/ccna.jpg" alt="Cisco CCNA" /><figcaption>Cisco CCNA</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/ceh.jpg" alt="CEH v12" /><figcaption>CEH v12</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/cysa.jpg" alt="CompTIA CySA+" /><figcaption>CompTIA CySA+</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/isaca.jpg" alt="ISACA CISA" /><figcaption>ISACA CISA</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/iso.jpg" alt="ISO 27001" /><figcaption>ISO 27001</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/mcsa.jpg" alt="Microsoft MCSA" /><figcaption>Microsoft MCSA</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/network.png" alt="CompTIA Network+" /><figcaption>CompTIA Network+</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/oscp.png" alt="OSCP" /><figcaption>OSCP</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/pentest.jpg" alt="CompTIA PenTest+" /><figcaption>CompTIA PenTest+</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/redhat.jpg" alt="Red Hat RHEL" /><figcaption>Red Hat RHEL</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/security.png" alt="CompTIA Security+" /><figcaption>CompTIA Security+</figcaption></figure>
+          <figure class="course-logo-item"><img src="assets/images/vapt.jpg" alt="VAPT" /><figcaption>VAPT</figcaption></figure>
+          <!-- Duplicate set for seamless loop -->
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/aws.jpg" alt="" /><figcaption>AWS Cloud</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/ccna.jpg" alt="" /><figcaption>Cisco CCNA</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/ceh.jpg" alt="" /><figcaption>CEH v12</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/cysa.jpg" alt="" /><figcaption>CompTIA CySA+</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/isaca.jpg" alt="" /><figcaption>ISACA CISA</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/iso.jpg" alt="" /><figcaption>ISO 27001</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/mcsa.jpg" alt="" /><figcaption>Microsoft MCSA</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/network.png" alt="" /><figcaption>CompTIA Network+</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/oscp.png" alt="" /><figcaption>OSCP</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/pentest.jpg" alt="" /><figcaption>CompTIA PenTest+</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/redhat.jpg" alt="" /><figcaption>Red Hat RHEL</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/security.png" alt="" /><figcaption>CompTIA Security+</figcaption></figure>
+          <figure class="course-logo-item" aria-hidden="true"><img src="assets/images/vapt.jpg" alt="" /><figcaption>VAPT</figcaption></figure>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTACT -->
+  <div class="footer-scroller" id="contact">
+    <div class="footer-pinned-wrapper">
+
+      <!-- Background Giant Text -->
+      <div class="footer-bg-text">COLLABORATE</div>
+
+      <!-- Top-Left Header Overlay -->
+      <div class="footer-header-overlay">
+        <h2>HAVE A PROJECT IN MIND?</h2>
+        <p>LET'S SECURE IT TOGETHER.</p>
+      </div>
+
+      <!-- Small CTA Button Overlay -->
+      <div class="footer-cta-overlay">
+        <a href="https://www.linkedin.com/in/sabhareeshwaran/" target="_blank" rel="noopener" class="footer-cta-btn">GET
+          IN TOUCH &rarr;</a>
+      </div>
+
+      <!-- Center Image Container -->
+      <div class="footer-img-container">
+        <img src="assets/images/footer-img.png?v=2" alt="Footer Cover Image" class="footer-cover-img">
+      </div>
+
+      <!-- The Rise-up Footer Panel -->
+      <div class="footer-content-panel">
+        <div class="footer-top-bar"></div>
+        <div class="footer-container">
+          <div class="footer-contact">
+            <div class="footer-inquiries">
+              <h3>Contact SAB</h3>
+            </div>
+            <div class="footer-email">
+              <span class="footer-email-label">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/sabhareeshwaran/" target="_blank" rel="noopener"
+                class="footer-email-address">linkedin.com/in/sabhareeshwaran</a>
+            </div>
+            <div class="footer-phone">
+              <span class="footer-email-label">Location</span>
+              <span class="footer-email-address">Chennai, Tamil Nadu, India</span>
+            </div>
+          </div>
+          <div class="footer-about">
+            <div class="footer-about-row">
+              <div class="footer-about-label">Current Role</div>
+              <p class="footer-about-text">Senior Officer IT-Security &amp; Governance @ Dvara KGFS &middot; CISO Team
+                &middot; Chennai &middot; On-site</p>
+            </div>
+            <div class="footer-about-row">
+              <div class="footer-about-label">Open to Volunteer</div>
+              <p class="footer-about-text">Science &amp; Technology &middot; International/National Security &middot;
+                Education &middot; Employment/Workforce Development</p>
+            </div>
+            <div class="footer-about-row">
+              <div class="footer-about-label">Top Skills</div>
+              <p class="footer-about-text">IT Security Operations &middot; Information Security &middot; ISMS &middot;
+                IT
+                GRC &middot; Vulnerability Assessment</p>
+            </div>
+          </div>
+          <div class="footer-big-name">
+            <div class="marquee-track">
+              <span>SABHAREESHWARAN S • CYBERSECURITY PROFESSIONAL • </span>
+              <span>SABHAREESHWARAN S • CYBERSECURITY PROFESSIONAL • </span>
+              <span>SABHAREESHWARAN S • CYBERSECURITY PROFESSIONAL • </span>
+              <span>SABHAREESHWARAN S • CYBERSECURITY PROFESSIONAL • </span>
+            </div>
+          </div>
+          <div class="footer-clocks">
+            <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">CHENNAI</span><span
+                class="clock-time" data-tz="Asia/Kolkata"></span></div>
+            <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">DELHI</span><span
+                class="clock-time" data-tz="Asia/Kolkata"></span></div>
+            <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">LONDON</span><span
+                class="clock-time" data-tz="Europe/London"></span></div>
+            <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">SINGAPORE</span><span
+                class="clock-time" data-tz="Asia/Singapore"></span></div>
+          </div>
+          <div class="footer-bottom-line"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <script src="assets/js/script.js"></script>
   <script src="assets/js/animations.js"></script>
 </body>
+
 </html>
