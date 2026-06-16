@@ -82,7 +82,7 @@ function initHeroSlideshow() {
 function initSplitHeroNav() {
   const splitMenuBtn = document.getElementById('splitMenuBtn');
   const splitNavClose = document.getElementById('splitNavClose');
-  const splitHeroNav  = document.getElementById('splitHeroNav');
+  const splitHeroNav = document.getElementById('splitHeroNav');
 
   if (!splitMenuBtn || !splitHeroNav) return;
 

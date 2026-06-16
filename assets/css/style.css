@@ -235,9 +235,15 @@ button {
 
 /* ----- COURSES LOGOS AUTO-SCROLL MARQUEE ----- */
 @keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 .courses-logos {
   overflow: hidden;
   width: 100%;
@@ -245,6 +251,7 @@ button {
   mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
+
 .courses-logos-track {
   display: flex;
   align-items: flex-start;
@@ -253,9 +260,11 @@ button {
   animation: marquee-scroll 35s linear infinite;
   padding: 1.5rem 0;
 }
+
 .courses-logos:hover .courses-logos-track {
   animation-play-state: paused;
 }
+
 .course-logo-item {
   flex-shrink: 0;
   display: flex;
@@ -265,6 +274,7 @@ button {
   margin: 0;
   padding: 0;
 }
+
 .course-logo-item img {
   width: 160px;
   height: 120px;
@@ -275,11 +285,13 @@ button {
   filter: grayscale(60%) brightness(0.9);
   transition: filter 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
+
 .course-logo-item:hover img {
   filter: grayscale(0%) brightness(1.1);
   transform: scale(1.08);
   box-shadow: 0 0 24px rgba(255, 69, 0, 0.35);
 }
+
 .course-logo-item figcaption {
   font-size: 0.8rem;
   font-weight: 700;
@@ -290,6 +302,7 @@ button {
   white-space: nowrap;
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
+
 .course-logo-item:hover figcaption {
   color: #ff6a33;
   text-shadow: 0 0 8px rgba(255, 69, 0, 0.4);
@@ -302,12 +315,14 @@ button {
     animation-duration: 25s;
     padding: 1rem 0;
   }
+
   .course-logo-item img {
     width: 120px;
     height: 90px;
     padding: 0.5rem;
     border-radius: 10px;
   }
+
   .course-logo-item figcaption {
     font-size: 0.7rem;
   }
@@ -1088,8 +1103,6 @@ button {
   opacity: 1;
   color: var(--black);
   padding-right: 8px;
-}
-
 }
 
 #publications .work-item-preview {
@@ -2191,8 +2204,8 @@ button {
   }
 
   .hero-title {
-    font-size: clamp(34px, 8.5vw, 68px) !important;
-    line-height: 1.25 !important;
+    font-size: clamp(48px, 11vw, 76px) !important;
+    line-height: 1.15 !important;
   }
 
   .hero-img-inline {
@@ -2204,6 +2217,12 @@ button {
   /* Allow inline images to be fully visible on mobile */
   .hero-line {
     overflow: visible;
+  }
+
+  .awards-heading,
+  .experience-heading {
+    font-size: clamp(22px, 5vw, 32px) !important;
+    word-break: break-word !important;
   }
 
   .clients {
@@ -2387,8 +2406,8 @@ button {
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 46px;
-    line-height: 1.0;
+    font-size: 52px !important;
+    line-height: 1.1 !important;
     letter-spacing: -0.03em;
   }
 
@@ -2396,6 +2415,11 @@ button {
     width: 82px;
     height: 56px;
     border-radius: 6px;
+  }
+
+  .awards-heading,
+  .experience-heading {
+    font-size: clamp(18px, 6vw, 24px) !important;
   }
 
   .footer-big-name span {
@@ -2989,9 +3013,11 @@ html.lenis {
 .expertise-banner-03 .expertise-banner-image img[src*="01image"] {
   right: 1.5% !important;
 }
+
 .expertise-banner-03 .expertise-banner-image img[src*="02image"] {
   right: 2% !important;
 }
+
 .expertise-banner-03 .expertise-banner-image img[src*="04image"] {
   right: 1.5% !important;
 }
@@ -3010,6 +3036,7 @@ html.lenis {
   z-index: 1002;
   transition: transform 0.4s var(--ease-out-expo), color 0.3s ease;
 }
+
 .mobile-menu-close:hover {
   color: var(--red);
   transform: rotate(90deg);
@@ -3027,12 +3054,14 @@ html.lenis {
   margin-right: -50vw;
   display: flex;
 }
+
 .marquee-track {
   display: flex;
   width: max-content;
   animation: marquee 25s linear infinite;
   white-space: nowrap;
 }
+
 .footer-big-name span {
   display: inline-block;
   font-size: clamp(50px, 13vw, 190px);
@@ -3043,13 +3072,16 @@ html.lenis {
   padding-right: 4rem;
   transition: letter-spacing 0.6s var(--ease-out-expo);
 }
+
 .footer-big-name:hover span {
   letter-spacing: -0.02em;
 }
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -3061,10 +3093,12 @@ html.lenis {
   transition: transform 0.35s var(--ease-out-expo), filter 0.3s ease;
   user-select: none;
 }
+
 .stat-row.clickable:hover {
   transform: scale(1.02) translateX(10px);
   filter: brightness(1.2);
 }
+
 .stat-row.clickable:active {
   transform: scale(0.99) translateX(5px);
 }
@@ -3073,6 +3107,7 @@ html.lenis {
 #certifications.expertise {
   position: relative;
 }
+
 #certifications.expertise::before {
   content: '';
   position: absolute;
@@ -3104,4 +3139,114 @@ html.lenis {
 .expertise-banner-sticky-jp,
 .expertise-label-jp {
   font-family: 'Noto Sans Tamil', sans-serif !important;
+}
+
+/* ============================================================
+   PREMIUM STATS & SERVICES HIGHLIGHTING
+   ============================================================ */
+
+/* Glowing highlight state for Certifications counter card */
+#stat-certifications {
+  position: relative !important;
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+  border: 1.5px solid rgba(255, 69, 0, 0.4) !important;
+  border-radius: 16px !important;
+  padding: 30px 40px !important;
+  box-shadow: 0 10px 30px rgba(255, 69, 0, 0.15), inset 0 0 15px rgba(255, 69, 0, 0.1) !important;
+  transition: all 0.4s var(--ease-out-expo) !important;
+}
+
+#stat-certifications:hover {
+  transform: scale(1.03) translateY(-4px) !important;
+  border-color: var(--red) !important;
+  box-shadow: 0 15px 35px rgba(255, 69, 0, 0.25), inset 0 0 20px rgba(255, 69, 0, 0.2) !important;
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+}
+
+#stat-certifications::after {
+  content: "MILESTONE";
+  position: absolute;
+  top: -10px;
+  right: 25px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  padding: 3px 12px;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(255, 69, 0, 0.4);
+}
+
+#stat-certifications .stat-number {
+  color: var(--black) !important;
+}
+
+#stat-certifications .stat-label {
+  color: var(--black) !important;
+  font-weight: 600 !important;
+}
+
+@media (max-width: 768px) {
+  #stat-certifications {
+    padding: 24px 30px !important;
+    margin: 15px 0 !important;
+  }
+
+  #stat-certifications::after {
+    top: -8px;
+    right: 15px;
+  }
+}
+
+/* Premium highlighting for Services Offered container */
+.services-highlight-box {
+  margin-top: 3.5rem;
+  background: rgba(255, 69, 0, 0.03) !important;
+  border: 1.5px solid rgba(255, 69, 0, 0.2) !important;
+  border-top: 4px solid var(--red) !important;
+  border-radius: 12px !important;
+  padding: 30px 24px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.4s ease !important;
+}
+
+.services-highlight-box:hover {
+  border-color: rgba(255, 69, 0, 0.35) !important;
+  box-shadow: 0 15px 40px rgba(255, 69, 0, 0.08), 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  background: rgba(255, 69, 0, 0.05) !important;
+}
+
+.services-highlight-box .section-label {
+  display: inline-block !important;
+  font-size: 0.7rem !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+  background: var(--red) !important;
+  border: 1.5px solid var(--red) !important;
+  padding: 4px 14px !important;
+  border-radius: 100px !important;
+  letter-spacing: 0.15em !important;
+  margin-bottom: 1.5rem !important;
+  box-shadow: 0 4px 10px rgba(255, 69, 0, 0.2) !important;
+}
+
+.services-highlight-box .skill-tag {
+  border: 1px solid rgba(255, 69, 0, 0.3) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  background: rgba(255, 69, 0, 0.06) !important;
+  font-size: clamp(14px, 1.8vw, 16px) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.services-highlight-box .skill-tag:hover {
+  border-color: var(--red) !important;
+  color: var(--white) !important;
+  background: rgba(255, 69, 0, 0.15) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 15px rgba(255, 69, 0, 0.25) !important;
 }

@@ -416,17 +416,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Layer 5: Featured work section parallax
     const workTopBar = document.querySelector('.featured-work-top-bar');
     if (workTopBar) {
-      gsap.to(workTopBar, {
-        scaleX: 1.2,
-        x: '20%',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.featured-work',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 2.8,
+      gsap.fromTo(workTopBar,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.featured-work',
+            start: 'top bottom',
+            end: 'top center',
+            scrub: 1.5,
+          }
         }
-      });
+      );
     }
 
     // Layer 6: Footer parallax elements

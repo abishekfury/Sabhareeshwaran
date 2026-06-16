@@ -2084,12 +2084,11 @@ html.lenis {
   display: block;
 }
 
-/* The Rise-up Footer Panel */
 .footer-content-panel {
   position: absolute;
   left: 0;
-  top: 100%;
-  /* Sits below viewport initially */
+  bottom: 0;
+  /* Sits below viewport initially via translateY */
   width: 100%;
   height: auto;
   min-height: 55vh;
@@ -2097,10 +2096,58 @@ html.lenis {
   color: var(--black);
   z-index: 5;
   will-change: transform;
+  transform: translateY(100%);
 }
 
 /* Overriding original footer class since we use scroller now */
 .footer {
   display: none !important;
   /* Hide original static footer */
+}
+
+/* Mobile Responsive Scaling for Pinned Storytelling Sections */
+@media (max-width: 768px) {
+  #volunteering,
+  #awards {
+    height: 100vh !important;
+    height: 100dvh !important;
+    padding: 2.5rem 0 !important;
+  }
+
+  .vol-images,
+  .award-showcase-images {
+    height: 42vh !important;
+    height: 42dvh !important;
+    margin-top: 1rem !important;
+  }
+
+  .vol-info,
+  .award-showcase-info {
+    width: 92% !important;
+  }
+
+  .vol-info .vol-org,
+  .award-showcase-info .award-showcase-org {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .vol-info .vol-role,
+  .award-showcase-info .award-showcase-title {
+    font-size: clamp(1.2rem, 5.5vw, 1.8rem) !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .vol-info .vol-date,
+  .award-showcase-info .award-showcase-event,
+  .award-showcase-info .award-showcase-date {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .vol-info .vol-desc,
+  .award-showcase-info .award-showcase-desc {
+    font-size: 0.9rem !important;
+    line-height: 1.45 !important;
+  }
 }
