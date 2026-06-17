@@ -115,7 +115,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(14px, 2.5vw, 36px);
+  font-size: clamp(11px, 2.8vw, 36px);
   font-weight: 900;
   text-transform: uppercase;
   color: var(--white);
