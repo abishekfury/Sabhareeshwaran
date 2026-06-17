@@ -1928,6 +1928,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mm.add("(min-width: 0px)", () => {
       // Set initial centering offsets that preserve GSAP properties
       gsap.set('.footer-img-container', { xPercent: -50, yPercent: -50 });
+      gsap.set('.footer-content-panel', { yPercent: 100, y: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -1967,7 +1968,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'none'
       }, 1)
         .to('.footer-content-panel', {
-          y: () => -document.querySelector('.footer-content-panel').offsetHeight,
+          yPercent: 0,
           duration: 1,
           ease: 'none'
         }, 1);

@@ -22,20 +22,92 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ===== PRELOADER ===== */
 function initPreloader() {
+  console.log("initPreloader: Initializing...");
   const preloader = document.querySelector('.preloader');
-  if (!preloader) return;
+  if (!preloader) {
+    console.warn("initPreloader: Preloader element not found.");
+    return;
+  }
 
   document.body.classList.add('no-scroll');
 
-  const totalDuration = 2200;
+  try {
+    if (typeof gsap === 'undefined') {
+      console.warn("initPreloader: GSAP is not defined. Falling back to CSS transition.");
+      // Fallback: make everything visible and fade out preloader after 2s
+      document.querySelectorAll('.preloader-wrap > div').forEach(el => {
+        el.style.opacity = '1';
+      });
+      setTimeout(() => {
+        preloader.classList.add('loaded');
+        document.body.classList.remove('no-scroll');
+        initIntroHeroAnimation();
+      }, 2000);
+      return;
+    }
 
-  setTimeout(() => {
+    // Set initial states via GSAP
+    gsap.set('.preloader-center-x', { opacity: 0, scale: 0, rotation: -180 });
+    gsap.set('.preloader-name', { opacity: 0, y: -250 });
+    gsap.set('.preloader-role', { opacity: 0, y: 250 });
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        console.log("initPreloader: Timeline complete. Exiting...");
+        // Exit animation: preloader slides up
+        gsap.to(preloader, {
+          yPercent: -100,
+          duration: 1.2,
+          ease: 'power4.inOut',
+          onComplete: () => {
+            preloader.classList.add('loaded');
+            document.body.classList.remove('no-scroll');
+            initIntroHeroAnimation();
+          }
+        });
+
+        // Website reveal animation: parallax drag down
+        gsap.fromTo('.split-hero', 
+          { y: -120, scale: 1.05 },
+          { y: 0, scale: 1, duration: 1.4, ease: 'power4.out' }
+        );
+        gsap.fromTo('.navbar',
+          { y: -80, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out', delay: 0.1 }
+        );
+      }
+    });
+
+    // 1. Spin and scale in the center X
+    tl.to('.preloader-center-x', {
+      opacity: 1,
+      scale: 1,
+      rotation: 0,
+      duration: 0.8,
+      ease: 'back.out(1.5)'
+    })
+    // 2. Slide in the name and role from top and bottom to meet X
+    .to('.preloader-name', {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power4.out'
+    }, '-=0.3')
+    .to('.preloader-role', {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power4.out'
+    }, '-=1.2')
+    // 3. Hold the complete matched logo state
+    .to({}, { duration: 0.6 });
+
+  } catch (error) {
+    console.error("initPreloader error: ", error);
     preloader.classList.add('loaded');
     document.body.classList.remove('no-scroll');
-
-    // Trigger intro hero animations after preloader
-    setTimeout(initIntroHeroAnimation, 300);
-  }, totalDuration);
+    initIntroHeroAnimation();
+  }
 }
 
 /* ===== INTRO HERO ANIMATION ===== */
