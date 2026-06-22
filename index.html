@@ -13,8 +13,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+Tamil:wght@400;700;900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=1.4">
-  <link rel="stylesheet" href="assets/css/portfolio-page.css?v=1.4">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.9">
+  <link rel="stylesheet" href="assets/css/portfolio-page.css?v=1.9">
   <style>
     /* Critical Preloader Layout Styles */
     .preloader {
@@ -73,6 +73,11 @@
 </head>
 
 <body>
+  <script>
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-theme');
+    }
+  </script>
 
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -92,6 +97,12 @@
       <a href="#certifications" class="nav-cta nav-cert-cta"
         style="margin-right: 12px; border-color: var(--white); color: var(--white);">Certifications</a>
       <a href="#contact" class="nav-cta">Contact</a>
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+        <div class="theme-toggle-btn-inner">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </div>
+      </button>
       <button class="nav-menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span></button>
     </div>
   </nav>
@@ -101,12 +112,19 @@
     <div class="mobile-menu-content">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
       <a href="#certifications">Certifications</a>
       <a href="#education">Education</a>
       <a href="#volunteering">Volunteering</a>
       <a href="#awards">Honors</a>
       <a href="#recommendations">Reviews</a>
+      <a href="#publications">Publications</a>
+      <a href="#courses">Courses</a>
       <a href="#contact">Contact</a>
+      <button class="mobile-theme-toggle" id="mobileThemeToggleBtn" aria-label="Toggle theme">
+        <span>SWITCH THEME</span>
+        <span class="theme-value" style="color:var(--red);">DARK</span>
+      </button>
     </div>
   </div>
 
@@ -117,16 +135,32 @@
         <a href="#certifications" class="split-hero-cta"
           style="margin-right: 15px; border-color: rgba(0, 0, 0, 0.45); color: var(--black);">Certifications</a>
         <a href="#contact" class="split-hero-cta">Contact</a>
+        <button class="theme-toggle-btn" id="splitThemeToggleBtn" aria-label="Toggle theme">
+          <div class="theme-toggle-btn-inner">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </div>
+        </button>
         <button class="split-hero-menu-btn" id="splitMenuBtn"
           aria-label="Toggle menu"><span></span><span></span></button>
       </div>
       <div class="intro-hero-bg">
-        <img src="assets/images/hero.png" alt="Sabhareeshwaran SAB S"
-          style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+        <img src="assets/images/hero.png" alt="Sabhareeshwaran SAB S">
       </div>
       <div class="intro-hero-content">
-        <span class="intro-hero-subtitle">INFORMATION SECURITY &amp; CYBER SECURITY PROFESSIONAL</span>
-        <h1 class="intro-hero-name">SAB</h1>
+        <div class="hero-split-layout">
+          <div class="hero-split-left">
+            <div class="intro-hero-subtitle">
+              <span class="hero-sub-line">INFORMATION SECURITY</span>
+              <span class="hero-sub-line amp-char">&amp;</span>
+              <span class="hero-sub-line">CYBER SECURITY</span>
+              <span class="hero-sub-line">PROFESSIONAL</span>
+            </div>
+          </div>
+          <div class="hero-split-right">
+            <h1 class="intro-hero-name">SAB<span class="hero-dot">.</span></h1>
+          </div>
+        </div>
       </div>
       <div class="intro-hero-bottom">
         <span>ISO 27001:2022 LEAD AUDITOR • CEH • CCNA • SC-200</span>
@@ -139,11 +173,14 @@
       <nav class="split-nav-list">
         <a href="#about" class="split-nav-link">About</a>
         <a href="#experience" class="split-nav-link">Experience</a>
+        <a href="#skills" class="split-nav-link">Skills</a>
         <a href="#certifications" class="split-nav-link">Certifications</a>
         <a href="#education" class="split-nav-link">Education</a>
         <a href="#volunteering" class="split-nav-link">Volunteering</a>
         <a href="#awards" class="split-nav-link">Honors</a>
         <a href="#recommendations" class="split-nav-link">Reviews</a>
+        <a href="#publications" class="split-nav-link">Publications</a>
+        <a href="#courses" class="split-nav-link">Courses</a>
         <a href="#contact" class="split-nav-link">Contact</a>
       </nav>
     </div>
@@ -241,183 +278,127 @@
     <div class="experience-container">
       <div class="experience-header">
         <div class="experience-left">
-          <div class="section-label-dark">EXPERIENCE</div>
-          <div class="section-label-jp-dark">அனுபவம்</div>
+          <div class="section-label">EXPERIENCE</div>
+          <div class="section-label-jp">அனுபவம்</div>
         </div>
         <div class="experience-right">
           <h2 class="experience-heading">PROFESSIONAL JOURNEY IN INFORMATION SECURITY &amp; GOVERNANCE.</h2>
         </div>
       </div>
-      <div class="experience-list">
 
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">Dvara KGFS</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">Senior Information Technology Officer (SITO) — GRC-IS &amp; Cyber Security
-                  Operations (CISO Team)</span>
-                <p class="exp-summary">Sep 2024 – Present &middot; Chennai, Tamil Nadu &middot; On-site</p>
+      <div class="exp-scroller-layout">
+        <!-- Left Side: Blur Scroller Wheel -->
+        <div class="exp-scroller-left">
+          <div class="exp-scroller-window">
+            <div class="exp-scroller-list" id="expScrollerList">
+              <div class="exp-scroller-item active" data-index="0">
+                <span class="exp-arrow">→</span>
+                <span class="exp-item-text">Dvara KGFS</span>
               </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">1 yr 10 mos</span>
-                <ul class="exp-details">
-                  <li>Oversee comprehensive security measures to protect sensitive information across the organization.
-                  </li>
-                  <li>Lead VAPT processes using Burp Suite, Nessus, and OpenVAS.</li>
-                  <li>Develop and enforce incident response protocols to detect, respond to, and mitigate security
-                    incidents.</li>
-                  <li>Conduct structured risk assessments; design and enforce IT policies; oversee internal audits and
-                    compliance checks.</li>
-                  <li>Provide detailed compliance and audit reports to senior management.</li>
-                  <li>Ensure security and reliability of IT systems; implement infrastructure security measures.</li>
-                </ul>
+              <div class="exp-scroller-item" data-index="1">
+                <span class="exp-arrow">→</span>
+                <span class="exp-item-text">Freelance</span>
+              </div>
+              <div class="exp-scroller-item" data-index="2">
+                <span class="exp-arrow">→</span>
+                <span class="exp-item-text">ACTE.in</span>
+              </div>
+              <div class="exp-scroller-item" data-index="3">
+                <span class="exp-arrow">→</span>
+                <span class="exp-item-text">Fourth Dimension (Cloud)</span>
+              </div>
+              <div class="exp-scroller-item" data-index="4">
+                <span class="exp-arrow">→</span>
+                <span class="exp-item-text">Fourth Dimension (Exec)</span>
+              </div>
+              <div class="exp-scroller-item" data-index="5">
+                <span class="exp-arrow">→</span>
+                <span class="exp-item-text">SYSTECH</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">Freelance — Information Security Instructor</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">Information Security Instructor</span>
-                <p class="exp-summary">Jan 2023 – Present &middot; Chennai, Tamil Nadu &middot; Hybrid</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">3 yrs 6 mos</span>
-                <ul class="exp-details">
-                  <li>Deliver courses on Networking, Cyber Security, Information Security, VAPT, and offensive security
-                    techniques.</li>
-                  <li>Certifications taught: CCNA, AWS, CEH, CompTIA Security+, MCSA, RHEL, IoT.</li>
-                  <li>Programming languages: C, C++, Java, HTML, CSS, SQL, Python.</li>
-                  <li>Collaborated with Systech Center to enhance curriculum with real-world scenarios.</li>
-                </ul>
-              </div>
+        <!-- Right Side: Details View -->
+        <div class="exp-scroller-right">
+          <div class="exp-details-container" id="expDetailsContainer">
+            <!-- Item 0 -->
+            <div class="exp-details-content active" data-index="0">
+              <h3 class="exp-details-role">Senior Information Technology Officer (SITO)</h3>
+              <p class="exp-details-company">GRC-IS &amp; Cyber Security Operations (CISO Team) @ Dvara KGFS</p>
+              <p class="exp-details-duration">Sep 2024 – Present &middot; Chennai, Tamil Nadu &middot; On-site (1 yr 10
+                mos)</p>
+              <ul class="exp-details-bullets">
+                <li>Oversee comprehensive security measures to protect sensitive information across the organization.
+                </li>
+                <li>Lead VAPT processes using Burp Suite, Nessus, and OpenVAS.</li>
+                <li>Develop and enforce incident response protocols to detect, respond to, and mitigate security
+                  incidents.</li>
+                <li>Conduct structured risk assessments; design and enforce IT policies; oversee internal audits and
+                  compliance checks.</li>
+                <li>Provide detailed compliance and audit reports to senior management.</li>
+                <li>Ensure security and reliability of IT systems; implement infrastructure security measures.</li>
+              </ul>
+            </div>
+            <!-- Item 1 -->
+            <div class="exp-details-content" data-index="1">
+              <h3 class="exp-details-role">Information Security Instructor</h3>
+              <p class="exp-details-company">Freelance</p>
+              <p class="exp-details-duration">Jan 2023 – Present &middot; Chennai, Tamil Nadu &middot; Hybrid (3 yrs 6
+                mos)</p>
+              <ul class="exp-details-bullets">
+                <li>Deliver courses on Networking, Cyber Security, Information Security, VAPT, and offensive security
+                  techniques.</li>
+                <li>Certifications taught: CCNA, AWS, CEH, CompTIA Security+, MCSA, RHEL, IoT.</li>
+                <li>Programming languages: C, C++, Java, HTML, CSS, SQL, Python.</li>
+                <li>Collaborated with Systech Center to enhance curriculum with real-world scenarios.</li>
+              </ul>
+            </div>
+            <!-- Item 2 -->
+            <div class="exp-details-content" data-index="2">
+              <h3 class="exp-details-role">International Instructor — Cyber Security &amp; VAPT</h3>
+              <p class="exp-details-company">ACTE.in (Freelance)</p>
+              <p class="exp-details-duration">Sep 2023 – Aug 2025 &middot; Chennai, Tamil Nadu &middot; Hybrid (2 yrs)
+              </p>
+              <ul class="exp-details-bullets">
+                <li>Specialized in VAPT; taught international students from Singapore, Australia, Pakistan, Afghanistan,
+                  Europe, and the UK.</li>
+                <li>Certificates covered: CCNA, CCNP, N+, Sec+, CySA+, Pen+, SecX, OSCP.</li>
+              </ul>
+            </div>
+            <!-- Item 3 -->
+            <div class="exp-details-content" data-index="3">
+              <h3 class="exp-details-role">Cloud Security — Practice Team</h3>
+              <p class="exp-details-company">Fourth Dimension Technologies</p>
+              <p class="exp-details-duration">Feb 2024 – Aug 2024 &middot; Chennai &middot; On-site (7 mos)</p>
+              <ul class="exp-details-bullets">
+                <li>Handled DNIF (SIEM, SOAR, ZTNA), RSA ID+ (MFA), Lansweeper, and VAPT.</li>
+                <li>Knowledge management and team leadership responsibilities.</li>
+              </ul>
+            </div>
+            <!-- Item 4 -->
+            <div class="exp-details-content" data-index="4">
+              <h3 class="exp-details-role">Executive in Cyber Security &amp; Information Security</h3>
+              <p class="exp-details-company">Fourth Dimension Technologies</p>
+              <p class="exp-details-duration">Jul 2023 – Feb 2024 &middot; Chennai (8 mos)</p>
+              <ul class="exp-details-bullets">
+                <li>Spearheaded management of DNIF for threat detection, incident response, log management.</li>
+                <li>Product management, security architecture, and analytics.</li>
+                <li>Streamlined security processes, improving incident response times.</li>
+              </ul>
+            </div>
+            <!-- Item 5 -->
+            <div class="exp-details-content" data-index="5">
+              <h3 class="exp-details-role">Junior Cyber Security</h3>
+              <p class="exp-details-company">SYSTECH (Part-time)</p>
+              <p class="exp-details-duration">Jun 2022 – Aug 2023 &middot; Tiruchirappalli, Tamil Nadu &middot; On-site
+                (1 yr 3 mos)</p>
+              <ul class="exp-details-bullets">
+                <li>Delivered hands-on instruction for CCNA, CEH, MCSA, AWS with focus on practical lab sessions.</li>
+              </ul>
             </div>
           </div>
         </div>
-
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">ACTE.in — International Instructor</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">International Instructor — Cyber Security &amp; VAPT (Freelance)</span>
-                <p class="exp-summary">Sep 2023 – Aug 2025 &middot; Chennai, Tamil Nadu &middot; Hybrid</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">2 yrs</span>
-                <ul class="exp-details">
-                  <li>Specialized in VAPT; taught international students from Singapore, Australia, Pakistan,
-                    Afghanistan, Europe, and the UK.</li>
-                  <li>Certificates covered: CCNA, CCNP, N+, Sec+, CySA+, Pen+, SecX, OSCP.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">Fourth Dimension Technologies — Cloud Security</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">Cloud Security — Practice Team</span>
-                <p class="exp-summary">Feb 2024 – Aug 2024 &middot; Chennai &middot; On-site</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">7 mos</span>
-                <ul class="exp-details">
-                  <li>Handled DNIF (SIEM, SOAR, ZTNA), RSA ID+ (MFA), Lansweeper, and VAPT.</li>
-                  <li>Knowledge management and team leadership responsibilities.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">Fourth Dimension Technologies — Executive</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">Executive in Cyber Security &amp; Information Security</span>
-                <p class="exp-summary">Jul 2023 – Feb 2024 &middot; Chennai</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">8 mos</span>
-                <ul class="exp-details">
-                  <li>Spearheaded management of DNIF for threat detection, incident response, and log management.</li>
-                  <li>Product management, security architecture, and analytics.</li>
-                  <li>Streamlined security processes, improving incident response times.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">SYSTECH — Junior Cyber Security</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">Junior Cyber Security (Part-time)</span>
-                <p class="exp-summary">Jun 2022 – Aug 2023 &middot; Tiruchirappalli, Tamil Nadu &middot; On-site</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">1 yr 3 mos</span>
-                <ul class="exp-details">
-                  <li>Delivered hands-on instruction for CCNA, CEH, MCSA, AWS with focus on practical lab sessions.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -425,31 +406,38 @@
   <!-- SKILLS -->
   <section class="clients" id="skills">
     <div class="clients-container">
-      <div class="clients-left">
+      <div class="skills-header-full">
         <div class="section-label">SKILLS</div>
         <div class="section-label-jp">திறன்கள்</div>
-        <h2 class="clients-heading">EXPERTISE ACROSS SECURITY OPERATIONS, GRC, TOOLS &amp; PROGRAMMING.</h2>
-        <a href="#contact" class="connect-btn">Get in Touch <span class="connect-arrow"><svg width="14" height="14"
-              viewBox="0 0 14 14" fill="none">
-              <path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="2" />
-            </svg></span></a>
+        <h2 class="clients-heading-full">EXPERTISE ACROSS SECURITY OPERATIONS, GRC, TOOLS &amp; PROGRAMMING</h2>
       </div>
-      <div class="clients-right">
-        <div class="accordion">
-          <div class="accordion-item active">
-            <button class="accordion-header">
-              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
-                </svg></span>
-              <span class="accordion-title">Industry Knowledge</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
+
+      <div class="skills-staircase">
+        <!-- Card 1 -->
+        <div class="skill-card-container card-step-1">
+          <div class="skill-card-inner">
+            <div class="skill-card-front">
+              <div class="skill-card-front-content">
+                <div class="skill-card-num">01</div>
+                <h3 class="skill-card-title">Industry Knowledge</h3>
+                <div class="skill-card-line"></div>
+                <div class="skill-card-instruction">
+                  <span>DECRYPT ACCESS</span>
+                  <svg class="flip-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="skill-card-back">
+              <div class="skill-card-num-back">01 // SEC.OPS</div>
+              <h3 class="skill-card-title-back">Industry Knowledge</h3>
+              <div class="skill-card-line"></div>
+              <ul class="skill-card-list">
                 <li>ISO Standards &amp; ISO 27001 Lead Auditor</li>
                 <li>Vulnerability Management &amp; VAPT</li>
-                <li>Information Security Management System (ISMS)</li>
-                <li>Security Operations &amp; IT Security Operations</li>
+                <li>Information Security Management (ISMS)</li>
+                <li>Security Operations &amp; IT Security</li>
                 <li>IT Governance &amp; Corporate Governance</li>
                 <li>IT Risk Management &amp; IT GRC</li>
                 <li>Penetration Testing &amp; Red Teaming</li>
@@ -458,41 +446,63 @@
               </ul>
             </div>
           </div>
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-                </svg></span>
-              <span class="accordion-title">Tools &amp; Technologies</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="skill-card-container card-step-2">
+          <div class="skill-card-inner">
+            <div class="skill-card-front">
+              <div class="skill-card-front-content">
+                <div class="skill-card-num">02</div>
+                <h3 class="skill-card-title">Tools &amp; Technologies</h3>
+                <div class="skill-card-line"></div>
+                <div class="skill-card-instruction">
+                  <span>ACCESS UTILITIES</span>
+                  <svg class="flip-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="skill-card-back">
+              <div class="skill-card-num-back">02 // SEC.TOOL</div>
+              <h3 class="skill-card-title-back">Tools &amp; Technologies</h3>
+              <div class="skill-card-line"></div>
+              <ul class="skill-card-list">
                 <li>Active Directory &amp; Lansweeper</li>
-                <li>CrowdStrike EDR</li>
-                <li>DNIF SIEM &amp; SOAR</li>
-                <li>RSA SecurID / RSA ID+ / RSA G&amp;L</li>
+                <li>CrowdStrike EDR &amp; DNIF SIEM</li>
+                <li>RSA SecurID &amp; RSA G&amp;L</li>
                 <li>Fortinet Firewall &amp; Checkpoint Harmony</li>
                 <li>AlienVault OSSIM &amp; Qualys</li>
-                <li>Cisco Firewall, Duo, AWS (IAM, Lambda, Elastic Beanstalk)</li>
-                <li>Azure &amp; Microsoft Security Operations</li>
-                <li>Burp Suite, Nessus, OpenVAS, Nmap, Wireshark</li>
-                <li>VMware, VirtualBox, GNS3, Packet Tracer</li>
+                <li>Cisco Firewall, Duo, AWS (IAM, Lambda)</li>
+                <li>Burp Suite, Nessus, OpenVAS, Nmap</li>
+                <li>VMware, VirtualBox, GNS3</li>
               </ul>
             </div>
           </div>
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-                </svg></span>
-              <span class="accordion-title">Programming &amp; OS</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="skill-card-container card-step-3">
+          <div class="skill-card-inner">
+            <div class="skill-card-front">
+              <div class="skill-card-front-content">
+                <div class="skill-card-num">03</div>
+                <h3 class="skill-card-title">Programming &amp; OS</h3>
+                <div class="skill-card-line"></div>
+                <div class="skill-card-instruction">
+                  <span>COMPILE CODE</span>
+                  <svg class="flip-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="skill-card-back">
+              <div class="skill-card-num-back">03 // DEV.LOG</div>
+              <h3 class="skill-card-title-back">Programming &amp; OS</h3>
+              <div class="skill-card-line"></div>
+              <ul class="skill-card-list">
                 <li>Python, C, C++, Java, JavaScript</li>
                 <li>SQL &amp; MySQL</li>
                 <li>HTML / CSS</li>
@@ -500,17 +510,29 @@
               </ul>
             </div>
           </div>
-          <div class="accordion-item">
-            <button class="accordion-header">
-              <span class="accordion-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" />
-                  <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.5" />
-                  <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-                </svg></span>
-              <span class="accordion-title">Soft Skills &amp; Other</span>
-            </button>
-            <div class="accordion-body">
-              <ul>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="skill-card-container card-step-4">
+          <div class="skill-card-inner">
+            <div class="skill-card-front">
+              <div class="skill-card-front-content">
+                <div class="skill-card-num">04</div>
+                <h3 class="skill-card-title">Soft Skills &amp; Other</h3>
+                <div class="skill-card-line"></div>
+                <div class="skill-card-instruction">
+                  <span>HUMAN INTERFACE</span>
+                  <svg class="flip-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="skill-card-back">
+              <div class="skill-card-num-back">04 // HUM.CAP</div>
+              <h3 class="skill-card-title-back">Soft Skills &amp; Other</h3>
+              <div class="skill-card-line"></div>
+              <ul class="skill-card-list">
                 <li>Incident Response &amp; Audit Analysis</li>
                 <li>Project &amp; Program Management</li>
                 <li>Data Analytics</li>
@@ -674,146 +696,110 @@
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section class="experience" id="education" style="background:#fff;">
+  <section class="experience" id="education">
     <div class="experience-container">
       <div class="experience-header">
         <div class="experience-left">
-          <div class="section-label-dark">EDUCATION</div>
-          <div class="section-label-jp-dark">கல்வி</div>
+          <div class="section-label">EDUCATION</div>
+          <div class="section-label-jp">கல்வி</div>
         </div>
         <div class="experience-right">
           <h2 class="experience-heading">ACADEMIC BACKGROUND BRIDGING TECHNOLOGY, BUSINESS &amp; CYBERSECURITY.</h2>
         </div>
       </div>
-      <div class="experience-list">
+      <div class="education-timeline-container">
+        <div class="education-timeline-line">
+          <div class="education-timeline-line-progress"></div>
+        </div>
 
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">Lovely Professional University (LPU)</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">MBA — Information Technology</span>
-                <p class="exp-summary">Mar 2025 – Mar 2027 &middot; In Progress</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">In Progress</span>
-                <ul class="exp-details">
-                  <li>Focus: IT strategy, risk management, business analytics, and the intersection of business and
-                    cybersecurity.</li>
-                  <li>Activities: Tech-driven discussions, cybersecurity communities, leadership activities.</li>
-                  <li>Skills: Program Management, Information Security Management.</li>
-                </ul>
-              </div>
+        <!-- Item 1 (Left) -->
+        <div class="timeline-item left" data-index="0">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-card-header">
+              <span class="timeline-date">2025 – 2027</span>
+              <h3 class="timeline-title">Lovely Professional University (LPU)</h3>
+            </div>
+            <div class="timeline-card-body">
+              <span class="timeline-badge">MBA — Information Technology</span>
+              <span class="timeline-status">In Progress</span>
+              <ul class="timeline-bullets">
+                <li>Focus: IT strategy, risk management, business analytics, and the intersection of business and cybersecurity.</li>
+                <li>Activities: Tech-driven discussions, cybersecurity communities, leadership activities.</li>
+                <li>Skills: Program Management, Information Security Management.</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">University of Madras</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">MSc — Cyber Forensics and Information Security</span>
-                <p class="exp-summary">Jan 2024 – Dec 2025</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">Completed</span>
-                <ul class="exp-details">
-                  <li>Focus: Cybersecurity architecture, threat landscapes, security operations, governance frameworks,
-                    risk management.</li>
-                </ul>
-              </div>
+        <!-- Item 2 (Right) -->
+        <div class="timeline-item right" data-index="1">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-card-header">
+              <span class="timeline-date">2024 – 2025</span>
+              <h3 class="timeline-title">University of Madras</h3>
+            </div>
+            <div class="timeline-card-body">
+              <span class="timeline-badge">MSc — Cyber Forensics &amp; Info Security</span>
+              <span class="timeline-status">Completed</span>
+              <ul class="timeline-bullets">
+                <li>Focus: Cybersecurity architecture, threat landscapes, security operations, governance frameworks, risk management.</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">Jamal Mohamed College, Tiruchirappalli</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">BCA — Computer Science</span>
-                <p class="exp-summary">2020 – 2023 &middot; Grade: 82.28%</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">82.28%</span>
-                <ul class="exp-details">
-                  <li>Role: Join Secretary — BCA &amp; IT Department.</li>
-                </ul>
-              </div>
+        <!-- Item 3 (Left) -->
+        <div class="timeline-item left" data-index="2">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-card-header">
+              <span class="timeline-date">2021 – 2023</span>
+              <h3 class="timeline-title">SYSTECH Academy, Trichy</h3>
+            </div>
+            <div class="timeline-card-body">
+              <span class="timeline-badge">HW/NW, RHEL, AWS, MCSA, MCSE, CCNA, CEH</span>
+              <span class="timeline-status">Grade A+</span>
+              <ul class="timeline-bullets">
+                <li>Comprehensive hardware, networking, and cybersecurity professional program.</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">SYSTECH Hardware and Networking Academy, Trichy</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">HW/NW, RHEL, AWS, MCSA, MCSE, CCNA, CCNP, CEH</span>
-                <p class="exp-summary">Jun 2021 – Jun 2023 &middot; Grade A+</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">Grade A+</span>
-                <ul class="exp-details">
-                  <li>Comprehensive hardware, networking, and cybersecurity professional program.</li>
-                </ul>
-              </div>
+        <!-- Item 4 (Right) -->
+        <div class="timeline-item right" data-index="3">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-card-header">
+              <span class="timeline-date">2020 – 2023</span>
+              <h3 class="timeline-title">Jamal Mohamed College</h3>
+            </div>
+            <div class="timeline-card-body">
+              <span class="timeline-badge">BCA — Computer Science</span>
+              <span class="timeline-status">Grade: 82.28%</span>
+              <ul class="timeline-bullets">
+                <li>Role: Joint Secretary — BCA &amp; IT Department.</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div class="exp-item">
-          <button class="exp-header">
-            <span class="exp-company">Computer Software College</span>
-            <span class="exp-toggle"><svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.5" />
-                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" />
-                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" class="plus-v" />
-              </svg></span>
-          </button>
-          <div class="exp-body">
-            <div class="exp-meta">
-              <div class="exp-meta-left">
-                <span class="exp-role-tag">CCP (Python) &amp; HDCP (Honours Diploma in Computer Application)</span>
-                <p class="exp-summary">Mar 2019 – Present &middot; Grade A</p>
-              </div>
-              <div class="exp-meta-right">
-                <span class="exp-location">Grade A</span>
-                <ul class="exp-details">
-                  <li>Subjects: C, C++, Internet &amp; HTML, SQL Server &amp; PHP, XML, Core Java, RMI &amp; Servlets,
-                    JavaScript &amp; JSP, Java Beans &amp; EJB.</li>
-                </ul>
-              </div>
+        <!-- Item 5 (Left) -->
+        <div class="timeline-item left" data-index="4">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-card-header">
+              <span class="timeline-date">2019 – Present</span>
+              <h3 class="timeline-title">Computer Software College</h3>
+            </div>
+            <div class="timeline-card-body">
+              <span class="timeline-badge">CCP &amp; HDCP (Diploma)</span>
+              <span class="timeline-status">Grade A</span>
+              <ul class="timeline-bullets">
+                <li>Subjects: C, C++, Internet &amp; HTML, SQL Server &amp; PHP, XML, Core Java, RMI &amp; Servlets, JavaScript &amp; JSP, Java Beans &amp; EJB.</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -929,8 +915,8 @@
     <div class="experience-container">
       <div class="experience-header">
         <div class="experience-left">
-          <div class="section-label-dark">HONORS &amp; AWARDS</div>
-          <div class="section-label-jp-dark">விருதுகள்</div>
+          <div class="section-label">HONORS &amp; AWARDS</div>
+          <div class="section-label-jp">விருதுகள்</div>
         </div>
         <div class="experience-right">
           <h2 class="experience-heading">RECOGNIZED FOR LEADERSHIP, COMMUNICATION &amp; TECHNICAL EXCELLENCE.</h2>
@@ -1005,75 +991,162 @@
           <h2 class="awards-heading">10 LINKEDIN RECOMMENDATIONS — WHAT COLLEAGUES &amp; STUDENTS SAY</h2>
         </div>
       </div>
-      <div class="awards-table">
-        <div class="awards-row highlight">
-          <div class="award-company">Sathiskumar R</div>
-          <div class="award-org">Senior DevOps Engineer @ Dvara KGFS &middot; Oct 2025</div>
-          <div class="award-title">"Best in VAPT and Red Teaming; has the capability to grow into a CISO role."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <div class="rec-carousel-container">
+        <div class="rec-carousel-wrapper" id="recCarouselWrapper">
+          <!-- Card 1 -->
+          <div class="rec-card" data-index="0">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Best in VAPT and Red Teaming; has the capability to grow into a CISO role."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Sathiskumar R</h4>
+              <p class="rec-title">Senior DevOps Engineer @ Dvara KGFS</p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="rec-card" data-index="1">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"One of the best in Cyber Security; kind, positive, and delivers engaging sessions
+                that make complex topics easy to understand."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Mohammed Umar Khan</h4>
+              <p class="rec-title">Software Engineer @ Dvara KGFS</p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="rec-card" data-index="2">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Unmatched expertise in real-time VAPT and security awareness; reliable,
+                knowledgeable, and always going above and beyond."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Sasi Kumar</h4>
+              <p class="rec-title">Assistant Manager @ Dvara KGFS</p>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="rec-card" data-index="3">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Helped me achieve CompTIA Security+; clear explanations and dedicated support
+                throughout the entire journey."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Neha Swaminathan</h4>
+              <p class="rec-title">Cybersecurity &amp; GRC Professional</p>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="rec-card" data-index="4">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Absorbs new concepts incredibly quickly; phenomenal skills across cybersecurity and
+                networking training delivery."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Tony Regan</h4>
+              <p class="rec-title">Founder &amp; CEO @ SYSTECH</p>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="rec-card" data-index="5">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Best InfoSec &amp; Cyber Security person I know; excellent presentation skills and
+                deep domain expertise."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Yuvaraj R</h4>
+              <p class="rec-title">Cloud Technical Consultant</p>
+            </div>
+          </div>
+          <!-- Card 7 -->
+          <div class="rec-card" data-index="6">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Top-tier cybersecurity expert who led a seamless MFA implementation; incredibly
+                professional and knowledgeable."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Ramki M</h4>
+              <p class="rec-title">Cloud Engineer</p>
+            </div>
+          </div>
+          <!-- Card 8 -->
+          <div class="rec-card" data-index="7">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Grateful for guidance on Security+, Network+, Pentest+, and CySA+. A true mentor in
+                the cybersecurity field."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">K K Santosh</h4>
+              <p class="rec-title">Cyber Security Researcher</p>
+            </div>
+          </div>
+          <!-- Card 9 -->
+          <div class="rec-card" data-index="8">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Grateful for the amazing guidance on CompTIA Network+ and Security+. Patient,
+                thorough, and genuinely invested in student success."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Gokulnaath K</h4>
+              <p class="rec-title">Student</p>
+            </div>
+          </div>
+          <!-- Card 10 -->
+          <div class="rec-card" data-index="9">
+            <div class="rec-card-header">
+              <span class="rec-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="rec-card-body">
+              <p class="rec-text">"Best Cyber Security and Ethical Hacking enthusiast I've met — passionate, skilled,
+                and always ready to share knowledge."</p>
+            </div>
+            <div class="rec-card-footer">
+              <h4 class="rec-name">Mohamed Rafi U</h4>
+              <p class="rec-title">Middleware Integration Engineer</p>
+            </div>
+          </div>
         </div>
-        <div class="awards-row">
-          <div class="award-company">Mohammed Umar Khan</div>
-          <div class="award-org">Software Engineer @ Dvara KGFS &middot; Oct 2025</div>
-          <div class="award-title">"One of the best in Cyber Security; kind, positive, and delivers engaging sessions
-            that make complex topics easy to understand."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Sasi Kumar</div>
-          <div class="award-org">Assistant Manager @ Dvara KGFS &middot; Dec 2024</div>
-          <div class="award-title">"Unmatched expertise in real-time VAPT and security awareness; reliable,
-            knowledgeable, and always going above and beyond."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Neha Swaminathan</div>
-          <div class="award-org">Cybersecurity &amp; GRC Professional &middot; Dec 2024</div>
-          <div class="award-title">"Helped me achieve CompTIA Security+; clear explanations and dedicated support
-            throughout the entire journey."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Tony Regan</div>
-          <div class="award-org">Founder &amp; CEO @ SYSTECH &middot; Aug 2024 (Direct Manager)</div>
-          <div class="award-title">"Absorbs new concepts incredibly quickly; phenomenal skills across cybersecurity and
-            networking training delivery."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Yuvaraj R</div>
-          <div class="award-org">Cloud Technical Consultant &middot; Aug 2024</div>
-          <div class="award-title">"Best InfoSec &amp; Cyber Security person I know; excellent presentation skills and
-            deep domain expertise."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Ramki M</div>
-          <div class="award-org">Cloud Engineer &middot; Jul 2024</div>
-          <div class="award-title">"Top-tier cybersecurity expert who led a seamless MFA implementation; incredibly
-            professional and knowledgeable."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">K K Santosh</div>
-          <div class="award-org">Cyber Security Researcher &middot; Aug 2024</div>
-          <div class="award-title">"Grateful for guidance on Security+, Network+, Pentest+, and CySA+. A true mentor in
-            the cybersecurity field."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Gokulnaath K</div>
-          <div class="award-org">Student &middot; Aug 2024</div>
-          <div class="award-title">"Grateful for the amazing guidance on CompTIA Network+ and Security+. Patient,
-            thorough, and genuinely invested in student success."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-        </div>
-        <div class="awards-row">
-          <div class="award-company">Mohamed Rafi U</div>
-          <div class="award-org">Middleware Integration Engineer &middot; Jun 2024</div>
-          <div class="award-title">"Best Cyber Security and Ethical Hacking enthusiast I've met — passionate, skilled,
-            and always ready to share knowledge."</div>
-          <div class="award-year">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+        <div class="rec-carousel-arch"></div>
+        <div class="rec-controls">
+          <button class="rec-btn prev-btn" id="recPrevBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button class="rec-btn next-btn" id="recNextBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -1264,14 +1337,16 @@
             <div class="footer-inquiries">
               <h3>Contact SAB</h3>
             </div>
-            <div class="footer-email">
-              <span class="footer-email-label">LinkedIn</span>
-              <a href="https://www.linkedin.com/in/sabhareeshwaran/" target="_blank" rel="noopener"
-                class="footer-email-address">linkedin.com/in/sabhareeshwaran</a>
+            <div class="footer-about-row">
+              <div class="footer-about-label">LinkedIn</div>
+              <p class="footer-about-text">
+                <a href="https://www.linkedin.com/in/sabhareeshwaran/" target="_blank" rel="noopener"
+                  class="footer-email-address" style="color: inherit; text-decoration: none;">linkedin.com/in/sabhareeshwaran</a>
+              </p>
             </div>
-            <div class="footer-phone">
-              <span class="footer-email-label">Location</span>
-              <span class="footer-email-address">Chennai, Tamil Nadu, India</span>
+            <div class="footer-about-row">
+              <div class="footer-about-label">Location</div>
+              <p class="footer-about-text">Chennai, Tamil Nadu, India</p>
             </div>
           </div>
           <div class="footer-about">
@@ -1317,8 +1392,8 @@
     </div>
   </div>
 
-  <script src="assets/js/script.js?v=1.4"></script>
-  <script src="assets/js/animations.js?v=1.4"></script>
+  <script src="assets/js/script.js?v=1.9"></script>
+  <script src="assets/js/animations.js?v=1.9"></script>
 </body>
 
 </html>

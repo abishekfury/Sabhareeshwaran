@@ -1525,7 +1525,7 @@ html.lenis {
 /* ============================================================
    SCROLL-DRIVEN STORYTELLING LAYOUT SYSTEM
    ============================================================ */
-@media (min-width: 0px) {
+@media (min-width: 901px) {
 
   /* Volunteering Storytelling Section styling */
   #volunteering {

@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.ticker.lagSmoothing(0);
 
     lenis.on('scroll', ScrollTrigger.update);
+    window.lenis = lenis;
   }
 
   /* ============================================================
@@ -274,8 +275,9 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger: line,
         start: 'top 75%',
         onEnter: () => {
+          const isLight = document.body.classList.contains('light-theme');
           gsap.to(line, {
-            color: 'rgba(255, 255, 255, 0.9)',
+            color: isLight ? '#000000' : 'rgba(255, 255, 255, 0.9)',
             duration: 0.8,
             delay: index * 0.1,
             ease: 'power2.out'
@@ -329,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
      ============================================================ */
   function initNavActiveSection() {
     const sections = document.querySelectorAll('section[id], footer[id]');
-    const navLinks = document.querySelectorAll('.mobile-menu-content a, .nav-cta');
+    const navLinks = document.querySelectorAll('.mobile-menu-content a, .split-nav-link, .nav-cta');
 
     if (!navLinks.length) return;
 
@@ -583,8 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
         onUpdate: self => {
           const progress = self.progress;
           gsap.set(navbar, {
-            y: progress * -10,
-            opacity: 1 - (progress * 0.1)
+            y: progress * -10
           });
         }
       });
@@ -712,7 +713,8 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger: line,
         start: isMobile ? 'top 108%' : 'top 70%',
         onEnter: () => {
-          gsap.to(line, { color: 'rgba(255, 255, 255, 0.85)', duration: 0.8, ease: 'power2.out' });
+          const isLight = document.body.classList.contains('light-theme');
+          gsap.to(line, { color: isLight ? '#000000' : 'rgba(255, 255, 255, 0.85)', duration: 0.8, ease: 'power2.out' });
         },
         onLeaveBack: () => {
           gsap.to(line, { color: 'var(--gray)', duration: 0.6, ease: 'power2.in' });
@@ -793,9 +795,98 @@ document.addEventListener('DOMContentLoaded', () => {
   function initCardTilt() {
     if (window.innerWidth <= 768 || prefersReducedMotion) return;
 
-    const tiltCards = document.querySelectorAll('.stat-row, .exp-item');
+    // Select all interactive card components
+    const cards = document.querySelectorAll('.stat-row, .exp-item, .skill-card-container, .timeline-card, .rec-card');
 
-    tiltCards.forEach(card => {
+    cards.forEach(card => {
+      const isSkillCard = card.classList.contains('skill-card-container');
+      const isRecCard = card.classList.contains('rec-card');
+      
+      // Determine the tilt target
+      let tiltTarget = card;
+      if (isSkillCard) {
+        tiltTarget = card.querySelector('.skill-card-inner');
+      } else if (isRecCard) {
+        // Wrap rec-card contents dynamically if not already wrapped
+        let inner = card.querySelector('.rec-card-inner');
+        if (!inner) {
+          inner = document.createElement('div');
+          inner.className = 'rec-card-inner';
+          inner.style.cssText = `
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          `;
+          while (card.firstChild) {
+            inner.appendChild(card.firstChild);
+          }
+          card.appendChild(inner);
+        }
+        tiltTarget = inner;
+      }
+      
+      if (!tiltTarget) return;
+
+      // 1. Create and append glow overlay dynamically
+      let glow = card.querySelector('.card-glow');
+      if (!glow) {
+        glow = document.createElement('div');
+        glow.className = 'card-glow';
+        glow.style.cssText = `
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 3;
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          border-radius: inherit;
+          background: radial-gradient(circle at 50% 50%, rgba(255, 69, 0, 0.12) 0%, transparent 60%);
+        `;
+
+        if (isSkillCard) {
+          const front = card.querySelector('.skill-card-front');
+          const back = card.querySelector('.skill-card-back');
+          if (front) front.appendChild(glow.cloneNode(true));
+          if (back) back.appendChild(glow.cloneNode(true));
+        } else if (isRecCard) {
+          tiltTarget.appendChild(glow);
+        } else {
+          card.appendChild(glow);
+        }
+      }
+
+      // Initialize 3D context
+      gsap.set(tiltTarget, { transformPerspective: 1200 });
+
+      // Mouseenter interaction
+      card.addEventListener('mouseenter', () => {
+        const glows = isSkillCard ? card.querySelectorAll('.card-glow') : [glow];
+        glows.forEach(g => g.style.opacity = '1');
+        
+        card.classList.add('is-hovered');
+
+        if (isSkillCard) {
+          // Flip card to the back smoothly
+          gsap.to(tiltTarget, {
+            rotationY: 180,
+            duration: 0.6,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        } else if (!isRecCard) {
+          // Lift up the card on hover (except for carousel card which uses relative pos)
+          gsap.to(tiltTarget, {
+            y: -6,
+            duration: 0.4,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }
+      });
+
+      // Mousemove tilt and glow calculation
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -804,25 +895,181 @@ document.addEventListener('DOMContentLoaded', () => {
         const rotateX = ((e.clientY - centerY) / rect.height) * -8;
         const rotateY = ((e.clientX - centerX) / rect.width) * 8;
 
-        gsap.to(card, {
-          rotationX: rotateX,
-          rotationY: rotateY,
-          transformPerspective: 1000,
-          duration: 0.3,
-          ease: 'power2.out',
+        if (isSkillCard) {
+          // Invert horizontal tilt when flipped to match the back face coordinate space
+          const currentRotationY = 180 - rotateY;
+          gsap.to(tiltTarget, {
+            rotationX: rotateX,
+            rotationY: currentRotationY,
+            duration: 0.35,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        } else if (isRecCard) {
+          gsap.to(tiltTarget, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            duration: 0.35,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        } else {
+          // Tilt and lift
+          gsap.to(tiltTarget, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            y: -6,
+            duration: 0.35,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }
+
+        // Update glow gradient position
+        const glows = isSkillCard ? card.querySelectorAll('.card-glow') : [glow];
+        glows.forEach(g => {
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          g.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 69, 0, 0.15) 0%, transparent 60%)`;
         });
       });
 
+      // Mouseleave reset
       card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          rotationX: 0,
-          rotationY: 0,
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.5)',
-        });
+        const glows = isSkillCard ? card.querySelectorAll('.card-glow') : [glow];
+        glows.forEach(g => g.style.opacity = '0');
+
+        if (isSkillCard) {
+          // If clicked/pinned (has flipped class), return to flat back (180). Otherwise return to front (0).
+          const targetRotY = card.classList.contains('flipped') ? 180 : 0;
+          gsap.to(tiltTarget, {
+            rotationX: 0,
+            rotationY: targetRotY,
+            duration: 0.8,
+            ease: 'power2.out',
+            overwrite: 'auto',
+            onComplete: () => {
+              card.classList.remove('is-hovered');
+            }
+          });
+        } else if (isRecCard) {
+          gsap.to(tiltTarget, {
+            rotationX: 0,
+            rotationY: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            overwrite: 'auto',
+            onComplete: () => {
+              card.classList.remove('is-hovered');
+            }
+          });
+        } else {
+          gsap.to(tiltTarget, {
+            rotationX: 0,
+            rotationY: 0,
+            y: 0,
+            duration: 0.8,
+            ease: 'elastic.out(1, 0.5)',
+            overwrite: 'auto',
+            onComplete: () => {
+              card.classList.remove('is-hovered');
+            }
+          });
+        }
       });
     });
   }
+
+  /* ============================================================
+     CUSTOM MOUSE CURSOR
+     ============================================================ */
+  function initCustomCursor() {
+    if (window.innerWidth <= 768 || prefersReducedMotion) return;
+
+    // Create custom cursor elements dynamically
+    const dot = document.createElement('div');
+    dot.className = 'custom-cursor-dot';
+    
+    const follower = document.createElement('div');
+    follower.className = 'custom-cursor-follower';
+    
+    const cursorText = document.createElement('span');
+    cursorText.className = 'cursor-text';
+    follower.appendChild(cursorText);
+    
+    document.body.appendChild(dot);
+    document.body.appendChild(follower);
+
+    // Set initial centering transform properties via GSAP
+    gsap.set([dot, follower], { xPercent: -50, yPercent: -50 });
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let dotX = 0;
+    let dotY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    // Track mouse coordinates
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Animate custom cursor on every GSAP tick
+    gsap.ticker.add(() => {
+      // Small center dot moves faster
+      dotX += (mouseX - dotX) * 0.35;
+      dotY += (mouseY - dotY) * 0.35;
+      
+      // Outer ring has a smooth delay
+      followerX += (mouseX - followerX) * 0.16;
+      followerY += (mouseY - followerY) * 0.16;
+
+      gsap.set(dot, { x: dotX, y: dotY });
+      gsap.set(follower, { x: followerX, y: followerY });
+    });
+
+    // Helper to register hover transitions
+    const setupCursorHover = (selector, hoverClass, text = '') => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          follower.classList.add(hoverClass);
+          dot.classList.add('hovering');
+          if (text) {
+            cursorText.textContent = text;
+          }
+        });
+        el.addEventListener('mouseleave', () => {
+          follower.classList.remove(hoverClass);
+          dot.classList.remove('hovering');
+        });
+      });
+    };
+
+    // Standard links, buttons, and clickable items
+    setupCursorHover('a, button, [role="button"], .clickable, .nav-menu-btn, .rec-btn, .mobile-menu-close', 'hover-link');
+    
+    // Skill flip cards
+    setupCursorHover('.skill-card-container', 'hover-card', 'FLIP');
+    
+    // Recommendation cards
+    setupCursorHover('.rec-card', 'hover-card', 'SWIPE');
+    
+    // Featured work items / other portfolio links
+    setupCursorHover('.work-item, .exp-scroller-item', 'hover-view', 'VIEW');
+
+    // Hide custom cursor when mouse leaves the page
+    document.addEventListener('mouseleave', () => {
+      gsap.to([dot, follower], { opacity: 0, duration: 0.3 });
+    });
+    
+    document.addEventListener('mouseenter', () => {
+      gsap.to([dot, follower], { opacity: 1, duration: 0.3 });
+    });
+  }
+
 
   /* ============================================================
      FOOTER NAME GRADIENT EFFECT
@@ -1028,6 +1275,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initExpertiseBannerInteractions();
   initParallaxMicroInteractions();
   initCardTilt();
+  initCustomCursor();
   initFooterNameGradient();
   initClockDotPulse();
   initEnhancedStatGlow();
@@ -1516,8 +1764,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mm = gsap.matchMedia();
 
-    // 1. DESKTOP STORYTELLING PINNING PATTERN (all screen widths)
-    mm.add("(min-width: 0px)", () => {
+    // 1. DESKTOP STORYTELLING PINNING PATTERN (Desktop only)
+    mm.add("(min-width: 901px)", () => {
       const volunteeringSection = document.getElementById("volunteering");
       const slides = gsap.utils.toArray("#volunteering .vol-story-slide");
 
@@ -1644,8 +1892,8 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     });
 
-    // 2. MOBILE FALLBACK (disabled to prevent conflict)
-    mm.add("(max-width: -1px)", () => {
+    // 2. MOBILE FALLBACK (Active on mobile)
+    mm.add("(max-width: 900px)", () => {
       const volBlocks = document.querySelectorAll('#volunteering .vol-block');
 
       volBlocks.forEach((block) => {
@@ -1702,8 +1950,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mm = gsap.matchMedia();
 
-    // 1. DESKTOP STORYTELLING PINNING PATTERN (all screen widths)
-    mm.add("(min-width: 0px)", () => {
+    // 1. DESKTOP STORYTELLING PINNING PATTERN (Desktop only)
+    mm.add("(min-width: 901px)", () => {
       const awardsSection = document.getElementById("awards");
       const slides = gsap.utils.toArray("#awards .award-story-slide");
 
@@ -1830,8 +2078,8 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     });
 
-    // 2. MOBILE FALLBACK (disabled to prevent conflict)
-    mm.add("(max-width: -1px)", () => {
+    // 2. MOBILE FALLBACK (Active on mobile)
+    mm.add("(max-width: 900px)", () => {
       const awardBlocks = document.querySelectorAll('#awards .award-showcase');
 
       awardBlocks.forEach((block) => {
@@ -1982,6 +2230,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ============================================================
+     EDUCATION TIMELINE SCROLL TRIGGER
+     ============================================================ */
+  function initEducationTimelineAnimation() {
+    const timeline = document.querySelector('.education-timeline-container');
+    if (!timeline) return;
+
+    const items = timeline.querySelectorAll('.timeline-item');
+    const progressBar = timeline.querySelector('.education-timeline-line-progress');
+
+    // Create a ScrollTrigger timeline to animate the progress bar filling up
+    if (progressBar) {
+      gsap.fromTo(progressBar, 
+        { height: '0%' },
+        { 
+          height: '100%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: timeline,
+            start: 'top 70%',
+            end: 'bottom 75%',
+            scrub: true
+          }
+        }
+      );
+    }
+
+    // Animate each timeline card as it scrolls into view
+    items.forEach((item) => {
+      const dot = item.querySelector('.timeline-dot');
+      const card = item.querySelector('.timeline-card');
+      const isLeft = item.classList.contains('left');
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 80%', // when top of item hits 80% of viewport
+          toggleActions: 'play none none reverse', // reverse animation on scroll back up
+        }
+      });
+
+      // Animate item opacity, dot glow, and card slide
+      tl.to(item, {
+        opacity: 1,
+        duration: 0.2
+      })
+      .to(dot, {
+        backgroundColor: 'var(--red)',
+        borderColor: 'var(--white)',
+        boxShadow: '0 0 12px var(--red), 0 0 24px var(--red)',
+        duration: 0.3
+      }, '<')
+      .fromTo(card,
+        {
+          opacity: 0,
+          x: isLeft ? -50 : 50,
+          scale: 0.95
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: 'power3.out'
+        },
+        '<+0.1'
+      );
+    });
+  }
+
+  initEducationTimelineAnimation();
   initSmoothAnchorLinks();
   initFooterScrollerAnimation();
 
@@ -2000,6 +2319,12 @@ window.addEventListener('resize', () => {
     if (lenis) lenis.resize();
     ScrollTrigger.refresh();
   }, 250);
+});
+
+// Refresh on window load to handle any layout shifts from slow-loading images/fonts
+window.addEventListener('load', () => {
+  if (lenis) lenis.resize();
+  ScrollTrigger.refresh();
 });
 
 // Cleanup on page unload
