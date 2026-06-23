@@ -186,10 +186,21 @@ function initSplitHeroNav() {
   }
 
   splitMenuBtn.addEventListener('click', () => {
-    if (splitHeroNav.classList.contains('open')) {
-      closeNav();
+    if (window.innerWidth <= 900) {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.getElementById('menuBtn');
+      if (mobileMenu && menuBtn) {
+        menuBtn.classList.add('active');
+        mobileMenu.classList.add('open');
+        document.body.classList.add('no-scroll');
+        if (window.lenis) window.lenis.stop();
+      }
     } else {
-      openNav();
+      if (splitHeroNav.classList.contains('open')) {
+        closeNav();
+      } else {
+        openNav();
+      }
     }
   });
 

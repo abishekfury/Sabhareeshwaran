@@ -894,19 +894,30 @@ button {
     right: 20px;
   }
 
-  /* Mobile fixed navbar always active and visible */
+  /* Mobile fixed navbar: hidden in hero, active on scroll */
   .navbar {
-    opacity: 1 !important;
-    pointer-events: auto !important;
+    opacity: 0;
+    pointer-events: none;
     background: rgba(10, 10, 10, 0.95) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(255, 69, 0, 0.15);
+    transition: opacity 0.4s ease, background 0.4s ease, padding 0.4s ease;
   }
 
-  /* Hide duplicate topbar on mobile */
+  .navbar.scrolled {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  body.light-theme .navbar.scrolled {
+    background: rgba(245, 246, 248, 0.95) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  /* Show split hero topbar on mobile in the hero section */
   .split-hero-topbar {
-    display: none !important;
+    display: flex !important;
   }
 }
 
@@ -2201,7 +2212,7 @@ button {
 .skill-card-container {
   perspective: 1500px;
   width: 100%;
-  min-height: 480px;
+  height: 480px;
   position: relative;
   cursor: pointer;
 }
@@ -2215,7 +2226,12 @@ button {
 }
 
 /* Hover and active flip logic */
-.skill-card-container:hover .skill-card-inner,
+@media (hover: hover) {
+  .skill-card-container:hover .skill-card-inner {
+    transform: rotateY(180deg);
+  }
+}
+
 .skill-card-container.flipped .skill-card-inner {
   transform: rotateY(180deg);
 }
@@ -2422,7 +2438,7 @@ button {
   }
 
   .skill-card-container {
-    min-height: 480px;
+    height: 480px;
   }
 
   .card-step-1,
@@ -2447,7 +2463,7 @@ button {
   }
 
   .skill-card-container {
-    min-height: 400px;
+    height: 420px;
   }
 }
 

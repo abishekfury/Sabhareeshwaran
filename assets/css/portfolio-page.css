@@ -1525,7 +1525,7 @@ html.lenis {
 /* ============================================================
    SCROLL-DRIVEN STORYTELLING LAYOUT SYSTEM
    ============================================================ */
-@media (min-width: 901px) {
+/* Unified layout for both desktop and mobile pinning animations */
 
   /* Volunteering Storytelling Section styling */
   #volunteering {
@@ -1929,44 +1929,6 @@ html.lenis {
     max-width: 660px !important;
     margin: 0 auto !important;
   }
-}
-
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
-
-  .vol-block,
-  .vol-block-reverse,
-  .award-showcase,
-  .award-showcase-reverse {
-    grid-template-columns: 1fr;
-    direction: ltr;
-  }
-
-  .vol-block-reverse>*,
-  .award-showcase-reverse>* {
-    direction: ltr;
-  }
-
-  .vol-info,
-  .vol-block-reverse .vol-info,
-  .award-showcase-info,
-  .award-showcase-reverse .award-showcase-info {
-    padding-right: 0;
-    padding-left: 0;
-  }
-
-  .vol-images-two,
-  .vol-images-three,
-  .award-images-two {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .vol-images-three {
-    grid-template-columns: 1fr;
-  }
-}
 
 
 
@@ -2106,7 +2068,7 @@ html.lenis {
 }
 
 /* Mobile Responsive Scaling for Pinned Storytelling Sections */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   #volunteering,
   #awards {
     height: 100vh !important;
