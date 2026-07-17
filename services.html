@@ -1,0 +1,3257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity & Consulting Services | Sabhareeshwaran S</title>
+  <meta name="description"
+    content="Explore the professional services, mentoring, training, and corporate security consulting options offered by Sabhareeshwaran S.">
+  <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+
+  <!-- Preload Critical Assets -->
+  <link rel="preload" href="assets/css/style.css?v=2.3" as="style">
+  <link rel="preload" href="assets/css/portfolio-page.css?v=2.0" as="style">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=2.3">
+  <link rel="stylesheet" href="assets/css/portfolio-page.css?v=2.0">
+
+  <style>
+    /* Custom inner page styles for Services */
+    .inner-hero {
+      position: relative;
+      padding: 140px 40px 60px;
+      background: linear-gradient(180deg, rgba(224, 90, 0, 0.08) 0%, rgba(10, 10, 10, 0) 100%);
+      border-bottom: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+
+    .inner-hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .inner-hero-container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .inner-hero-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .inner-hero-title {
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .inner-hero-desc {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: var(--text-muted);
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    /* Category Navigation */
+    .services-nav-section {
+      padding: 30px 40px;
+      background: rgba(255, 255, 255, 0.01);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .services-nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .srv-nav-btn {
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .srv-nav-btn:hover {
+      color: var(--white);
+      border-color: var(--text-muted);
+    }
+
+    .srv-nav-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white);
+      box-shadow: 0 4px 15px rgba(224, 90, 0, 0.35);
+    }
+
+    /* Search row */
+    .services-search-row {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding: 0 40px;
+    }
+
+    .srv-search-wrap {
+      position: relative;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 1.2rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .srv-search-wrap:focus-within {
+      border-color: var(--red);
+      box-shadow: 0 0 15px rgba(224, 90, 0, 0.15);
+    }
+
+    .srv-search-prompt {
+      font-family: monospace;
+      color: var(--red);
+      margin-right: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .srv-search-input {
+      background: none;
+      border: none;
+      color: var(--white);
+      width: 100%;
+      padding: 1rem 0;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    /* Main Content */
+    .services-page-content {
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .category-group {
+      margin-bottom: 5rem;
+      scroll-margin-top: 180px;
+    }
+
+    .category-group-header {
+      margin-bottom: 2rem;
+      border-left: 3px solid var(--red);
+      padding-left: 20px;
+    }
+
+    .category-group-num {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--red);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .category-group-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .category-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 7rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      padding-bottom: 5rem;
+    }
+
+    @media (min-width: 992px) {
+      .category-group {
+        grid-template-columns: 320px 1fr;
+        gap: 5rem;
+      }
+
+      .category-group-header {
+        position: sticky;
+        top: 130px;
+        align-self: start;
+      }
+    }
+
+    .category-group-header {
+      margin-bottom: 0;
+      border-left: none !important;
+      padding-left: 24px;
+    }
+
+    .services-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .service-detailed-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      transition: all 0.4s var(--ease-out-expo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .service-detailed-card {
+        grid-template-columns: 60px 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .srv-card-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .srv-card-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(224, 90, 0, 0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red);
+      font-size: 1.5rem;
+      border: 1px solid rgba(224, 90, 0, 0.15);
+    }
+
+    .srv-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .srv-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .srv-deliverables-list {
+      margin-top: 1.2rem;
+      padding-left: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    @media (min-width: 600px) {
+      .srv-deliverables-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .srv-deliverables-list li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .srv-deliverables-list li::before {
+      content: '✓';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .srv-card-action {
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .srv-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      background: transparent;
+      border: 1px solid var(--border-light);
+      padding: 0.8rem 1.6rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .service-detailed-card:hover .srv-action-btn {
+      background: var(--red);
+      border-color: var(--red);
+      box-shadow: 0 4px 15px rgba(224, 90, 0, 0.3);
+    }
+
+    /* Light Theme Overrides */
+    body.light-theme .inner-hero {
+      background: linear-gradient(180deg, rgba(224, 90, 0, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    body.light-theme .inner-hero-title {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .inner-hero-desc {
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .services-nav-section {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    body.light-theme .srv-nav-btn {
+      background: rgba(0, 0, 0, 0.02);
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-nav-btn:hover {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-search-wrap {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    body.light-theme .srv-search-input {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .category-group-title {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .service-detailed-card {
+      background: rgba(0, 0, 0, 0.01);
+      border-color: rgba(0, 0, 0, 0.06);
+    }
+
+    body.light-theme .service-detailed-card:hover {
+      background: rgba(0, 0, 0, 0.02);
+      border-color: rgba(224, 90, 0, 0.15);
+    }
+
+    body.light-theme .srv-title {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-desc {
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-deliverables-list li {
+      color: var(--text-muted-dark);
+    }
+
+    @media (max-width: 900px) {
+      .inner-hero {
+        padding: 100px 20px 40px;
+      }
+
+      .services-nav-section {
+        padding: 20px;
+        top: 60px;
+      }
+
+      .services-search-row {
+        padding: 0 20px;
+      }
+
+      .services-page-content {
+        padding: 40px 20px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Premium Cyber Layout & Sidebar */
+    .services-layout-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 3rem;
+      position: relative;
+    }
+
+    .services-page-content {
+      flex: 1;
+      padding: 60px 40px;
+      max-width: 1000px;
+      margin: 0;
+    }
+
+    .hud-telemetry-sidebar {
+      width: 320px;
+      padding: 60px 40px 60px 0;
+      display: none;
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      z-index: 10;
+    }
+
+    @media (min-width: 1200px) {
+      .hud-telemetry-sidebar {
+        display: block;
+      }
+    }
+
+    .hud-sidebar-panel {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .hud-panel-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hud-panel-title {
+      font-family: monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.15em;
+    }
+
+    .hud-panel-status {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #00b4d8;
+      background: rgba(0, 180, 216, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 180, 216, 0.2);
+    }
+
+    .hud-radar-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+
+    .hud-radar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1px solid rgba(224, 90, 0, 0.15);
+      position: relative;
+      background: radial-gradient(circle, rgba(224, 90, 0, 0.03) 0%, transparent 80%);
+      overflow: hidden;
+    }
+
+    .hud-radar::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(224, 90, 0, 0.15) 0%, transparent 50%);
+      transform-origin: center;
+      animation: radar-sweep 4s linear infinite;
+    }
+
+    .hud-radar-grid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border: 1px dashed rgba(224, 90, 0, 0.1);
+      border-radius: 50%;
+    }
+
+    .hud-radar-cross-h {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: rgba(224, 90, 0, 0.1);
+    }
+
+    .hud-radar-cross-v {
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: rgba(224, 90, 0, 0.1);
+    }
+
+    @keyframes radar-sweep {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hud-stats-widget {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      font-family: monospace;
+      font-size: 0.75rem;
+    }
+
+    .hud-stat-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .hud-stat-lbl {
+      color: var(--text-muted);
+    }
+
+    .hud-stat-val {
+      color: var(--white);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .hud-stat-val.active-sector {
+      color: var(--red);
+      font-weight: 900;
+    }
+
+    .hud-console-logs {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
+      padding: 0.8rem;
+      height: 120px;
+      overflow-y: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: #a7a9be;
+    }
+
+    .hud-log-line {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hud-log-line span {
+      color: var(--red);
+    }
+
+    /* 3D Tilt Card & Reflections */
+    .service-detailed-card {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .service-detailed-card>* {
+      transform: translateZ(20px);
+    }
+
+    .srv-card-glow {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(224, 90, 0, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      mix-blend-mode: screen;
+    }
+
+    /* Category Header Connection Lines */
+    .category-group-header {
+      position: relative;
+      margin-bottom: 2.5rem;
+      border-left: none !important;
+      padding-left: 24px;
+    }
+
+    .category-header-line {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--red);
+      transform-origin: top;
+      box-shadow: 0 0 10px rgba(224, 90, 0, 0.5);
+    }
+
+    /* Light Theme Side overrides */
+    body.light-theme .hud-sidebar-panel {
+      background: rgba(0, 0, 0, 0.01);
+      border-color: rgba(0, 0, 0, 0.06);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    body.light-theme .hud-stat-val {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .hud-console-logs {
+      background: rgba(0, 0, 0, 0.02);
+      border-color: rgba(0, 0, 0, 0.04);
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-card-glow {
+      background: radial-gradient(circle, rgba(224, 90, 0, 0.08) 0%, transparent 70%);
+    }
+
+    /* ==========================================
+       SERVICES — EDITORIAL MATRIX HEADER DESIGN
+       Same premium layout as Roadmap Search Matrix
+       ========================================== */
+
+    .services-editorial-header {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 40px 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .services-editorial-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      animation: srv-scan-h 4s linear infinite;
+    }
+
+    @keyframes srv-scan-h {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .srv-editorial-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      .srv-editorial-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+    }
+
+    .srv-editorial-left {
+      flex: 1;
+    }
+
+    .srv-giant-title {
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .srv-editorial-subtitle {
+      font-size: 0.75rem;
+      font-family: monospace;
+      letter-spacing: 0.15em;
+      color: var(--red);
+      margin-top: 1rem;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .srv-editorial-right {
+      min-width: 340px;
+    }
+
+    .srv-editorial-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .srv-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 0.8rem;
+    }
+
+    .srv-meta-label {
+      font-size: 0.65rem;
+      font-family: monospace;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .srv-meta-value {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--white);
+      transition: color 0.3s ease;
+    }
+
+    .srv-meta-value.live-update {
+      color: var(--red);
+      text-shadow: 0 0 10px rgba(224, 90, 0, 0.4);
+    }
+
+    /* Editorial Hero Search (upgrade from basic search row) */
+    .services-search-row {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px 40px 0;
+    }
+
+    .srv-search-hero-container {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+      padding: 0.8rem 0;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+
+    .srv-search-hero-container:focus-within {
+      border-color: var(--red);
+    }
+
+    .srv-search-hero-prompt {
+      font-size: clamp(0.9rem, 2vw, 1.4rem);
+      font-weight: 900;
+      color: var(--red);
+      font-family: monospace;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    .srv-search-hero-input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      padding: 0;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .srv-search-hero-input::placeholder {
+      color: rgba(255, 255, 255, 0.1);
+    }
+
+    .srv-search-count-tag {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--red);
+      font-weight: 800;
+      background: rgba(224, 90, 0, 0.08);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(224, 90, 0, 0.2);
+      white-space: nowrap;
+    }
+
+    /* Services Category Nav — editorial underline tabs style */
+    .services-nav-section {
+      padding: 20px 40px;
+    }
+
+    .services-nav-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+    }
+
+    .srv-nav-btn {
+      background: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .srv-nav-btn:hover {
+      color: var(--white);
+    }
+
+    .srv-nav-btn.active {
+      color: var(--white);
+      box-shadow: none !important;
+    }
+
+    .srv-nav-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--red);
+      box-shadow: 0 0 10px var(--red);
+    }
+
+    /* Service Card — enhanced 3D and animations */
+    .service-detailed-card {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-detailed-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(224, 90, 0, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .service-detailed-card:hover::after {
+      opacity: 1;
+    }
+
+    .service-detailed-card:hover {
+      background: rgba(255, 255, 255, 0.025) !important;
+      border-color: rgba(224, 90, 0, 0.35) !important;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), inset 0 0 30px rgba(224, 90, 0, 0.03) !important;
+    }
+
+    /* Category header pulse line */
+    .category-header-line {
+      box-shadow: 0 0 12px rgba(224, 90, 0, 0.6);
+      transition: height 0.5s ease;
+    }
+
+    /* Holographic shimmer on service card */
+    .service-detailed-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(105deg,
+          transparent,
+          rgba(224, 90, 0, 0.04) 50%,
+          transparent);
+      transform: skewX(-15deg);
+      transition: left 0.8s ease;
+      pointer-events: none;
+    }
+
+    .service-detailed-card:hover::before {
+      left: 150%;
+    }
+
+    /* Ghost category number watermark */
+    .category-group-header::before {
+      content: attr(data-cat-num);
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: monospace;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      color: rgba(224, 90, 0, 0.04);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Particle burst on service action btn */
+    @keyframes srv-particle-burst {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    .srv-particle {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+      pointer-events: none;
+      z-index: 9999;
+      animation: srv-particle-burst 0.5s ease forwards;
+    }
+
+    /* Floating cyber lines */
+    .srv-float-line {
+      position: absolute;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(224, 90, 0, 0.15), transparent);
+      pointer-events: none;
+      animation: srv-float-drift 9s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes srv-float-drift {
+      0% {
+        opacity: 0;
+        transform: translateY(0);
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-200px);
+      }
+    }
+
+    /* No-results hidden service groups */
+    .category-group.search-hidden {
+      display: none !important;
+    }
+
+    /* Deliverables list tick animation */
+    .srv-deliverables-list li {
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .srv-deliverables-list li:hover {
+      color: var(--white);
+      transform: translateX(4px);
+    }
+
+    /* Light Theme Overrides for editorial section */
+    body.light-theme .services-editorial-header {
+      border-color: rgba(0, 0, 0, 0.06);
+    }
+
+    body.light-theme .srv-giant-title {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-meta-item {
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    body.light-theme .srv-meta-value {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-search-hero-container {
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    body.light-theme .srv-search-hero-input {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-search-hero-input::placeholder {
+      color: rgba(0, 0, 0, 0.15);
+    }
+
+    body.light-theme .srv-nav-btn {
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-nav-btn:hover {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-nav-btn.active {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .service-detailed-card:hover {
+      background: rgba(0, 0, 0, 0.025) !important;
+      border-color: rgba(224, 90, 0, 0.2) !important;
+    }
+
+    @media (max-width: 900px) {
+      .services-editorial-header {
+        padding: 30px 20px 25px;
+      }
+
+      .srv-editorial-right {
+        min-width: auto;
+      }
+
+      .srv-editorial-meta-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .services-search-row {
+        padding: 15px 20px 0;
+      }
+
+      .services-nav-section {
+        padding: 15px 20px;
+      }
+
+      .services-nav-container {
+        gap: 1.2rem;
+      }
+    }
+
+    /* ==========================================
+       SERVICES — IMPRESSIVE EXPANDABLE ROW LIST
+       Full redesign: editorial row-list, no cards
+       ========================================== */
+
+    /* Remove old card layout styles — override with new */
+    .services-layout-wrap {
+      display: block !important;
+      max-width: none;
+    }
+
+    .hud-telemetry-sidebar {
+      display: none !important;
+    }
+
+    .services-page-content {
+      padding: 0 !important;
+      max-width: none !important;
+      flex: none !important;
+    }
+
+    /* Full-width catalog wrap */
+    .services-catalog-wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 40px 100px;
+    }
+
+    @media (max-width: 768px) {
+      .services-catalog-wrap {
+        padding: 20px 20px 60px;
+      }
+    }
+
+    /* ---- Category Section Block ---- */
+    .srv-cat-section {
+      margin-bottom: 6rem;
+      scroll-margin-top: 160px;
+    }
+
+    .srv-cat-section.search-hidden {
+      display: none !important;
+    }
+
+    /* ---- Category Hero Banner ---- */
+    .srv-cat-hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      min-height: 180px;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (min-width: 768px) {
+      .srv-cat-hero {
+        grid-template-columns: 300px 1fr;
+        min-height: 200px;
+      }
+    }
+
+    .srv-cat-hero-img-wrap {
+      position: relative;
+      overflow: hidden;
+      min-height: 140px;
+    }
+
+    .srv-cat-hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.6) brightness(0.7);
+      transition: transform 0.8s ease, filter 0.5s ease;
+      display: block;
+    }
+
+    .srv-cat-section:hover .srv-cat-hero-img-wrap img {
+      transform: scale(1.04);
+      filter: saturate(0.8) brightness(0.8);
+    }
+
+    .srv-cat-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 60%, rgba(10, 10, 10, 0.95) 100%);
+      pointer-events: none;
+    }
+
+    @media (max-width: 767px) {
+      .srv-cat-hero-overlay {
+        background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 10, 0.95) 100%);
+      }
+    }
+
+    .srv-cat-hero-info {
+      background: rgba(10, 10, 10, 0.95);
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.6rem;
+      border-left: 2px solid var(--red);
+      position: relative;
+    }
+
+    .srv-cat-hero-info::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--red), transparent);
+      opacity: 0.4;
+    }
+
+    .srv-cat-hero-num {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--red);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .srv-cat-hero-title {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .srv-cat-hero-count {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.08em;
+    }
+
+    .srv-cat-hero-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      max-width: 480px;
+      margin-top: 0.2rem;
+    }
+
+    /* ---- Service Row List ---- */
+    .srv-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .srv-row-item {
+      position: relative;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    .srv-row-item:hover {
+      z-index: 10;
+    }
+
+    .srv-row-item.row-hidden {
+      display: none;
+    }
+
+    .srv-row-main {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      position: relative;
+      transition: padding-left 0.3s ease;
+    }
+
+    /* Sweep background on hover */
+    .srv-row-main::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(224, 90, 0, 0.05), rgba(224, 90, 0, 0.02));
+      transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .srv-row-item:hover .srv-row-main::before,
+    .srv-row-item.row-open .srv-row-main::before {
+      left: 0;
+    }
+
+    .srv-row-item:hover .srv-row-main,
+    .srv-row-item.row-open .srv-row-main {
+      padding-left: 8px;
+    }
+
+    .srv-row-num {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.15);
+      min-width: 2rem;
+      flex-shrink: 0;
+      transition: color 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .srv-row-item:hover .srv-row-num,
+    .srv-row-item.row-open .srv-row-num {
+      color: var(--red);
+    }
+
+    .srv-row-title {
+      font-size: clamp(1rem, 2vw, 1.45rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      flex: 1;
+      transition: color 0.25s ease, transform 0.3s ease;
+      line-height: 1.25;
+      position: relative;
+      z-index: 1;
+    }
+
+    .srv-row-item:hover .srv-row-title {
+      color: var(--white);
+      transform: translateX(6px);
+    }
+
+    .srv-row-item.row-open .srv-row-title {
+      color: var(--red);
+      transform: translateX(6px);
+    }
+
+    .srv-row-tags {
+      display: none;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 768px) {
+      .srv-row-tags {
+        display: flex;
+      }
+    }
+
+    .srv-tag {
+      font-size: 0.62rem;
+      font-family: monospace;
+      padding: 3px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 30px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .srv-row-item:hover .srv-tag,
+    .srv-row-item.row-open .srv-tag {
+      border-color: rgba(224, 90, 0, 0.3);
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .srv-row-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .srv-row-cat-lbl {
+      font-size: 0.62rem;
+      font-family: monospace;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .srv-row-cat-lbl {
+        display: block;
+      }
+    }
+
+    .srv-expand-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 300;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      line-height: 1;
+    }
+
+    .srv-row-item:hover .srv-expand-btn {
+      border-color: rgba(224, 90, 0, 0.4);
+      color: var(--white);
+    }
+
+    .srv-row-item.row-open .srv-expand-btn {
+      border-color: var(--red);
+      background: var(--red);
+      color: var(--white);
+      transform: rotate(45deg);
+    }
+
+    /* ---- Accordion Drawer ---- */
+    .srv-row-drawer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border-bottom: 1px solid transparent;
+    }
+
+    .srv-row-item.row-open .srv-row-drawer {
+      max-height: 500px;
+      border-bottom-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .srv-drawer-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 0 1.5rem 3.5rem;
+      border-left: 2px solid var(--red);
+      margin-left: 2px;
+    }
+
+    @media (min-width: 768px) {
+      .srv-drawer-inner {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+    }
+
+    .srv-drawer-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0 0 1rem;
+    }
+
+    .srv-drawer-deliverables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .srv-dtag {
+      font-size: 0.68rem;
+      padding: 4px 10px;
+      background: rgba(224, 90, 0, 0.06);
+      border: 1px solid rgba(224, 90, 0, 0.15);
+      border-radius: 4px;
+      color: rgba(255, 255, 255, 0.55);
+      font-family: monospace;
+      letter-spacing: 0.03em;
+    }
+
+    .srv-row-inquire {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.85rem 1.8rem;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(224, 90, 0, 0.25);
+      align-self: center;
+    }
+
+    .srv-row-inquire:hover {
+      background: #c94e00;
+      box-shadow: 0 6px 28px rgba(224, 90, 0, 0.45);
+      transform: translateY(-2px);
+    }
+
+    /* ---- No results state ---- */
+    .srv-no-results {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .srv-no-results.visible {
+      display: block;
+    }
+
+    /* ---- Light theme overrides ---- */
+    body.light-theme .srv-cat-hero-info {
+      background: rgba(255, 255, 255, 0.97);
+    }
+
+    body.light-theme .srv-cat-hero-title {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-cat-hero-desc {
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-row-title {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-row-item:hover .srv-row-title {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .srv-row-item.row-open .srv-row-title {
+      color: var(--red);
+    }
+
+    body.light-theme .srv-list {
+      border-color: rgba(0, 0, 0, 0.07);
+    }
+
+    body.light-theme .srv-row-main {
+      border-color: rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-theme .srv-row-main::before {
+      background: linear-gradient(90deg, rgba(224, 90, 0, 0.03), rgba(224, 90, 0, 0.01));
+    }
+
+    body.light-theme .srv-expand-btn {
+      border-color: rgba(0, 0, 0, 0.12);
+      background: rgba(0, 0, 0, 0.02);
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-drawer-desc {
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-cat-hero {
+      border-color: rgba(0, 0, 0, 0.07);
+    }
+
+    body.light-theme .srv-tag {
+      border-color: rgba(0, 0, 0, 0.1);
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-cat-hero-overlay {
+      background: none;
+    }
+
+    @media (max-width: 767px) {
+      body.light-theme .srv-cat-hero-overlay {
+        background: linear-gradient(180deg, transparent 60%, rgba(255, 255, 255, 0.97) 100%);
+      }
+    }
+
+    /* Re-enable default cursor pointer interactions */
+    @media (min-width: 769px) {
+
+      html,
+      body,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      .clickable {
+        cursor: auto !important;
+      }
+
+      a,
+      button,
+      [role="button"],
+      select,
+      .clickable,
+      .srv-row-main,
+      .srv-expand-btn {
+        cursor: pointer !important;
+      }
+    }
+
+    /* Custom overrides to match publications layout for services */
+    .services-catalog-wrap .work-item {
+      padding: 24px 0;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .services-catalog-wrap .work-item-name {
+      font-size: clamp(20px, 3.2vw, 42px);
+      font-weight: 400;
+    }
+
+    .services-catalog-wrap .work-item-preview {
+      width: clamp(280px, 45vw, 400px);
+      height: auto !important;
+      min-height: 180px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .services-catalog-wrap .srv-preview-cat {
+      color: var(--red);
+      font-size: 0.75rem;
+      font-family: monospace;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    body.light-theme .services-catalog-wrap .work-item-preview {
+      background: #fdfdfd;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .services-catalog-wrap .work-item-preview p {
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-dtag {
+      background: rgba(0, 0, 0, 0.03);
+      border-color: rgba(0, 0, 0, 0.1);
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    @media (max-width: 768px) {
+      .services-catalog-wrap .work-item-preview {
+        left: 50% !important;
+        right: auto !important;
+        width: 95% !important;
+        max-width: 340px !important;
+        min-height: auto !important;
+        transform: translate(-50%, -50%) scale(0.85) rotate(-2deg) !important;
+      }
+
+      .services-catalog-wrap .work-item.touch-active .work-item-preview {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
+      }
+    }
+
+    /* ---- Lightbox/Zoom Modal ---- */
+    .srv-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 0.4s;
+    }
+
+    .srv-lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .srv-lightbox-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 5, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor: zoom-out;
+    }
+
+    .srv-lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 85vh;
+      z-index: 10000;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .srv-lightbox.open .srv-lightbox-content {
+      transform: scale(1);
+    }
+
+    .srv-lightbox-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border: 1px solid rgba(224, 90, 0, 0.3);
+      border-radius: 4px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(224, 90, 0, 0.15);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .srv-lightbox-img.loaded {
+      opacity: 1;
+    }
+
+    .srv-lightbox-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      font-size: 36px;
+      color: var(--white);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .srv-lightbox-close:hover {
+      color: var(--red);
+      transform: scale(1.1);
+    }
+
+    .srv-lightbox-caption {
+      margin-top: 15px;
+      font-family: var(--font-main);
+      color: var(--white);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    body.light-theme .srv-lightbox-overlay {
+      background: rgba(245, 245, 245, 0.95);
+    }
+
+    body.light-theme .srv-lightbox-caption {
+      color: var(--black);
+    }
+
+    body.light-theme .srv-lightbox-close {
+      color: var(--black);
+    }
+
+    body.light-theme .srv-lightbox-close:hover {
+      color: var(--red);
+    }
+
+    .srv-cat-hero-img-wrap {
+      cursor: zoom-in;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-theme');
+    }
+  </script>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled" id="navbar" style="opacity: 1; pointer-events: auto;">
+    <a href="index.html" class="nav-logo">
+      <div style="color:var(--red);font-weight:900;font-size:24px;letter-spacing:-0.5px;">SAB</div>
+    </a>
+    <div class="nav-right">
+      <a href="services.html" class="nav-cta nav-cert-cta"
+        style="margin-right: 12px; border-color: var(--red); color: var(--white); background: var(--red);">Services</a>
+      <a href="roadmap.html" class="nav-cta" style="margin-right: 12px;">Roadmap</a>
+      <a href="index.html#contact" class="nav-cta">Contact</a>
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+        <div class="theme-toggle-btn-inner">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </div>
+      </button>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- NAV DRAWER -->
+  <div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
+  <div class="nav-drawer" id="navDrawer">
+    <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&#10005;</button>
+    <div class="nav-drawer-content">
+      <div class="menu-options-container">
+        <a href="index.html#about" class="menu-option-link" data-node="about">ABOUT</a>
+        <a href="index.html#experience" class="menu-option-link" data-node="experience">EXPERIENCE</a>
+        <a href="index.html#skills" class="menu-option-link" data-node="skills">SKILLS</a>
+        <a href="services.html" class="menu-option-link" data-node="services">SERVICES</a>
+        <a href="roadmap.html" class="menu-option-link" data-node="certifications">CERTIFICATIONS</a>
+        <a href="index.html#education" class="menu-option-link" data-node="education">EDUCATION</a>
+        <a href="index.html#volunteering" class="menu-option-link" data-node="volunteering">VOLUNTEERING</a>
+        <a href="index.html#awards" class="menu-option-link" data-node="awards">HONORS</a>
+        <a href="index.html#visual-gallery" class="menu-option-link" data-node="gallery">VISUAL GALLERY</a>
+        <a href="index.html#recommendations" class="menu-option-link" data-node="reviews">REVIEWS</a>
+        <a href="index.html#publications" class="menu-option-link" data-node="publications">PUBLICATIONS</a>
+        <a href="index.html#courses" class="menu-option-link" data-node="courses">COURSES</a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- INNER HERO -->
+  <header class="inner-hero">
+    <canvas id="hero-matrix-canvas" class="inner-hero-canvas"></canvas>
+    <div class="inner-hero-container">
+      <span class="inner-hero-label">SECURITY &amp; TRAINING SERVICES</span>
+      <h1 class="inner-hero-title">Professional Services</h1>
+      <p class="inner-hero-desc">
+        Explore a curated catalog of 40 specialized cybersecurity services, consulting programs, interactive academic
+        training, and 1:1 career accelerators designed to elevate technical competencies and safeguard infrastructures.
+      </p>
+    </div>
+  </header>
+
+  <!-- Sticky Categories Navigation -->
+  <section class="services-nav-section">
+    <div class="services-nav-container">
+      <button class="srv-nav-btn active" data-target="all">All Groups</button>
+      <button class="srv-nav-btn" data-target="training-edu">Training &amp; Education</button>
+      <button class="srv-nav-btn" data-target="career-mentorship">Mentorship &amp; Career</button>
+      <button class="srv-nav-btn" data-target="cert-labs">Certifications &amp; Labs</button>
+      <button class="srv-nav-btn" data-target="security-consulting">Consulting &amp; IT</button>
+      <button class="srv-nav-btn" data-target="assessment-compliance">Assessments &amp; Policies</button>
+      <button class="srv-nav-btn" data-target="community-advisory">Community &amp; Roadmaps</button>
+    </div>
+  </section>
+
+  <!-- SERVICES EDITORIAL HEADER (Matrix Mode style — title first, then search below) -->
+  <div class="services-editorial-header">
+    <div class="srv-editorial-inner">
+      <div class="srv-editorial-left">
+        <h1 class="srv-giant-title" id="srvGiantTitle">SRV_INTEL</h1>
+        <p class="srv-editorial-subtitle">DECRYPTING PROFESSIONAL CYBERSECURITY SERVICES CATALOG</p>
+      </div>
+      <div class="srv-editorial-right">
+        <div class="srv-editorial-meta-grid">
+          <div class="srv-meta-item">
+            <span class="srv-meta-label">ACTIVE SECTOR</span>
+            <span class="srv-meta-value" id="srvEditSector">ALL UNITS</span>
+          </div>
+          <div class="srv-meta-item">
+            <span class="srv-meta-label">TOTAL SERVICES</span>
+            <span class="srv-meta-value">40+ UNITS</span>
+          </div>
+          <div class="srv-meta-item">
+            <span class="srv-meta-label">CATEGORIES</span>
+            <span class="srv-meta-value">6 SECTORS</span>
+          </div>
+          <div class="srv-meta-item">
+            <span class="srv-meta-label">SYS STATUS</span>
+            <span class="srv-meta-value" style="color:#00b4d8;">ONLINE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Row (Editorial Hero Search — same style as roadmap SEARCH_MATRIX) -->
+  <section class="services-search-row">
+    <div class="srv-search-hero-container">
+      <span class="srv-search-hero-prompt">SEARCH_MATRIX</span>
+      <input type="text" class="srv-search-hero-input" id="srvSearchInput" placeholder="ENTER KEYWORDS..."
+        autocomplete="off">
+      <span class="srv-search-count-tag" id="srvVisibleCount">40 UNITS</span>
+    </div>
+  </section>
+
+  <!-- MAIN SERVICES CATALOG — Impressive Row-List Design -->
+  <div class="services-layout-wrap">
+    <main class="services-page-content">
+      <div class="services-catalog-wrap">
+
+        <div class="srv-no-results" id="srvNoResults">NO SERVICES MATCH YOUR QUERY — TRY DIFFERENT KEYWORDS</div>
+
+        <!-- ████ SECTION 01: TRAINING & EDUCATION ████ -->
+        <section class="srv-cat-section" id="training-edu" data-cat="EDUCATION">
+          <div class="srv-cat-hero">
+            <div class="srv-cat-hero-img-wrap">
+              <img src="assets/images/service1.jpg" alt="Training & Education" loading="lazy">
+              <div class="srv-cat-hero-overlay"></div>
+            </div>
+            <div class="srv-cat-hero-info">
+              <span class="srv-cat-hero-num">CAT_01 | EDUCATION</span>
+              <h2 class="srv-cat-hero-title">Training &amp; Education</h2>
+              <p class="srv-cat-hero-count">07 SERVICES AVAILABLE</p>
+              <p class="srv-cat-hero-desc">Academic programs, workshops, seminars, and lecture-based content designed
+                for colleges, corporations, and individual learners.</p>
+            </div>
+          </div>
+          <div class="srv-list">
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="awareness program employee phishing simulation training corporate">
+              <span class="work-item-name">Cybersecurity Awareness Programs</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_01 | Corporate &bull; Phishing</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Designed to foster
+                  a security-first culture in corporate organizations. Focuses on social engineering defense, mobile
+                  threats, and basic compliance regulations.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Threat landscape presentation</span>
+                  <span class="srv-dtag">Phishing identification checklist</span>
+                  <span class="srv-dtag">Practical quiz and awareness metrics</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="workshops handson hackathons training bootcamp labs">
+              <span class="work-item-name">Cybersecurity Workshops</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_01 | Hands-On &bull; Labs</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Interactive,
+                  intensive bootcamps focused on real-world defensive and offensive tactics. Students gain experience
+                  using industry standard tooling.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Hands-on lab environments</span>
+                  <span class="srv-dtag">Tool installation &amp; basic setup guides</span>
+                  <span class="srv-dtag">Participation digital badge</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="corporate bootcamps enterprise training upskilling developers">
+              <span class="work-item-name">Corporate Training Programs</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_01 | Enterprise &bull; Custom</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Structured,
+                  customized upskilling curriculums tailored to IT infrastructure teams, developer groups, and technical
+                  risk auditors.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Custom syllabus aligned with tech stack</span>
+                  <span class="srv-dtag">Case study reports &amp; remediation focus</span>
+                  <span class="srv-dtag">Skill evaluation dashboards</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="seminar lectures academic panels zero trust enterprise">
+              <span class="work-item-name">Technical Seminars</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_01 | Academic &bull; Lectures</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Engaging
+                  presentations covering evolving cybersecurity trends, defensive controls, and modern zero-trust
+                  enterprise paradigms.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Slide decks &amp; resource directories</span>
+                  <span class="srv-dtag">Live Q&amp;A sessions</span>
+                  <span class="srv-dtag">Audience engagement metrics</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="webinar live stream zoom recording owasp azure endpoint">
+              <span class="work-item-name">Live Webinars</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_01 | Online &bull; Stream</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Global online
+                  streaming sessions covering targeted domains like OWASP Top 10, Azure Security, and Endpoint
+                  detection.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Interactive screen-share demos</span>
+                  <span class="srv-dtag">Session recordings &amp; presentation files</span>
+                  <span class="srv-dtag">Certificates of completion</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="guest lectures colleges universities mou engineering">
+              <span class="work-item-name">Guest Lectures</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_01 | Colleges &bull; Universities</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Inspiring and
+                  academic-friendly lectures for engineering, science, and computer application streams to bridge
+                  university learning with industry needs.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Curriculum integration support</span>
+                  <span class="srv-dtag">Real attack demo simulations</span>
+                  <span class="srv-dtag">Q&amp;A session with students</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="faculty fdp academic educators research development program">
+              <span class="work-item-name">Faculty Development Programs (FDP)</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_01 | Educators &bull; FDP</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Empowering
+                  educators with technical methodologies, tool competencies, and practical syllabus components in
+                  cybersecurity.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Lab curriculum manuals</span>
+                  <span class="srv-dtag">Reference documentation &amp; guides</span>
+                  <span class="srv-dtag">Lab architecture frameworks</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- ████ SECTION 02: MENTORSHIP & CAREER ████ -->
+        <section class="srv-cat-section" id="career-mentorship" data-cat="MENTORSHIP">
+          <div class="srv-cat-hero">
+            <div class="srv-cat-hero-img-wrap">
+              <img src="assets/images/service2.png" alt="Mentorship" loading="lazy">
+              <div class="srv-cat-hero-overlay"></div>
+            </div>
+            <div class="srv-cat-hero-info">
+              <span class="srv-cat-hero-num">CAT_02 | MENTORSHIP</span>
+              <h2 class="srv-cat-hero-title">Mentorship &amp; Career</h2>
+              <p class="srv-cat-hero-count">06 SERVICES AVAILABLE</p>
+              <p class="srv-cat-hero-desc">One-to-one coaching, career pathway mapping, resume optimization, and mock
+                interview services for professionals at every level.</p>
+            </div>
+          </div>
+          <div class="srv-list">
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="career guidance pathway entrylevel professional mapping strengths">
+              <span class="work-item-name">Career Guidance Sessions</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_02 | Pathway &bull; Career</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Identifying
+                  strengths, mapping professional interests, and determining clear step-by-step career tracks within
+                  security operations or offensive paths.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Career mapping worksheets</span>
+                  <span class="srv-dtag">Target sub-domain recommendations</span>
+                  <span class="srv-dtag">Follow-up resources list</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="1to1 mentorship private sessions coaching personal deep dive">
+              <span class="work-item-name">One-to-One Mentorship</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_02 | 1:1 &bull; Coaching</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Direct,
+                  hyper-focused coaching sessions. Perfect for deep-diving into specific skills, addressing blockers,
+                  and planning major career shifts.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Dedicated 1:1 call slots</span>
+                  <span class="srv-dtag">Personalized assignments</span>
+                  <span class="srv-dtag">Regular milestone checks</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="group mentorship study teams bootcamps cohort collaboration">
+              <span class="work-item-name">Group Mentorship Programs</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_02 | Group &bull; Cohort</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Interactive,
+                  cohort-style mentoring. Emphasizes collaborative project creation, group challenges, and shared
+                  peer-to-peer knowledge loops.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Cohort project code-reviews</span>
+                  <span class="srv-dtag">Weekly sync sessions</span>
+                  <span class="srv-dtag">Shared discord/slack access</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="mock interviews technical review hr prep soc pentesting grc">
+              <span class="work-item-name">Mock Interviews</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_02 | Interview &bull; Technical</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Simulation of SOC,
+                  Pentesting, and GRC technical rounds. Builds confidence and identifies areas requiring revision.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Live virtual interview session</span>
+                  <span class="srv-dtag">Detailed feedback scorecards</span>
+                  <span class="srv-dtag">List of topics to revise</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="resume review ats optimization cv formatting keyword rich latex">
+              <span class="work-item-name">Resume Review &amp; ATS Optimization</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_02 | Resume &bull; ATS</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Aligning resumes
+                  with Application Tracking Systems (ATS). Highlights technical skills and projects to maximize callback
+                  rates.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Formatted LaTeX/Markdown template</span>
+                  <span class="srv-dtag">Keyword-rich descriptions</span>
+                  <span class="srv-dtag">Project impact restructuring</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="linkedin profile brand social presence seo recruiter">
+              <span class="work-item-name">LinkedIn Profile Optimization</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_02 | LinkedIn &bull; Brand</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Constructing a
+                  premium, recruiter-attracting professional brand presence. Focuses on SEO keywords and project
+                  showcase tabs.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Profile headline formulas</span>
+                  <span class="srv-dtag">Detailed summary draft</span>
+                  <span class="srv-dtag">Skills &amp; experience optimization layout</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- ████ SECTION 03: CERTIFICATIONS & LABS ████ -->
+        <section class="srv-cat-section" id="cert-labs" data-cat="CERT_LABS">
+          <div class="srv-cat-hero">
+            <div class="srv-cat-hero-img-wrap">
+              <img src="assets/images/service3.jpg" alt="Certifications & Labs" loading="lazy">
+              <div class="srv-cat-hero-overlay"></div>
+            </div>
+            <div class="srv-cat-hero-info">
+              <span class="srv-cat-hero-num">CAT_03 | CERT LABS</span>
+              <h2 class="srv-cat-hero-title">Certifications &amp; Labs</h2>
+              <p class="srv-cat-hero-count">07 SERVICES AVAILABLE</p>
+              <p class="srv-cat-hero-desc">Certification guidance, hands-on lab training, project mentoring, and
+                placement preparation for real-world security roles.</p>
+            </div>
+          </div>
+          <div class="srv-list">
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="certification guidance recommended path comptia microsoft fortinet oscp ejpt">
+              <span class="work-item-name">Global Certification Guidance</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_03 | Roadmap &bull; CompTIA</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Providing
+                  specialized planning for certifications such as CompTIA, Microsoft, Fortinet, and offensive paths
+                  (OSCP/eJPT).</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Detailed study roadmaps</span>
+                  <span class="srv-dtag">Vetted learning resources list</span>
+                  <span class="srv-dtag">Exam preparation timelines</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="certification training prep sessions classes ccna ceh sc-200 az-500">
+              <span class="work-item-name">Certification Training</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_03 | CCNA &bull; CEH</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Instructor-led
+                  training focusing on fundamental and professional certifications (CCNA, CEH, SC-200, AZ-500).</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Targeted study syllabus</span>
+                  <span class="srv-dtag">Hands-on practice question banks</span>
+                  <span class="srv-dtag">Interactive lab reviews</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="handson lab training wazuh splunk wireshark active directory kali">
+              <span class="work-item-name">Hands-on Lab Training</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_03 | Wazuh &bull; Splunk</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Practical sessions
+                  on real tools: Wazuh, Splunk, Wireshark, active directory setups, and Kali offensive utility sets.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Lab configuration files</span>
+                  <span class="srv-dtag">Step-by-step workbook guides</span>
+                  <span class="srv-dtag">Challenge writeups</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="project mentoring capstone threat hunt labs soc portfolio github">
+              <span class="work-item-name">Real-Time Project Mentoring</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_03 | SOC &bull; Portfolio</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Guiding students
+                  or engineers through building real portfolio-worthy projects like custom SOCs, threat intelligence
+                  pipelines, or vulnerability management systems.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Architecture layout approval</span>
+                  <span class="srv-dtag">GitHub code review &amp; best practices</span>
+                  <span class="srv-dtag">Documentation review</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="internship mentorship industry experience structured progress">
+              <span class="work-item-name">Internship Mentorship</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_03 | Internship &bull; Industry</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Structured
+                  mentorship for interns. Translates internship projects into solid business achievements and guides
+                  daily technical tasks.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Daily technical task checks</span>
+                  <span class="srv-dtag">Mid-term &amp; final progress sheets</span>
+                  <span class="srv-dtag">Project delivery optimization</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="student placement prep job search final year computer science it">
+              <span class="work-item-name">Student Placement Preparation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_03 | Placement &bull; Students</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Ensuring final
+                  year computer science and IT students are equipped with necessary cybersecurity fundamentals to clear
+                  technical selection panels.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Core networking &amp; OS mock checks</span>
+                  <span class="srv-dtag">Common HR interview guidelines</span>
+                  <span class="srv-dtag">Confidence-boosting simulations</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="campus recruitment training colleges bulk assessment hiring companies">
+              <span class="work-item-name">Campus Recruitment Training</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_03 | Campus &bull; Bulk</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Custom bootcamps
+                  for educational institutions. Aims to enhance overall placement success rates for hiring companies.
+                </p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Bulk assessment platforms</span>
+                  <span class="srv-dtag">Mock interview feedback forms</span>
+                  <span class="srv-dtag">Targeted technical syllabi</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- ████ SECTION 04: SECURITY CONSULTING ████ -->
+        <section class="srv-cat-section" id="security-consulting" data-cat="CONSULTING">
+          <div class="srv-cat-hero">
+            <div class="srv-cat-hero-img-wrap">
+              <img src="assets/images/service4.png" alt="Security Consulting" loading="lazy">
+              <div class="srv-cat-hero-overlay"></div>
+            </div>
+            <div class="srv-cat-hero-info">
+              <span class="srv-cat-hero-num">CAT_04 | CONSULTING</span>
+              <h2 class="srv-cat-hero-title">Security &amp; IT Consulting</h2>
+              <p class="srv-cat-hero-count">08 SERVICES AVAILABLE</p>
+              <p class="srv-cat-hero-desc">Technical advisory, infrastructure reviews, lab design, network architecture
+                consultation, and proof-of-concept development services.</p>
+            </div>
+          </div>
+          <div class="srv-list">
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="technical consultation architecture review active directory firewall cloud endpoint">
+              <span class="work-item-name">Technical Consultation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | Advisory &bull; Architecture</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Advisory services
+                  covering active directory structures, firewall selections, cloud security controls, and endpoint
+                  strategies.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Initial consulting roadmap</span>
+                  <span class="srv-dtag">Technology recommendation matrix</span>
+                  <span class="srv-dtag">Implementation checklist</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="security consultation risk analysis compliance posture incident pipelines">
+              <span class="work-item-name">Security Consultation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | Risk &bull; Posture</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Reviewing
+                  structural layouts, compliance postures, and incident pipelines to align corporate IT with security
+                  controls.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Security posture report</span>
+                  <span class="srv-dtag">Recommended mitigation paths</span>
+                  <span class="srv-dtag">SLA &amp; operational metrics guidelines</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="it infrastructure servers active directory patch management privilege">
+              <span class="work-item-name">IT Infrastructure Consultation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | Servers &bull; AD</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Evaluating
+                  on-premise and hybrid server setups, patch management practices, and privilege parameters to lock down
+                  systems.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Infrastructure dependency mappings</span>
+                  <span class="srv-dtag">System vulnerability logs</span>
+                  <span class="srv-dtag">Access control list guidelines</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="network architecture firewall vlan routing dmz lateral movement traffic">
+              <span class="work-item-name">Network Architecture Consultation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | VLAN &bull; Firewall</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Analyzing network
+                  pathways, subnet configurations, and DMZ rules to block lateral movement and optimize traffic flow.
+                </p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Network architecture layout</span>
+                  <span class="srv-dtag">Firewall rule optimizations</span>
+                  <span class="srv-dtag">VLAN segmentation recommendations</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="lab setup design physical virtual soc colleges hardware software">
+              <span class="work-item-name">Lab Setup &amp; Design</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | SOC Lab &bull; Hardware</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Architecture and
+                  hardware guidelines for colleges or businesses looking to build cybersecurity SOC simulation labs.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Hardware specification list</span>
+                  <span class="srv-dtag">Network diagram for training labs</span>
+                  <span class="srv-dtag">Vetted software installation steps</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="cybersecurity lab implementation hardware software siem wazuh active directory">
+              <span class="work-item-name">Cybersecurity Lab Implementation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | Deployment &bull; SIEM</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Deployment support
+                  for simulation environments, active-directory vulnerability domains, and SIEM monitoring dashboards.
+                </p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Deployed server configurations</span>
+                  <span class="srv-dtag">Log management setups</span>
+                  <span class="srv-dtag">Verification test suite execution</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="proof of concept poc integration testing edr firewall log management pilot">
+              <span class="work-item-name">Proof of Concept (PoC) Development</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | PoC &bull; EDR</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Building
+                  small-scale pilot structures to validate EDR, firewall integration, or log management solutions before
+                  full deployment.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">PoC criteria checklists</span>
+                  <span class="srv-dtag">Implementation reports</span>
+                  <span class="srv-dtag">Comparative analysis data</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="tool demonstrations presentation evaluation siem vulnerability scanners analysis frameworks">
+              <span class="work-item-name">Tool Demonstrations</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_04 | Demos &bull; Evaluation</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Interactive
+                  showcases of SIEM, vulnerability scanners, and analysis frameworks to guide product selection panels.
+                </p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Live tool simulation</span>
+                  <span class="srv-dtag">Feature comparison tables</span>
+                  <span class="srv-dtag">Licensing &amp; hardware estimates</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- ████ SECTION 05: ASSESSMENT & COMPLIANCE ████ -->
+        <section class="srv-cat-section" id="assessment-compliance" data-cat="COMPLIANCE">
+          <div class="srv-cat-hero">
+            <div class="srv-cat-hero-img-wrap">
+              <img src="assets/images/service05.jpeg" alt="Assessment & Compliance" loading="lazy">
+              <div class="srv-cat-hero-overlay"></div>
+            </div>
+            <div class="srv-cat-hero-info">
+              <span class="srv-cat-hero-num">CAT_05 | COMPLIANCE</span>
+              <h2 class="srv-cat-hero-title">Assessment &amp; Compliance</h2>
+              <p class="srv-cat-hero-count">07 SERVICES AVAILABLE</p>
+              <p class="srv-cat-hero-desc">Security audits, vulnerability assessments, technical documentation, SOP
+                creation, and ISO/regulatory compliance preparation services.</p>
+            </div>
+          </div>
+          <div class="srv-list">
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="security health check configuration review servers patch identity vulnerability">
+              <span class="work-item-name">Security Health Check</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_05 | Health &bull; Patches</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Quick, high-level
+                  review of key servers, patch profiles, and identity configurations to identify low-hanging
+                  vulnerability points.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Quick mitigation report</span>
+                  <span class="srv-dtag">Low-hanging fruits checklist</span>
+                  <span class="srv-dtag">Basic compliance mapping</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="vulnerability assessment support vapt scanning nessus openvas credentials reports">
+              <span class="work-item-name">Vulnerability Assessment Support</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_05 | VAPT &bull; Nessus</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Guiding internal
+                  teams in configuring Nessus/OpenVAS scanners, running credentials checks, and analyzing resulting
+                  reports.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Scan optimization profiles</span>
+                  <span class="srv-dtag">False positive identification sheets</span>
+                  <span class="srv-dtag">Remediation priority layout</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="security audit support iso 27001 gdpr compliance soc2 regulatory evidence">
+              <span class="work-item-name">Security Audit Support</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_05 | ISO 27001 &bull; SOC 2</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Preparing
+                  organizations for ISO 27001, SOC 2, or regulatory reviews by gathering and structuring evidence logs.
+                </p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Internal audit questionnaires</span>
+                  <span class="srv-dtag">Evidence collection tracker</span>
+                  <span class="srv-dtag">Non-compliance risk matrix</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="research development papers threat intel engineering academic blueprints">
+              <span class="work-item-name">Research &amp; Development Support</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_05 | R&amp;D &bull; Research</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Assisting
+                  engineering projects, academic studies, or technical writeups in drafting advanced security research
+                  inputs.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Annotated bibliographies</span>
+                  <span class="srv-dtag">Security architecture blueprints</span>
+                  <span class="srv-dtag">Comparative methodology designs</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="technical documentation user manuals guides administrator markdown pdf flowcharts">
+              <span class="work-item-name">Technical Documentation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_05 | Manuals &bull; Guides</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Drafting clear,
+                  readable technical operation manuals, network installation guides, and administrator guidelines.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Markdown or PDF manuals</span>
+                  <span class="srv-dtag">Flowcharts and process layouts</span>
+                  <span class="srv-dtag">Verification test scripts</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="sop security policy preparation templates iso standards change management incident">
+              <span class="work-item-name">SOP &amp; Security Policy Preparation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_05 | SOP &bull; Policy</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Writing custom
+                  Standard Operating Procedures (SOPs) and corporate security policy templates aligned with ISO
+                  standards.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">SOP document templates</span>
+                  <span class="srv-dtag">Change management protocols</span>
+                  <span class="srv-dtag">Incident reporting workflows</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="technical content creation blogs writeups articles seo optimized lab walkthroughs">
+              <span class="work-item-name">Technical Content Creation</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_05 | Blogs &bull; SEO</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Writing highly
+                  technical, SEO-optimized blog posts, product reviews, and lab walkthroughs for cybersecurity brands.
+                </p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">SEO keyword outlines</span>
+                  <span class="srv-dtag">Vetted article drafts</span>
+                  <span class="srv-dtag">Custom code snippet formatting</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- ████ SECTION 06: COMMUNITY & ADVISORY ████ -->
+        <section class="srv-cat-section" id="community-advisory" data-cat="ADVISORY">
+          <div class="srv-cat-hero">
+            <div class="srv-cat-hero-img-wrap">
+              <img src="assets/images/service6.jpg" alt="Community & Advisory" loading="lazy">
+              <div class="srv-cat-hero-overlay"></div>
+            </div>
+            <div class="srv-cat-hero-info">
+              <span class="srv-cat-hero-num">CAT_06 | ADVISORY</span>
+              <h2 class="srv-cat-hero-title">Community &amp; Advisory</h2>
+              <p class="srv-cat-hero-count">05 SERVICES AVAILABLE</p>
+              <p class="srv-cat-hero-desc">Conference speaking, community events, startup technology advisory,
+                multi-year roadmap planning, and personalized learning pathway design.</p>
+            </div>
+          </div>
+          <div class="srv-list">
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="community events meetups hacker spaces lockpicking defensive security roundtables">
+              <span class="work-item-name">Community Events &amp; Meetups</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_06 | Events &bull; Community</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Organizing local
+                  hackspaces, lockpicking meetups, and defensive security roundtables to foster grassroots skill
+                  sharing.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Event schedules &amp; slide decks</span>
+                  <span class="srv-dtag">Lab setups for attendees</span>
+                  <span class="srv-dtag">Community feedback trackers</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="conference speaking keynotes panellist national security conventions colleges">
+              <span class="work-item-name">Conference Speaking</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_06 | Keynote &bull; Speaker</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Delivering keynote
+                  talks, panel commentary, or technical session showcases at national security conventions and colleges.
+                </p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Presentation materials</span>
+                  <span class="srv-dtag">Handout resources directories</span>
+                  <span class="srv-dtag">Audience engagement reviews</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="technology roadmap planning enterprise future proof multi-year cybersecurity operations vendor">
+              <span class="work-item-name">Technology Roadmap Planning</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_06 | Roadmap &bull; Strategy</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Guiding growing
+                  companies in designing multi-year cybersecurity tools and operations roadmaps to scale safely.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Multi-year timeline layouts</span>
+                  <span class="srv-dtag">Vendor comparison sheets</span>
+                  <span class="srv-dtag">Budget forecasting models</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="startup technology advisory funding risk checks pre-seed secure coding saas iam">
+              <span class="work-item-name">Startup Technology Advisory</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_06 | Startup &bull; SaaS</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Helping pre-seed
+                  and seed-stage startups implement fundamental security parameters: secure coding, SaaS configs, and
+                  IAM settings.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Initial startup threat model</span>
+                  <span class="srv-dtag">Recommended SaaS config checklist</span>
+                  <span class="srv-dtag">Access controls guidelines</span>
+                </div>
+              </div>
+            </a>
+            <a class="work-item srv-row-item" href="index.html#contact"
+              data-keywords="personalized learning roadmaps target milestones courses certifications roles engineers">
+              <span class="work-item-name">Personalized Learning Roadmaps</span>
+              <span class="work-item-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
+                </svg></span>
+              <div class="work-item-preview">
+                <strong class="srv-preview-cat">CAT_06 | Custom &bull; Learning</strong>
+                <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Custom study
+                  pathway designs for engineers, detailing exact concepts, courses, and certifications to complete to
+                  reach target roles.</p>
+                <div class="srv-drawer-deliverables"
+                  style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem;">
+                  <span class="srv-dtag">Vetted learning links list</span>
+                  <span class="srv-dtag">Syllabus milestone schedules</span>
+                  <span class="srv-dtag">Challenge checkpoints mapping</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+      </div><!-- /services-catalog-wrap -->
+    </main>
+  </div><!-- /services-layout-wrap -->
+
+  <!-- FOOTER -->
+  <!-- FOOTER -->
+  <footer id="contact" style="position: relative; width: 100%; overflow: hidden; z-index: 10; padding-top: 0;">
+    <div class="footer-content-panel" style="position: relative; border-radius: 0; transform: translateY(0);">
+      <div class="footer-top-bar"></div>
+      <div class="footer-container">
+
+        <!-- Contact details grid -->
+        <div class="footer-contact-grid">
+          <div class="contact-grid-card">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">Email</span>
+              <a href="mailto:sabhareeshw@gmail.com" class="contact-card-value">sabhareeshw@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="contact-grid-card">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">Phone / WhatsApp</span>
+              <a href="tel:+919344675351" class="contact-card-value">+91 9344675351</a>
+            </div>
+          </div>
+
+          <div class="contact-grid-card">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/sabhareeshwaran/" target="_blank" rel="noopener"
+                class="contact-card-value">sabhareeshwaran</a>
+            </div>
+          </div>
+
+          <div class="contact-grid-card">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <div class="contact-card-info">
+              <span class="contact-card-label">Location</span>
+              <span class="contact-card-value text-only">Chennai, TN, India</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social media strip -->
+        <div class="footer-social-strip">
+          <a href="https://www.linkedin.com/in/sabhareeshwaran/" target="_blank" rel="noopener"
+            class="footer-social-btn" title="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </a>
+          <a href="https://github.com/sabhareeshwaran" target="_blank" rel="noopener" class="footer-social-btn"
+            title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+          <a href="https://wa.me/919344675351" target="_blank" rel="noopener" class="footer-social-btn footer-social-wa"
+            title="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+          </a>
+          <a href="mailto:sabhareeshw@gmail.com" class="footer-social-btn" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- About section -->
+        <div class="footer-about">
+          <div class="footer-about-row">
+            <div class="footer-about-label">Current Role</div>
+            <p class="footer-about-text">Senior Officer IT-Security &amp; Governance @ Dvara KGFS &middot; CISO Team
+              &middot; Chennai &middot; On-site</p>
+          </div>
+          <div class="footer-about-row">
+            <div class="footer-about-label">Open to Volunteer</div>
+            <p class="footer-about-text">Science &amp; Technology &middot; International/National Security &middot;
+              Education &middot; Employment/Workforce Development</p>
+          </div>
+          <div class="footer-about-row">
+            <div class="footer-about-label">Top Skills</div>
+            <p class="footer-about-text">IT Security Operations &middot; Information Security &middot; ISMS &middot; IT
+              GRC &middot; Vulnerability Assessment</p>
+          </div>
+        </div>
+
+        <!-- Marquee -->
+        <div class="footer-big-name">
+          <div class="marquee-track">
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
+          </div>
+        </div>
+
+        <!-- World Clocks -->
+        <div class="footer-clocks">
+          <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">CHENNAI</span><span
+              class="clock-time" data-tz="Asia/Kolkata"></span></div>
+          <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">DELHI</span><span
+              class="clock-time" data-tz="Asia/Kolkata"></span></div>
+          <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">LONDON</span><span
+              class="clock-time" data-tz="Europe/London"></span></div>
+          <div class="clock-item"><span class="clock-dot"></span><span class="clock-city">SINGAPORE</span><span
+              class="clock-time" data-tz="Asia/Singapore"></span></div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="footer-bottom-bar">
+          <div class="footer-brand">
+            <span style="color:var(--red);font-weight:900;">CYBERENTITYZ</span> — Ethical Hacking Society, Chennai,
+            Tamil Nadu
+          </div>
+          <div class="footer-legal">© <span class="copyright-year">2026</span> Sabhareeshwaran S · All Rights Reserved ·
+            <a href="mailto:sabhareeshw@gmail.com" style="color:var(--red);">sabhareeshw@gmail.com</a>
+          </div>
+        </div>
+        <div class="footer-bottom-line"></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX / ZOOM MODAL FOR SERVICE IMAGES -->
+  <div class="srv-lightbox" id="srvLightbox">
+    <div class="srv-lightbox-overlay" id="srvLightboxOverlay"></div>
+    <div class="srv-lightbox-content">
+      <button class="srv-lightbox-close" id="srvLightboxCloseBtn">&times;</button>
+      <img src="" alt="" class="srv-lightbox-img" id="srvLightboxImg">
+      <div class="srv-lightbox-caption" id="srvLightboxCaption"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="assets/js/script.js?v=2.0"></script>
+  <script src="assets/js/animations.js?v=2.0"></script>
+
+  <script>
+    // ---- NEW ROW LIST LOGIC ----
+    const srvSearchInput = document.getElementById('srvSearchInput');
+    const navButtons = document.querySelectorAll('.srv-nav-btn');
+
+    // All row items and category sections
+    const rowItems = () => document.querySelectorAll('.srv-row-item');
+    const catSections = () => document.querySelectorAll('.srv-cat-section');
+
+    // ---- Live Search ----
+    srvSearchInput.addEventListener('input', () => {
+      const query = srvSearchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      rowItems().forEach(item => {
+        const title = item.querySelector('.work-item-name')?.textContent.toLowerCase() || '';
+        const kw = item.getAttribute('data-keywords')?.toLowerCase() || '';
+        const drawer = item.querySelector('.srv-drawer-desc')?.textContent.toLowerCase() || '';
+        const match = title.includes(query) || kw.includes(query) || drawer.includes(query);
+        item.classList.toggle('row-hidden', !match);
+        if (match) visibleCount++;
+      });
+
+      catSections().forEach(sec => {
+        const anyVisible = [...sec.querySelectorAll('.srv-row-item')].some(i => !i.classList.contains('row-hidden'));
+        sec.classList.toggle('search-hidden', !anyVisible);
+      });
+
+      const noRes = document.getElementById('srvNoResults');
+      if (noRes) noRes.classList.toggle('visible', visibleCount === 0 && query !== '');
+
+      const countTag = document.getElementById('srvVisibleCount');
+      if (countTag) countTag.textContent = query ? `${visibleCount} UNITS` : '40 UNITS';
+
+      // Scramble giant title on search
+      const gt = document.getElementById('srvGiantTitle');
+      if (gt && query) {
+        scrambleText(gt, 'FILTERING...');
+        clearTimeout(window._srvTitleTimer);
+        window._srvTitleTimer = setTimeout(() => scrambleText(gt, 'SRV_INTEL'), 900);
+      } else if (gt && !query) {
+        scrambleText(gt, 'SRV_INTEL');
+      }
+    });
+
+    // ---- Category Filter ----
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        navButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const target = btn.getAttribute('data-target');
+        const titleMap = {
+          'all': 'SRV_INTEL', 'training-edu': 'EDU_MATRIX',
+          'career-mentorship': 'MENTOR_OPS', 'cert-labs': 'CERT_INTEL',
+          'security-consulting': 'CONSULT_DB', 'assessment-compliance': 'COMPLY_DB',
+          'community-advisory': 'ADVISORY_DB'
+        };
+        const sectorMap = {
+          'all': 'ALL UNITS', 'training-edu': 'EDUCATION', 'career-mentorship': 'MENTORSHIP',
+          'cert-labs': 'CERT_LABS', 'security-consulting': 'CONSULTING',
+          'assessment-compliance': 'COMPLIANCE', 'community-advisory': 'ADVISORY'
+        };
+
+        catSections().forEach(sec => {
+          const show = target === 'all' || sec.id === target;
+          sec.classList.toggle('search-hidden', !show);
+          if (show) sec.querySelectorAll('.srv-row-item').forEach(i => i.classList.remove('row-hidden'));
+        });
+
+        srvSearchInput.value = '';
+        document.getElementById('srvNoResults')?.classList.remove('visible');
+
+        const srvEditSector = document.getElementById('srvEditSector');
+        if (srvEditSector) {
+          srvEditSector.textContent = sectorMap[target] || target.toUpperCase();
+          srvEditSector.classList.add('live-update');
+          setTimeout(() => srvEditSector.classList.remove('live-update'), 600);
+        }
+
+        const gt = document.getElementById('srvGiantTitle');
+        if (gt) scrambleText(gt, titleMap[target] || 'SRV_INTEL');
+
+        const countTag = document.getElementById('srvVisibleCount');
+        if (countTag) countTag.textContent = `${target === 'all' ? '40' : [...catSections()].find(s => s.id === target)?.querySelectorAll('.srv-row-item').length || '—'} UNITS`;
+
+        addConsoleLog(`Sector: ${sectorMap[target] || target}`);
+      });
+    });
+
+    // ---- Matrix Canvas (hero) ----
+    function initCanvas() {
+      const canvas = document.getElementById('hero-matrix-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = (canvas.width = canvas.offsetWidth);
+      let height = (canvas.height = canvas.offsetHeight);
+      window.addEventListener('resize', () => {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      });
+      const columns = Math.floor(width / 20) + 1;
+      const ypos = Array(columns).fill(0);
+      function matrix() {
+        ctx.fillStyle = localStorage.getItem('theme') === 'light' ? 'rgba(255,255,255,0.15)' : 'rgba(10,10,10,0.15)';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#E05A00';
+        ctx.font = '10pt monospace';
+        ypos.forEach((y, ind) => {
+          const text = String.fromCharCode(Math.random() * 128);
+          ctx.fillText(text, ind * 20, y);
+          if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+          else ypos[ind] = y + 20;
+        });
+      }
+      setInterval(matrix, 50);
+    }
+
+    // ---- Text scramble ----
+    function scrambleText(element, finalText) {
+      const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ#$@%&_/';
+      let iterations = 0;
+      clearInterval(element._scrambleInterval);
+      element._scrambleInterval = setInterval(() => {
+        element.innerText = finalText.split('').map((char, index) => {
+          if (index < iterations) return finalText[index];
+          if (char === ' ') return ' ';
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join('');
+        if (iterations >= finalText.length) clearInterval(element._scrambleInterval);
+        iterations += 1 / 3;
+      }, 30);
+    }
+
+    // ---- HUD telemetry logger (kept for future use) ----
+    function addConsoleLog(text) {
+      console.log('[SRV]', text);
+    }
+
+    // ---- Premium GSAP Animations ----
+    function initPremiumAnimations() {
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Editorial header entrance
+        gsap.fromTo('.srv-giant-title',
+          { opacity: 0, y: -40 },
+          { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.1 }
+        );
+        gsap.fromTo('.srv-editorial-meta-grid .srv-meta-item',
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', delay: 0.3 }
+        );
+        gsap.fromTo('.srv-nav-btn',
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out', delay: 0.5 }
+        );
+        gsap.fromTo('.srv-search-hero-container',
+          { opacity: 0, scaleX: 0.95 },
+          { opacity: 1, scaleX: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+        );
+
+        // Category hero banners on scroll
+        document.querySelectorAll('.srv-cat-hero').forEach(hero => {
+          gsap.fromTo(hero,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+              scrollTrigger: { trigger: hero, start: 'top 82%', toggleActions: 'play none none none' }
+            }
+          );
+        });
+
+        // Row items stagger reveal
+        document.querySelectorAll('.srv-cat-section').forEach(section => {
+          const rows = section.querySelectorAll('.work-item');
+          gsap.fromTo(rows,
+            { opacity: 0, x: -20 },
+            {
+              opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power2.out',
+              scrollTrigger: { trigger: section, start: 'top 78%', toggleActions: 'play none none none' }
+            }
+          );
+
+          // Category hero title scramble
+          const heroTitle = section.querySelector('.srv-cat-hero-title');
+          if (heroTitle) {
+            const originalText = heroTitle.textContent;
+            ScrollTrigger.create({
+              trigger: heroTitle, start: 'top 85%',
+              onEnter: () => scrambleText(heroTitle, originalText),
+              once: true
+            });
+          }
+        });
+
+        // Cat hero image parallax
+        document.querySelectorAll('.srv-cat-hero-img-wrap img').forEach(img => {
+          gsap.to(img, {
+            yPercent: -10,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: img.closest('.srv-cat-hero'),
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true
+            }
+          });
+        });
+      }
+
+      // Floating cyber lines
+      function spawnFloatLines() {
+        const container = document.querySelector('.services-catalog-wrap');
+        if (!container) return;
+        const line = document.createElement('div');
+        line.className = 'srv-float-line';
+        line.style.left = `${Math.random() * 100}%`;
+        line.style.height = `${60 + Math.random() * 80}px`;
+        line.style.bottom = '0';
+        line.style.animationDuration = `${8 + Math.random() * 6}s`;
+        container.appendChild(line);
+        setTimeout(() => line.remove(), 15000);
+      }
+      setInterval(spawnFloatLines, 3500);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initCanvas();
+      initPremiumAnimations();
+      setTimeout(() => scrambleText(document.getElementById('srvGiantTitle'), 'SRV_INTEL'), 300);
+
+      // ---- Service Images Lightbox Logic ----
+      const srvLightbox = document.getElementById('srvLightbox');
+      const srvLightboxImg = document.getElementById('srvLightboxImg');
+      const srvLightboxCaption = document.getElementById('srvLightboxCaption');
+      const srvLightboxCloseBtn = document.getElementById('srvLightboxCloseBtn');
+      const srvLightboxOverlay = document.getElementById('srvLightboxOverlay');
+
+      function openSrvLightbox(src, alt) {
+        if (!srvLightbox || !srvLightboxImg) return;
+        srvLightboxImg.classList.remove('loaded');
+        srvLightboxImg.src = src;
+        srvLightboxImg.alt = alt;
+        if (srvLightboxCaption) {
+          srvLightboxCaption.textContent = alt;
+        }
+        srvLightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        srvLightboxImg.onload = () => {
+          srvLightboxImg.classList.add('loaded');
+        };
+      }
+
+      function closeSrvLightbox() {
+        if (!srvLightbox) return;
+        srvLightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.srv-cat-hero-img-wrap img').forEach(img => {
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openSrvLightbox(img.src, img.alt || 'Service Image');
+        });
+      });
+
+      if (srvLightboxCloseBtn) {
+        srvLightboxCloseBtn.addEventListener('click', closeSrvLightbox);
+      }
+      if (srvLightboxOverlay) {
+        srvLightboxOverlay.addEventListener('click', closeSrvLightbox);
+      }
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeSrvLightbox();
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>

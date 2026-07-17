@@ -1,0 +1,850 @@
+/* ==========================================================================
+   ROADMAP DESIGN SYSTEM - CYBER HUD & GLOW AESTHETICS
+   ========================================================================== */
+
+:root {
+  --neon-cyan: #00f0ff;
+  --neon-amber: #ffaa00;
+  --neon-red: #d90429;
+  --neon-purple: #cc00ff;
+  --neon-green: #00ff66;
+  --neon-blue: #00a2ff;
+  --neon-pink: #ff007f;
+  
+  --bg-dark-globe: #0a0a0f;
+  --border-glow-opacity: 0.15;
+}
+
+/* Inner Page Layout */
+.roadmap-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Grid splits for tree & globe */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* Header customization for hero */
+.inner-hero {
+  position: relative;
+  padding: 130px 40px 60px;
+  background: linear-gradient(180deg, rgba(224, 90, 0, 0.07) 0%, rgba(10, 10, 10, 0) 100%);
+  border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.inner-hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.inner-hero-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: inline-block;
+  font-family: var(--font-main);
+}
+
+.inner-hero-title {
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  color: var(--white);
+  font-family: var(--font-main);
+}
+
+.inner-hero-desc {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--text-muted);
+  max-width: 800px;
+  line-height: 1.6;
+  font-family: var(--font-main);
+}
+
+/* 3D Globe Section */
+.globe-sticky-wrap {
+  position: sticky;
+  top: 100px;
+  background: rgba(13, 13, 20, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.globe-sticky-wrap:hover {
+  border-color: rgba(224, 90, 0, 0.2);
+  box-shadow: 0 15px 50px rgba(224, 90, 0, 0.1);
+}
+
+.globe-viewport-container {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1;
+  position: relative;
+  margin: 0 auto;
+}
+
+.globe-hud-stats {
+  width: 100%;
+  margin-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.globe-stat-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: monospace;
+}
+
+.globe-stat-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.globe-stat-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-top: 4px;
+}
+
+/* Globe Tooltip Styling */
+.globe-tooltip {
+  position: absolute;
+  padding: 10px 14px;
+  background: rgba(10, 10, 15, 0.94);
+  border-radius: 8px;
+  color: var(--white);
+  font-family: monospace;
+  font-size: 0.75rem;
+  z-index: 3000;
+  pointer-events: none;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  max-width: 250px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  line-height: 1.4;
+}
+
+.globe-tooltip .tooltip-header {
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.globe-tooltip .tooltip-desc {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.globe-tooltip .tooltip-action {
+  margin-top: 8px;
+  font-size: 0.65rem;
+  color: var(--red);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   LEVEL 2, 3, 4 CERTIFICATION TREE
+   ========================================================================== */
+
+.roadmap-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Level 2: Tier Blocks (Beginner, Intermediate, Expert) */
+.tree-tier-block {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.tree-tier-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.tree-tier-block.beginner::before { background: var(--neon-blue); }
+.tree-tier-block.intermediate::before { background: var(--neon-amber); }
+.tree-tier-block.expert::before { background: var(--neon-red); }
+
+.tree-tier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.tree-tier-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  font-family: var(--font-main);
+}
+
+.tree-tier-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.tree-tier-badge {
+  font-family: monospace;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+/* Level 3: Vendors inside Tiers */
+.vendor-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  padding-left: 20px;
+  border-left: 1px dashed rgba(255, 255, 255, 0.1);
+  margin-bottom: 24px;
+}
+
+.vendor-section:last-child {
+  margin-bottom: 0;
+}
+
+.vendor-title {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: -30px;
+  background: var(--bg-dark);
+  padding: 4px 12px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+}
+
+.vendor-title::before {
+  content: '>';
+  color: var(--red);
+  font-weight: bold;
+}
+
+/* Level 4: Certifications Cards */
+.cert-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.cert-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cert-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.cert-card-code {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  line-height: 1.1;
+  font-family: var(--font-main);
+}
+
+.cert-card-name {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 4px;
+  font-family: var(--font-main);
+}
+
+.cert-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 10px;
+  margin-top: 8px;
+  font-family: monospace;
+  font-size: 0.65rem;
+}
+
+.cert-card-issuer {
+  color: var(--text-muted);
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cert-card-prep {
+  color: var(--red);
+}
+
+/* Card Glow borders based on tier */
+.beginner .cert-card:hover { border-color: rgba(0, 180, 216, 0.4); }
+.intermediate .cert-card:hover { border-color: rgba(255, 183, 3, 0.4); }
+.expert .cert-card:hover { border-color: rgba(217, 4, 41, 0.4); }
+
+/* ==========================================================================
+   LEVEL 1: ROADMAP MAIN DASHBOARD GRID
+   ========================================================================== */
+
+.domain-grid-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.domain-dashboard-card {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  text-decoration: none;
+}
+
+.domain-dashboard-card::after {
+  content: 'LAUNCH_QUERY';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: monospace;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.domain-dashboard-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.domain-dashboard-card:hover::after {
+  opacity: 1;
+  color: var(--accent-color, var(--red));
+}
+
+.domain-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.domain-card-icon-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-color, var(--red));
+  box-shadow: 0 0 10px var(--accent-color, var(--red));
+}
+
+.domain-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.2;
+  font-family: var(--font-main);
+}
+
+.domain-card-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 6px;
+  flex: 1;
+  font-family: var(--font-main);
+}
+
+.domain-card-metrics {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 12px;
+  margin-top: 8px;
+  font-family: monospace;
+  font-size: 0.68rem;
+}
+
+.domain-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.domain-metric-lbl {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.domain-metric-val {
+  color: var(--white);
+  font-weight: bold;
+}
+
+/* Light Theme Overrides */
+body.light-theme .globe-sticky-wrap {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .globe-sticky-wrap:hover {
+  border-color: rgba(224, 90, 0, 0.3);
+  box-shadow: 0 15px 50px rgba(224, 90, 0, 0.08);
+}
+
+body.light-theme .globe-stat-item {
+  background: rgba(0, 0, 0, 0.01);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .globe-stat-value {
+  color: #0f1012;
+}
+
+body.light-theme .globe-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f1012;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .globe-tooltip .tooltip-desc {
+  color: rgba(15, 16, 18, 0.6);
+}
+
+body.light-theme .tree-tier-block {
+  background: rgba(0, 0, 0, 0.01);
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .tree-tier-title {
+  color: #0f1012;
+}
+
+body.light-theme .tree-tier-badge {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: rgba(15, 16, 18, 0.6);
+}
+
+body.light-theme .vendor-title {
+  background: #f5f5f7;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #0f1012;
+}
+
+body.light-theme .cert-card {
+  background: rgba(0, 0, 0, 0.01);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .cert-card:hover {
+  background: rgba(0, 0, 0, 0.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .cert-card-code {
+  color: #0f1012;
+}
+
+body.light-theme .cert-card-name {
+  color: rgba(15, 16, 18, 0.6);
+}
+
+body.light-theme .domain-dashboard-card {
+  background: rgba(0, 0, 0, 0.01);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .domain-dashboard-card:hover {
+  background: rgba(0, 0, 0, 0.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .domain-card-title {
+  color: #0f1012;
+}
+
+body.light-theme .domain-card-desc {
+  color: rgba(15, 16, 18, 0.6);
+}
+
+body.light-theme .domain-metric-val {
+  color: #0f1012;
+}
+
+body.light-theme .domain-metric-lbl {
+  color: rgba(15, 16, 18, 0.4);
+}
+
+/* ==========================================================================
+   HUD SIDE DRAWER FOR CERTIFICATION DOSSIER
+   ========================================================================== */
+
+.subway-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 450px;
+  max-width: 100%;
+  height: 100vh;
+  background: rgba(10, 10, 15, 0.96);
+  border-left: 2px solid var(--red);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.subway-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.drawer-sys-lbl {
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.drawer-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.drawer-close-btn:hover {
+  color: var(--white);
+}
+
+.drawer-sec-group {
+  margin-bottom: 24px;
+}
+
+.drawer-sec-lbl {
+  font-family: var(--font-main);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.drawer-sec-val {
+  font-size: 1.05rem;
+  color: var(--white);
+  line-height: 1.4;
+  font-weight: 500;
+  font-family: var(--font-main);
+}
+
+.drawer-sec-val.highlight {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  line-height: 1.1;
+  text-shadow: 0 0 10px rgba(var(--accent-rgb, 217, 4, 41), 0.3);
+}
+
+.drawer-sec-val.highlight-orange {
+  color: var(--neon-amber);
+  font-family: monospace;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.drawer-sec-val.desc-text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-family: var(--font-main);
+}
+
+.drawer-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: rgba(var(--accent-rgb, 217, 4, 41), 0.1);
+  border: 1px solid var(--accent-color, var(--red));
+  border-radius: 6px;
+  color: var(--accent-color, var(--red));
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.3s;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.drawer-btn:hover {
+  background: var(--accent-color, var(--red));
+  color: var(--white);
+  box-shadow: 0 0 15px rgba(var(--accent-rgb, 217, 4, 41), 0.4);
+}
+
+.drawer-btn.secondary {
+  background: none;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.drawer-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  box-shadow: none;
+}
+
+/* Light Theme overrides for drawer */
+body.light-theme .subway-drawer {
+  background: rgba(255, 255, 255, 0.96);
+  border-left-color: var(--red);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .drawer-close-btn {
+  color: rgba(15, 16, 18, 0.6);
+}
+
+body.light-theme .drawer-close-btn:hover {
+  color: #0f1012;
+}
+
+body.light-theme .drawer-sec-lbl {
+  color: rgba(15, 16, 18, 0.4);
+}
+
+body.light-theme .drawer-sec-val {
+  color: #0f1012;
+}
+
+body.light-theme .drawer-sec-val.highlight {
+  color: #0f1012;
+}
+
+body.light-theme .drawer-sec-val.desc-text {
+  color: rgba(15, 16, 18, 0.7);
+}
+
+body.light-theme .drawer-btn.secondary {
+  border-color: rgba(0, 0, 0, 0.08);
+  color: rgba(15, 16, 18, 0.6);
+}
+
+body.light-theme .drawer-btn.secondary:hover {
+  background: rgba(0, 0, 0, 0.02);
+  color: #0f1012;
+}
+
+/* ==========================================================================
+   HUD TELEMETRY STATS PANEL
+   ========================================================================== */
+
+.hud-telemetry-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.telemetry-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.telemetry-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.telemetry-card.active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Color themed active states for level-filtering telemetry cards */
+.telemetry-card.total.active {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.telemetry-card.beginner.active {
+  border-color: rgba(0, 180, 216, 0.6);
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
+}
+
+.telemetry-card.intermediate.active {
+  border-color: rgba(255, 183, 3, 0.6);
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.2);
+}
+
+.telemetry-card.expert.active {
+  border-color: rgba(217, 4, 41, 0.6);
+  box-shadow: 0 0 15px rgba(217, 4, 41, 0.2);
+}
+
+.telemetry-label {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.telemetry-value {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  font-family: var(--font-main);
+}
+
+/* Light Theme Telemetry Panel Overrides */
+body.light-theme .telemetry-card {
+  background: rgba(0, 0, 0, 0.01);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .telemetry-card:hover {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .telemetry-value {
+  color: #0f1012;
+}
+
+body.light-theme .telemetry-card.total.active {
+  border-color: rgba(15, 16, 18, 0.4);
+}
+
+

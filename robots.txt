@@ -21,7 +21,7 @@ Allow: /assets/css/
 Allow: /assets/js/
 
 # Sitemap location
-Sitemap: https://sabhareeshwaranportfolio.com/sitemap.xml
+Sitemap: https://sabhareeshwaran.com/sitemap.xml
 
 # Crawl delay (optional - uncomment if needed)
 # Crawl-delay: 10

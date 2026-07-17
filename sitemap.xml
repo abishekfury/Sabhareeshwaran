@@ -4,92 +4,116 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
-  <!-- Homepage -->
+  <!-- Core Pages -->
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Main sections -->
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/#services</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/services.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/#expertise</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/roadmap.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
+  <!-- Certification Domain Roadmap Pages -->
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/#about</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/roadmap-architecture-engineering.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/#testimonials</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://sabhareeshwaranportfolio.com/#contact</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Service Pages -->
-  <url>
-    <loc>https://sabhareeshwaranportfolio.com/work/Global-Training.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/roadmap-assessment-testing.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/work/Skill-Programs.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/roadmap-asset-security.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/work/Pearson-VUE.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/roadmap-cloud-security.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/work/Service-Academia.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/roadmap-communication-security.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
   <url>
-    <loc>https://sabhareeshwaranportfolio.com/work/Service-Organiztions.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://sabhareeshwaran.com/roadmap-forensics.html</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- 404 Page (optional - usually not included in sitemap) -->
-  <!-- <url>
-    <loc>https://sabhareeshwaranportfolio.com/404.html</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.1</priority>
-  </url> -->
-  
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-grc.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-iam.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-ics-iot.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-incident-response.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-linux-security.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-penetration-testing.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-risk-management.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-security-operations.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabhareeshwaran.com/roadmap-software-security.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion) return;
 
     lenis = new Lenis({
-      duration: 1.3,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       smooth: true,
@@ -33,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
       lenis.raf(time * 1000);
     });
 
-    gsap.ticker.lagSmoothing(0);
+    // Restore default lag smoothing (500ms/33ms) so GSAP catches up gracefully
+    // on heavy frames instead of compounding lag
+    gsap.ticker.lagSmoothing(500, 33);
 
     lenis.on('scroll', ScrollTrigger.update);
     window.lenis = lenis;
@@ -331,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
      ============================================================ */
   function initNavActiveSection() {
     const sections = document.querySelectorAll('section[id], footer[id]');
-    const navLinks = document.querySelectorAll('.mobile-menu-content a, .split-nav-link, .nav-cta');
+    const navLinks = document.querySelectorAll('.mobile-menu-content a, .split-nav-link, .nav-cta, .nav-drawer-link, .menu-option-link');
 
     if (!navLinks.length) return;
 
@@ -348,7 +350,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateActiveNavLink(activeId) {
       navLinks.forEach(link => {
         link.classList.remove('nav-active');
-        if (link.getAttribute('href') === `#${activeId}`) {
+        const href = link.getAttribute('href');
+        if (href && (href === `#${activeId}` || href.endsWith(`#${activeId}`))) {
           link.classList.add('nav-active');
         }
       });
@@ -441,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
         x: '-15%',
         ease: 'none',
         scrollTrigger: {
-          trigger: '.footer',
+          trigger: '.footer-content-panel',
           start: 'top bottom',
           end: 'center center',
           scrub: 2.5,
@@ -575,22 +578,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Nav bar subtle parallax
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-      ScrollTrigger.create({
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        onUpdate: self => {
-          const progress = self.progress;
-          gsap.set(navbar, {
-            y: progress * -10
-          });
-        }
-      });
-    }
-
     // Work item previews parallax on hover
     const workItems = document.querySelectorAll('.work-item');
     workItems.forEach(item => {
@@ -633,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
         yPercent: 25,
         ease: 'none',
         scrollTrigger: {
-          trigger: '.intro-hero',
+          trigger: '#intro-hero',
           start: 'top top',
           end: 'bottom top',
           scrub: 1.2,
@@ -649,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: 0.2,
         ease: 'none',
         scrollTrigger: {
-          trigger: '.intro-hero',
+          trigger: '#intro-hero',
           start: 'top top',
           end: 'bottom top',
           scrub: 1,
@@ -665,7 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: 0,
         ease: 'none',
         scrollTrigger: {
-          trigger: '.intro-hero',
+          trigger: '#intro-hero',
           start: 'top top',
           end: '50% top',
           scrub: 1,
@@ -755,7 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function enhancePreloaderExit() {
     // Wait for the existing preloader to complete (2200ms from script.js)
     setTimeout(() => {
-      const introHero = document.querySelector('.intro-hero');
+      const introHero = document.querySelector('#intro-hero');
       if (introHero) {
         // Smooth fade in after preloader
         gsap.fromTo(introHero,
@@ -773,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== HERO SECTION SCALE ON SCROLL ===== */
   function initHeroScaleEffect() {
-    const heroSection = document.querySelector('.intro-hero');
+    const heroSection = document.querySelector('#intro-hero');
 
     if (heroSection) {
       gsap.to(heroSection, {
@@ -801,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach(card => {
       const isSkillCard = card.classList.contains('skill-card-container');
       const isRecCard = card.classList.contains('rec-card');
-      
+
       // Determine the tilt target
       let tiltTarget = card;
       if (isSkillCard) {
@@ -826,7 +813,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         tiltTarget = inner;
       }
-      
+
       if (!tiltTarget) return;
 
       // 1. Create and append glow overlay dynamically
@@ -864,7 +851,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.addEventListener('mouseenter', () => {
         const glows = isSkillCard ? card.querySelectorAll('.card-glow') : [glow];
         glows.forEach(g => g.style.opacity = '1');
-        
+
         card.classList.add('is-hovered');
 
         if (isSkillCard) {
@@ -989,14 +976,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create custom cursor elements dynamically
     const dot = document.createElement('div');
     dot.className = 'custom-cursor-dot';
-    
+
     const follower = document.createElement('div');
     follower.className = 'custom-cursor-follower';
-    
+
     const cursorText = document.createElement('span');
     cursorText.className = 'cursor-text';
     follower.appendChild(cursorText);
-    
+
     document.body.appendChild(dot);
     document.body.appendChild(follower);
 
@@ -1021,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Small center dot moves faster
       dotX += (mouseX - dotX) * 0.35;
       dotY += (mouseY - dotY) * 0.35;
-      
+
       // Outer ring has a smooth delay
       followerX += (mouseX - followerX) * 0.16;
       followerY += (mouseY - followerY) * 0.16;
@@ -1050,13 +1037,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Standard links, buttons, and clickable items
     setupCursorHover('a, button, [role="button"], .clickable, .nav-menu-btn, .rec-btn, .mobile-menu-close', 'hover-link');
-    
+
     // Skill flip cards
     setupCursorHover('.skill-card-container', 'hover-card', 'FLIP');
-    
+
     // Recommendation cards
     setupCursorHover('.rec-card', 'hover-card', 'SWIPE');
-    
+
     // Featured work items / other portfolio links
     setupCursorHover('.work-item, .exp-scroller-item', 'hover-view', 'VIEW');
 
@@ -1064,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mouseleave', () => {
       gsap.to([dot, follower], { opacity: 0, duration: 0.3 });
     });
-    
+
     document.addEventListener('mouseenter', () => {
       gsap.to([dot, follower], { opacity: 1, duration: 0.3 });
     });
@@ -1436,13 +1423,20 @@ document.addEventListener('DOMContentLoaded', () => {
      ============================================================ */
   function initTamilScramble() {
     const taToEn = {
+      'எதிர்காலம்': '10-YEAR VISION',
       'அனுபவம்': 'EXPERIENCE',
       'திறன்கள்': 'SKILLS',
+      'சேவைகள்': 'SERVICES',
+      'பயிற்சி': 'TRAINING PROGRAMS',
       'சான்றிதழ்கள்': 'CERTIFICATIONS',
+      'திட்டங்கள்': 'PROJECTS & LABS',
+      'ஆராய்ச்சி': 'RESEARCH',
+      'வலைப்பதிவு': 'BLOG',
       'கல்வி': 'EDUCATION',
       'தன்னார்வம்': 'VOLUNTEERING',
       'விருதுகள்': 'HONORS & AWARDS',
-      'பரிந்துரைகள்': 'RECOMMENDATIONS',
+      'காட்சி கூடம்': 'VISUAL GALLERY',
+      'சான்றுகள்': 'TESTIMONIALS',
       'வெளியீடுகள்': 'PUBLICATIONS',
     };
 
@@ -2018,24 +2012,28 @@ document.addEventListener('DOMContentLoaded', () => {
     anchorLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         const targetId = link.getAttribute('href');
-        if (targetId === '#') return;
+        if (!targetId || !targetId.startsWith('#') || targetId === '#') return;
 
-        const target = document.querySelector(targetId);
-        if (!target) return;
+        try {
+          const target = document.querySelector(targetId);
+          if (!target) return;
 
-        e.preventDefault();
+          e.preventDefault();
 
-        if (lenis) {
-          lenis.scrollTo(target, {
-            offset: -80, // Account for fixed navbar
-            duration: 1.5,
-            easing: (t) => 1 - Math.pow(1 - t, 3),
-          });
-        } else {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+          if (lenis) {
+            lenis.scrollTo(target, {
+              offset: -80, // Account for fixed navbar
+              duration: 1.5,
+              easing: (t) => 1 - Math.pow(1 - t, 3),
+            });
+          } else {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        } catch (err) {
+          console.warn("Smooth scroll skipped due to invalid selector:", targetId, err);
         }
       });
     });
@@ -2120,9 +2118,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create a ScrollTrigger timeline to animate the progress bar filling up
     if (progressBar) {
-      gsap.fromTo(progressBar, 
+      gsap.fromTo(progressBar,
         { height: '0%' },
-        { 
+        {
           height: '100%',
           ease: 'none',
           scrollTrigger: {
@@ -2154,27 +2152,27 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: 1,
         duration: 0.2
       })
-      .to(dot, {
-        backgroundColor: 'var(--red)',
-        borderColor: 'var(--white)',
-        boxShadow: '0 0 12px var(--red), 0 0 24px var(--red)',
-        duration: 0.3
-      }, '<')
-      .fromTo(card,
-        {
-          opacity: 0,
-          x: isLeft ? -50 : 50,
-          scale: 0.95
-        },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 0.6,
-          ease: 'power3.out'
-        },
-        '<+0.1'
-      );
+        .to(dot, {
+          backgroundColor: 'var(--red)',
+          borderColor: 'var(--white)',
+          boxShadow: '0 0 12px var(--red), 0 0 24px var(--red)',
+          duration: 0.3
+        }, '<')
+        .fromTo(card,
+          {
+            opacity: 0,
+            x: isLeft ? -50 : 50,
+            scale: 0.95
+          },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: 'power3.out'
+          },
+          '<+0.1'
+        );
     });
   }
 
