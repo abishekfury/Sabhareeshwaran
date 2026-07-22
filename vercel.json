@@ -1,8 +1,7 @@
 {
-  "cleanUrls": true,
   "headers": [
     {
-      "source": "/assets/(css|js|images)/(.+)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

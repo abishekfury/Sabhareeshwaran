@@ -10,12 +10,12 @@
   <link rel="icon" type="image/webp" href="assets/images/favicon.webp?v=3.0">
 
   <!-- Preload Critical Assets -->
-  <link rel="preload" href="assets/css/style.css?v=2.3" as="style">
+  <link rel="preload" href="assets/css/style.css?v=3.2" as="style">
   <link rel="preload" href="assets/css/portfolio-page.css?v=2.0" as="style">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;700;900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=2.3">
+  <link rel="stylesheet" href="assets/css/style.css?v=3.2">
   <link rel="stylesheet" href="assets/css/portfolio-page.css?v=2.0">
 
   <style>
@@ -113,9 +113,9 @@
 
     /* Search row */
     .services-search-row {
-      max-width: 1200px;
-      margin: 2rem auto 0;
-      padding: 0 40px;
+      width: 100%;
+      margin: 0;
+      padding: 20px 0 0;
     }
 
     .srv-search-wrap {
@@ -674,9 +674,7 @@
        ========================================== */
 
     .services-editorial-header {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 40px 40px 30px;
+      width: 100%;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       position: relative;
       overflow: hidden;
@@ -704,6 +702,9 @@
     }
 
     .srv-editorial-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 40px 30px;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -722,76 +723,69 @@
     }
 
     .srv-giant-title {
-      font-size: clamp(3.5rem, 8vw, 6rem);
+      font-size: clamp(3rem, 7vw, 6rem);
       font-weight: 900;
-      color: var(--white);
-      line-height: 0.95;
       letter-spacing: -0.04em;
-      text-transform: uppercase;
-      margin: 0;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-main);
     }
 
     .srv-editorial-subtitle {
       font-size: 0.75rem;
       font-family: monospace;
-      letter-spacing: 0.15em;
-      color: var(--red);
-      margin-top: 1rem;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
       text-transform: uppercase;
-      opacity: 0.9;
     }
 
     .srv-editorial-right {
-      min-width: 340px;
+      min-width: 320px;
     }
 
     .srv-editorial-meta-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 2rem;
     }
 
     .srv-meta-item {
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 0.8rem;
+      gap: 0.2rem;
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+      padding-left: 0.8rem;
     }
 
     .srv-meta-label {
       font-size: 0.65rem;
       font-family: monospace;
+      letter-spacing: 0.12em;
       color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
     }
 
     .srv-meta-value {
-      font-size: 1.05rem;
-      font-weight: 800;
+      font-size: 0.95rem;
+      font-weight: 700;
       color: var(--white);
-      transition: color 0.3s ease;
-    }
-
-    .srv-meta-value.live-update {
-      color: var(--red);
-      text-shadow: 0 0 10px rgba(224, 90, 0, 0.4);
+      letter-spacing: 0.05em;
     }
 
     /* Editorial Hero Search (upgrade from basic search row) */
     .services-search-row {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 20px 40px 0;
+      width: 100%;
+      padding: 20px 0 0;
     }
 
     .srv-search-hero-container {
+      max-width: 1440px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       gap: 1.5rem;
       border-bottom: 2px solid rgba(255, 255, 255, 0.12);
-      padding: 0.8rem 0;
+      padding: 0.8rem 40px;
       position: relative;
       transition: border-color 0.3s ease;
     }
@@ -1523,8 +1517,57 @@
     }
 
     /* ---- Light theme overrides ---- */
+    html.light-theme,
+    body.light-theme {
+      background: #f5f6f8 !important;
+      background-color: #f5f6f8 !important;
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .inner-hero {
+      background: linear-gradient(180deg, rgba(224, 90, 0, 0.04) 0%, #f5f6f8 100%) !important;
+      border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.light-theme .services-editorial-header,
+    body.light-theme .services-search-row,
+    body.light-theme .services-layout-wrap,
+    body.light-theme .services-page-content,
+    body.light-theme .services-catalog-wrap {
+      background: #f5f6f8 !important;
+    }
+
+    body.light-theme .srv-search-hero-container {
+      background: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    body.light-theme .srv-editorial-subtitle {
+      color: rgba(15, 16, 18, 0.6) !important;
+    }
+
+    body.light-theme .srv-meta-label {
+      color: rgba(15, 16, 18, 0.5) !important;
+    }
+
+    body.light-theme .srv-search-count-tag {
+      color: rgba(15, 16, 18, 0.6) !important;
+      border-color: rgba(0, 0, 0, 0.12) !important;
+      background: rgba(0, 0, 0, 0.03) !important;
+    }
+
+    body.light-theme .srv-cat-hero-num {
+      color: var(--red) !important;
+    }
+
+    body.light-theme .srv-cat-hero-count {
+      color: rgba(15, 16, 18, 0.5) !important;
+    }
+
     body.light-theme .srv-cat-hero-info {
-      background: rgba(255, 255, 255, 0.97);
+      background: rgba(255, 255, 255, 0.97) !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
     }
 
     body.light-theme .srv-cat-hero-title {
@@ -1532,7 +1575,7 @@
     }
 
     body.light-theme .srv-cat-hero-desc {
-      color: rgba(15, 16, 18, 0.6) !important;
+      color: rgba(15, 16, 18, 0.65) !important;
     }
 
     body.light-theme .srv-row-title {
@@ -1653,27 +1696,41 @@
     }
 
     .services-catalog-wrap .srv-drawer-desc {
-      color: #ccc !important;
-      font-size: 0.8rem !important;
-      line-height: 1.6 !important;
-      margin: 0 0 0.4rem !important;
+      color: #ccc;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      margin: 0 0 0.4rem;
     }
 
-    body.light-theme .services-catalog-wrap .work-item-preview {
-      background: #fdfdfd;
-      border-color: rgba(0, 0, 0, 0.1);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    body.light-theme .services-catalog-wrap .work-item-name {
       color: #0f1012 !important;
     }
 
+    body.light-theme .services-catalog-wrap .work-item-arrow {
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .services-catalog-wrap .work-item:hover .work-item-name,
+    body.light-theme .services-catalog-wrap .work-item:hover .work-item-arrow {
+      color: var(--red) !important;
+    }
+
+    body.light-theme .services-catalog-wrap .work-item-preview {
+      background: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+      color: #0f1012 !important;
+    }
+
+    body.light-theme .services-catalog-wrap .srv-drawer-desc,
     body.light-theme .services-catalog-wrap .work-item-preview p {
-      color: rgba(15, 16, 18, 0.6) !important;
+      color: rgba(15, 16, 18, 0.75) !important;
     }
 
     body.light-theme .srv-dtag {
-      background: rgba(0, 0, 0, 0.03);
-      border-color: rgba(0, 0, 0, 0.1);
-      color: rgba(15, 16, 18, 0.6) !important;
+      background: rgba(0, 0, 0, 0.04) !important;
+      border-color: rgba(0, 0, 0, 0.1) !important;
+      color: rgba(15, 16, 18, 0.7) !important;
     }
 
     @media (max-width: 768px) {
@@ -1807,6 +1864,7 @@
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.body.classList.add('light-theme');
+      document.documentElement.classList.add('light-theme');
     }
   </script>
 
@@ -1950,7 +2008,7 @@
         <section class="srv-cat-section" id="training-edu" data-cat="EDUCATION">
           <div class="srv-cat-hero">
             <div class="srv-cat-hero-img-wrap">
-              <img src="assets/images/service1.jpg" alt="Training & Education" loading="lazy">
+              <img src="assets/images/service1.webp" alt="Training & Education" loading="lazy">
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
@@ -2102,7 +2160,7 @@
         <section class="srv-cat-section" id="career-mentorship" data-cat="MENTORSHIP">
           <div class="srv-cat-hero">
             <div class="srv-cat-hero-img-wrap">
-              <img src="assets/images/service2.png" alt="Mentorship" loading="lazy">
+              <img src="assets/images/service2.webp" alt="Mentorship" loading="lazy">
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
@@ -2234,7 +2292,7 @@
         <section class="srv-cat-section" id="cert-labs" data-cat="CERT_LABS">
           <div class="srv-cat-hero">
             <div class="srv-cat-hero-img-wrap">
-              <img src="assets/images/service3.jpg" alt="Certifications & Labs" loading="lazy">
+              <img src="assets/images/service3.webp" alt="Certifications & Labs" loading="lazy">
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
@@ -2384,7 +2442,7 @@
         <section class="srv-cat-section" id="security-consulting" data-cat="CONSULTING">
           <div class="srv-cat-hero">
             <div class="srv-cat-hero-img-wrap">
-              <img src="assets/images/service4.png" alt="Security Consulting" loading="lazy">
+              <img src="assets/images/service4.webp" alt="Security Consulting" loading="lazy">
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
@@ -2554,7 +2612,7 @@
         <section class="srv-cat-section" id="assessment-compliance" data-cat="COMPLIANCE">
           <div class="srv-cat-hero">
             <div class="srv-cat-hero-img-wrap">
-              <img src="assets/images/service05.jpeg" alt="Assessment & Compliance" loading="lazy">
+              <img src="assets/images/service05.webp" alt="Assessment & Compliance" loading="lazy">
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
@@ -2705,7 +2763,7 @@
         <section class="srv-cat-section" id="community-advisory" data-cat="ADVISORY">
           <div class="srv-cat-hero">
             <div class="srv-cat-hero-img-wrap">
-              <img src="assets/images/service6.jpg" alt="Community & Advisory" loading="lazy">
+              <img src="assets/images/service6.webp" alt="Community & Advisory" loading="lazy">
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
@@ -3090,7 +3148,8 @@
       const columns = Math.floor(width / 20) + 1;
       const ypos = Array(columns).fill(0);
       function matrix() {
-        ctx.fillStyle = localStorage.getItem('theme') === 'light' ? 'rgba(255,255,255,0.15)' : 'rgba(10,10,10,0.15)';
+        const isLight = document.body.classList.contains('light-theme');
+        ctx.fillStyle = isLight ? 'rgba(245, 246, 248, 0.15)' : 'rgba(10, 10, 10, 0.15)';
         ctx.fillRect(0, 0, width, height);
         ctx.fillStyle = '#E05A00';
         ctx.font = '10pt monospace';

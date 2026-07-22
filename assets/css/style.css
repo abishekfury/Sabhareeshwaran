@@ -1486,7 +1486,8 @@ button {
   font-weight: 900;
   color: #000000;
   position: absolute;
-  top: 32%; /* shifted up to prevent overlap with white text at the bottom */
+  top: 32%;
+  /* shifted up to prevent overlap with white text at the bottom */
   left: 50%;
   transform: translate(-50%, -50%);
   white-space: nowrap;
@@ -4570,16 +4571,16 @@ html.lenis {
 
 /* ===== THEME TOGGLE BUTTON ===== */
 .theme-toggle-btn {
-  position: fixed;
-  top: 22px;
-  right: 90px;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
   z-index: 1002;
-  transition: all 0.3s ease, top 0.4s ease, transform 0.3s ease;
+  transition: all 0.3s ease, transform 0.3s ease;
   margin-right: 0;
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -4588,6 +4589,7 @@ html.lenis {
   overflow: hidden;
   color: var(--white);
   padding: 0;
+  flex-shrink: 0;
 }
 
 .theme-toggle-btn.scrolled {
@@ -4601,7 +4603,7 @@ html.lenis {
     width: 34px;
     height: 34px;
   }
-  
+
   .theme-toggle-btn.scrolled {
     top: 15px;
   }
@@ -4746,6 +4748,8 @@ body.light-theme {
   --border-dark: rgba(255, 255, 255, 0.1);
   --text-muted: rgba(15, 16, 18, 0.6);
   --text-muted-dark: rgba(15, 16, 18, 0.6);
+  background-color: #f5f6f8 !important;
+  color: #0f1012 !important;
 }
 
 /* Smooth theme switching */
@@ -4810,6 +4814,18 @@ body.light-theme .nav-cta,
 body.light-theme .split-hero-cta {
   border-color: rgba(15, 16, 18, 0.3);
   color: var(--white);
+}
+
+body.light-theme .nav-cert-cta {
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  color: #ffffff !important;
+}
+
+/* Hide side badge and hero topbar controls in Light Mode */
+body.light-theme .side-badge,
+body.light-theme .split-hero-topbar {
+  display: none !important;
 }
 
 /* 3D Flip Cards Light Mode styling */

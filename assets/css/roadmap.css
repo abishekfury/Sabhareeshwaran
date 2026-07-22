@@ -511,100 +511,215 @@
 }
 
 /* Light Theme Overrides */
-body.light-theme .globe-sticky-wrap {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+html.light-theme,
+body.light-theme {
+  background: #f5f6f8 !important;
+  background-color: #f5f6f8 !important;
+  color: #0f1012 !important;
 }
 
-body.light-theme .globe-sticky-wrap:hover {
-  border-color: rgba(224, 90, 0, 0.3);
-  box-shadow: 0 15px 50px rgba(224, 90, 0, 0.08);
+body.light-theme .inner-hero {
+  background: linear-gradient(180deg, rgba(224, 90, 0, 0.04) 0%, #f5f6f8 100%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
-body.light-theme .globe-stat-item {
-  background: rgba(0, 0, 0, 0.01);
-  border-color: rgba(0, 0, 0, 0.05);
+body.light-theme .subway-section,
+body.light-theme .roadmap-container {
+  background: #f5f6f8 !important;
 }
 
-body.light-theme .globe-stat-value {
-  color: #0f1012;
+body.light-theme .inner-hero-label {
+  color: var(--red) !important;
 }
 
-body.light-theme .globe-tooltip {
-  background: rgba(255, 255, 255, 0.95);
-  color: #0f1012;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+body.light-theme .inner-hero-title {
+  color: #0f1012 !important;
 }
 
-body.light-theme .globe-tooltip .tooltip-desc {
-  color: rgba(15, 16, 18, 0.6);
+body.light-theme .inner-hero-desc {
+  color: rgba(15, 16, 18, 0.65) !important;
 }
 
-body.light-theme .tree-tier-block {
-  background: rgba(0, 0, 0, 0.01);
-  border-color: rgba(0, 0, 0, 0.06);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+/* Telemetry Cards */
+body.light-theme .hud-telemetry-panel {
+  border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-body.light-theme .tree-tier-title {
-  color: #0f1012;
+body.light-theme .telemetry-card {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
 }
 
-body.light-theme .tree-tier-badge {
-  background: rgba(0, 0, 0, 0.02);
-  border-color: rgba(0, 0, 0, 0.08);
-  color: rgba(15, 16, 18, 0.6);
+body.light-theme .telemetry-card:hover {
+  background: #ffffff !important;
+  border-color: rgba(224, 90, 0, 0.3) !important;
+  box-shadow: 0 8px 24px rgba(224, 90, 0, 0.08) !important;
 }
 
-body.light-theme .vendor-title {
-  background: #f5f5f7;
-  border-color: rgba(0, 0, 0, 0.08);
-  color: #0f1012;
+body.light-theme .telemetry-label {
+  color: rgba(15, 16, 18, 0.55) !important;
 }
 
-body.light-theme .cert-card {
-  background: rgba(0, 0, 0, 0.01);
-  border-color: rgba(0, 0, 0, 0.06);
+body.light-theme .telemetry-value {
+  color: #0f1012 !important;
 }
 
-body.light-theme .cert-card:hover {
-  background: rgba(0, 0, 0, 0.02);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+/* Search Container */
+body.light-theme .hud-search-container {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
 }
 
-body.light-theme .cert-card-code {
-  color: #0f1012;
+body.light-theme .hud-search-container:focus-within {
+  background: #ffffff !important;
+  border-color: var(--red) !important;
+  box-shadow: 0 0 15px rgba(224, 90, 0, 0.15) !important;
 }
 
-body.light-theme .cert-card-name {
-  color: rgba(15, 16, 18, 0.6);
+body.light-theme .hud-search-prompt {
+  color: var(--red) !important;
 }
 
+body.light-theme .hud-search-input {
+  color: #0f1012 !important;
+}
+
+body.light-theme .hud-search-input::placeholder {
+  color: rgba(15, 16, 18, 0.4) !important;
+}
+
+body.light-theme .hud-search-cursor {
+  color: var(--red) !important;
+}
+
+/* Domain Dashboard Cards */
 body.light-theme .domain-dashboard-card {
-  background: rgba(0, 0, 0, 0.01);
-  border-color: rgba(0, 0, 0, 0.06);
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
 }
 
 body.light-theme .domain-dashboard-card:hover {
-  background: rgba(0, 0, 0, 0.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  background: #ffffff !important;
+  border-color: rgba(224, 90, 0, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
 }
 
 body.light-theme .domain-card-title {
-  color: #0f1012;
+  color: #0f1012 !important;
 }
 
 body.light-theme .domain-card-desc {
-  color: rgba(15, 16, 18, 0.6);
+  color: rgba(15, 16, 18, 0.65) !important;
 }
 
 body.light-theme .domain-metric-val {
-  color: #0f1012;
+  color: #0f1012 !important;
 }
 
 body.light-theme .domain-metric-lbl {
-  color: rgba(15, 16, 18, 0.4);
+  color: rgba(15, 16, 18, 0.5) !important;
+}
+
+body.light-theme .domain-card-badge {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: rgba(15, 16, 18, 0.6) !important;
+}
+
+body.light-theme .domain-tier-count {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: rgba(15, 16, 18, 0.6) !important;
+}
+
+/* Globe Sticky Wrap & Stats */
+body.light-theme .globe-sticky-wrap {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-theme .globe-sticky-wrap h2 {
+  color: #0f1012 !important;
+}
+
+body.light-theme .globe-sticky-wrap:hover {
+  border-color: rgba(224, 90, 0, 0.3) !important;
+  box-shadow: 0 15px 50px rgba(224, 90, 0, 0.08) !important;
+}
+
+body.light-theme .globe-hud-stats {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-theme .globe-stat-item {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-theme .globe-stat-label {
+  color: rgba(15, 16, 18, 0.55) !important;
+}
+
+body.light-theme .globe-stat-value {
+  color: #0f1012 !important;
+}
+
+body.light-theme .globe-tooltip {
+  background: #ffffff !important;
+  color: #0f1012 !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+body.light-theme .globe-tooltip .tooltip-desc {
+  color: rgba(15, 16, 18, 0.65) !important;
+}
+
+/* Tree View & Cert Cards */
+body.light-theme .tree-tier-block {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+}
+
+body.light-theme .tree-tier-title {
+  color: #0f1012 !important;
+}
+
+body.light-theme .tree-tier-badge {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: rgba(15, 16, 18, 0.6) !important;
+}
+
+body.light-theme .vendor-title {
+  background: #f0f1f4 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: #0f1012 !important;
+}
+
+body.light-theme .cert-card {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02) !important;
+}
+
+body.light-theme .cert-card:hover {
+  background: #ffffff !important;
+  border-color: rgba(224, 90, 0, 0.3) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-theme .cert-card-code {
+  color: #0f1012 !important;
+}
+
+body.light-theme .cert-card-name {
+  color: rgba(15, 16, 18, 0.65) !important;
 }
 
 /* ==========================================================================

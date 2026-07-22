@@ -3,8 +3,8 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initPageWrapper();
   initPreloader();
+  initPageWrapper();
   initThemeToggle();
   initNavbar();
   initMobileMenu();
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroRoleCarousel();
   initRolesSlider();
   initHudTopology();
+  initLazy3DGallery();
 });
 
 /* ===== FOLLOW EYES COMPONENT ===== */
@@ -204,11 +205,11 @@ function initPreloader() {
       document.body.classList.remove('no-scroll');
       initIntroHeroAnimation();
     }
-  }, 2200);
+  }, 4500);
 
   try {
     if (typeof gsap === 'undefined') {
-      // Fallback: make everything visible and fade out preloader after 1s
+      // Fallback: make everything visible and fade out preloader after 3s
       document.querySelectorAll('.preloader-wrap > div').forEach(el => {
         el.style.opacity = '1';
       });
@@ -222,7 +223,7 @@ function initPreloader() {
         preloader.classList.add('loaded');
         document.body.classList.remove('no-scroll');
         initIntroHeroAnimation();
-      }, 1000);
+      }, 3000);
       return;
     }
 
@@ -265,32 +266,32 @@ function initPreloader() {
       }
     });
 
-    // 1. Scale and fade in the center eyes smoothly (snappy timing)
+    // 1. Scale and fade in the center eyes smoothly
     tl.to('.preloader-center-x', {
       opacity: 1,
       scale: 1,
-      duration: 0.3,
+      duration: 0.4,
       ease: 'power2.out'
     })
       // 2. Reveal Name & Role simultaneously with gentle slide-in
       .to('.preloader-name', {
         opacity: 1,
         y: 0,
-        duration: 0.35,
+        duration: 0.4,
         ease: 'power2.out'
       }, '-=0.2')
       .to('.preloader-role', {
         opacity: 1,
         y: 0,
-        duration: 0.35,
+        duration: 0.4,
         ease: 'power2.out'
       }, '-=0.35')
-      // 3. Slide up the preloader curtain itself
+      // 3. Hold preloader on screen for ~2.5s so total display is ~3 seconds with eye-tracking active
       .to(preloader, {
         yPercent: -100,
-        duration: 0.55,
+        duration: 0.65,
         ease: 'power3.inOut'
-      }, '+=0.15');
+      }, '+=2.3');
 
   } catch (error) {
     console.error("initPreloader error: ", error);
@@ -381,10 +382,18 @@ function initThemeToggle() {
 
   // Get current active theme
   const initialTheme = localStorage.getItem('theme') || 'dark';
+  if (initialTheme === 'light') {
+    document.body.classList.add('light-theme');
+    document.documentElement.classList.add('light-theme');
+  } else {
+    document.body.classList.remove('light-theme');
+    document.documentElement.classList.remove('light-theme');
+  }
   updateMobileThemeText(initialTheme);
 
   function toggleTheme() {
     const isLight = document.body.classList.toggle('light-theme');
+    document.documentElement.classList.toggle('light-theme', isLight);
     const newTheme = isLight ? 'light' : 'dark';
     localStorage.setItem('theme', newTheme);
     updateMobileThemeText(newTheme);
@@ -1882,6 +1891,33 @@ function initPageWrapper() {
   document.body.appendChild(closeBtn);
 
   document.body.appendChild(wrapper);
+}
+
+/* ===== LAZY-LOAD THREE.JS AND 3D SPHERE GALLERY ===== */
+function initLazy3DGallery() {
+  const container = document.getElementById('gallery-canvas-container');
+  if (!container) return;
+
+  let loaded = false;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !loaded) {
+        loaded = true;
+        observer.disconnect();
+
+        const threeScript = document.createElement('script');
+        threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        threeScript.onload = () => {
+          const galleryScript = document.createElement('script');
+          galleryScript.src = 'assets/js/sphere-gallery.js?v=1.0';
+          document.body.appendChild(galleryScript);
+        };
+        document.body.appendChild(threeScript);
+      }
+    });
+  }, { rootMargin: '400px' });
+
+  observer.observe(container);
 }
 
 
