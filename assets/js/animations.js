@@ -150,8 +150,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMobile = window.innerWidth <= 768;
     const triggerStart = isMobile ? 'top 100%' : 'top 88%';
 
+    // Alternating Scroll Reveal for Stats with Scroll Scrubbing (L->R and R->L smoothly linked to scroll up & down)
+    const statRows = document.querySelectorAll('.stats-container .stat-row');
+    if (statRows.length) {
+      statRows.forEach((row, index) => {
+        const fromX = (index % 2 === 0) ? -220 : 220;
+        gsap.fromTo(
+          row,
+          {
+            opacity: 0.1,
+            x: fromX,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: row,
+              start: isMobile ? 'top 98%' : 'top 92%',
+              end: isMobile ? 'top 60%' : 'top 45%',
+              scrub: 1.2,
+            }
+          }
+        );
+      });
+    }
+
     const revealElements = [
-      { selector: '.stat-row', stagger: 0.15 },
       { selector: '.exp-item', stagger: 0.12 },
       { selector: '.expertise-detail-inner', stagger: 0 },
       { selector: '.about-portrait, .about-bio', stagger: 0.2 },
@@ -740,22 +765,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== ENHANCED PRELOADER INTEGRATION ===== */
   function enhancePreloaderExit() {
-    // Wait for the existing preloader to complete (2200ms from script.js)
+    // Synchronized with preloader timing from script.js
     setTimeout(() => {
       const introHero = document.querySelector('#intro-hero');
       if (introHero) {
         // Smooth fade in after preloader
         gsap.fromTo(introHero,
-          { opacity: 0, scale: 1.05 },
+          { opacity: 0, scale: 1.03 },
           {
             opacity: 1,
             scale: 1,
-            duration: 1.5,
+            duration: 1.1,
             ease: 'power3.out'
           }
         );
       }
-    }, 2300);
+    }, 1200);
   }
 
   /* ===== HERO SECTION SCALE ON SCROLL ===== */

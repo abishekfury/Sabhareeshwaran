@@ -900,6 +900,23 @@ function initMainRoadmap() {
   document.getElementById('statIntermediate').textContent = certDatabase.filter(c => c.level === 'intermediate').length;
   document.getElementById('statExpert').textContent = certDatabase.filter(c => c.level === 'expert').length;
 
+  // Domain search filter listener
+  const domainSearchInput = document.getElementById('domainSearchInput');
+  if (domainSearchInput) {
+    domainSearchInput.addEventListener('input', () => {
+      const q = domainSearchInput.value.toLowerCase().trim();
+      document.querySelectorAll('.domain-dashboard-card').forEach(card => {
+        const title = card.querySelector('.domain-card-title')?.textContent.toLowerCase() || '';
+        const desc = card.querySelector('.domain-card-desc')?.textContent.toLowerCase() || '';
+        if (!q || title.includes(q) || desc.includes(q)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
   // Initialize main globe
   const globe = new InteractiveGlobe('roadmapGlobeContainer', {
     radius: 170,

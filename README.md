@@ -22,7 +22,7 @@ Sabhareeshwaran Portfolio is a cutting-edge, single-page application showcasing 
 ## 📁 Project Structure
 
 ```
-cyberEntity/
+/
 ├── index.html              # Main homepage
 ├── 404.html               # Custom error page
 ├── .htaccess              # Apache server configuration

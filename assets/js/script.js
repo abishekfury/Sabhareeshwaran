@@ -3,6 +3,7 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initPageWrapper();
   initPreloader();
   initThemeToggle();
   initNavbar();
@@ -127,7 +128,8 @@ function initFollowEyes() {
       // feels proportional during the GSAP scale-in animation
       const renderScale = Math.min(r.width / eyeSizePx, 1);
       const effectiveRange = trackingRange * renderScale;
-      const clamped = Math.min((dist / 400) * effectiveRange, effectiveRange);
+      // High-sensitivity mapping: pupil shifts directly towards mouse coordinate
+      const clamped = Math.min(dist, effectiveRange);
       const angle = Math.atan2(dy, dx);
 
       const tx = Math.cos(angle) * clamped;
@@ -137,8 +139,8 @@ function initFollowEyes() {
       s.x += (tx - s.x) * trackingSpeed;
       s.y += (ty - s.y) * trackingSpeed;
 
-      // Pure pixel offset on top of the CSS -50%/-50% centering — no calc() needed
-      pupils[i].style.transform = `translate(calc(-50% + ${s.x}px), calc(-50% + ${s.y}px))`;
+      // Highly compatible double transform instead of calc()
+      pupils[i].style.transform = `translate(-50%, -50%) translate(${s.x}px, ${s.y}px)`;
     });
 
     requestAnimationFrame(animate);
@@ -195,9 +197,18 @@ function initPreloader() {
 
   document.body.classList.add('no-scroll');
 
+  // Safety fallback timeout to prevent any stuck state if GSAP or assets hang
+  const safetyTimeout = setTimeout(() => {
+    if (!preloader.classList.contains('loaded')) {
+      preloader.classList.add('loaded');
+      document.body.classList.remove('no-scroll');
+      initIntroHeroAnimation();
+    }
+  }, 2200);
+
   try {
     if (typeof gsap === 'undefined') {
-      // Fallback: make everything visible and fade out preloader after 2s
+      // Fallback: make everything visible and fade out preloader after 1s
       document.querySelectorAll('.preloader-wrap > div').forEach(el => {
         el.style.opacity = '1';
       });
@@ -207,19 +218,20 @@ function initPreloader() {
         if (eyeContainerFb._startBlink) eyeContainerFb._startBlink();
       }
       setTimeout(() => {
+        clearTimeout(safetyTimeout);
         preloader.classList.add('loaded');
         document.body.classList.remove('no-scroll');
         initIntroHeroAnimation();
-      }, 2000);
+      }, 1000);
       return;
     }
 
-    // Set initial states via GSAP
-    gsap.set('.preloader-center-x', { opacity: 0, scale: 0, rotation: -180 });
-    gsap.set('.preloader-name', { opacity: 0, y: -250 });
-    gsap.set('.preloader-role', { opacity: 0, y: 250 });
+    // Set initial states via GSAP — clean, subtle offsets instead of massive 250px jumps
+    gsap.set('.preloader-center-x', { opacity: 0, scale: 0.7 });
+    gsap.set('.preloader-name', { opacity: 0, y: -25 });
+    gsap.set('.preloader-role', { opacity: 0, y: 25 });
 
-    // Now that GSAP has set initial transforms, start the eye tracking loop
+    // Start eye tracking loop immediately so pupils track smoothly from frame 1
     const eyeContainer = document.querySelector('.follow-eyes');
     if (eyeContainer && eyeContainer._startTracking) {
       eyeContainer._startTracking();
@@ -228,64 +240,61 @@ function initPreloader() {
 
     const tl = gsap.timeline({
       onComplete: () => {
-        // Exit animation: preloader slides up
-        gsap.to(preloader, {
-          yPercent: -100,
-          duration: 1.2,
-          ease: 'power4.inOut',
-          onComplete: () => {
-            preloader.classList.add('loaded');
-            document.body.classList.remove('no-scroll');
-            initIntroHeroAnimation();
-          }
-        });
+        clearTimeout(safetyTimeout);
+        preloader.classList.add('loaded');
+        document.body.classList.remove('no-scroll');
+        initIntroHeroAnimation();
 
-        // Website reveal animation: parallax drag down
+        // Website reveal animation: smooth hero drag down
         gsap.fromTo('.split-hero',
-          { y: -120, scale: 1.05 },
-          { y: 0, scale: 1, duration: 1.4, ease: 'power4.out' }
+          { y: -80, scale: 1.03 },
+          { y: 0, scale: 1, duration: 1.0, ease: 'power4.out' }
         );
         const isScrolled = window.scrollY > 60;
         if (isScrolled) {
           gsap.fromTo('.navbar',
-            { y: -80, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out', delay: 0.1, clearProps: 'opacity' }
+            { y: -60, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.9, ease: 'power4.out', delay: 0.05, clearProps: 'opacity' }
           );
         } else {
           gsap.fromTo('.navbar',
-            { y: -80 },
-            { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.1 }
+            { y: -60 },
+            { y: 0, duration: 0.9, ease: 'power4.out', delay: 0.05 }
           );
         }
       }
     });
 
-    // 1. Spin and scale in the center X
+    // 1. Scale and fade in the center eyes smoothly (snappy timing)
     tl.to('.preloader-center-x', {
       opacity: 1,
       scale: 1,
-      rotation: 0,
-      duration: 0.8,
-      ease: 'back.out(1.5)'
+      duration: 0.3,
+      ease: 'power2.out'
     })
-      // 2. Slide in the name and role from top and bottom to meet X
+      // 2. Reveal Name & Role simultaneously with gentle slide-in
       .to('.preloader-name', {
         opacity: 1,
         y: 0,
-        duration: 1.2,
-        ease: 'power4.out'
-      }, '-=0.3')
+        duration: 0.35,
+        ease: 'power2.out'
+      }, '-=0.2')
       .to('.preloader-role', {
         opacity: 1,
         y: 0,
-        duration: 1.2,
-        ease: 'power4.out'
-      }, '-=1.2')
-      // 3. Hold the complete matched logo state
-      .to({}, { duration: 0.6 });
+        duration: 0.35,
+        ease: 'power2.out'
+      }, '-=0.35')
+      // 3. Slide up the preloader curtain itself
+      .to(preloader, {
+        yPercent: -100,
+        duration: 0.55,
+        ease: 'power3.inOut'
+      }, '+=0.15');
 
   } catch (error) {
     console.error("initPreloader error: ", error);
+    clearTimeout(safetyTimeout);
     preloader.classList.add('loaded');
     document.body.classList.remove('no-scroll');
     initIntroHeroAnimation();
@@ -416,6 +425,26 @@ function initNavDrawer() {
 
   if (!overlay || !drawer) return;
 
+  // Build the new menu options dynamically
+  const container = drawer.querySelector('.menu-options-container');
+  if (container) {
+    container.innerHTML = `
+      <a href="index.html#about" class="menu-option-link" data-node="about">About</a>
+      <a href="index.html#experience" class="menu-option-link" data-node="experience">Experience</a>
+      <a href="index.html#skills" class="menu-option-link" data-node="skills">Skills</a>
+      <a href="services.html" class="menu-option-link" data-node="services">Services</a>
+      <a href="roadmap.html" class="menu-option-link" data-node="certifications">Certifications</a>
+      <a href="index.html#education" class="menu-option-link" data-node="education">Education</a>
+      <a href="index.html#volunteering" class="menu-option-link" data-node="volunteering">Volunteering</a>
+      <a href="index.html#awards" class="menu-option-link" data-node="awards">Honors</a>
+      <a href="index.html#visual-gallery" class="menu-option-link" data-node="gallery">Visual Gallery</a>
+      <a href="index.html#recommendations" class="menu-option-link" data-node="reviews">Reviews</a>
+      <a href="index.html#publications" class="menu-option-link" data-node="publications">Publications</a>
+      <a href="index.html#courses" class="menu-option-link" data-node="courses">Courses</a>
+      <a href="index.html#contact" class="menu-option-link" data-node="contact">Connect</a>
+    `;
+  }
+
   // On homepage, clean up menu links to enable smooth scrolling without page reloads
   const currentPath = window.location.pathname;
   if (currentPath === '/' || currentPath.endsWith('index.html') || currentPath === '/index.html') {
@@ -452,9 +481,19 @@ function initNavDrawer() {
   }
 
   function openDrawer() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+    const originY = scrollTop + (viewportHeight / 2);
+
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper) {
+      pageWrapper.style.transformOrigin = `100% ${originY}px`;
+    }
+
     overlay.classList.add('open');
     drawer.classList.add('open');
     document.body.classList.add('no-scroll');
+    document.body.classList.add('menu-open');
     if (window.lenis) window.lenis.stop();
     menuBtns.forEach(btn => btn && btn.classList.add('active'));
 
@@ -485,8 +524,17 @@ function initNavDrawer() {
     overlay.classList.remove('open');
     drawer.classList.remove('open');
     document.body.classList.remove('no-scroll');
+    document.body.classList.remove('menu-open');
     if (window.lenis) window.lenis.start();
     menuBtns.forEach(btn => btn && btn.classList.remove('active'));
+
+    // Reset transform origin after transition
+    setTimeout(() => {
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper && !document.body.classList.contains('menu-open')) {
+        pageWrapper.style.transformOrigin = '';
+      }
+    }, 600);
   }
 
   // Open on all hamburger buttons
@@ -512,13 +560,81 @@ function initNavDrawer() {
 
   // Close on link click (smooth scroll to section)
   drawer.querySelectorAll('.menu-option-link').forEach(link => {
-    link.addEventListener('click', closeDrawer);
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        closeDrawer();
+        setTimeout(() => {
+          try {
+            const target = document.querySelector(href);
+            if (target) {
+              if (window.lenis) {
+                window.lenis.scrollTo(target, {
+                  offset: -80,
+                  duration: 1.2,
+                  easing: (t) => 1 - Math.pow(1 - t, 3),
+                });
+              } else {
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }
+          } catch (err) {
+            console.warn("Deferred scroll failed:", err);
+          }
+        }, 550); // wait for 550ms off-canvas transition to finish
+      } else {
+        closeDrawer();
+      }
+    });
   });
 
   // Close on resize
   window.addEventListener('resize', () => {
     if (drawer.classList.contains('open')) closeDrawer();
   });
+
+  // Close on page wrapper click
+  const pageWrapper = document.getElementById('page-wrapper');
+  if (pageWrapper) {
+    pageWrapper.addEventListener('click', (e) => {
+      if (document.body.classList.contains('menu-open')) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeDrawer();
+      }
+    });
+  }
+
+  // Close on page wrapper close button click
+  const wrapperCloseBtn = document.getElementById('pageWrapperClose');
+  if (wrapperCloseBtn) {
+    wrapperCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeDrawer();
+    });
+  }
+
+  // Close when clicking the shifted navbar (except hamburger menu buttons)
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    navbar.addEventListener('click', (e) => {
+      if (document.body.classList.contains('menu-open')) {
+        const isMenuBtn = e.target.closest('#menuBtn') || e.target.closest('#splitMenuBtn');
+        if (!isMenuBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeDrawer();
+        }
+      }
+    });
+  }
+
+
 
   // Run initial highlight
   highlightCurrentPageLink();
@@ -1540,7 +1656,7 @@ function initHudTopology() {
       nodeStatusEl.style.color = '#25D366';
     }
     if (nodeCompilerEl) nodeCompilerEl.textContent = "v2.3_GCC";
-    if (nodeDescEl) nodeDescEl.textContent = "Core routing node for cyberEntity index. Hover over nodes or links to analyze systems.";
+    if (nodeDescEl) nodeDescEl.textContent = "Core routing node for  index. Hover over nodes or links to analyze systems.";
     if (infoHeaderEl) infoHeaderEl.textContent = "// NODE_DETAILS: SAB_NEXUS";
   }
 
@@ -1723,4 +1839,49 @@ function initRolesSlider() {
     });
   }
 }
+
+/* ===== DYNAMIC PAGE WRAPPER ===== */
+function initPageWrapper() {
+  if (document.getElementById('page-wrapper')) return;
+
+  const wrapper = document.createElement('div');
+  wrapper.id = 'page-wrapper';
+
+  const keepInBody = [
+    'preloader',
+    'scrollProgress',
+    'navDrawerOverlay',
+    'navDrawer',
+    'whatsappFloat',
+    'navbar'
+  ];
+
+  const children = Array.from(document.body.children);
+  children.forEach(child => {
+    if (child.tagName === 'SCRIPT' ||
+      child.tagName === 'NOSCRIPT' ||
+      keepInBody.includes(child.id) ||
+      child.classList.contains('preloader') ||
+      child.classList.contains('nav-drawer-overlay') ||
+      child.classList.contains('nav-drawer') ||
+      child.classList.contains('scroll-progress') ||
+      child.classList.contains('whatsapp-float') ||
+      child.classList.contains('side-badge') ||
+      child.classList.contains('navbar')) {
+      return;
+    }
+    wrapper.appendChild(child);
+  });
+
+  // Create page wrapper close button
+  const closeBtn = document.createElement('button');
+  closeBtn.id = 'pageWrapperClose';
+  closeBtn.className = 'page-wrapper-close';
+  closeBtn.setAttribute('aria-label', 'Close menu');
+  closeBtn.innerHTML = '&#10005;'; // X
+  document.body.appendChild(closeBtn);
+
+  document.body.appendChild(wrapper);
+}
+
 

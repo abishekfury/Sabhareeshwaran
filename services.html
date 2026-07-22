@@ -7,14 +7,11 @@
   <title>Cybersecurity & Consulting Services | Sabhareeshwaran S</title>
   <meta name="description"
     content="Explore the professional services, mentoring, training, and corporate security consulting options offered by Sabhareeshwaran S.">
-  <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+  <link rel="icon" type="image/webp" href="assets/images/favicon.webp?v=3.0">
 
   <!-- Preload Critical Assets -->
   <link rel="preload" href="assets/css/style.css?v=2.3" as="style">
   <link rel="preload" href="assets/css/portfolio-page.css?v=2.0" as="style">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;700;900&display=swap"
     rel="stylesheet">
@@ -1633,22 +1630,33 @@
       height: auto !important;
       min-height: 180px;
       padding: 1.5rem;
-      border: 1px solid var(--border-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       background: #111;
+      font-size: 0.8rem;
+      color: #ccc;
+      line-height: 1.6;
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 0.6rem;
     }
 
     .services-catalog-wrap .srv-preview-cat {
       color: var(--red);
-      font-size: 0.75rem;
-      font-family: monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: inherit;
       letter-spacing: 0.08em;
       display: block;
       margin-bottom: 0.25rem;
+    }
+
+    .services-catalog-wrap .srv-drawer-desc {
+      color: #ccc !important;
+      font-size: 0.8rem !important;
+      line-height: 1.6 !important;
+      margin: 0 0 0.4rem !important;
     }
 
     body.light-theme .services-catalog-wrap .work-item-preview {
@@ -1788,6 +1796,11 @@
       cursor: zoom-in;
     }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;700;900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
@@ -1802,12 +1815,12 @@
   <!-- NAVBAR -->
   <nav class="navbar scrolled" id="navbar" style="opacity: 1; pointer-events: auto;">
     <a href="index.html" class="nav-logo">
-      <div style="color:var(--red);font-weight:900;font-size:24px;letter-spacing:-0.5px;">SAB</div>
+      <span class="nav-logo-full">SABHAREESHWARAN</span>
+      <span class="nav-logo-short">SAB</span>
     </a>
     <div class="nav-right">
       <a href="services.html" class="nav-cta nav-cert-cta"
         style="margin-right: 12px; border-color: var(--red); color: var(--white); background: var(--red);">Services</a>
-      <a href="roadmap.html" class="nav-cta" style="margin-right: 12px;">Roadmap</a>
       <a href="index.html#contact" class="nav-cta">Contact</a>
       <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
         <div class="theme-toggle-btn-inner">
@@ -1855,7 +1868,10 @@
     </div>
   </div>
 
-
+  <!-- FLOATING SIDE BADGE LINK TO ROADMAP -->
+  <a href="roadmap.html" class="side-badge" aria-label="Cybersecurity Roadmap">
+    <div class="badge-text">Roadmap</div>
+  </a>
 
   <!-- INNER HERO -->
   <header class="inner-hero">
@@ -1938,7 +1954,7 @@
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
-              <span class="srv-cat-hero-num">CAT_01 | EDUCATION</span>
+              <span class="srv-cat-hero-num">CAT 01 | EDUCATION</span>
               <h2 class="srv-cat-hero-title">Training &amp; Education</h2>
               <p class="srv-cat-hero-count">07 SERVICES AVAILABLE</p>
               <p class="srv-cat-hero-desc">Academic programs, workshops, seminars, and lecture-based content designed
@@ -1953,7 +1969,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_01 | Corporate &bull; Phishing</strong>
+                <strong class="srv-preview-cat">CAT 01 | Corporate &bull; Phishing</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Designed to foster
                   a security-first culture in corporate organizations. Focuses on social engineering defense, mobile
                   threats, and basic compliance regulations.</p>
@@ -1972,7 +1988,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_01 | Hands-On &bull; Labs</strong>
+                <strong class="srv-preview-cat">CAT 01 | Hands-On &bull; Labs</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Interactive,
                   intensive bootcamps focused on real-world defensive and offensive tactics. Students gain experience
                   using industry standard tooling.</p>
@@ -1991,7 +2007,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_01 | Enterprise &bull; Custom</strong>
+                <strong class="srv-preview-cat">CAT 01 | Enterprise &bull; Custom</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Structured,
                   customized upskilling curriculums tailored to IT infrastructure teams, developer groups, and technical
                   risk auditors.</p>
@@ -2010,7 +2026,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_01 | Academic &bull; Lectures</strong>
+                <strong class="srv-preview-cat">CAT 01 | Academic &bull; Lectures</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Engaging
                   presentations covering evolving cybersecurity trends, defensive controls, and modern zero-trust
                   enterprise paradigms.</p>
@@ -2029,7 +2045,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_01 | Online &bull; Stream</strong>
+                <strong class="srv-preview-cat">CAT 01 | Online &bull; Stream</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Global online
                   streaming sessions covering targeted domains like OWASP Top 10, Azure Security, and Endpoint
                   detection.</p>
@@ -2048,7 +2064,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_01 | Colleges &bull; Universities</strong>
+                <strong class="srv-preview-cat">CAT 01 | Colleges &bull; Universities</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Inspiring and
                   academic-friendly lectures for engineering, science, and computer application streams to bridge
                   university learning with industry needs.</p>
@@ -2067,7 +2083,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_01 | Educators &bull; FDP</strong>
+                <strong class="srv-preview-cat">CAT 01 | Educators &bull; FDP</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Empowering
                   educators with technical methodologies, tool competencies, and practical syllabus components in
                   cybersecurity.</p>
@@ -2090,7 +2106,7 @@
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
-              <span class="srv-cat-hero-num">CAT_02 | MENTORSHIP</span>
+              <span class="srv-cat-hero-num">CAT 02 | MENTORSHIP</span>
               <h2 class="srv-cat-hero-title">Mentorship &amp; Career</h2>
               <p class="srv-cat-hero-count">06 SERVICES AVAILABLE</p>
               <p class="srv-cat-hero-desc">One-to-one coaching, career pathway mapping, resume optimization, and mock
@@ -2105,7 +2121,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_02 | Pathway &bull; Career</strong>
+                <strong class="srv-preview-cat">CAT 02 | Pathway &bull; Career</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Identifying
                   strengths, mapping professional interests, and determining clear step-by-step career tracks within
                   security operations or offensive paths.</p>
@@ -2124,7 +2140,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_02 | 1:1 &bull; Coaching</strong>
+                <strong class="srv-preview-cat">CAT 02 | 1:1 &bull; Coaching</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Direct,
                   hyper-focused coaching sessions. Perfect for deep-diving into specific skills, addressing blockers,
                   and planning major career shifts.</p>
@@ -2143,7 +2159,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_02 | Group &bull; Cohort</strong>
+                <strong class="srv-preview-cat">CAT 02 | Group &bull; Cohort</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Interactive,
                   cohort-style mentoring. Emphasizes collaborative project creation, group challenges, and shared
                   peer-to-peer knowledge loops.</p>
@@ -2162,7 +2178,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_02 | Interview &bull; Technical</strong>
+                <strong class="srv-preview-cat">CAT 02 | Interview &bull; Technical</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Simulation of SOC,
                   Pentesting, and GRC technical rounds. Builds confidence and identifies areas requiring revision.</p>
                 <div class="srv-drawer-deliverables"
@@ -2180,7 +2196,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_02 | Resume &bull; ATS</strong>
+                <strong class="srv-preview-cat">CAT 02 | Resume &bull; ATS</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Aligning resumes
                   with Application Tracking Systems (ATS). Highlights technical skills and projects to maximize callback
                   rates.</p>
@@ -2199,7 +2215,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_02 | LinkedIn &bull; Brand</strong>
+                <strong class="srv-preview-cat">CAT 02 | LinkedIn &bull; Brand</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Constructing a
                   premium, recruiter-attracting professional brand presence. Focuses on SEO keywords and project
                   showcase tabs.</p>
@@ -2222,7 +2238,7 @@
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
-              <span class="srv-cat-hero-num">CAT_03 | CERT LABS</span>
+              <span class="srv-cat-hero-num">CAT 03 | CERT LABS</span>
               <h2 class="srv-cat-hero-title">Certifications &amp; Labs</h2>
               <p class="srv-cat-hero-count">07 SERVICES AVAILABLE</p>
               <p class="srv-cat-hero-desc">Certification guidance, hands-on lab training, project mentoring, and
@@ -2237,7 +2253,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_03 | Roadmap &bull; CompTIA</strong>
+                <strong class="srv-preview-cat">CAT 03 | Roadmap &bull; CompTIA</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Providing
                   specialized planning for certifications such as CompTIA, Microsoft, Fortinet, and offensive paths
                   (OSCP/eJPT).</p>
@@ -2256,7 +2272,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_03 | CCNA &bull; CEH</strong>
+                <strong class="srv-preview-cat">CAT 03 | CCNA &bull; CEH</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Instructor-led
                   training focusing on fundamental and professional certifications (CCNA, CEH, SC-200, AZ-500).</p>
                 <div class="srv-drawer-deliverables"
@@ -2274,7 +2290,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_03 | Wazuh &bull; Splunk</strong>
+                <strong class="srv-preview-cat">CAT 03 | Wazuh &bull; Splunk</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Practical sessions
                   on real tools: Wazuh, Splunk, Wireshark, active directory setups, and Kali offensive utility sets.</p>
                 <div class="srv-drawer-deliverables"
@@ -2292,7 +2308,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_03 | SOC &bull; Portfolio</strong>
+                <strong class="srv-preview-cat">CAT 03 | SOC &bull; Portfolio</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Guiding students
                   or engineers through building real portfolio-worthy projects like custom SOCs, threat intelligence
                   pipelines, or vulnerability management systems.</p>
@@ -2311,7 +2327,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_03 | Internship &bull; Industry</strong>
+                <strong class="srv-preview-cat">CAT 03 | Internship &bull; Industry</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Structured
                   mentorship for interns. Translates internship projects into solid business achievements and guides
                   daily technical tasks.</p>
@@ -2330,7 +2346,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_03 | Placement &bull; Students</strong>
+                <strong class="srv-preview-cat">CAT 03 | Placement &bull; Students</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Ensuring final
                   year computer science and IT students are equipped with necessary cybersecurity fundamentals to clear
                   technical selection panels.</p>
@@ -2349,7 +2365,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_03 | Campus &bull; Bulk</strong>
+                <strong class="srv-preview-cat">CAT 03 | Campus &bull; Bulk</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Custom bootcamps
                   for educational institutions. Aims to enhance overall placement success rates for hiring companies.
                 </p>
@@ -2372,7 +2388,7 @@
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
-              <span class="srv-cat-hero-num">CAT_04 | CONSULTING</span>
+              <span class="srv-cat-hero-num">CAT 04 | CONSULTING</span>
               <h2 class="srv-cat-hero-title">Security &amp; IT Consulting</h2>
               <p class="srv-cat-hero-count">08 SERVICES AVAILABLE</p>
               <p class="srv-cat-hero-desc">Technical advisory, infrastructure reviews, lab design, network architecture
@@ -2387,7 +2403,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | Advisory &bull; Architecture</strong>
+                <strong class="srv-preview-cat">CAT 04 | Advisory &bull; Architecture</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Advisory services
                   covering active directory structures, firewall selections, cloud security controls, and endpoint
                   strategies.</p>
@@ -2406,7 +2422,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | Risk &bull; Posture</strong>
+                <strong class="srv-preview-cat">CAT 04 | Risk &bull; Posture</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Reviewing
                   structural layouts, compliance postures, and incident pipelines to align corporate IT with security
                   controls.</p>
@@ -2425,7 +2441,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | Servers &bull; AD</strong>
+                <strong class="srv-preview-cat">CAT 04 | Servers &bull; AD</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Evaluating
                   on-premise and hybrid server setups, patch management practices, and privilege parameters to lock down
                   systems.</p>
@@ -2444,7 +2460,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | VLAN &bull; Firewall</strong>
+                <strong class="srv-preview-cat">CAT 04 | VLAN &bull; Firewall</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Analyzing network
                   pathways, subnet configurations, and DMZ rules to block lateral movement and optimize traffic flow.
                 </p>
@@ -2463,7 +2479,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | SOC Lab &bull; Hardware</strong>
+                <strong class="srv-preview-cat">CAT 04 | SOC Lab &bull; Hardware</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Architecture and
                   hardware guidelines for colleges or businesses looking to build cybersecurity SOC simulation labs.</p>
                 <div class="srv-drawer-deliverables"
@@ -2481,7 +2497,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | Deployment &bull; SIEM</strong>
+                <strong class="srv-preview-cat">CAT 04 | Deployment &bull; SIEM</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Deployment support
                   for simulation environments, active-directory vulnerability domains, and SIEM monitoring dashboards.
                 </p>
@@ -2500,7 +2516,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | PoC &bull; EDR</strong>
+                <strong class="srv-preview-cat">CAT 04 | PoC &bull; EDR</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Building
                   small-scale pilot structures to validate EDR, firewall integration, or log management solutions before
                   full deployment.</p>
@@ -2519,7 +2535,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_04 | Demos &bull; Evaluation</strong>
+                <strong class="srv-preview-cat">CAT 04 | Demos &bull; Evaluation</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Interactive
                   showcases of SIEM, vulnerability scanners, and analysis frameworks to guide product selection panels.
                 </p>
@@ -2542,7 +2558,7 @@
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
-              <span class="srv-cat-hero-num">CAT_05 | COMPLIANCE</span>
+              <span class="srv-cat-hero-num">CAT 05 | COMPLIANCE</span>
               <h2 class="srv-cat-hero-title">Assessment &amp; Compliance</h2>
               <p class="srv-cat-hero-count">07 SERVICES AVAILABLE</p>
               <p class="srv-cat-hero-desc">Security audits, vulnerability assessments, technical documentation, SOP
@@ -2557,7 +2573,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_05 | Health &bull; Patches</strong>
+                <strong class="srv-preview-cat">CAT 05 | Health &bull; Patches</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Quick, high-level
                   review of key servers, patch profiles, and identity configurations to identify low-hanging
                   vulnerability points.</p>
@@ -2576,7 +2592,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_05 | VAPT &bull; Nessus</strong>
+                <strong class="srv-preview-cat">CAT 05 | VAPT &bull; Nessus</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Guiding internal
                   teams in configuring Nessus/OpenVAS scanners, running credentials checks, and analyzing resulting
                   reports.</p>
@@ -2595,7 +2611,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_05 | ISO 27001 &bull; SOC 2</strong>
+                <strong class="srv-preview-cat">CAT 05 | ISO 27001 &bull; SOC 2</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Preparing
                   organizations for ISO 27001, SOC 2, or regulatory reviews by gathering and structuring evidence logs.
                 </p>
@@ -2614,7 +2630,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_05 | R&amp;D &bull; Research</strong>
+                <strong class="srv-preview-cat">CAT 05 | R&amp;D &bull; Research</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Assisting
                   engineering projects, academic studies, or technical writeups in drafting advanced security research
                   inputs.</p>
@@ -2633,7 +2649,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_05 | Manuals &bull; Guides</strong>
+                <strong class="srv-preview-cat">CAT 05 | Manuals &bull; Guides</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Drafting clear,
                   readable technical operation manuals, network installation guides, and administrator guidelines.</p>
                 <div class="srv-drawer-deliverables"
@@ -2651,7 +2667,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_05 | SOP &bull; Policy</strong>
+                <strong class="srv-preview-cat">CAT 05 | SOP &bull; Policy</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Writing custom
                   Standard Operating Procedures (SOPs) and corporate security policy templates aligned with ISO
                   standards.</p>
@@ -2670,7 +2686,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_05 | Blogs &bull; SEO</strong>
+                <strong class="srv-preview-cat">CAT 05 | Blogs &bull; SEO</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Writing highly
                   technical, SEO-optimized blog posts, product reviews, and lab walkthroughs for cybersecurity brands.
                 </p>
@@ -2693,7 +2709,7 @@
               <div class="srv-cat-hero-overlay"></div>
             </div>
             <div class="srv-cat-hero-info">
-              <span class="srv-cat-hero-num">CAT_06 | ADVISORY</span>
+              <span class="srv-cat-hero-num">CAT 06 | ADVISORY</span>
               <h2 class="srv-cat-hero-title">Community &amp; Advisory</h2>
               <p class="srv-cat-hero-count">05 SERVICES AVAILABLE</p>
               <p class="srv-cat-hero-desc">Conference speaking, community events, startup technology advisory,
@@ -2708,7 +2724,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_06 | Events &bull; Community</strong>
+                <strong class="srv-preview-cat">CAT 06 | Events &bull; Community</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Organizing local
                   hackspaces, lockpicking meetups, and defensive security roundtables to foster grassroots skill
                   sharing.</p>
@@ -2727,7 +2743,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_06 | Keynote &bull; Speaker</strong>
+                <strong class="srv-preview-cat">CAT 06 | Keynote &bull; Speaker</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Delivering keynote
                   talks, panel commentary, or technical session showcases at national security conventions and colleges.
                 </p>
@@ -2746,7 +2762,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_06 | Roadmap &bull; Strategy</strong>
+                <strong class="srv-preview-cat">CAT 06 | Roadmap &bull; Strategy</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Guiding growing
                   companies in designing multi-year cybersecurity tools and operations roadmaps to scale safely.</p>
                 <div class="srv-drawer-deliverables"
@@ -2764,7 +2780,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_06 | Startup &bull; SaaS</strong>
+                <strong class="srv-preview-cat">CAT 06 | Startup &bull; SaaS</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Helping pre-seed
                   and seed-stage startups implement fundamental security parameters: secure coding, SaaS configs, and
                   IAM settings.</p>
@@ -2783,7 +2799,7 @@
                   <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" />
                 </svg></span>
               <div class="work-item-preview">
-                <strong class="srv-preview-cat">CAT_06 | Custom &bull; Learning</strong>
+                <strong class="srv-preview-cat">CAT 06 | Custom &bull; Learning</strong>
                 <p class="srv-drawer-desc" style="margin: 0 0 0.5rem; line-height: 1.5; color: #ccc;">Custom study
                   pathway designs for engineers, detailing exact concepts, courses, and certifications to complete to
                   reach target roles.</p>
@@ -2901,7 +2917,7 @@
         <div class="footer-about">
           <div class="footer-about-row">
             <div class="footer-about-label">Current Role</div>
-            <p class="footer-about-text">Senior Officer IT-Security &amp; Governance @ Dvara KGFS &middot; CISO Team
+            <p class="footer-about-text">Assistant Manager – IT Infrastructure &amp; PMO @ Equitas Small Finance Bank
               &middot; Chennai &middot; On-site</p>
           </div>
           <div class="footer-about-row">
@@ -2919,10 +2935,10 @@
         <!-- Marquee -->
         <div class="footer-big-name">
           <div class="marquee-track">
-            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
-            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
-            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
-            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • CYBERENTITYZ • </span>
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • </span>
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • </span>
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • </span>
+            <span>SABHAREESHWARAN S • LEARN. SECURE. DEFEND. INNOVATE. • </span>
           </div>
         </div>
 
@@ -2941,7 +2957,7 @@
         <!-- Bottom bar -->
         <div class="footer-bottom-bar">
           <div class="footer-brand">
-            <span style="color:var(--red);font-weight:900;">CYBERENTITYZ</span> — Ethical Hacking Society, Chennai,
+            Ethical Hacking Society, Chennai,
             Tamil Nadu
           </div>
           <div class="footer-legal">© <span class="copyright-year">2026</span> Sabhareeshwaran S · All Rights Reserved ·
@@ -2968,7 +2984,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="assets/js/script.js?v=2.0"></script>
-  <script src="assets/js/animations.js?v=2.0"></script>
+  <script src="assets/js/animations.js?v=4.0"></script>
 
   <script>
     // ---- NEW ROW LIST LOGIC ----
