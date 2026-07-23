@@ -2076,7 +2076,7 @@ button {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 60px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .experience-heading {
@@ -2092,8 +2092,8 @@ button {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 80px;
-  align-items: center;
-  margin-top: 60px;
+  align-items: flex-start;
+  margin-top: 30px;
 }
 
 .exp-scroller-left {
@@ -2103,12 +2103,12 @@ button {
 }
 
 .exp-scroller-window {
-  height: 400px;
+  height: 440px;
   width: 100%;
   overflow: hidden;
   position: relative;
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
   display: flex;
   align-items: flex-start;
 }
@@ -2167,7 +2167,7 @@ button {
 .exp-scroller-right {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   min-height: 450px;
   border-left: 1px solid var(--border-light);
   padding-left: 50px;
@@ -3192,6 +3192,34 @@ button {
     text-align: center;
   }
 
+  .preloader-wrap {
+    flex-direction: column !important;
+    white-space: normal !important;
+    text-align: center !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    max-width: 90vw !important;
+    padding: 0 16px !important;
+  }
+
+  .preloader-name {
+    font-size: clamp(18px, 5.5vw, 24px) !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  .preloader-role {
+    font-size: clamp(11px, 3.4vw, 15px) !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .preloader-center-x {
+    margin: 0.2rem 0 !important;
+  }
+
   .experience {
     padding: 60px 20px 80px;
   }
@@ -3560,7 +3588,6 @@ html.lenis {
   .stats-dot-pattern,
   .featured-work-top-bar,
   .footer-top-bar,
-  .expertise-banner-bg-text,
   .expertise-banner-image,
   .expertise-banner-content,
   .expertise-banner-num,
@@ -3920,8 +3947,9 @@ html.lenis {
     height: 120% !important;
     width: auto !important;
     max-width: none !important;
-    left: 10% !important;
+    left: 50% !important;
     right: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
   }
 
   .expertise-banner-left .expertise-banner-content {
@@ -8350,7 +8378,20 @@ body.light-theme .footer-social-strip .footer-social-btn.footer-social-wa:hover 
    ============================================================ */
 
 .nav-drawer-overlay {
-  display: none !important;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+.nav-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
 }
 
 #page-wrapper {
@@ -8437,7 +8478,7 @@ body.menu-open .page-wrapper-close {
   bottom: 0;
   width: 50vw;
   background: #050505;
-  z-index: 5;
+  z-index: 10001;
   opacity: 0;
   visibility: hidden;
   transform: translateX(50px);
@@ -8509,6 +8550,8 @@ body.menu-open .page-wrapper-close {
   .nav-drawer {
     width: 75vw;
     padding: 60px clamp(20px, 6vw, 40px);
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
   }
 
   .page-wrapper-close {

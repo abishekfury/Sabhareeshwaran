@@ -409,9 +409,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ScrollTrigger.refresh();
 
-  // Refresh on resize
+  // Refresh on resize (ignore mobile height resizes during scrolling)
+  let lastWidth = window.innerWidth;
   let resizeTimer;
   window.addEventListener('resize', () => {
+    const currentWidth = window.innerWidth;
+    if (currentWidth === lastWidth) return;
+    lastWidth = currentWidth;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 250);
   });

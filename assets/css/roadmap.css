@@ -1003,4 +1003,9 @@ body.light-theme .telemetry-card.total.active {
   }
 }
 
+/* Ensure Return to Main Map button is visible on mobile */
+.inner-hero-container .nav-cta {
+  display: inline-block !important;
+}
+
 

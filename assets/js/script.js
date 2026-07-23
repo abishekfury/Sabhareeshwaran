@@ -101,10 +101,25 @@ function initFollowEyes() {
 
   const onMouseMove = e => { mouseX = e.clientX; mouseY = e.clientY; };
   const onTouchMove = e => {
-    if (e.touches[0]) { mouseX = e.touches[0].clientX; mouseY = e.touches[0].clientY; }
+    if (e.touches && e.touches[0]) { mouseX = e.touches[0].clientX; mouseY = e.touches[0].clientY; }
   };
+  const onPointerMove = e => { mouseX = e.clientX; mouseY = e.clientY; };
+  const onTouchStart = e => {
+    if (e.touches && e.touches[0]) { mouseX = e.touches[0].clientX; mouseY = e.touches[0].clientY; }
+  };
+  const onPointerDown = e => { mouseX = e.clientX; mouseY = e.clientY; };
+
   window.addEventListener('mousemove', onMouseMove, { passive: true });
   window.addEventListener('touchmove', onTouchMove, { passive: true });
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('touchstart', onTouchStart, { passive: true });
+  window.addEventListener('pointerdown', onPointerDown, { passive: true });
+
+  document.addEventListener('mousemove', onMouseMove, { passive: true });
+  document.addEventListener('touchmove', onTouchMove, { passive: true });
+  document.addEventListener('pointermove', onPointerMove, { passive: true });
+  document.addEventListener('touchstart', onTouchStart, { passive: true });
+  document.addEventListener('pointerdown', onPointerDown, { passive: true });
 
   const states = pupils.map(() => ({ x: 0, y: 0 }));
   let active = false;
@@ -177,6 +192,16 @@ function initFollowEyes() {
           active = false;
           window.removeEventListener('mousemove', onMouseMove);
           window.removeEventListener('touchmove', onTouchMove);
+          window.removeEventListener('pointermove', onPointerMove);
+          window.removeEventListener('touchstart', onTouchStart);
+          window.removeEventListener('pointerdown', onPointerDown);
+
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('touchmove', onTouchMove);
+          document.removeEventListener('pointermove', onPointerMove);
+          document.removeEventListener('touchstart', onTouchStart);
+          document.removeEventListener('pointerdown', onPointerDown);
+
           if (blinkTimeout) clearTimeout(blinkTimeout);
           observer.disconnect();
         }
@@ -446,7 +471,6 @@ function initNavDrawer() {
       <a href="index.html#education" class="menu-option-link" data-node="education">Education</a>
       <a href="index.html#volunteering" class="menu-option-link" data-node="volunteering">Volunteering</a>
       <a href="index.html#awards" class="menu-option-link" data-node="awards">Honors</a>
-      <a href="index.html#visual-gallery" class="menu-option-link" data-node="gallery">Visual Gallery</a>
       <a href="index.html#recommendations" class="menu-option-link" data-node="reviews">Reviews</a>
       <a href="index.html#publications" class="menu-option-link" data-node="publications">Publications</a>
       <a href="index.html#courses" class="menu-option-link" data-node="courses">Courses</a>
@@ -567,37 +591,41 @@ function initNavDrawer() {
     }
   });
 
-  // Close on link click (smooth scroll to section)
+  // Close on link click (smooth scroll to section or page navigation)
   drawer.querySelectorAll('.menu-option-link').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        closeDrawer();
-        setTimeout(() => {
-          try {
-            const target = document.querySelector(href);
-            if (target) {
-              if (window.lenis) {
-                window.lenis.scrollTo(target, {
-                  offset: -80,
-                  duration: 1.2,
-                  easing: (t) => 1 - Math.pow(1 - t, 3),
-                });
-              } else {
-                target.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+      if (href) {
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          closeDrawer();
+          setTimeout(() => {
+            try {
+              const target = document.querySelector(href);
+              if (target) {
+                if (window.lenis) {
+                  window.lenis.scrollTo(target, {
+                    offset: -80,
+                    duration: 1.2,
+                    easing: (t) => 1 - Math.pow(1 - t, 3),
+                  });
+                } else {
+                  target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                }
               }
+            } catch (err) {
+              console.warn("Deferred scroll failed:", err);
             }
-          } catch (err) {
-            console.warn("Deferred scroll failed:", err);
-          }
-        }, 550); // wait for 550ms off-canvas transition to finish
-      } else {
-        closeDrawer();
+          }, 550); // wait for 550ms off-canvas transition to finish
+        } else {
+          // Page link: Close drawer and navigate synchronously to avoid mobile gesture blocking
+          closeDrawer();
+          window.location.href = href;
+        }
       }
     });
   });
@@ -825,15 +853,14 @@ function initExperienceScroller() {
     if (isDesktop.matches) {
       // Desktop Setup: Pin & Scroll
       const scrollerWindow = document.querySelector('.exp-scroller-window');
-      const windowHeight = scrollerWindow ? scrollerWindow.clientHeight : 400;
       const itemHeight = scrollerItems[0].clientHeight || 60;
-      const centerY = (windowHeight - itemHeight) / 2;
+      const startY = 10; // Top-aligned start position level with right side details
 
-      // Reset list translation to centerY for activeIndex
+      // Reset list translation to startY for activeIndex
       const totalItems = scrollerItems.length;
       const totalTranslation = (totalItems - 1) * (itemHeight + 15); // including gap
 
-      gsap.set(scrollerList, { y: centerY - activeIndex * (itemHeight + 15) });
+      gsap.set(scrollerList, { y: startY - activeIndex * (itemHeight + 15) });
 
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: '.experience',
@@ -843,7 +870,7 @@ function initExperienceScroller() {
         scrub: 0.5,
         id: 'expScrollTrigger',
         animation: gsap.to(scrollerList, {
-          y: centerY - totalTranslation,
+          y: startY - totalTranslation,
           ease: 'none'
         }),
         onUpdate: (self) => {

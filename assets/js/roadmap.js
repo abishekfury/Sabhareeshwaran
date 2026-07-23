@@ -1303,6 +1303,20 @@ function closeDrawer() {
 document.addEventListener('DOMContentLoaded', () => {
   const closeBtn1 = document.getElementById('drawerClose');
   const closeBtn2 = document.getElementById('drawerCloseBtn');
-  if (closeBtn1) closeBtn1.addEventListener('click', closeDrawer);
-  if (closeBtn2) closeBtn2.addEventListener('click', closeDrawer);
+
+  const handleClose = (e) => {
+    if (e) e.preventDefault();
+    closeDrawer();
+  };
+
+  if (closeBtn1) {
+    closeBtn1.addEventListener('click', handleClose);
+    closeBtn1.addEventListener('touchstart', handleClose, { passive: false });
+    closeBtn1.addEventListener('pointerdown', handleClose);
+  }
+  if (closeBtn2) {
+    closeBtn2.addEventListener('click', handleClose);
+    closeBtn2.addEventListener('touchstart', handleClose, { passive: false });
+    closeBtn2.addEventListener('pointerdown', handleClose);
+  }
 });

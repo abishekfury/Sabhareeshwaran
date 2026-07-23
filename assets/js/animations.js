@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Register GSAP plugin
   gsap.registerPlugin(ScrollTrigger);
 
+  ScrollTrigger.config({
+    ignoreMobileResize: true
+  });
+
   // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -497,12 +501,11 @@ document.addEventListener('DOMContentLoaded', () => {
      EXPERTISE BANNER ADVANCED INNER PARALLAX
      ============================================================ */
   function initExpertiseBannerInnerParallax() {
-    if (window.innerWidth <= 768) return; // Disable on mobile
-
+    const isMobile = window.innerWidth <= 768;
     const expertiseBanners = document.querySelectorAll('.expertise-banner');
 
     expertiseBanners.forEach((banner, bannerIndex) => {
-      // Layer 1: Background Japanese text
+      // Layer 1: Background Japanese text (runs on both mobile & desktop)
       const bgText = banner.querySelector('.expertise-banner-bg-text');
       if (bgText) {
         gsap.to(bgText, {
@@ -519,49 +522,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // Layer 2: Image parallax — comes from top as banner enters viewport
-      const bannerImg = banner.querySelector('.expertise-banner-image img');
-      if (bannerImg) {
-        gsap.to(bannerImg, {
-          yPercent: 12,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: banner,
-            start: 'top 85%',
-            end: 'bottom top',
-            scrub: 2,
-          }
-        });
-      }
+      // Desktop-only layers (images, content, numbers) to keep layout solid on mobile
+      if (!isMobile) {
+        // Layer 2: Image parallax — comes from top as banner enters viewport
+        const bannerImg = banner.querySelector('.expertise-banner-image img');
+        if (bannerImg) {
+          gsap.to(bannerImg, {
+            yPercent: 12,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: banner,
+              start: 'top 85%',
+              end: 'bottom top',
+              scrub: 2,
+            }
+          });
+        }
 
-      // Layer 3: Banner content — subtle vertical drift only (no horizontal shake)
-      const bannerContent = banner.querySelector('.expertise-banner-content');
-      if (bannerContent) {
-        gsap.to(bannerContent, {
-          yPercent: -4,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: banner,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          }
-        });
-      }
+        // Layer 3: Banner content — subtle vertical drift only (no horizontal shake)
+        const bannerContent = banner.querySelector('.expertise-banner-content');
+        if (bannerContent) {
+          gsap.to(bannerContent, {
+            yPercent: -4,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: banner,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5,
+            }
+          });
+        }
 
-      // Layer 4: Banner number — vertical drift only
-      const bannerNum = banner.querySelector('.expertise-banner-num');
-      if (bannerNum) {
-        gsap.to(bannerNum, {
-          yPercent: -8,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: banner,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          }
-        });
+        // Layer 4: Banner number — vertical drift only
+        const bannerNum = banner.querySelector('.expertise-banner-num');
+        if (bannerNum) {
+          gsap.to(bannerNum, {
+            yPercent: -8,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: banner,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5,
+            }
+          });
+        }
       }
     });
 
@@ -1555,28 +1561,10 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
           trigger: '.about-portrait',
           start: 'top 35%',
-          end: 'bottom 10%',
           scrub: true,
         }
       });
     }
-
-    // 2. Text color shift from light white to dark white (gray)
-    const aboutParagraphs = document.querySelectorAll('.about-bio p');
-    aboutParagraphs.forEach(p => {
-      gsap.fromTo(p,
-        { color: 'rgba(255, 255, 255, 0.95)' }, // light white
-        {
-          color: 'rgba(255, 255, 255, 0.35)', // dark white
-          scrollTrigger: {
-            trigger: p,
-            start: 'top 50%',
-            end: 'bottom 20%',
-            scrub: true,
-          }
-        }
-      );
-    });
   }
 
   /* ============================================================
@@ -2212,9 +2200,17 @@ document.addEventListener('DOMContentLoaded', () => {
   ScrollTrigger.refresh();
 });
 
-// Refresh on window resize with Lenis integration
+// Refresh on window resize with Lenis integration (ignore mobile height resizes during scrolling)
+let lastWidth = window.innerWidth;
 let resizeTimer;
 window.addEventListener('resize', () => {
+  const currentWidth = window.innerWidth;
+  if (currentWidth === lastWidth) {
+    if (lenis) lenis.resize();
+    return;
+  }
+  lastWidth = currentWidth;
+
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     if (lenis) lenis.resize();
