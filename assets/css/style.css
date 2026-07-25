@@ -25,9 +25,9 @@
   --border-dark: rgba(0, 0, 0, 0.1);
   --text-muted: rgba(255, 255, 255, 0.6);
   --text-muted-dark: rgba(0, 0, 0, 0.6);
-  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Fira Code', 'Courier New', monospace;
-  --font-jp: 'Noto Sans Tamil', 'Noto Sans JP', sans-serif;
+  --font-main: 'Times New Roman', Times, serif;
+  --font-mono: 'Times New Roman', Times, serif;
+  --font-jp: 'Times New Roman', Times, serif, 'Noto Sans Tamil';
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -377,16 +377,20 @@ button {
   flex-direction: column;
   align-items: center;
   text-decoration: none !important;
-  border-radius: 6px 0 0 6px;
+  border-radius: 8px 0 0 8px;
   overflow: hidden;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+  box-shadow: -6px 0 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease, background-color 0.3s ease;
   background: var(--white) !important;
+  color: var(--black) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-right: none;
 }
 
 .side-badge:hover {
-  transform: translateY(-50%) translateX(-4px) !important;
-  box-shadow: -8px 0 25px rgba(0, 0, 0, 0.45);
+  transform: translateY(-50%) translateX(-6px) !important;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.45);
+  background: #f5f5f5 !important;
 }
 
 .badge-w {
@@ -395,14 +399,28 @@ button {
 
 .badge-text {
   writing-mode: vertical-rl;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 16px 10px;
-  background: var(--white) !important;
-  color: var(--black) !important;
+  padding: 18px 12px;
+  background: transparent !important;
+  color: inherit !important;
   font-family: var(--font-main);
+  transition: color 0.3s ease;
+}
+
+.badge-arrow {
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.side-badge:hover .badge-arrow {
+  transform: translateY(3px) scale(1.1);
 }
 
 /* ===== MOBILE MENU ===== */
@@ -4850,10 +4868,22 @@ body.light-theme .nav-cert-cta {
   color: #ffffff !important;
 }
 
-/* Hide side badge and hero topbar controls in Light Mode */
-body.light-theme .side-badge,
+/* Hide hero topbar controls in Light Mode */
 body.light-theme .split-hero-topbar {
   display: none !important;
+}
+
+body.light-theme .side-badge {
+  background: var(--black) !important;
+  color: var(--white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
+  box-shadow: -6px 0 25px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .side-badge:hover {
+  background: #1a1a1a !important;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
 }
 
 /* 3D Flip Cards Light Mode styling */
@@ -5056,19 +5086,19 @@ body.light-theme .award-showcase-info .award-showcase-title {
 }
 
 body.light-theme .section-label {
-  color: rgba(15, 16, 18, 0.6);
+  color: rgba(15, 16, 18, 0.6) !important;
 }
 
 body.light-theme .expertise-label {
-  color: rgba(15, 16, 18, 0.6);
+  color: rgba(15, 16, 18, 0.6) !important;
 }
 
-body.light-theme .section-label-jp {
-  text-shadow: none;
-}
-
-body.light-theme .expertise-label-jp {
-  text-shadow: none;
+body.light-theme .section-label-jp,
+body.light-theme .section-label-jp-dark,
+body.light-theme .expertise-label-jp,
+body.light-theme .expertise-banner-sticky-jp {
+  text-shadow: none !important;
+  color: #0f1012 !important;
 }
 
 body.light-theme .education-timeline-line {
@@ -8313,50 +8343,114 @@ body.light-theme .contact-card-value:hover:not(.text-only) {
 .footer-social-strip .footer-social-btn {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   text-decoration: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* --- Brand Backgrounds (Real Brand Colors/Gradients - Permanent) --- */
+.footer-social-btn.social-linkedin {
+  background: #0A66C2 !important;
+}
+
+.footer-social-btn.social-github {
+  background: linear-gradient(135deg, #24292e 0%, #0f1115 100%) !important;
+}
+
+.footer-social-btn.social-medium {
+  background: linear-gradient(135deg, #121212 0%, #000000 100%) !important;
+}
+
+.footer-social-btn.social-instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+}
+
+.footer-social-btn.social-youtube {
+  background: linear-gradient(135deg, #ff0000 0%, #c40000 100%) !important;
+}
+
+.footer-social-btn.social-x {
+  background: linear-gradient(135deg, #15202b 0%, #000000 100%) !important;
+}
+
+.footer-social-btn.social-guru {
+  background: linear-gradient(135deg, #2ccb70 0%, #1da859 100%) !important;
+}
+
+.footer-social-btn.social-facebook {
+  background: linear-gradient(135deg, #1877f2 0%, #3b5998 100%) !important;
+}
+
+.footer-social-btn.social-whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+}
+
+.footer-social-btn.social-email {
+  background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%) !important;
+}
+
+/* --- Brand Hover Interactive Transformations & Shadows --- */
 .footer-social-strip .footer-social-btn:hover {
-  background: var(--black);
-  border-color: var(--black);
-  color: var(--red);
-  transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px) scale(1.08) rotate(3deg);
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-.footer-social-strip .footer-social-btn.footer-social-wa:hover {
-  background: #25D366;
-  border-color: #25D366;
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+.footer-social-strip .footer-social-btn.social-linkedin:hover {
+  box-shadow: 0 8px 25px rgba(10, 102, 194, 0.5);
+}
+
+.footer-social-strip .footer-social-btn.social-github:hover {
+  box-shadow: 0 8px 25px rgba(36, 41, 46, 0.6);
+}
+
+.footer-social-strip .footer-social-btn.social-medium:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.footer-social-strip .footer-social-btn.social-instagram:hover {
+  box-shadow: 0 8px 25px rgba(220, 39, 67, 0.5);
+}
+
+.footer-social-strip .footer-social-btn.social-youtube:hover {
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+}
+
+.footer-social-strip .footer-social-btn.social-x:hover {
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+}
+
+.footer-social-strip .footer-social-btn.social-guru:hover {
+  box-shadow: 0 8px 25px rgba(44, 203, 112, 0.5);
+}
+
+.footer-social-strip .footer-social-btn.social-facebook:hover {
+  box-shadow: 0 8px 25px rgba(24, 119, 242, 0.5);
+}
+
+.footer-social-strip .footer-social-btn.social-whatsapp:hover {
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+}
+
+.footer-social-strip .footer-social-btn.social-email:hover {
+  box-shadow: 0 8px 25px rgba(234, 67, 53, 0.5);
 }
 
 body.light-theme .footer-social-strip .footer-social-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(0, 0, 0, 0.08);
-  color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.05);
 }
 
 body.light-theme .footer-social-strip .footer-social-btn:hover {
-  background: #ffffff;
-  border-color: var(--red);
-  color: var(--red);
-}
-
-body.light-theme .footer-social-strip .footer-social-btn.footer-social-wa:hover {
-  background: #25D366;
-  border-color: #25D366;
-  color: #fff;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 1024px) {
@@ -9561,4 +9655,78 @@ body.light-theme .roles-slider-progress {
 /* Hero line reveals */
 .hero-line {
   will-change: transform, opacity;
+}
+
+/* ===== EDUCATION SECTION AURA CANVAS ===== */
+.education-aura-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#education .experience-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== SKILLS SECTION SPIDER CANVAS ===== */
+.skills-spider-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#skills .clients-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== LIGHT MODE OVERRIDES FOR SKILLS SECTION ===== */
+body.light-theme #skills,
+body.light-theme .clients,
+body.light-theme #skills.clients {
+  background: #f5f6f8 !important;
+  background-color: #f5f6f8 !important;
+}
+body.light-theme #skills .clients-heading-full {
+  color: #0f1012 !important;
+}
+body.light-theme #skills .section-label {
+  color: rgba(15, 16, 18, 0.6) !important;
+}
+body.light-theme #skills .section-label-jp {
+  color: #0f1012 !important;
+}
+body.light-theme #skills .skill-card-num {
+  color: rgba(224, 90, 0, 0.15) !important;
+}
+body.light-theme #skills .skill-card-title {
+  color: #0f1012 !important;
+}
+body.light-theme #skills .skill-card-list li {
+  color: rgba(15, 16, 18, 0.7) !important;
+}
+body.light-theme #skills .skill-card-container:hover .skill-card-list li {
+  color: rgba(15, 16, 18, 0.95) !important;
+}
+body.light-theme #skills .tools-cloud-section {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+body.light-theme #skills .tools-cloud-section .section-label {
+  color: rgba(15, 16, 18, 0.6) !important;
+}
+body.light-theme #skills .tool-cloud-item {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+body.light-theme #skills .tool-cloud-item span {
+  color: #0f1012 !important;
 }

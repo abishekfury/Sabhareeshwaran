@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initWorkItemTransitions();
   initStatsRedirects();
   initHeroMatrix();
+  initEducationAura();
+  initSpiderCircleEffect();
   initDomainDetailModal();
   initBatchInquiry();
   initHeroRoleCarousel();
@@ -406,7 +408,7 @@ function initThemeToggle() {
   }
 
   // Get current active theme
-  const initialTheme = localStorage.getItem('theme') || 'dark';
+  const initialTheme = localStorage.getItem('cyber_portfolio_theme') || 'dark';
   if (initialTheme === 'light') {
     document.body.classList.add('light-theme');
     document.documentElement.classList.add('light-theme');
@@ -420,7 +422,7 @@ function initThemeToggle() {
     const isLight = document.body.classList.toggle('light-theme');
     document.documentElement.classList.toggle('light-theme', isLight);
     const newTheme = isLight ? 'light' : 'dark';
-    localStorage.setItem('theme', newTheme);
+    localStorage.setItem('cyber_portfolio_theme', newTheme);
     updateMobileThemeText(newTheme);
 
     // Update active color of GSAP-controlled elements
@@ -736,7 +738,7 @@ function initStatsRedirects() {
 
   if (linkedinStat) {
     linkedinStat.addEventListener('click', () => {
-      window.open('https://www.linkedin.com/in/sabhareeshwaran/', '_blank');
+      window.open('https://www.linkedin.com/in/sabhareeshwaran-s-699206262', '_blank');
     });
   }
 
@@ -1434,8 +1436,8 @@ function initSkillsDotGrid() {
   }
 
   // Initialize for both skills and education sections
-  initDotGridForSection('skills');
-  initDotGridForSection('education');
+  // initDotGridForSection('skills'); // Removed in favor of SpiderCircleEffect
+  // initDotGridForSection('education'); // Removed old dot grid to only show new Aura Canvas background
 }
 
 /* ===== SKILLS 3D FLIP CARDS ===== */
@@ -1945,6 +1947,404 @@ function initLazy3DGallery() {
   }, { rootMargin: '400px' });
 
   observer.observe(container);
+}
+
+/* ===== EDUCATION SECTION AURA CURSOR EFFECT ===== */
+function initEducationAura() {
+  const section = document.getElementById('education');
+  if (!section) return;
+
+  // Insert canvas dynamically to keep HTML clean
+  let canvas = document.getElementById('education-aura-canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'education-aura-canvas';
+    canvas.className = 'education-aura-canvas';
+    // Insert as the first child of `#education` so it is layered correctly under the container
+    section.insertBefore(canvas, section.firstChild);
+  }
+
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = section.offsetWidth;
+  let height = canvas.height = section.offsetHeight;
+
+  function resize() {
+    if (!section || !canvas) return;
+    width = canvas.width = section.offsetWidth;
+    height = canvas.height = section.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+
+  // Aura Blobs definition (Vivid colors: orange-red, cyan, magenta, purple, green)
+  const colors = {
+    orange: { r: 224, g: 90, b: 0 },
+    cyan: { r: 0, g: 229, b: 255 },
+    magenta: { r: 255, g: 0, b: 119 },
+    purple: { r: 107, g: 0, b: 255 },
+    green: { r: 0, g: 230, b: 118 }
+  };
+
+  const blobs = [
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.08, radius: 260, color: colors.orange, opacity: 0.15 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.06, radius: 220, color: colors.green, opacity: 0.12 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.05, radius: 340, color: colors.cyan, opacity: 0.14 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.04, radius: 400, color: colors.magenta, opacity: 0.12 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.02, radius: 460, color: colors.purple, opacity: 0.10 }
+  ];
+
+  // Embers/Sparks particles
+  const particles = [];
+  const maxParticles = 40;
+
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.vx = (Math.random() - 0.5) * 1.5;
+      this.vy = (Math.random() - 0.5) * 1.5 - 0.4;
+      this.radius = Math.random() * 60 + 30; // Soft aura dust particles
+      this.color = color;
+      this.maxLife = Math.random() * 120 + 60;
+      this.life = this.maxLife;
+      this.alpha = Math.random() * 0.25 + 0.08;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life--;
+      this.alpha = (this.life / this.maxLife) * 0.25;
+    }
+    draw(isLightTheme) {
+      if (this.alpha <= 0) return;
+      const currentAlpha = isLightTheme ? this.alpha * 1.8 : this.alpha;
+      const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+      grad.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${currentAlpha})`);
+      grad.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Mouse & Touch interaction tracker
+  let mouseIn = false;
+  let mouseX = width / 2;
+  let mouseY = height / 2;
+  let autoTimer = 0;
+
+  section.addEventListener('mousemove', (e) => {
+    mouseIn = true;
+    const rect = section.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  section.addEventListener('mouseleave', () => {
+    mouseIn = false;
+  });
+
+  // Touch Support for Mobile Views
+  function handleTouch(e) {
+    mouseIn = true;
+    const rect = section.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseX = touch.clientX - rect.left;
+    mouseY = touch.clientY - rect.top;
+  }
+
+  section.addEventListener('touchstart', handleTouch, { passive: true });
+  section.addEventListener('touchmove', handleTouch, { passive: true });
+  section.addEventListener('touchend', () => {
+    mouseIn = false;
+  }, { passive: true });
+
+  let rafId = null;
+  let isVisible = false;
+
+  function loop() {
+    if (!isVisible) {
+      rafId = null;
+      return;
+    }
+    rafId = requestAnimationFrame(loop);
+
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+
+    let targetX = mouseX;
+    let targetY = mouseY;
+
+    if (!mouseIn) {
+      // Natural floating pattern when mouse is away
+      autoTimer += 0.004;
+      targetX = width / 2 + Math.sin(autoTimer * 1.3) * (width * 0.2);
+      targetY = height / 2 + Math.cos(autoTimer * 0.8) * (height * 0.15);
+    }
+
+    const isLightTheme = document.body.classList.contains('light-theme');
+
+    // Render large aura cores
+    blobs.forEach(blob => {
+      blob.x += (targetX - blob.x) * blob.lerp;
+      blob.y += (targetY - blob.y) * blob.lerp;
+
+      const baseOpacity = isLightTheme ? blob.opacity * 2.3 : blob.opacity;
+      const grad = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, blob.radius);
+      grad.addColorStop(0, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${baseOpacity})`);
+      grad.addColorStop(0.5, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${baseOpacity * 0.25})`);
+      grad.addColorStop(1, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, 0)`);
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(blob.x, blob.y, blob.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Spawn dust particles
+    if (Math.random() < 0.12 && particles.length < maxParticles) {
+      const activeBlob = blobs[Math.floor(Math.random() * blobs.length)];
+      particles.push(new Particle(activeBlob.x + (Math.random() - 0.5) * 50, activeBlob.y + (Math.random() - 0.5) * 50, activeBlob.color));
+    }
+
+    // Render particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.update();
+      p.draw(isLightTheme);
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+      }
+    }
+  }
+
+  // Intersection observer to pause calculations off-screen
+  const observer = new IntersectionObserver(entries => {
+    isVisible = entries[0].isIntersecting;
+    if (isVisible && !rafId) {
+      width = canvas.width = section.offsetWidth;
+      height = canvas.height = section.offsetHeight;
+      loop();
+    }
+  }, { threshold: 0.01 });
+
+  observer.observe(section);
+}
+
+/* ===== SKILLS SECTION SPIDER CIRCLE EFFECT ===== */
+function initSpiderCircleEffect() {
+  const section = document.getElementById('skills');
+  if (!section) return;
+
+  // Insert canvas dynamically
+  let canvas = document.getElementById('skills-spider-canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'skills-spider-canvas';
+    canvas.className = 'skills-spider-canvas';
+    section.insertBefore(canvas, section.firstChild);
+  }
+
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = section.offsetWidth;
+  let height = canvas.height = section.offsetHeight;
+
+  function resize() {
+    if (!section || !canvas) return;
+    width = canvas.width = section.offsetWidth;
+    height = canvas.height = section.offsetHeight;
+    initParticles();
+  }
+  window.addEventListener('resize', resize);
+
+  // Particles/Spider grid config
+  const particles = [];
+  const particleCount = 80;
+  const connectionDist = 110;
+  const mouseConnectionDist = 180;
+  const accentColor = '224, 90, 0'; // Theme orange-red
+  const dotColor = '255, 255, 255'; // White dots
+
+  // Main interactive cursor-reactive point
+  const mainPoint = {
+    x: width / 2,
+    y: height / 2,
+    targetX: width / 2,
+    targetY: height / 2,
+    lerp: 0.08,
+    radius: 4,
+    glowRadius: 16
+  };
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 0.9;
+      this.vy = (Math.random() - 0.5) * 0.9;
+      this.radius = Math.random() * 2 + 1.2;
+      this.alpha = Math.random() * 0.25 + 0.12;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // Bounce at boundary
+      if (this.x < 0 || this.x > width) this.vx *= -1;
+      if (this.y < 0 || this.y > height) this.vy *= -1;
+
+      // Keep inside bounds
+      if (this.x < 0) this.x = 0;
+      if (this.x > width) this.x = width;
+      if (this.y < 0) this.y = 0;
+      if (this.y > height) this.y = height;
+    }
+    draw(isLightTheme) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = isLightTheme ? `rgba(0, 0, 0, ${this.alpha * 1.5})` : `rgba(${dotColor}, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles.length = 0;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  // Mouse & Touch interaction tracker
+  let mouseIn = false;
+  let mouseX = width / 2;
+  let mouseY = height / 2;
+  let autoTimer = 0;
+
+  section.addEventListener('mousemove', (e) => {
+    mouseIn = true;
+    const rect = section.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  section.addEventListener('mouseleave', () => {
+    mouseIn = false;
+  });
+
+  // Mobile Touch Support
+  function handleTouch(e) {
+    mouseIn = true;
+    const rect = section.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseX = touch.clientX - rect.left;
+    mouseY = touch.clientY - rect.top;
+  }
+  section.addEventListener('touchstart', handleTouch, { passive: true });
+  section.addEventListener('touchmove', handleTouch, { passive: true });
+  section.addEventListener('touchend', () => { mouseIn = false; }, { passive: true });
+
+  let rafId = null;
+  let isVisible = false;
+
+  function loop() {
+    if (!isVisible) {
+      rafId = null;
+      return;
+    }
+    rafId = requestAnimationFrame(loop);
+
+    const isLightTheme = document.body.classList.contains('light-theme');
+    const currentAccentColor = isLightTheme ? '208, 76, 0' : '224, 90, 0';
+    const lineAlphaMultiplier = isLightTheme ? 2.5 : 1.0;
+
+    ctx.clearRect(0, 0, width, height);
+
+    let targetX = mouseX;
+    let targetY = mouseY;
+
+    if (!mouseIn) {
+      // Gentle automatic floating when idle
+      autoTimer += 0.005;
+      targetX = width / 2 + Math.sin(autoTimer * 1.2) * (width * 0.2);
+      targetY = height / 2 + Math.cos(autoTimer * 0.8) * (height * 0.15);
+    }
+
+    mainPoint.x += (targetX - mainPoint.x) * mainPoint.lerp;
+    mainPoint.y += (targetY - mainPoint.y) * mainPoint.lerp;
+
+    // 1. Move and draw background particles
+    particles.forEach(p => {
+      p.update();
+      p.draw(isLightTheme);
+    });
+
+    // 2. Draw lines between nearby particles (constellation webs)
+    for (let i = 0; i < particles.length; i++) {
+      const p1 = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx = p1.x - p2.x;
+        const dy = p1.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < connectionDist) {
+          const alpha = (1 - dist / connectionDist) * 0.12 * lineAlphaMultiplier;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = isLightTheme ? `rgba(0, 0, 0, ${alpha})` : `rgba(255, 255, 255, ${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // 3. Draw lines connecting the main interactive point to nearby particles (Spider webbing)
+    particles.forEach(p => {
+      const dx = p.x - mainPoint.x;
+      const dy = p.y - mainPoint.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < mouseConnectionDist) {
+        const alpha = (1 - dist / mouseConnectionDist) * (isLightTheme ? 0.6 : 0.35);
+        ctx.beginPath();
+        ctx.moveTo(mainPoint.x, mainPoint.y);
+        ctx.lineTo(p.x, p.y);
+        ctx.strokeStyle = `rgba(${currentAccentColor}, ${alpha})`;
+        ctx.lineWidth = isLightTheme ? 1.3 : 1.1;
+        ctx.stroke();
+      }
+    });
+
+    // 4. Draw main point glow
+    const grad = ctx.createRadialGradient(mainPoint.x, mainPoint.y, 0, mainPoint.x, mainPoint.y, mainPoint.glowRadius);
+    grad.addColorStop(0, `rgba(${currentAccentColor}, ${isLightTheme ? 0.6 : 0.8})`);
+    grad.addColorStop(0.3, `rgba(${currentAccentColor}, ${isLightTheme ? 0.25 : 0.3})`);
+    grad.addColorStop(1, `rgba(${currentAccentColor}, 0)`);
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(mainPoint.x, mainPoint.y, mainPoint.glowRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Core point dot
+    ctx.beginPath();
+    ctx.arc(mainPoint.x, mainPoint.y, mainPoint.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${currentAccentColor}, 1.0)`;
+    ctx.fill();
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    isVisible = entries[0].isIntersecting;
+    if (isVisible && !rafId) {
+      width = canvas.width = section.offsetWidth;
+      height = canvas.height = section.offsetHeight;
+      initParticles();
+      loop();
+    }
+  }, { threshold: 0.01 });
+
+  observer.observe(section);
 }
 
 
