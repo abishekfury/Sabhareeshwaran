@@ -641,13 +641,84 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ===== INTRO HERO MAGNIFIER (ZOOM EFFECT ON CURSOR HOVER) ===== */
+  function initHeroMagnifier() {
+    const container = document.querySelector('.split-hero-left');
+    const bg = document.querySelector('.intro-hero-bg');
+    if (!container || !bg) return;
+
+    if (window.innerWidth <= 768 || prefersReducedMotion) return;
+
+    // Check if the zoom image already exists, if not, create it
+    let zoomImg = bg.querySelector('.hero-zoom-img');
+    if (!zoomImg) {
+      const baseImg = bg.querySelector('img');
+      if (baseImg) {
+        zoomImg = baseImg.cloneNode(true);
+        zoomImg.classList.add('hero-zoom-img');
+        zoomImg.removeAttribute('loading'); // load immediately
+        bg.appendChild(zoomImg);
+      }
+    }
+
+    // Set custom hover state classes on container mouse events
+    container.addEventListener('mouseenter', () => {
+      bg.classList.add('is-zooming');
+    });
+
+    container.addEventListener('mouseleave', () => {
+      bg.classList.remove('is-zooming');
+      bg.style.removeProperty('--mouse-x');
+      bg.style.removeProperty('--mouse-y');
+      bg.style.removeProperty('--zoom-x');
+      bg.style.removeProperty('--zoom-y');
+      
+      const dot = document.querySelector('.custom-cursor-dot');
+      const follower = document.querySelector('.custom-cursor-follower');
+      if (dot && follower) {
+        follower.classList.remove('hover-zoom');
+        dot.classList.remove('hovering');
+      }
+    });
+
+    container.addEventListener('mousemove', (e) => {
+      const rect = bg.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const xPercent = (x / rect.width) * 100;
+      const yPercent = (y / rect.height) * 100;
+      
+      bg.style.setProperty('--mouse-x', `${x}px`);
+      bg.style.setProperty('--mouse-y', `${y}px`);
+      bg.style.setProperty('--zoom-x', `${xPercent}%`);
+      bg.style.setProperty('--zoom-y', `${yPercent}%`);
+
+      // Dynamically adjust custom cursor behavior based on what we are hovering
+      const dot = document.querySelector('.custom-cursor-dot');
+      const follower = document.querySelector('.custom-cursor-follower');
+      const cursorText = follower ? follower.querySelector('.cursor-text') : null;
+
+      if (dot && follower && cursorText) {
+        const isClickable = e.target.closest('a, button, [role="button"], .clickable, .theme-toggle-btn, .split-hero-menu-btn');
+        if (isClickable) {
+          follower.classList.remove('hover-zoom');
+        } else {
+          follower.classList.add('hover-zoom');
+          dot.classList.add('hovering');
+          cursorText.textContent = 'ZOOM';
+        }
+      }
+    });
+  }
+
   /* ===== INTRO HERO PARALLAX ===== */
   function initIntroHeroParallax() {
-    const heroImg = document.querySelector('.intro-hero-bg img');
+    const heroImgs = document.querySelectorAll('.intro-hero-bg img');
 
-    if (heroImg) {
-      // Parallax effect on hero image
-      gsap.to(heroImg, {
+    if (heroImgs.length) {
+      // Parallax effect on hero images
+      gsap.to(heroImgs, {
         yPercent: 25,
         ease: 'none',
         scrollTrigger: {
@@ -1276,6 +1347,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize all hero animations
+  initHeroMagnifier();
   initIntroHeroParallax();
   initHeroTypographyReveal();
   initHeroImageEffects();
