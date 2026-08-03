@@ -21,10 +21,10 @@
 
   <style>
     body, html {
-      --font-main: 'Times New Roman', Times, serif !important;
-      --font-mono: 'Times New Roman', Times, serif !important;
-      font-family: 'Times New Roman', Times, serif !important;
-      font-size: 17.5px !important;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      --font-mono: 'Fira Code', 'Courier New', monospace !important;
+      --font-jp: 'Noto Sans Tamil', 'Noto Sans JP', sans-serif !important;
+      font-family: var(--font-main) !important;
     }
     /* Custom inner page styles for Services */
     .inner-hero {
@@ -1859,6 +1859,167 @@
     .srv-cat-hero-img-wrap {
       cursor: zoom-in;
     }
+
+    /* Other Services Footer Section Styles */
+    .other-services-section {
+      background: var(--red); /* solid orange-red background */
+      color: #ffffff;
+      padding: 40px 0 100px;
+      position: relative;
+      overflow: visible;
+      width: 100%;
+    }
+
+    .other-services-container {
+      width: 100%;
+      position: relative;
+    }
+
+    .other-services-header {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .other-services-label-left {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .other-services-label-right {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 2px solid #ffffff;
+      padding-bottom: 4px;
+      transition: opacity 0.3s ease;
+    }
+
+    .other-services-label-right:hover {
+      opacity: 0.8;
+    }
+
+    .other-services-list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .other-services-item {
+      display: block;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      color: #ffffff;
+      transition: background-color 0.4s var(--ease-out-expo);
+      position: relative;
+      z-index: 2;
+    }
+
+    .other-services-item-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.2rem 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      box-sizing: border-box;
+      transition: padding-left 0.4s var(--ease-out-expo), padding-right 0.4s var(--ease-out-expo);
+    }
+
+    .other-services-title {
+      font-size: clamp(20px, 3.2vw, 36px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      flex-grow: 1;
+      transition: color 0.4s var(--ease-out-expo);
+    }
+
+    .other-services-arrow {
+      color: rgba(255, 255, 255, 0.6);
+      transition: transform 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+      display: flex;
+      align-items: center;
+    }
+
+    .other-services-arrow svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .other-services-item:hover {
+      background-color: #0A0A0A; /* dark background on hover */
+    }
+
+    .other-services-item:hover .other-services-arrow {
+      color: #ffffff;
+      transform: translate(5px, -5px) scale(1.1);
+    }
+
+    /* Floating Hover Image Preview */
+    .other-services-hover-img {
+      position: absolute;
+      width: 340px;
+      height: 260px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+      z-index: 100;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #111111;
+      will-change: left, top, opacity, transform;
+    }
+
+    .other-services-hover-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .other-services-section {
+        padding: 40px 0 60px;
+      }
+      .other-services-header {
+        padding: 0 20px 20px;
+      }
+      .other-services-item-content {
+        padding: 1.6rem 20px;
+      }
+      .other-services-title {
+        font-size: 20px;
+      }
+      .other-services-arrow svg {
+        width: 24px;
+        height: 24px;
+      }
+      .other-services-hover-img {
+        display: none !important;
+      }
+    }
+
+    /* Hide the category navigation bar as requested */
+    .services-nav-section {
+      display: none !important;
+    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1999,15 +2160,7 @@
     </div>
   </div>
 
-  <!-- Search Row (Editorial Hero Search — same style as roadmap SEARCH_MATRIX) -->
-  <section class="services-search-row">
-    <div class="srv-search-hero-container">
-      <span class="srv-search-hero-prompt">SEARCH_MATRIX</span>
-      <input type="text" class="srv-search-hero-input" id="srvSearchInput" placeholder="ENTER KEYWORDS..."
-        autocomplete="off">
-      <span class="srv-search-count-tag" id="srvVisibleCount">40 UNITS</span>
-    </div>
-  </section>
+
 
   <!-- MAIN SERVICES CATALOG — Impressive Row-List Design -->
   <div class="services-layout-wrap">
@@ -2888,6 +3041,84 @@
     </main>
   </div><!-- /services-layout-wrap -->
 
+  <!-- OTHER SERVICES SECTION -->
+  <section class="other-services-section">
+    <div class="other-services-container">
+      <div class="other-services-header">
+        <span class="other-services-label-left">OTHER SERVICES</span>
+        <a href="#all" class="other-services-label-right" id="otherServicesViewAll">VIEW ALL</a>
+      </div>
+      
+      <div class="other-services-list">
+        <a href="#training-edu" class="other-services-item" data-category="training-edu" data-image="assets/images/service1.webp">
+          <div class="other-services-item-content">
+            <span class="other-services-title">Training &amp; Education</span>
+            <span class="other-services-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+        <a href="#career-mentorship" class="other-services-item" data-category="career-mentorship" data-image="assets/images/service2.webp">
+          <div class="other-services-item-content">
+            <span class="other-services-title">Mentorship &amp; Career</span>
+            <span class="other-services-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+        <a href="#cert-labs" class="other-services-item" data-category="cert-labs" data-image="assets/images/service3.webp">
+          <div class="other-services-item-content">
+            <span class="other-services-title">Certifications &amp; Labs</span>
+            <span class="other-services-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+        <a href="#security-consulting" class="other-services-item" data-category="security-consulting" data-image="assets/images/service4.webp">
+          <div class="other-services-item-content">
+            <span class="other-services-title">Security &amp; IT Consulting</span>
+            <span class="other-services-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+        <a href="#assessment-compliance" class="other-services-item" data-category="assessment-compliance" data-image="assets/images/service05.webp">
+          <div class="other-services-item-content">
+            <span class="other-services-title">Assessment &amp; Compliance</span>
+            <span class="other-services-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+        <a href="#community-advisory" class="other-services-item" data-category="community-advisory" data-image="assets/images/service6.webp">
+          <div class="other-services-item-content">
+            <span class="other-services-title">Community &amp; Advisory</span>
+            <span class="other-services-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Floating Preview Image for Other Services -->
+      <div class="other-services-hover-img" id="otherServicesHoverImg">
+        <img src="" alt="Service Preview">
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <!-- FOOTER -->
   <footer id="contact" style="position: relative; width: 100%; overflow: hidden; z-index: 10; padding-top: 0;">
@@ -3072,19 +3303,6 @@
             <a href="mailto:sabhareeshw@gmail.com" style="color:var(--red);">sabhareeshw@gmail.com</a>
           </div>
         </div>
-          <div class="footer-credits" style="font-size: 10px; color: rgba(255, 255, 255, 0.25); text-align: center; margin-top: 10px; line-height: 1.6;">
-            Icon attributions: 
-            <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Instagram</a> | 
-            <a href="https://www.flaticon.com/free-icons/ui" title="ui icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">UI</a> | 
-            <a href="https://www.flaticon.com/free-icons/facebook" title="facebook icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Facebook</a> | 
-            <a href="https://www.flaticon.com/free-icons/whatsapp" title="whatsapp icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">WhatsApp</a> | 
-            <a href="https://www.flaticon.com/free-icons/linkdin" title="linkedin icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">LinkedIn</a> | 
-            <a href="https://www.flaticon.com/free-icons/medium" title="medium icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Medium</a> | 
-            <a href="https://www.flaticon.com/free-icons/youtube" title="youtube icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">YouTube</a> | 
-            <a href="https://www.flaticon.com/free-icons/github" title="github icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">GitHub</a> | 
-            <a href="https://www.flaticon.com/free-icons/brands-and-logotypes" title="brands icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Logos</a> | 
-            <a href="https://www.flaticon.com/free-icons/mentor" title="mentor icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Mentor</a>
-          </div>
         <div class="footer-bottom-line"></div>
       </div>
     </div>
@@ -3117,40 +3335,42 @@
     const catSections = () => document.querySelectorAll('.srv-cat-section');
 
     // ---- Live Search ----
-    srvSearchInput.addEventListener('input', () => {
-      const query = srvSearchInput.value.toLowerCase().trim();
-      let visibleCount = 0;
+    if (srvSearchInput) {
+      srvSearchInput.addEventListener('input', () => {
+        const query = srvSearchInput.value.toLowerCase().trim();
+        let visibleCount = 0;
 
-      rowItems().forEach(item => {
-        const title = item.querySelector('.work-item-name')?.textContent.toLowerCase() || '';
-        const kw = item.getAttribute('data-keywords')?.toLowerCase() || '';
-        const drawer = item.querySelector('.srv-drawer-desc')?.textContent.toLowerCase() || '';
-        const match = title.includes(query) || kw.includes(query) || drawer.includes(query);
-        item.classList.toggle('row-hidden', !match);
-        if (match) visibleCount++;
+        rowItems().forEach(item => {
+          const title = item.querySelector('.work-item-name')?.textContent.toLowerCase() || '';
+          const kw = item.getAttribute('data-keywords')?.toLowerCase() || '';
+          const drawer = item.querySelector('.srv-drawer-desc')?.textContent.toLowerCase() || '';
+          const match = title.includes(query) || kw.includes(query) || drawer.includes(query);
+          item.classList.toggle('row-hidden', !match);
+          if (match) visibleCount++;
+        });
+
+        catSections().forEach(sec => {
+          const anyVisible = [...sec.querySelectorAll('.srv-row-item')].some(i => !i.classList.contains('row-hidden'));
+          sec.classList.toggle('search-hidden', !anyVisible);
+        });
+
+        const noRes = document.getElementById('srvNoResults');
+        if (noRes) noRes.classList.toggle('visible', visibleCount === 0 && query !== '');
+
+        const countTag = document.getElementById('srvVisibleCount');
+        if (countTag) countTag.textContent = query ? `${visibleCount} UNITS` : '40 UNITS';
+
+        // Scramble giant title on search
+        const gt = document.getElementById('srvGiantTitle');
+        if (gt && query) {
+          scrambleText(gt, 'FILTERING...');
+          clearTimeout(window._srvTitleTimer);
+          window._srvTitleTimer = setTimeout(() => scrambleText(gt, 'SRV_INTEL'), 900);
+        } else if (gt && !query) {
+          scrambleText(gt, 'SRV_INTEL');
+        }
       });
-
-      catSections().forEach(sec => {
-        const anyVisible = [...sec.querySelectorAll('.srv-row-item')].some(i => !i.classList.contains('row-hidden'));
-        sec.classList.toggle('search-hidden', !anyVisible);
-      });
-
-      const noRes = document.getElementById('srvNoResults');
-      if (noRes) noRes.classList.toggle('visible', visibleCount === 0 && query !== '');
-
-      const countTag = document.getElementById('srvVisibleCount');
-      if (countTag) countTag.textContent = query ? `${visibleCount} UNITS` : '40 UNITS';
-
-      // Scramble giant title on search
-      const gt = document.getElementById('srvGiantTitle');
-      if (gt && query) {
-        scrambleText(gt, 'FILTERING...');
-        clearTimeout(window._srvTitleTimer);
-        window._srvTitleTimer = setTimeout(() => scrambleText(gt, 'SRV_INTEL'), 900);
-      } else if (gt && !query) {
-        scrambleText(gt, 'SRV_INTEL');
-      }
-    });
+    }
 
     // ---- Category Filter ----
     navButtons.forEach(btn => {
@@ -3177,7 +3397,7 @@
           if (show) sec.querySelectorAll('.srv-row-item').forEach(i => i.classList.remove('row-hidden'));
         });
 
-        srvSearchInput.value = '';
+        if (srvSearchInput) srvSearchInput.value = '';
         document.getElementById('srvNoResults')?.classList.remove('visible');
 
         const srvEditSector = document.getElementById('srvEditSector');
@@ -3192,6 +3412,16 @@
 
         const countTag = document.getElementById('srvVisibleCount');
         if (countTag) countTag.textContent = `${target === 'all' ? '40' : [...catSections()].find(s => s.id === target)?.querySelectorAll('.srv-row-item').length || '—'} UNITS`;
+
+        // Update footer "Other Services" list to exclude the current active section
+        const otherItems = document.querySelectorAll('.other-services-item');
+        otherItems.forEach(item => {
+          if (target === 'all' || item.getAttribute('data-category') !== target) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
 
         addConsoleLog(`Sector: ${sectorMap[target] || target}`);
       });
@@ -3387,6 +3617,155 @@
           closeSrvLightbox();
         }
       });
+
+      // ---- URL Hash-Based Dynamic Filter ----
+      function filterByHash() {
+        const hash = window.location.hash;
+        if (hash) {
+          const targetId = hash.substring(1);
+          const targetBtn = document.querySelector(`.srv-nav-btn[data-target="${targetId}"]`);
+          if (targetBtn) {
+            targetBtn.click();
+            setTimeout(() => {
+              const targetSection = document.getElementById(targetId);
+              if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 600);
+          }
+        }
+      }
+      filterByHash();
+      window.addEventListener('hashchange', filterByHash);
+
+      // ---- Other Services Hover Preview & Click Handling ----
+      const otherHoverImg = document.getElementById('otherServicesHoverImg');
+      const otherHoverItems = document.querySelectorAll('.other-services-item');
+      const otherSection = document.querySelector('.other-services-section');
+
+      if (otherHoverImg && otherSection && otherHoverItems.length > 0) {
+        otherHoverItems.forEach(item => {
+          // Mouse events
+          item.addEventListener('mouseenter', () => {
+            const imgSrc = item.getAttribute('data-image');
+            if (imgSrc) {
+              otherHoverImg.querySelector('img').src = imgSrc;
+            }
+            gsap.to(otherHoverImg, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.4,
+              ease: 'power3.out',
+              overwrite: 'auto'
+            });
+          });
+
+          item.addEventListener('mouseleave', () => {
+            gsap.to(otherHoverImg, {
+              opacity: 0,
+              scale: 0.6,
+              duration: 0.3,
+              ease: 'power3.out',
+              overwrite: 'auto'
+            });
+          });
+
+          item.addEventListener('mousemove', (e) => {
+            const rect = otherSection.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            gsap.to(otherHoverImg, {
+              left: x,
+              top: y,
+              duration: 0.45,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            });
+          });
+
+          // Touch events (displays above touch point so finger doesn't block it)
+          item.addEventListener('touchstart', (e) => {
+            const imgSrc = item.getAttribute('data-image');
+            if (imgSrc) {
+              otherHoverImg.querySelector('img').src = imgSrc;
+            }
+
+            const touch = e.touches[0];
+            const rect = otherSection.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top - 140;
+
+            gsap.killTweensOf(otherHoverImg);
+            gsap.set(otherHoverImg, { left: x, top: y });
+            gsap.to(otherHoverImg, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.3,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            });
+          }, { passive: true });
+
+          item.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            const rect = otherSection.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top - 140;
+
+            gsap.to(otherHoverImg, {
+              left: x,
+              top: y,
+              duration: 0.3,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            });
+          }, { passive: true });
+
+          item.addEventListener('touchend', () => {
+            gsap.to(otherHoverImg, {
+              opacity: 0,
+              scale: 0.6,
+              duration: 0.3,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            });
+          });
+
+          item.addEventListener('touchcancel', () => {
+            gsap.to(otherHoverImg, {
+              opacity: 0,
+              scale: 0.6,
+              duration: 0.3,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            });
+          });
+        });
+
+        otherHoverItems.forEach(item => {
+          item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetHash = item.getAttribute('href');
+            if (targetHash) {
+              window.location.hash = targetHash;
+            }
+          });
+        });
+      }
+
+      // Add click behavior on VIEW ALL
+      const viewAllBtn = document.getElementById('otherServicesViewAll');
+      if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const allBtn = document.querySelector('.srv-nav-btn[data-target="all"]');
+          if (allBtn) {
+            allBtn.click();
+            window.scrollTo({ top: document.querySelector('.services-editorial-header').offsetTop - 120, behavior: 'smooth' });
+          }
+        });
+      }
     });
 
   </script>

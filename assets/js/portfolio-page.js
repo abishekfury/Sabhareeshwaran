@@ -18,33 +18,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.classList.add('no-scroll');
 
+    // Safety fallback timeout to prevent any stuck state if GSAP or assets hang
+    const safetyTimeout = setTimeout(() => {
+      if (!preloader.classList.contains('loaded')) {
+        preloader.classList.add('loaded');
+        document.body.classList.remove('no-scroll');
+        initHeroReveal();
+      }
+    }, 4500);
+
     try {
       if (typeof gsap === 'undefined') {
-        console.warn("initPreloader: GSAP is not defined. Falling back to CSS transition.");
-        document.querySelectorAll('.preloader-wrap > div').forEach(el => {
-          el.style.opacity = '1';
-        });
-        setTimeout(() => {
-          preloader.classList.add('loaded');
-          document.body.classList.remove('no-scroll');
-          initHeroReveal();
-        }, 2000);
+        // Fallback count up simulation without GSAP
+        let currentVal = 0;
+        const percentEl = document.getElementById('preloader-percent');
+        const lineEl = document.querySelector('.preloader-line');
+        
+        const interval = setInterval(() => {
+          currentVal += 2;
+          if (percentEl) percentEl.textContent = currentVal;
+          if (lineEl) lineEl.style.width = `${currentVal}%`;
+          
+          if (currentVal >= 100) {
+            clearInterval(interval);
+            clearTimeout(safetyTimeout);
+            // Split panels manually via CSS transition
+            const topPanel = document.querySelector('.panel-top');
+            const bottomPanel = document.querySelector('.panel-bottom');
+            const content = document.querySelector('.preloader-content');
+            if (content) content.style.opacity = '0';
+            if (topPanel) topPanel.style.transform = 'translateY(-100%)';
+            if (bottomPanel) bottomPanel.style.transform = 'translateY(100%)';
+            
+            setTimeout(() => {
+              preloader.classList.add('loaded');
+              document.body.classList.remove('no-scroll');
+              initHeroReveal();
+            }, 800);
+          }
+        }, 30);
         return;
       }
 
-      // Set initial states via GSAP
-      gsap.set('.preloader-center-x', { opacity: 0, scale: 0, rotation: -180 });
-      gsap.set('.preloader-name', { opacity: 0, y: -250 });
-      gsap.set('.preloader-role', { opacity: 0, y: 250 });
+      const loaderObj = { val: 0 };
+      const percentEl = document.getElementById('preloader-percent');
+      const lineEl = document.querySelector('.preloader-line');
 
       const tl = gsap.timeline({
         onComplete: () => {
-          console.log("initPreloader: Timeline complete. Exiting...");
-          // Exit animation: preloader slides up
-          gsap.to(preloader, {
-            yPercent: -100,
-            duration: 1.2,
-            ease: 'power4.inOut',
+          clearTimeout(safetyTimeout);
+          
+          // Shutter Exit Animation: Split panels top and bottom
+          const exitTl = gsap.timeline({
             onComplete: () => {
               preloader.classList.add('loaded');
               document.body.classList.remove('no-scroll');
@@ -52,8 +77,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
 
-          // Website reveal animation: parallax drag down
-          gsap.fromTo('.portfolio-hero', 
+          // 1. Fade out the text & line loader
+          exitTl.to('.preloader-brand, .preloader-line-wrap, .preloader-counter', {
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power2.out'
+          })
+          // 2. Split top/bottom panels open
+          .to('.panel-top', {
+            yPercent: -100,
+            duration: 0.95,
+            ease: 'power3.inOut'
+          }, '-=0.15')
+          .to('.panel-bottom', {
+            yPercent: 100,
+            duration: 0.95,
+            ease: 'power3.inOut'
+          }, '-=0.95');
+
+          // Website reveal parallax
+          gsap.fromTo('.portfolio-hero',
             { y: -120, scale: 1.05 },
             { y: 0, scale: 1, duration: 1.4, ease: 'power4.out' }
           );
@@ -64,32 +107,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // 1. Spin and scale in the center X
-      tl.to('.preloader-center-x', {
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration: 0.8,
-        ease: 'back.out(1.5)'
-      })
-      // 2. Slide in the name and role from top and bottom to meet X
-      .to('.preloader-name', {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: 'power4.out'
-      }, '-=0.3')
-      .to('.preloader-role', {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: 'power4.out'
-      }, '-=1.2')
-      // 3. Hold the complete matched logo state
-      .to({}, { duration: 0.6 });
+      // Animate the counter value 0 -> 100
+      tl.to(loaderObj, {
+        val: 100,
+        duration: 2.2,
+        ease: 'power1.out',
+        onUpdate: () => {
+          const rounded = Math.floor(loaderObj.val);
+          if (percentEl) percentEl.textContent = rounded;
+          if (lineEl) lineEl.style.width = `${rounded}%`;
+        }
+      });
 
     } catch (error) {
       console.error("initPreloader error: ", error);
+      clearTimeout(safetyTimeout);
       preloader.classList.add('loaded');
       document.body.classList.remove('no-scroll');
       initHeroReveal();

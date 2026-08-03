@@ -22,90 +22,102 @@
   <link rel="stylesheet" href="assets/css/sphere-gallery.css?v=2.5">
   <style>
     body, html {
-      --font-main: 'Times New Roman', Times, serif !important;
-      --font-mono: 'Times New Roman', Times, serif !important;
-      font-family: 'Times New Roman', Times, serif !important;
-      font-size: 17.5px !important;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      --font-mono: 'Fira Code', 'Courier New', monospace !important;
+      --font-jp: 'Noto Sans Tamil', 'Noto Sans JP', sans-serif !important;
+      font-family: var(--font-main) !important;
     }
-    /* Critical Preloader Layout Styles */
+    /* Shutter Preloader & Countdown Styles */
     .preloader {
       position: fixed !important;
       inset: 0 !important;
       z-index: 9999 !important;
-      background: #0a0a0a !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-family: 'Inter', sans-serif !important;
+      background: transparent !important;
+      display: block !important;
       overflow: hidden !important;
+      pointer-events: auto;
+      --preloader-bg: #0a0a0a;
+      --preloader-text: #ffffff;
+      --preloader-line-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    body.light-theme .preloader {
+      --preloader-bg: #ffffff;
+      --preloader-text: #0a0a0a;
+      --preloader-line-bg: rgba(0, 0, 0, 0.1);
     }
 
     .preloader.loaded {
       display: none !important;
     }
 
-    .preloader-wrap {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: clamp(11px, 2.8vw, 36px) !important;
-      font-weight: 900 !important;
-      text-transform: uppercase !important;
-      color: #ffffff !important;
-      white-space: nowrap !important;
-      gap: 0.8em !important;
-      position: relative !important;
-      letter-spacing: 0.05em !important;
+    .preloader-panel {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 50.5vh;
+      background: var(--preloader-bg);
+      z-index: 1;
+      will-change: transform;
     }
 
-    .preloader-name {
-      opacity: 0;
-      display: inline-block !important;
+    .preloader-panel.panel-top {
+      top: 0;
     }
 
-    .preloader-center-x {
-      opacity: 0;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      line-height: 1 !important;
+    .preloader-panel.panel-bottom {
+      bottom: 0;
     }
 
-    .preloader-role {
-      opacity: 0;
-      display: inline-block !important;
-      color: #ffffff !important;
+    .preloader-content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
     }
 
-    @media (max-width: 768px) {
-      .preloader-wrap {
-        flex-direction: column !important;
-        white-space: normal !important;
-        text-align: center !important;
-        gap: 1rem !important;
-        width: 100% !important;
-        max-width: 90vw !important;
-        padding: 0 16px !important;
-      }
+    .preloader-brand {
+      position: absolute;
+      top: clamp(40px, 6vw, 80px);
+      left: clamp(20px, 6vw, 80px);
+      font-size: clamp(16px, 2.5vw, 24px);
+      font-weight: 700;
+      font-family: var(--font-main);
+      color: var(--preloader-text);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      opacity: 1;
+    }
 
-      .preloader-name {
-        font-size: clamp(18px, 5.5vw, 24px) !important;
-        line-height: 1.25 !important;
-        text-align: center !important;
-        letter-spacing: 0.06em !important;
-      }
+    .preloader-line-wrap {
+      position: absolute;
+      top: 50%;
+      left: clamp(20px, 6vw, 80px);
+      right: clamp(20px, 6vw, 80px);
+      height: 2px;
+      background: var(--preloader-line-bg);
+      transform: translateY(-50%);
+      opacity: 1;
+    }
 
-      .preloader-role {
-        font-size: clamp(11px, 3.4vw, 15px) !important;
-        line-height: 1.3 !important;
-        text-align: center !important;
-        letter-spacing: 0.08em !important;
-      }
+    .preloader-line {
+      width: 0%;
+      height: 100%;
+      background: var(--red);
+      transition: width 0.05s linear;
+    }
 
-      .preloader-center-x {
-        margin: 0.2rem 0 !important;
-      }
+    .preloader-counter {
+      position: absolute;
+      bottom: clamp(30px, 6vw, 80px);
+      right: clamp(20px, 6vw, 80px);
+      font-size: clamp(80px, 15vw, 180px);
+      font-weight: 800;
+      font-family: var(--font-main);
+      color: var(--preloader-text);
+      line-height: 0.8;
+      letter-spacing: -0.04em;
+      opacity: 1;
     }
 
     /* FollowEyes component styles */
@@ -149,6 +161,157 @@
     .follow-eye.blink {
       transform: scaleY(0.05);
     }
+
+    /* Service Preview Section Styles */
+    .service-preview-section {
+      padding: 100px 0;
+      position: relative;
+      background: var(--black);
+      overflow: visible;
+    }
+
+    .service-preview-list {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .service-preview-item {
+      display: block;
+      width: 100%;
+      border-top: 1px solid var(--border-light);
+      text-decoration: none;
+      color: var(--white);
+      transition: background-color 0.4s var(--ease-out-expo);
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-preview-item-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.2rem 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      box-sizing: border-box;
+      transition: padding-left 0.4s var(--ease-out-expo), padding-right 0.4s var(--ease-out-expo);
+    }
+
+    .service-preview-num {
+      font-family: monospace;
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-right: 3rem;
+      transition: color 0.4s var(--ease-out-expo);
+    }
+
+    .service-preview-title {
+      font-size: clamp(20px, 3.2vw, 36px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      flex-grow: 1;
+      transition: color 0.4s var(--ease-out-expo);
+    }
+
+    .service-preview-arrow {
+      color: var(--text-muted);
+      transition: transform 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+      display: flex;
+      align-items: center;
+    }
+
+    .service-preview-arrow svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Hover States */
+    .service-preview-item:hover {
+      background-color: var(--red);
+      color: #ffffff !important;
+    }
+
+    .service-preview-item:hover .service-preview-title {
+      color: #ffffff !important;
+    }
+
+    .service-preview-item:hover .service-preview-arrow {
+      color: #ffffff !important;
+      transform: translate(5px, -5px) scale(1.1);
+    }
+
+    /* Floating Hover Image Preview */
+    .service-preview-hover-img {
+      position: absolute;
+      width: 340px;
+      height: 260px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+      z-index: 100;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #111111;
+      will-change: left, top, opacity, transform;
+    }
+
+    .service-preview-hover-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .service-preview-section {
+        padding: 60px 0;
+      }
+      .service-preview-item-content {
+        padding: 1.6rem 20px;
+      }
+      .service-preview-num {
+        margin-right: 1.5rem;
+      }
+      .service-preview-title {
+        font-size: 20px;
+      }
+      .service-preview-arrow svg {
+        width: 24px;
+        height: 24px;
+      }
+      .service-preview-hover-img {
+        display: none !important;
+      }
+    }
+
+    /* Light Theme Overrides */
+    body.light-theme .service-preview-item {
+      color: var(--white);
+    }
+
+    body.light-theme .service-preview-hover-img {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #f5f6f8;
+    }
+
+    /* Glowing Orange Divider Line */
+    .orange-divider-line {
+      width: 100%;
+      height: 3px;
+      background-color: var(--red);
+      position: relative;
+      z-index: 5;
+      box-shadow: 0 0 12px var(--red);
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -170,15 +333,16 @@
   <div class="scroll-progress" id="scrollProgress"></div>
 
   <div class="preloader" id="preloader">
-    <div class="preloader-wrap">
-      <div class="preloader-name">SABHAREESHWARAN S</div>
-      <div class="preloader-center-x">
-        <div class="follow-eyes" data-eyes="2" data-eye-color="#ffffff" data-pupil-color="#E05A00" data-eye-size="45px"
-          data-pupil-size="16px" data-eye-gap="12px" data-tracking-speed="0.15" data-tracking-range="16"
-          data-blinking="true" data-blink-min-interval="1500" data-blink-max-interval="5000">
-        </div>
+    <div class="preloader-panel panel-top"></div>
+    <div class="preloader-panel panel-bottom"></div>
+    <div class="preloader-content">
+      <div class="preloader-brand">SABHAREESHWARAN S</div>
+      <div class="preloader-line-wrap">
+        <div class="preloader-line"></div>
       </div>
-      <div class="preloader-role">CYBERSECURITY PROFESSIONAL</div>
+      <div class="preloader-counter">
+        <span id="preloader-percent">0</span>%
+      </div>
     </div>
   </div>
 
@@ -630,6 +794,91 @@
     </div>
   </section>
 
+  <!-- ORANGE DIVIDER LINE -->
+  <div class="orange-divider-line"></div>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="service-preview-section" id="services">
+    <div class="experience-container">
+      <div class="experience-header">
+        <div class="experience-left">
+          <div class="section-label">SERVICES</div>
+          <div class="section-label-jp">சேவைகள்</div>
+        </div>
+        <div class="experience-right">
+          <h2 class="experience-heading">EXPLORE CYBERSECURITY, CONSULTING &amp; COOPERATIVE PROGRAMS.</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-preview-list">
+      <a href="services.html#training-edu" class="service-preview-item" data-image="assets/images/service1.webp">
+        <div class="service-preview-item-content">
+          <div class="service-preview-title">Training &amp; Education</div>
+          <div class="service-preview-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a href="services.html#career-mentorship" class="service-preview-item" data-image="assets/images/service2.webp">
+        <div class="service-preview-item-content">
+          <div class="service-preview-title">Mentorship &amp; Career</div>
+          <div class="service-preview-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a href="services.html#cert-labs" class="service-preview-item" data-image="assets/images/service3.webp">
+        <div class="service-preview-item-content">
+          <div class="service-preview-title">Certifications &amp; Labs</div>
+          <div class="service-preview-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a href="services.html#security-consulting" class="service-preview-item" data-image="assets/images/service4.webp">
+        <div class="service-preview-item-content">
+          <div class="service-preview-title">Security &amp; IT Consulting</div>
+          <div class="service-preview-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a href="services.html#assessment-compliance" class="service-preview-item" data-image="assets/images/service05.webp">
+        <div class="service-preview-item-content">
+          <div class="service-preview-title">Assessment &amp; Compliance</div>
+          <div class="service-preview-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+      <a href="services.html#community-advisory" class="service-preview-item" data-image="assets/images/service6.webp">
+        <div class="service-preview-item-content">
+          <div class="service-preview-title">Community &amp; Advisory</div>
+          <div class="service-preview-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20L20 4M20 4H8M20 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Floating Preview Image -->
+    <div class="service-preview-hover-img" id="servicePreviewHoverImg">
+      <img src="" alt="Service Preview">
+    </div>
+  </section>
 
   <!-- STATS -->
   <section class="stats" id="stats">
@@ -1986,19 +2235,6 @@
             <div class="footer-legal">© <span class="copyright-year">2026</span> Sabhareeshwaran S · All Rights Reserved
               · <a href="mailto:sabhareeshw@gmail.com" style="color:var(--red);">sabhareeshw@gmail.com</a></div>
           </div>
-          <div class="footer-credits" style="font-size: 10px; color: rgba(255, 255, 255, 0.25); text-align: center; margin-top: 10px; line-height: 1.6;">
-            Icon attributions: 
-            <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Instagram</a> | 
-            <a href="https://www.flaticon.com/free-icons/ui" title="ui icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">UI</a> | 
-            <a href="https://www.flaticon.com/free-icons/facebook" title="facebook icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Facebook</a> | 
-            <a href="https://www.flaticon.com/free-icons/whatsapp" title="whatsapp icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">WhatsApp</a> | 
-            <a href="https://www.flaticon.com/free-icons/linkdin" title="linkedin icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">LinkedIn</a> | 
-            <a href="https://www.flaticon.com/free-icons/medium" title="medium icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Medium</a> | 
-            <a href="https://www.flaticon.com/free-icons/youtube" title="youtube icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">YouTube</a> | 
-            <a href="https://www.flaticon.com/free-icons/github" title="github icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">GitHub</a> | 
-            <a href="https://www.flaticon.com/free-icons/brands-and-logotypes" title="brands icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Logos</a> | 
-            <a href="https://www.flaticon.com/free-icons/mentor" title="mentor icons" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Mentor</a>
-          </div>
           <div class="footer-bottom-line"></div>
         </div>
       </div>
@@ -2020,6 +2256,115 @@
 
   <script src="assets/js/script.min.js?v=4.1" defer></script>
   <script src="assets/js/animations.min.js?v=4.0" defer></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hoverImg = document.getElementById('servicePreviewHoverImg');
+      const hoverItems = document.querySelectorAll('.service-preview-item');
+      const section = document.querySelector('.service-preview-section');
+
+      if (!hoverImg || !section || hoverItems.length === 0) return;
+
+      hoverItems.forEach(item => {
+        // Mouse/Hover support
+        item.addEventListener('mouseenter', () => {
+          const imgSrc = item.getAttribute('data-image');
+          if (imgSrc) {
+            hoverImg.querySelector('img').src = imgSrc;
+          }
+          gsap.to(hoverImg, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: 'power3.out',
+            overwrite: 'auto'
+          });
+        });
+
+        item.addEventListener('mouseleave', () => {
+          gsap.to(hoverImg, {
+            opacity: 0,
+            scale: 0.6,
+            duration: 0.3,
+            ease: 'power3.out',
+            overwrite: 'auto'
+          });
+        });
+
+        item.addEventListener('mousemove', (e) => {
+          const rect = section.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          gsap.to(hoverImg, {
+            left: x,
+            top: y,
+            duration: 0.45,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        });
+
+        // Touch support (displays above touch point so finger doesn't block it)
+        item.addEventListener('touchstart', (e) => {
+          const imgSrc = item.getAttribute('data-image');
+          if (imgSrc) {
+            hoverImg.querySelector('img').src = imgSrc;
+          }
+
+          const touch = e.touches[0];
+          const rect = section.getBoundingClientRect();
+          const x = touch.clientX - rect.left;
+          const y = touch.clientY - rect.top - 140;
+
+          gsap.killTweensOf(hoverImg);
+          gsap.set(hoverImg, { left: x, top: y });
+          gsap.to(hoverImg, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }, { passive: true });
+
+        item.addEventListener('touchmove', (e) => {
+          const touch = e.touches[0];
+          const rect = section.getBoundingClientRect();
+          const x = touch.clientX - rect.left;
+          const y = touch.clientY - rect.top - 140;
+
+          gsap.to(hoverImg, {
+            left: x,
+            top: y,
+            duration: 0.3,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }, { passive: true });
+
+        item.addEventListener('touchend', () => {
+          gsap.to(hoverImg, {
+            opacity: 0,
+            scale: 0.6,
+            duration: 0.3,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        });
+
+        item.addEventListener('touchcancel', () => {
+          gsap.to(hoverImg, {
+            opacity: 0,
+            scale: 0.6,
+            duration: 0.3,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

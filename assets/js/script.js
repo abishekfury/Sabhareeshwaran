@@ -221,8 +221,6 @@ function initPreloader() {
   const preloader = document.querySelector('.preloader');
   if (!preloader) return;
 
-  initFollowEyes();
-
   document.body.classList.add('no-scroll');
 
   // Safety fallback timeout to prevent any stuck state if GSAP or assets hang
@@ -236,89 +234,103 @@ function initPreloader() {
 
   try {
     if (typeof gsap === 'undefined') {
-      // Fallback: make everything visible and fade out preloader after 3s
-      document.querySelectorAll('.preloader-wrap > div').forEach(el => {
-        el.style.opacity = '1';
-      });
-      const eyeContainerFb = document.querySelector('.follow-eyes');
-      if (eyeContainerFb && eyeContainerFb._startTracking) {
-        eyeContainerFb._startTracking();
-        if (eyeContainerFb._startBlink) eyeContainerFb._startBlink();
-      }
-      setTimeout(() => {
-        clearTimeout(safetyTimeout);
-        preloader.classList.add('loaded');
-        document.body.classList.remove('no-scroll');
-        initIntroHeroAnimation();
-      }, 3000);
+      // Fallback count up simulation without GSAP
+      let currentVal = 0;
+      const percentEl = document.getElementById('preloader-percent');
+      const lineEl = document.querySelector('.preloader-line');
+      
+      const interval = setInterval(() => {
+        currentVal += 2;
+        if (percentEl) percentEl.textContent = currentVal;
+        if (lineEl) lineEl.style.width = `${currentVal}%`;
+        
+        if (currentVal >= 100) {
+          clearInterval(interval);
+          clearTimeout(safetyTimeout);
+          // Split panels manually via CSS transition
+          const topPanel = document.querySelector('.panel-top');
+          const bottomPanel = document.querySelector('.panel-bottom');
+          const content = document.querySelector('.preloader-content');
+          if (content) content.style.opacity = '0';
+          if (topPanel) topPanel.style.transform = 'translateY(-100%)';
+          if (bottomPanel) bottomPanel.style.transform = 'translateY(100%)';
+          
+          setTimeout(() => {
+            preloader.classList.add('loaded');
+            document.body.classList.remove('no-scroll');
+            initIntroHeroAnimation();
+          }, 800);
+        }
+      }, 30);
       return;
     }
 
-    // Set initial states via GSAP — clean, subtle offsets instead of massive 250px jumps
-    gsap.set('.preloader-center-x', { opacity: 0, scale: 0.7 });
-    gsap.set('.preloader-name', { opacity: 0, y: -25 });
-    gsap.set('.preloader-role', { opacity: 0, y: 25 });
-
-    // Start eye tracking loop immediately so pupils track smoothly from frame 1
-    const eyeContainer = document.querySelector('.follow-eyes');
-    if (eyeContainer && eyeContainer._startTracking) {
-      eyeContainer._startTracking();
-      if (eyeContainer._startBlink) eyeContainer._startBlink();
-    }
+    const loaderObj = { val: 0 };
+    const percentEl = document.getElementById('preloader-percent');
+    const lineEl = document.querySelector('.preloader-line');
 
     const tl = gsap.timeline({
       onComplete: () => {
         clearTimeout(safetyTimeout);
-        preloader.classList.add('loaded');
-        document.body.classList.remove('no-scroll');
-        initIntroHeroAnimation();
+        
+        // Shutter Exit Animation: Split panels top and bottom
+        const exitTl = gsap.timeline({
+          onComplete: () => {
+            preloader.classList.add('loaded');
+            document.body.classList.remove('no-scroll');
+            initIntroHeroAnimation();
+          }
+        });
 
-        // Website reveal animation: smooth hero drag down
+        // 1. Fade out the text & line loader
+        exitTl.to('.preloader-brand, .preloader-line-wrap, .preloader-counter', {
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        })
+        // 2. Split top/bottom panels open
+        .to('.panel-top', {
+          yPercent: -100,
+          duration: 0.95,
+          ease: 'power3.inOut'
+        }, '-=0.15')
+        .to('.panel-bottom', {
+          yPercent: 100,
+          duration: 0.95,
+          ease: 'power3.inOut'
+        }, '-=0.95');
+
+        // Website reveal parallax
         gsap.fromTo('.split-hero',
           { y: -80, scale: 1.03 },
-          { y: 0, scale: 1, duration: 1.0, ease: 'power4.out' }
+          { y: 0, scale: 1, duration: 1.1, ease: 'power4.out', delay: 0.1 }
         );
         const isScrolled = window.scrollY > 60;
         if (isScrolled) {
           gsap.fromTo('.navbar',
             { y: -60, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.9, ease: 'power4.out', delay: 0.05, clearProps: 'opacity' }
+            { y: 0, opacity: 1, duration: 1.0, ease: 'power4.out', delay: 0.15, clearProps: 'opacity' }
           );
         } else {
           gsap.fromTo('.navbar',
             { y: -60 },
-            { y: 0, duration: 0.9, ease: 'power4.out', delay: 0.05 }
+            { y: 0, duration: 1.0, ease: 'power4.out', delay: 0.15 }
           );
         }
       }
     });
 
-    // 1. Scale and fade in the center eyes smoothly
-    tl.to('.preloader-center-x', {
-      opacity: 1,
-      scale: 1,
-      duration: 0.4,
-      ease: 'power2.out'
-    })
-      // 2. Reveal Name & Role simultaneously with gentle slide-in
-      .to('.preloader-name', {
-        opacity: 1,
-        y: 0,
-        duration: 0.4,
-        ease: 'power2.out'
-      }, '-=0.2')
-      .to('.preloader-role', {
-        opacity: 1,
-        y: 0,
-        duration: 0.4,
-        ease: 'power2.out'
-      }, '-=0.35')
-      // 3. Hold preloader on screen for ~2.5s so total display is ~3 seconds with eye-tracking active
-      .to(preloader, {
-        yPercent: -100,
-        duration: 0.65,
-        ease: 'power3.inOut'
-      }, '+=2.3');
+    // Animate the counter value 0 -> 100
+    tl.to(loaderObj, {
+      val: 100,
+      duration: 2.2,
+      ease: 'power1.out',
+      onUpdate: () => {
+        const rounded = Math.floor(loaderObj.val);
+        if (percentEl) percentEl.textContent = rounded;
+        if (lineEl) lineEl.style.width = `${rounded}%`;
+      }
+    });
 
   } catch (error) {
     console.error("initPreloader error: ", error);
