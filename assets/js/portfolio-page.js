@@ -64,7 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const percentEl = document.getElementById('preloader-percent');
       const lineEl = document.querySelector('.preloader-line');
 
-      const tl = gsap.timeline({
+      gsap.to(loaderObj, {
+        val: 100,
+        duration: 2.2,
+        ease: 'power1.out',
+        onUpdate: () => {
+          const rounded = Math.floor(loaderObj.val);
+          if (percentEl) percentEl.textContent = rounded;
+          if (lineEl) lineEl.style.width = `${rounded}%`;
+        },
         onComplete: () => {
           clearTimeout(safetyTimeout);
           
@@ -104,18 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
             { y: -80, opacity: 0 },
             { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out', delay: 0.1 }
           );
-        }
-      });
-
-      // Animate the counter value 0 -> 100
-      tl.to(loaderObj, {
-        val: 100,
-        duration: 2.2,
-        ease: 'power1.out',
-        onUpdate: () => {
-          const rounded = Math.floor(loaderObj.val);
-          if (percentEl) percentEl.textContent = rounded;
-          if (lineEl) lineEl.style.width = `${rounded}%`;
         }
       });
 
