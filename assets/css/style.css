@@ -4530,7 +4530,8 @@ html.lenis {
 }
 
 .custom-cursor-dot,
-.custom-cursor-follower {
+.custom-cursor-follower,
+#custom-cursor-canvas {
   position: fixed;
   top: 0;
   left: 0;
@@ -4540,44 +4541,54 @@ html.lenis {
   display: none;
 }
 
+#custom-cursor-canvas {
+  z-index: 999998;
+  width: 100vw;
+  height: 100vh;
+}
+
 @media (min-width: 769px) {
 
   .custom-cursor-dot,
-  .custom-cursor-follower {
+  .custom-cursor-follower,
+  #custom-cursor-canvas {
     display: block;
   }
 }
 
 .custom-cursor-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background-color: var(--red);
   border-radius: 50%;
   transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 0 10px var(--red), 0 0 20px var(--red);
 }
 
 .custom-cursor-follower {
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(224, 90, 0, 0.45);
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(224, 90, 0, 0.6);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
   transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
     height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
     background-color 0.3s ease,
     border-color 0.3s ease,
     border-radius 0.3s ease;
+  box-shadow: 0 0 12px rgba(224, 90, 0, 0.35);
 }
 
 .custom-cursor-follower .cursor-text {
   color: var(--white, #ffffff);
-  font-family: 'Inter', sans-serif;
-  font-size: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
   font-weight: 900;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   opacity: 0;
   transform: scale(0.8);
@@ -4586,26 +4597,59 @@ html.lenis {
 
 /* Hover States for Follower */
 .custom-cursor-follower.hover-link {
-  width: 52px;
-  height: 52px;
-  background-color: rgba(224, 90, 0, 0.08);
+  width: 56px;
+  height: 56px;
+  background-color: rgba(224, 90, 0, 0.12);
   border-color: var(--red);
+  box-shadow: 0 0 16px rgba(224, 90, 0, 0.6), inset 0 0 8px rgba(224, 90, 0, 0.2);
 }
 
 .custom-cursor-follower.hover-card {
-  width: 68px;
-  height: 68px;
-  background-color: rgba(224, 90, 0, 0.12);
+  width: 72px;
+  height: 72px;
+  background-color: rgba(224, 90, 0, 0.15);
   border-color: var(--red);
   border-radius: 14px;
-  /* Techy cyber card shape */
+  box-shadow: 0 0 20px rgba(224, 90, 0, 0.5), inset 0 0 10px rgba(224, 90, 0, 0.2);
 }
 
 .custom-cursor-follower.hover-view {
-  width: 60px;
-  height: 60px;
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: var(--white, #ffffff);
+  width: 76px;
+  height: 76px;
+  background-color: rgba(224, 90, 0, 0.15);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.custom-cursor-follower.hover-view::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px dashed var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(224, 90, 0, 0.6);
+  animation: cursor-spin-clockwise 10s linear infinite;
+  pointer-events: none;
+}
+
+.custom-cursor-follower.hover-view::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px dotted rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: cursor-spin-counter 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes cursor-spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cursor-spin-counter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
 }
 
 .custom-cursor-follower.hover-zoom {
@@ -4627,6 +4671,7 @@ html.lenis {
   width: 8px;
   height: 8px;
   background-color: var(--white, #ffffff);
+  box-shadow: 0 0 10px var(--white), 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 /* Card Glow Effect Overlay */
@@ -5088,6 +5133,17 @@ body.light-theme .slide-bg-text-bottom {
 /* Cursor follower overrides for light theme */
 body.light-theme .custom-cursor-follower.hover-view {
   background-color: rgba(0, 0, 0, 0.08);
+}
+body.light-theme .custom-cursor-follower.hover-view::before {
+  border-color: var(--red);
+  box-shadow: 0 0 12px rgba(224, 90, 0, 0.4);
+}
+body.light-theme .custom-cursor-follower.hover-view::after {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.light-theme .custom-cursor-follower.hover-view .cursor-text {
+  color: var(--black, #0a0a0a);
+  text-shadow: none;
 }
 
 /* Specific overrides for hardcoded colors in Light Mode */
@@ -9765,37 +9821,48 @@ body.light-theme #skills.clients {
   background: #f5f6f8 !important;
   background-color: #f5f6f8 !important;
 }
+
 body.light-theme #skills .clients-heading-full {
   color: #0f1012 !important;
 }
+
 body.light-theme #skills .section-label {
   color: rgba(15, 16, 18, 0.6) !important;
 }
+
 body.light-theme #skills .section-label-jp {
   color: #0f1012 !important;
 }
+
 body.light-theme #skills .skill-card-num {
   color: rgba(224, 90, 0, 0.15) !important;
 }
+
 body.light-theme #skills .skill-card-title {
   color: #0f1012 !important;
 }
+
 body.light-theme #skills .skill-card-list li {
   color: rgba(15, 16, 18, 0.7) !important;
 }
+
 body.light-theme #skills .skill-card-container:hover .skill-card-list li {
   color: rgba(15, 16, 18, 0.95) !important;
 }
+
 body.light-theme #skills .tools-cloud-section {
   border-top-color: rgba(0, 0, 0, 0.08) !important;
 }
+
 body.light-theme #skills .tools-cloud-section .section-label {
   color: rgba(15, 16, 18, 0.6) !important;
 }
+
 body.light-theme #skills .tool-cloud-item {
   background: rgba(0, 0, 0, 0.02) !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
+
 body.light-theme #skills .tool-cloud-item span {
   color: #0f1012 !important;
 }

@@ -848,10 +848,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (introHero) {
         // Smooth fade in after preloader
         gsap.fromTo(introHero,
-          { opacity: 0, scale: 1.03 },
+          { opacity: 0 },
           {
             opacity: 1,
-            scale: 1,
             duration: 1.1,
             ease: 'power3.out'
           }
@@ -1086,8 +1085,79 @@ document.addEventListener('DOMContentLoaded', () => {
     cursorText.className = 'cursor-text';
     follower.appendChild(cursorText);
 
+    // Create custom cursor particle canvas dynamically
+    const canvas = document.createElement('canvas');
+    canvas.id = 'custom-cursor-canvas';
+
+    document.body.appendChild(canvas);
     document.body.appendChild(dot);
     document.body.appendChild(follower);
+
+    const ctx = canvas.getContext('2d');
+    const particles = [];
+    const maxParticles = 60;
+
+    // Set canvas dimensions
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Cyber particle structure
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 1.5 + 0.5;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.maxLife = Math.random() * 30 + 20;
+        this.life = this.maxLife;
+        this.size = Math.random() * 4 + 2;
+        this.alpha = 1;
+        this.shape = Math.floor(Math.random() * 3);
+        const colors = ['#E05A00', '#FF7A00', '#FF3C00', '#FFA500'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vx *= 0.98;
+        this.vy *= 0.98;
+        this.life--;
+        this.alpha = Math.max(0, this.life / this.maxLife);
+      }
+
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.strokeStyle = this.color;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = this.color;
+
+        if (this.shape === 0) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (this.shape === 1) {
+          ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+        } else {
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(this.x - this.size / 2, this.y);
+          ctx.lineTo(this.x + this.size / 2, this.y);
+          ctx.moveTo(this.x, this.y - this.size / 2);
+          ctx.lineTo(this.x, this.y + this.size / 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+    }
 
     // Set initial centering transform properties via GSAP
     gsap.set([dot, follower], { xPercent: -50, yPercent: -50 });
@@ -1099,10 +1169,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let followerX = 0;
     let followerY = 0;
 
-    // Track mouse coordinates
+    // Track mouse coordinates & spawn particles
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      if (particles.length < maxParticles) {
+        for (let i = 0; i < 2; i++) {
+          particles.push(new Particle(mouseX, mouseY));
+        }
+      }
     });
 
     // Animate custom cursor on every GSAP tick
@@ -1117,6 +1192,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       gsap.set(dot, { x: dotX, y: dotY });
       gsap.set(follower, { x: followerX, y: followerY });
+
+      // Draw particle trail
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+        } else {
+          p.draw(ctx);
+        }
+      }
     });
 
     // Helper to register hover transitions
@@ -1151,11 +1238,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hide custom cursor when mouse leaves the page
     document.addEventListener('mouseleave', () => {
-      gsap.to([dot, follower], { opacity: 0, duration: 0.3 });
+      gsap.to([dot, follower, canvas], { opacity: 0, duration: 0.3 });
     });
 
     document.addEventListener('mouseenter', () => {
-      gsap.to([dot, follower], { opacity: 1, duration: 0.3 });
+      gsap.to([dot, follower, canvas], { opacity: 1, duration: 0.3 });
     });
   }
 
@@ -1347,7 +1434,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize all hero animations
-  initHeroMagnifier();
+  // initHeroMagnifier();
   initIntroHeroParallax();
   initHeroTypographyReveal();
   initHeroImageEffects();

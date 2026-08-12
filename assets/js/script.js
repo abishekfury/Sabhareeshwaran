@@ -310,8 +310,8 @@ function initPreloader() {
 
         // Website reveal parallax
         gsap.fromTo('.split-hero',
-          { y: -80, scale: 1.03 },
-          { y: 0, scale: 1, duration: 1.1, ease: 'power4.out', delay: 0.1 }
+          { y: -80 },
+          { y: 0, duration: 1.1, ease: 'power4.out', delay: 0.1 }
         );
         const isScrolled = window.scrollY > 60;
         if (isScrolled) {
