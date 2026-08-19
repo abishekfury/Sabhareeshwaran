@@ -1986,6 +1986,16 @@ button {
   padding: 80px 40px 80px;
 }
 
+.about-aura-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* ===== FOOTER SOCIAL LINKS ===== */
 .footer-social-links {
   display: flex;
@@ -3948,12 +3958,19 @@ html.lenis {
    ============================================================ */
 
 /* 1. Custom sizing for Certification Banners: Increase height & width for certify 01, 02, 04 (Leave 03 unchanged) */
-.expertise-banner-03 .expertise-banner-image img[src*="01image"],
-.expertise-banner-03 .expertise-banner-image img[src*="certify1"] {
+.expertise-banner-03 .expertise-banner-image img[src*="01image"] {
   height: 145% !important;
   max-height: none !important;
   width: auto !important;
   right: 1% !important;
+}
+
+.expertise-banner-03 .expertise-banner-image img[src*="certify1"] {
+  height: 195% !important;
+  max-height: none !important;
+  width: auto !important;
+  right: -3% !important;
+  bottom: -65% !important;
 }
 
 /* Banner 02 Left Image & Right Text Adjustments */
@@ -4014,11 +4031,17 @@ html.lenis {
 /* Mobile view scaling for certify 01, 02, 05, 03, 04 */
 @media (max-width: 768px) {
 
-  .expertise-banner-03 .expertise-banner-image img[src*="01image"],
-  .expertise-banner-03 .expertise-banner-image img[src*="certify1"] {
+  .expertise-banner-03 .expertise-banner-image img[src*="01image"] {
     height: 135% !important;
     width: auto !important;
     max-width: none !important;
+  }
+
+  .expertise-banner-03 .expertise-banner-image img[src*="certify1"] {
+    height: 140% !important;
+    width: auto !important;
+    max-width: none !important;
+    bottom: -35% !important;
   }
 
   .expertise-banner-left .expertise-banner-image img,
@@ -4643,13 +4666,23 @@ html.lenis {
 }
 
 @keyframes cursor-spin-clockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes cursor-spin-counter {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 .custom-cursor-follower.hover-zoom {
@@ -5134,13 +5167,16 @@ body.light-theme .slide-bg-text-bottom {
 body.light-theme .custom-cursor-follower.hover-view {
   background-color: rgba(0, 0, 0, 0.08);
 }
+
 body.light-theme .custom-cursor-follower.hover-view::before {
   border-color: var(--red);
   box-shadow: 0 0 12px rgba(224, 90, 0, 0.4);
 }
+
 body.light-theme .custom-cursor-follower.hover-view::after {
   border-color: rgba(0, 0, 0, 0.2);
 }
+
 body.light-theme .custom-cursor-follower.hover-view .cursor-text {
   color: var(--black, #0a0a0a);
   text-shadow: none;

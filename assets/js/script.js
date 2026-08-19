@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWorkItemTransitions();
   initStatsRedirects();
   initHeroMatrix();
+  initAboutAura();
   initEducationAura();
   initSpiderCircleEffect();
   initDomainDetailModal();
@@ -238,12 +239,12 @@ function initPreloader() {
       let currentVal = 0;
       const percentEl = document.getElementById('preloader-percent');
       const lineEl = document.querySelector('.preloader-line');
-      
+
       const interval = setInterval(() => {
         currentVal += 2;
         if (percentEl) percentEl.textContent = currentVal;
         if (lineEl) lineEl.style.width = `${currentVal}%`;
-        
+
         if (currentVal >= 100) {
           clearInterval(interval);
           clearTimeout(safetyTimeout);
@@ -254,7 +255,7 @@ function initPreloader() {
           if (content) content.style.opacity = '0';
           if (topPanel) topPanel.style.transform = 'translateY(-100%)';
           if (bottomPanel) bottomPanel.style.transform = 'translateY(100%)';
-          
+
           setTimeout(() => {
             preloader.classList.add('loaded');
             document.body.classList.remove('no-scroll');
@@ -280,7 +281,7 @@ function initPreloader() {
       },
       onComplete: () => {
         clearTimeout(safetyTimeout);
-        
+
         // Shutter Exit Animation: Split panels top and bottom
         const exitTl = gsap.timeline({
           onComplete: () => {
@@ -296,17 +297,17 @@ function initPreloader() {
           duration: 0.3,
           ease: 'power2.out'
         })
-        // 2. Split top/bottom panels open
-        .to('.panel-top', {
-          yPercent: -100,
-          duration: 0.95,
-          ease: 'power3.inOut'
-        }, '-=0.15')
-        .to('.panel-bottom', {
-          yPercent: 100,
-          duration: 0.95,
-          ease: 'power3.inOut'
-        }, '-=0.95');
+          // 2. Split top/bottom panels open
+          .to('.panel-top', {
+            yPercent: -100,
+            duration: 0.95,
+            ease: 'power3.inOut'
+          }, '-=0.15')
+          .to('.panel-bottom', {
+            yPercent: 100,
+            duration: 0.95,
+            ease: 'power3.inOut'
+          }, '-=0.95');
 
         // Website reveal parallax
         gsap.fromTo('.split-hero',
@@ -1955,6 +1956,188 @@ function initLazy3DGallery() {
   }, { rootMargin: '400px' });
 
   observer.observe(container);
+}
+
+/* ===== ABOUT SECTION AURA CURSOR EFFECT ===== */
+function initAboutAura() {
+  const section = document.getElementById('about');
+  if (!section) return;
+
+  // Insert canvas dynamically to keep HTML clean
+  let canvas = document.getElementById('about-aura-canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'about-aura-canvas';
+    canvas.className = 'about-aura-canvas';
+    // Insert as the first child of `#about` so it is layered correctly under other elements
+    section.insertBefore(canvas, section.firstChild);
+  }
+
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = section.offsetWidth;
+  let height = canvas.height = section.offsetHeight;
+
+  function resize() {
+    if (!section || !canvas) return;
+    width = canvas.width = section.offsetWidth;
+    height = canvas.height = section.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+
+  // Aura Blobs definition (Vivid colors: orange-red, cyan, magenta, purple, green)
+  const colors = {
+    orange: { r: 224, g: 90, b: 0 },
+    cyan: { r: 0, g: 229, b: 255 },
+    magenta: { r: 255, g: 0, b: 119 },
+    purple: { r: 107, g: 0, b: 255 },
+    green: { r: 0, g: 230, b: 118 }
+  };
+
+  const blobs = [
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.08, radius: 260, color: colors.orange, opacity: 0.15 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.06, radius: 220, color: colors.green, opacity: 0.12 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.05, radius: 340, color: colors.cyan, opacity: 0.14 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.04, radius: 400, color: colors.magenta, opacity: 0.12 },
+    { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2, lerp: 0.02, radius: 460, color: colors.purple, opacity: 0.10 }
+  ];
+
+  // Embers/Sparks particles
+  const particles = [];
+  const maxParticles = 40;
+
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.vx = (Math.random() - 0.5) * 1.5;
+      this.vy = (Math.random() - 0.5) * 1.5 - 0.4;
+      this.radius = Math.random() * 60 + 30; // Soft aura dust particles
+      this.color = color;
+      this.maxLife = Math.random() * 120 + 60;
+      this.life = this.maxLife;
+      this.alpha = Math.random() * 0.25 + 0.08;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life--;
+      this.alpha = (this.life / this.maxLife) * 0.25;
+    }
+    draw(isLightTheme) {
+      if (this.alpha <= 0) return;
+      const currentAlpha = isLightTheme ? this.alpha * 1.8 : this.alpha;
+      const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+      grad.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${currentAlpha})`);
+      grad.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Mouse & Touch interaction tracker
+  let mouseIn = false;
+  let mouseX = width / 2;
+  let mouseY = height / 2;
+  let autoTimer = 0;
+
+  section.addEventListener('mousemove', (e) => {
+    mouseIn = true;
+    const rect = section.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  section.addEventListener('mouseleave', () => {
+    mouseIn = false;
+  });
+
+  // Touch Support for Mobile Views
+  function handleTouch(e) {
+    mouseIn = true;
+    const rect = section.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseX = touch.clientX - rect.left;
+    mouseY = touch.clientY - rect.top;
+  }
+
+  section.addEventListener('touchstart', handleTouch, { passive: true });
+  section.addEventListener('touchmove', handleTouch, { passive: true });
+  section.addEventListener('touchend', () => {
+    mouseIn = false;
+  }, { passive: true });
+
+  let rafId = null;
+  let isVisible = false;
+
+  function loop() {
+    if (!isVisible) {
+      rafId = null;
+      return;
+    }
+    rafId = requestAnimationFrame(loop);
+
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+
+    let targetX = mouseX;
+    let targetY = mouseY;
+
+    if (!mouseIn) {
+      // Natural floating pattern when mouse is away
+      autoTimer += 0.004;
+      targetX = width / 2 + Math.sin(autoTimer * 1.3) * (width * 0.2);
+      targetY = height / 2 + Math.cos(autoTimer * 0.8) * (height * 0.15);
+    }
+
+    const isLightTheme = document.body.classList.contains('light-theme');
+
+    // Render large aura cores
+    blobs.forEach(blob => {
+      blob.x += (targetX - blob.x) * blob.lerp;
+      blob.y += (targetY - blob.y) * blob.lerp;
+
+      const baseOpacity = isLightTheme ? blob.opacity * 2.3 : blob.opacity;
+      const grad = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, blob.radius);
+      grad.addColorStop(0, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${baseOpacity})`);
+      grad.addColorStop(0.5, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${baseOpacity * 0.25})`);
+      grad.addColorStop(1, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, 0)`);
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(blob.x, blob.y, blob.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Spawn dust particles
+    if (Math.random() < 0.12 && particles.length < maxParticles) {
+      const activeBlob = blobs[Math.floor(Math.random() * blobs.length)];
+      particles.push(new Particle(activeBlob.x + (Math.random() - 0.5) * 50, activeBlob.y + (Math.random() - 0.5) * 50, activeBlob.color));
+    }
+
+    // Render particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.update();
+      p.draw(isLightTheme);
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+      }
+    }
+  }
+
+  // Intersection observer to pause calculations off-screen
+  const observer = new IntersectionObserver(entries => {
+    isVisible = entries[0].isIntersecting;
+    if (isVisible && !rafId) {
+      width = canvas.width = section.offsetWidth;
+      height = canvas.height = section.offsetHeight;
+      loop();
+    }
+  }, { threshold: 0.01 });
+
+  observer.observe(section);
 }
 
 /* ===== EDUCATION SECTION AURA CURSOR EFFECT ===== */

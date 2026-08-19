@@ -672,7 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bg.style.removeProperty('--mouse-y');
       bg.style.removeProperty('--zoom-x');
       bg.style.removeProperty('--zoom-y');
-      
+
       const dot = document.querySelector('.custom-cursor-dot');
       const follower = document.querySelector('.custom-cursor-follower');
       if (dot && follower) {
@@ -685,10 +685,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = bg.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
+
       const xPercent = (x / rect.width) * 100;
       const yPercent = (y / rect.height) * 100;
-      
+
       bg.style.setProperty('--mouse-x', `${x}px`);
       bg.style.setProperty('--mouse-y', `${y}px`);
       bg.style.setProperty('--zoom-x', `${xPercent}%`);
