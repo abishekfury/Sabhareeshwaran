@@ -1941,6 +1941,7 @@ html.lenis {
 .footer-scroller {
   position: relative;
   width: 100%;
+  height: 100vh;
   background: #0f0f0f;
   overflow: hidden;
   z-index: 10;
@@ -2056,12 +2057,15 @@ html.lenis {
   /* Sits below viewport initially via translateY */
   width: 100%;
   height: auto;
-  min-height: 55vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--red);
   color: var(--black);
   z-index: 5;
   will-change: transform;
   transform: translateY(100%);
+  display: flex;
+  flex-direction: column;
 }
 
 /* Overriding original footer class since we use scroller now */
@@ -2116,4 +2120,13 @@ html.lenis {
     font-size: 0.9rem !important;
     line-height: 1.45 !important;
   }
+}
+
+.footer-content-panel .footer-container {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0 !important;
 }

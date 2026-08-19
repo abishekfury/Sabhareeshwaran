@@ -41,8 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // on heavy frames instead of compounding lag
     gsap.ticker.lagSmoothing(500, 33);
 
-    lenis.on('scroll', ScrollTrigger.update);
+    lenis.on('scroll', (e) => {
+      ScrollTrigger.update();
+      const footerTrigger = ScrollTrigger.getById('footerTrigger');
+      if (footerTrigger && e.scroll > footerTrigger.end) {
+        lenis.scrollTo(footerTrigger.end, { immediate: true });
+      }
+    });
     window.lenis = lenis;
+
+    // Synchronize Lenis height calculation with ScrollTrigger layout updates
+    ScrollTrigger.addEventListener('refresh', () => {
+      lenis.resize();
+    });
   }
 
   /* ============================================================
@@ -465,21 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
-    // Layer 6: Footer parallax elements
-    const footerTopBar = document.querySelector('.footer-top-bar');
-    if (footerTopBar) {
-      gsap.to(footerTopBar, {
-        scaleY: 0.5,
-        x: '-15%',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.footer-content-panel',
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 2.5,
-        }
-      });
-    }
+
 
     // Layer 7: Awards section background effect
     const awardsSection = document.querySelector('.awards');
@@ -2228,12 +2225,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const tl = gsap.timeline({
         scrollTrigger: {
+          id: 'footerTrigger',
           trigger: scroller,
           start: 'top top',
           end: '+=250%',
           pin: true,
           scrub: true,
-          anticipatePin: 1
+          anticipatePin: 1,
+          invalidateOnRefresh: true
         }
       });
 
@@ -2267,6 +2266,17 @@ document.addEventListener('DOMContentLoaded', () => {
           yPercent: 0,
           duration: 1,
           ease: 'none'
+        }, 1)
+        .to('.footer-top-bar', {
+          scaleY: 0.5,
+          x: '-15%',
+          duration: 1,
+          ease: 'none'
+        }, 1)
+        .to(['body', '.footer-scroller'], {
+          backgroundColor: '#E05A00',
+          duration: 1,
+          ease: 'none'
         }, 1);
 
       return () => {
@@ -2274,6 +2284,8 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.set('.footer-bg-text', { clearProps: 'all' });
         gsap.set('.footer-cta-overlay', { clearProps: 'all' });
         gsap.set('.footer-content-panel', { clearProps: 'all' });
+        gsap.set('.footer-top-bar', { clearProps: 'all' });
+        gsap.set(['body', '.footer-scroller'], { clearProps: 'backgroundColor' });
       };
     });
   }
@@ -2379,8 +2391,10 @@ window.addEventListener('resize', () => {
 
 // Refresh on window load to handle any layout shifts from slow-loading images/fonts
 window.addEventListener('load', () => {
-  if (lenis) lenis.resize();
-  ScrollTrigger.refresh();
+  setTimeout(() => {
+    if (lenis) lenis.resize();
+    ScrollTrigger.refresh();
+  }, 400);
 });
 
 // Cleanup on page unload
