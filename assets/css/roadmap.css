@@ -726,57 +726,128 @@ body.light-theme .cert-card-name {
    HUD SIDE DRAWER FOR CERTIFICATION DOSSIER
    ========================================================================== */
 
+.subway-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 999990;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.subway-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .subway-drawer {
   position: fixed;
   top: 0;
   right: 0;
-  width: 450px;
-  max-width: 100%;
+  width: 480px;
+  max-width: 100vw;
   height: 100vh;
-  background: rgba(10, 10, 15, 0.96);
+  height: 100dvh;
+  background: rgba(12, 14, 18, 0.98);
   border-left: 2px solid var(--red);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
-  z-index: 9999;
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.9);
+  z-index: 999999 !important;
   transform: translateX(100%);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(20px);
-  padding: 40px;
+  backdrop-filter: blur(24px);
+  padding: 24px 28px 40px 28px;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .subway-drawer.open {
   transform: translateX(0);
 }
 
+body.drawer-active .navbar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(-20px) !important;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+
 .drawer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 20px;
-  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  background: rgba(12, 14, 18, 0.98);
+  z-index: 10;
 }
 
 .drawer-sys-lbl {
-  font-family: var(--font-main);
-  font-size: 0.8rem;
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
   color: var(--text-muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
 
 .drawer-close-btn {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 20;
+  outline: none;
+  padding: 0;
+  flex-shrink: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.drawer-close-btn:hover {
-  color: var(--white);
+.drawer-close-btn:hover,
+.drawer-close-btn:active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  transform: rotate(90deg) scale(1.08);
+  box-shadow: 0 0 20px rgba(224, 90, 0, 0.6);
+}
+
+@media (max-width: 768px) {
+  .subway-drawer {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding: 18px 20px 30px 20px !important;
+  }
+  .drawer-header {
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+  }
+  .drawer-close-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1.35rem;
+  }
 }
 
 .drawer-sec-group {
@@ -1009,3 +1080,773 @@ body.light-theme .telemetry-card.total.active {
 }
 
 
+
+/* ==========================================================================
+   VIEW SWITCHER TABS & SUBTRACK PILLS
+   ========================================================================== */
+.roadmap-view-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.roadmap-view-switcher {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.view-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.view-tab-btn:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.view-tab-btn.active {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(224, 90, 0, 0.4);
+}
+
+.subtrack-pill {
+  font-family: monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   INTERACTIVE 8-DOMAIN ROADMAP MATRIX
+   ========================================================================== */
+.roadmap-matrix-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  background: rgba(10, 11, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  margin-bottom: 40px;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(224, 90, 0, 0.5) rgba(255, 255, 255, 0.02);
+}
+
+.roadmap-matrix-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.roadmap-matrix-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.roadmap-matrix-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(224, 90, 0, 0.4);
+  border-radius: 4px;
+}
+
+.roadmap-matrix-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--red);
+}
+
+.roadmap-matrix-canvas {
+  display: flex;
+  flex-direction: column;
+  min-width: 1750px;
+  width: 100%;
+}
+
+/* 1. Group Headers Row (8 Primary Domains) */
+.matrix-group-headers-row {
+  display: grid;
+  grid-template-columns: 140px repeat(15, minmax(105px, 1fr));
+  border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 17, 23, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.matrix-corner-header {
+  padding: 12px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(12, 14, 18, 0.98);
+}
+
+.matrix-domain-group-header {
+  padding: 12px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 3px solid var(--domain-col-color, #00e5ff);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.matrix-domain-group-header:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--domain-col-color, #00e5ff);
+  text-shadow: 0 0 10px var(--domain-col-color);
+}
+
+.matrix-domain-group-header .group-arrow {
+  opacity: 0.5;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.matrix-domain-group-header:hover .group-arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.matrix-domain-group-header.span-1 { grid-column: span 1; }
+.matrix-domain-group-header.span-2 { grid-column: span 2; }
+.matrix-domain-group-header.span-3 { grid-column: span 3; }
+.matrix-domain-group-header.span-4 { grid-column: span 4; }
+.matrix-domain-group-header.span-5 { grid-column: span 5; }
+
+/* 2. Subtrack Column Headers Row */
+.matrix-subtrack-headers-row {
+  display: grid;
+  grid-template-columns: 140px repeat(15, minmax(105px, 1fr));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 20, 26, 0.85);
+}
+
+.matrix-subtrack-corner {
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.35);
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(12, 14, 18, 0.98);
+}
+
+.matrix-subtrack-header-cell {
+  padding: 8px 6px;
+  font-family: monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.01);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 3. Tier Rows (Expert, Intermediate, Beginner) */
+.matrix-tier-row {
+  display: grid;
+  grid-template-columns: 140px repeat(15, minmax(105px, 1fr));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 180px;
+}
+
+.matrix-tier-row:last-child {
+  border-bottom: none;
+}
+
+.matrix-tier-side-label {
+  padding: 16px 12px;
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(12, 14, 18, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+}
+
+.tier-badge-pill {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+  letter-spacing: 0.08em;
+}
+
+.tier-subtext {
+  font-family: monospace;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.3;
+}
+
+.matrix-track-cell {
+  padding: 10px 6px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.008);
+  transition: background 0.2s ease;
+}
+
+.matrix-track-cell:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* 4. Individual Cert Badges inside Matrix */
+.matrix-cert-badge {
+  display: block;
+  width: 100%;
+  background: rgba(25, 28, 36, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--badge-color, #00e5ff);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  outline: none;
+}
+
+.matrix-cert-badge:hover {
+  background: rgba(35, 40, 52, 0.95);
+  border-color: var(--badge-color, #00e5ff);
+  color: #fff;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px var(--badge-color, rgba(0, 229, 255, 0.3));
+  z-index: 5;
+  position: relative;
+}
+
+.matrix-cert-badge.highlighted {
+  border-color: #00e676 !important;
+  background: rgba(0, 230, 118, 0.2) !important;
+  color: #fff !important;
+  box-shadow: 0 0 12px rgba(0, 230, 118, 0.5) !important;
+}
+
+.matrix-cert-badge.dimmed {
+  opacity: 0.18;
+  filter: grayscale(1);
+}
+
+/* Light theme support for matrix */
+body.light-theme .roadmap-matrix-wrapper {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .matrix-group-headers-row {
+  background: #f8f9fa;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .matrix-corner-header,
+body.light-theme .matrix-tier-side-label,
+body.light-theme .matrix-subtrack-corner {
+  background: #f1f3f5;
+  border-right-color: rgba(0, 0, 0, 0.08);
+  color: #0f1012;
+}
+
+body.light-theme .matrix-domain-group-header {
+  color: #0f1012;
+  border-right-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .matrix-subtrack-headers-row {
+  background: #fdfdfd;
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .matrix-subtrack-header-cell {
+  color: rgba(15, 16, 18, 0.7);
+  border-right-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .matrix-track-cell {
+  border-right-color: rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+}
+
+body.light-theme .matrix-cert-badge {
+  background: #f8f9fa;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #0f1012;
+}
+
+body.light-theme .matrix-cert-badge:hover {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .subtrack-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: rgba(15, 16, 18, 0.7);
+}
+
+body.light-theme .roadmap-view-switcher {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .view-tab-btn {
+  color: rgba(15, 16, 18, 0.6);
+}
+
+body.light-theme .view-tab-btn:hover {
+  color: #0f1012;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* ==========================================================================
+   TOP HORIZONTAL DRAG NAVIGATOR & MOUSE DRAG-TO-SCROLL
+   ========================================================================== */
+.matrix-scroll-navigator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(15, 17, 23, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 10px 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  user-select: none;
+}
+
+.matrix-scroll-arrow {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.matrix-scroll-arrow:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(224, 90, 0, 0.5);
+}
+
+.matrix-scroll-track {
+  flex: 1;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.matrix-scroll-thumb {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 22px;
+  width: 280px;
+  min-width: 140px;
+  background: linear-gradient(90deg, rgba(224, 90, 0, 0.85) 0%, rgba(255, 145, 0, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: transform 0.05s linear, background 0.2s ease;
+  touch-action: none;
+}
+
+.matrix-scroll-thumb:hover,
+.matrix-scroll-thumb.active {
+  cursor: grabbing;
+  background: linear-gradient(90deg, #ff5722 0%, #ff9800 100%);
+  box-shadow: 0 0 16px rgba(224, 90, 0, 0.7);
+}
+
+.thumb-drag-dots {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.1em;
+}
+
+.thumb-drag-label {
+  font-family: monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Enhancing Roadmap Matrix Wrapper with Drag Support */
+.roadmap-matrix-wrapper {
+  border-radius: 0 0 12px 12px !important;
+  cursor: grab;
+  overflow-x: auto;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.roadmap-matrix-wrapper.dragging {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
+.roadmap-matrix-wrapper.dragging * {
+  user-select: none !important;
+}
+
+/* Light Theme overrides for Drag Navigator */
+body.light-theme .matrix-scroll-navigator {
+  background: #f8f9fa;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .matrix-scroll-arrow {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #0f1012;
+}
+
+body.light-theme .matrix-scroll-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================================================================
+   DOMAIN EXPLORER CARDS (View 2) - Cyberpunk Glassmorphism & Index Typography
+   ========================================================================== */
+.domain-grid-dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .domain-grid-dashboard {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.domain-roadmap-card {
+  background: rgba(16, 17, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.domain-roadmap-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--domain-color, var(--red)), transparent 70%);
+  opacity: 0.6;
+  transition: opacity 0.35s ease;
+}
+
+.domain-roadmap-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--domain-color, var(--red));
+  background: rgba(22, 23, 34, 0.95);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(224, 90, 0, 0.15);
+}
+
+.domain-roadmap-card:hover::before {
+  opacity: 1;
+  height: 3px;
+}
+
+.domain-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.domain-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.domain-color-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+  animation: domainPulse 2s infinite ease-in-out;
+}
+
+@keyframes domainPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+.domain-tier-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.domain-cert-count-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.06em;
+}
+
+.domain-card-title {
+  font-family: var(--font-main);
+  font-size: 1.28rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.22;
+  margin: 0 0 10px 0;
+}
+
+.domain-card-desc {
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.62;
+  margin: 0 0 16px 0;
+}
+
+.domain-subtracks-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.subtrack-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+}
+
+.domain-roadmap-card:hover .subtrack-pill {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.domain-tier-progress-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.tier-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tier-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.tier-stat-val {
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.domain-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-radius: 6px;
+  background: rgba(224, 90, 0, 0.08);
+  border: 1px solid rgba(224, 90, 0, 0.28);
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.domain-card-cta svg {
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.domain-roadmap-card:hover .domain-card-cta {
+  background: var(--red);
+  color: #0A0A0A;
+  border-color: var(--red);
+  box-shadow: 0 0 20px rgba(224, 90, 0, 0.4);
+}
+
+.domain-roadmap-card:hover .domain-card-cta svg {
+  transform: translateX(4px);
+}
+
+/* Light theme for Domain Explorer Cards */
+body.light-theme .domain-roadmap-card {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-theme .domain-roadmap-card:hover {
+  background: #ffffff !important;
+  border-color: var(--domain-color, var(--red)) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 20px rgba(224, 90, 0, 0.1) !important;
+}
+
+body.light-theme .domain-card-title {
+  color: #0f1012 !important;
+}
+
+body.light-theme .domain-card-desc {
+  color: rgba(15, 16, 18, 0.7) !important;
+}
+
+body.light-theme .domain-cert-count-pill {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #0f1012 !important;
+}
+
+body.light-theme .subtrack-pill {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: rgba(15, 16, 18, 0.7) !important;
+}
+
+body.light-theme .domain-tier-progress-row {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-theme .tier-stat-lbl {
+  color: rgba(15, 16, 18, 0.45) !important;
+}
