@@ -158,10 +158,16 @@
         <!-- Sticky Globe Visualizer Right side -->
         <div>
           <div class="globe-sticky-wrap">
-            <h2 style="font-family: monospace; font-size: 0.85rem; color: var(--white); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; align-self: flex-start;">tactical_vendor_locations</h2>
+            <div style="width: 100%; margin-bottom: 12px; text-align: left;">
+              <h2 style="font-family: monospace; font-size: 0.85rem; color: var(--white); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">GLOBAL VENDOR HQ RADAR</h2>
+              <p style="font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; margin: 0;">
+                Click any radar node on the globe to filter pathway certifications by issuing vendor.
+              </p>
+            </div>
             <div class="globe-viewport-container" id="roadmapGlobeContainer">
               <!-- Injected dynamically via JS -->
             </div>
+            <div class="globe-quick-chips" id="globeQuickChips"></div>
             <div class="globe-hud-stats">
               <div class="globe-stat-item">
                 <div class="globe-stat-label">Sector Focus</div>
@@ -441,8 +447,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="assets/js/script.js?v=11.0"></script>
-  <script src="assets/js/interactive-globe.js"></script>
-  <script src="assets/js/roadmap.js?v=11.0"></script>
+  <script src="assets/js/interactive-globe.js?v=22.0"></script>
+  <script src="assets/js/roadmap.js?v=22.0"></script>
   <script>
     window.addEventListener('load', () => {
       initDomainRoadmap("Software Security");

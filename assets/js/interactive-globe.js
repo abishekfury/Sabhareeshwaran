@@ -7,9 +7,9 @@
 
 class InteractiveGlobe {
   constructor(containerId, options = {}) {
-    this.container = document.getElementById(containerId);
+    this.container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
     if (!this.container) {
-      console.error(`InteractiveGlobe: Container #${containerId} not found.`);
+      console.error(`InteractiveGlobe: Container element not found:`, containerId);
       return;
     }
 
@@ -18,12 +18,12 @@ class InteractiveGlobe {
       autoRotate: options.autoRotate !== undefined ? options.autoRotate : true,
       rotateSpeed: options.rotateSpeed || 1.2, // degrees per frame/tick multiplier
       dragSensitivity: options.dragSensitivity || 0.25,
-      oceanColor: options.oceanColor || 'rgba(10, 10, 15, 0.9)',
-      landColor: options.landColor || 'rgba(0, 240, 255, 0.04)',
-      borderColor: options.borderColor || 'rgba(0, 240, 255, 0.25)',
+      oceanColor: options.oceanColor || 'rgba(10, 10, 15, 0.95)',
+      landColor: options.landColor || 'rgba(224, 90, 0, 0.05)',
+      borderColor: options.borderColor || 'rgba(224, 90, 0, 0.35)',
       borderWidth: options.borderWidth || 1,
-      glowColor: options.glowColor || 'rgba(0, 240, 255, 0.4)',
-      gridColor: options.gridColor || 'rgba(255, 255, 255, 0.02)',
+      glowColor: options.glowColor || 'rgba(224, 90, 0, 0.5)',
+      gridColor: options.gridColor || 'rgba(255, 255, 255, 0.03)',
       starfield: options.starfield !== undefined ? options.starfield : true,
       markers: options.markers || [],
       initialLambda: options.initialLambda || 0,
@@ -486,9 +486,13 @@ class InteractiveGlobe {
 
     tooltip.style.border = `1px solid ${marker.color || 'var(--red)'}`;
     tooltip.innerHTML = `
-      <div class="tooltip-header" style="color:${marker.color || '#fff'}">${marker.label}</div>
+      <div class="tooltip-header" style="color:${marker.color || '#fff'}">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${marker.color || 'var(--red)'};"></span>
+        ${marker.label}
+      </div>
       <div class="tooltip-desc">${marker.desc}</div>
-      ${marker.url || this.options.onMarkerClick ? '<div class="tooltip-action">Click to inspect sector dossier &rarr;</div>' : ''}
+      ${marker.certCount ? `<div style="color: #00ff66; font-size: 0.65rem; margin-top: 4px; font-weight: bold;">⚡ ${marker.certCount} Roadmap Certifications</div>` : ''}
+      <div class="tooltip-action">Click node to filter certifications &rarr;</div>
     `;
 
     const rect = this.container.getBoundingClientRect();
@@ -511,6 +515,39 @@ class InteractiveGlobe {
       tooltip.style.opacity = '0';
       tooltip.style.display = 'none';
     }
+  }
+
+  /**
+   * Smoothly rotate the globe to target coordinates
+   */
+  rotateTo(lat, lon, duration = 700) {
+    const targetLambda = -lon;
+    const targetPhi = Math.max(-60, Math.min(60, lat));
+    
+    const startLambda = this.lambda;
+    const startPhi = this.phi;
+    const startTime = performance.now();
+    this.lastActiveTime = Date.now() + 3000; // Pause auto-rotation temporarily
+
+    const animate = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      // easeOutCubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      
+      let dLambda = (targetLambda - startLambda) % 360;
+      if (dLambda > 180) dLambda -= 360;
+      if (dLambda < -180) dLambda += 360;
+
+      this.lambda = startLambda + dLambda * ease;
+      this.phi = startPhi + (targetPhi - startPhi) * ease;
+      this.render();
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
   }
 
   startLoop() {

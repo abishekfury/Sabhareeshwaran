@@ -1738,28 +1738,69 @@ function renderDomainDashboardCards() {
  * Filter Roadmap Badges & Cards based on Search Query
  */
 function filterRoadmapSearch(query) {
-  // Filter Matrix Badges
+  const q = query.toLowerCase().trim();
+
+  // 1. Filter Matrix Badges
   const matrixBadges = document.querySelectorAll(".matrix-cert-badge");
   matrixBadges.forEach(badge => {
     const certName = badge.getAttribute("data-cert-name") || "";
-    if (!query) {
+    if (!q) {
       badge.classList.remove("highlighted", "dimmed");
-    } else if (certName.includes(query)) {
-      badge.classList.add("highlighted");
-      badge.classList.remove("dimmed");
     } else {
-      badge.classList.remove("highlighted");
-      badge.classList.add("dimmed");
+      const match = certName.includes(q);
+      if (match) {
+        badge.classList.add("highlighted");
+        badge.classList.remove("dimmed");
+      } else {
+        badge.classList.remove("highlighted");
+        badge.classList.add("dimmed");
+      }
     }
   });
 
-  // Filter Domain Cards
+  // 2. Filter Domain Cards
   const cards = document.querySelectorAll(".domain-roadmap-card");
   cards.forEach(card => {
-    const text = card.textContent.toLowerCase();
-    if (!query || text.includes(query)) {
+    const domKey = card.getAttribute("data-domain");
+    
+    // Find all certifications in this domain
+    const domCerts = certDatabase.filter(c => c.domain.toLowerCase() === domKey);
+    
+    // Filter these certifications by search query (match name, track, or vendor)
+    const matchingCerts = domCerts.filter(c => 
+      c.name.toLowerCase().includes(q) || 
+      c.vendor.toLowerCase().includes(q) || 
+      c.track.toLowerCase().includes(q)
+    );
+
+    if (!q) {
+      // Restore default layout
       card.style.display = "flex";
+      const countPill = card.querySelector(".domain-cert-count-pill");
+      if (countPill) countPill.textContent = `${domCerts.length} CERTS`;
+      
+      const begVal = card.querySelector(".tier-stat-item:nth-child(1) .tier-stat-val");
+      const intVal = card.querySelector(".tier-stat-item:nth-child(2) .tier-stat-val");
+      const expVal = card.querySelector(".tier-stat-item:nth-child(3) .tier-stat-val");
+      
+      if (begVal) begVal.textContent = domCerts.filter(c => c.level === "beginner").length;
+      if (intVal) intVal.textContent = domCerts.filter(c => c.level === "intermediate").length;
+      if (expVal) expVal.textContent = domCerts.filter(c => c.level === "expert").length;
+    } else if (matchingCerts.length > 0) {
+      // Show card and update counts to show filtered results
+      card.style.display = "flex";
+      const countPill = card.querySelector(".domain-cert-count-pill");
+      if (countPill) countPill.textContent = `${matchingCerts.length} MATCHED`;
+      
+      const begVal = card.querySelector(".tier-stat-item:nth-child(1) .tier-stat-val");
+      const intVal = card.querySelector(".tier-stat-item:nth-child(2) .tier-stat-val");
+      const expVal = card.querySelector(".tier-stat-item:nth-child(3) .tier-stat-val");
+      
+      if (begVal) begVal.textContent = matchingCerts.filter(c => c.level === "beginner").length;
+      if (intVal) intVal.textContent = matchingCerts.filter(c => c.level === "intermediate").length;
+      if (expVal) expVal.textContent = matchingCerts.filter(c => c.level === "expert").length;
     } else {
+      // Hide card since there are no matching certifications in this domain
       card.style.display = "none";
     }
   });
@@ -1809,13 +1850,157 @@ function initMainGlobe() {
   if (!container || typeof InteractiveGlobe === "undefined") return;
   if (_mainGlobeInstance) return;
 
-  _mainGlobeInstance = new InteractiveGlobe(container, {
-    markers: Object.keys(vendorHQs).map(k => ({
+  const vendorColors = {
+    "AWS": "#00f0ff",
+    "Microsoft": "#00a4ef",
+    "Google": "#4285f4",
+    "Cisco": "#00bceb",
+    "OffSec": "#ff0055",
+    "GIAC": "#ff9900",
+    "ISC2": "#00ff66",
+    "ISACA": "#a855f7",
+    "EC-Council": "#ff3366",
+    "Hack The Box": "#9fef00",
+    "Security Blue Team": "#3b82f6",
+    "TCM Security": "#f43f5e",
+    "Red Hat": "#ee0000",
+    "Check Point": "#ff007f",
+    "SABSA": "#eab308"
+  };
+
+  const markers = Object.keys(vendorHQs).map(k => {
+    const matchingCount = certDatabase.filter(c => 
+      c.vendor.toLowerCase() === k.toLowerCase() || 
+      c.name.toLowerCase().includes(k.toLowerCase())
+    ).length;
+
+    return {
+      key: k,
       lat: vendorHQs[k].lat,
       lon: vendorHQs[k].lon,
       label: vendorHQs[k].label,
-      desc: vendorHQs[k].desc
-    }))
+      desc: vendorHQs[k].desc,
+      certCount: matchingCount,
+      color: vendorColors[k] || "var(--red)"
+    };
+  });
+
+  _mainGlobeInstance = new InteractiveGlobe(container, {
+    markers: markers,
+    onMarkerClick: (marker) => {
+      selectVendorFromGlobe(marker);
+    }
+  });
+
+  // Setup Quick Filter Chips below the globe
+  setupGlobeQuickFilters(markers);
+}
+
+/**
+ * Handle vendor selection from Globe Marker or Quick Filter Chip
+ */
+function selectVendorFromGlobe(marker) {
+  if (!marker) return;
+
+  if (_mainGlobeInstance && marker.lat !== undefined && marker.lon !== undefined) {
+    _mainGlobeInstance.rotateTo(marker.lat, marker.lon);
+  }
+
+  // Update HUD text displays
+  const sectorElem = document.getElementById("globeSectorFocus");
+  if (sectorElem) {
+    sectorElem.textContent = (marker.key || marker.label).toUpperCase();
+  }
+
+  const statusElem = document.getElementById("globeStatusFocus");
+  if (statusElem) {
+    statusElem.textContent = marker.certCount !== undefined ? `${marker.certCount} CERTS` : "FILTERED";
+    statusElem.style.color = "var(--red)";
+  }
+
+  // Filter certifications in matrix, dashboard cards, or subpage tree
+  const certSearchInput = document.getElementById("certSearchInput");
+  const domainSearchInput = document.getElementById("domainSearchInput");
+  const activeSearchInput = certSearchInput || domainSearchInput;
+
+  if (activeSearchInput) {
+    activeSearchInput.value = marker.key || marker.label;
+    activeSearchInput.dispatchEvent(new Event("input"));
+  }
+
+  // Highlight active quick chip
+  document.querySelectorAll(".globe-chip-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.getAttribute("data-vendor") === (marker.key || marker.label));
+  });
+
+  // Display active filter bar if available
+  const filterIndicator = document.getElementById("activeFilterIndicator");
+  const filterVendorName = document.getElementById("filterVendorName");
+  if (filterIndicator && filterVendorName) {
+    filterVendorName.textContent = marker.key || marker.label;
+    filterIndicator.style.display = "flex";
+  }
+}
+
+/**
+ * Inject Quick Select Vendor Chips below Globe
+ */
+function setupGlobeQuickFilters(markers) {
+  const container = document.getElementById("globeQuickChips");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  // "ALL" Reset Button
+  const allBtn = document.createElement("button");
+  allBtn.type = "button";
+  allBtn.className = "globe-chip-btn active";
+  allBtn.setAttribute("data-vendor", "ALL");
+  allBtn.textContent = "ALL";
+  allBtn.addEventListener("click", () => {
+    document.querySelectorAll(".globe-chip-btn").forEach(b => b.classList.remove("active"));
+    allBtn.classList.add("active");
+
+    const sectorElem = document.getElementById("globeSectorFocus");
+    if (sectorElem) sectorElem.textContent = "WORLDWIDE";
+
+    const statusElem = document.getElementById("globeStatusFocus");
+    if (statusElem) {
+      statusElem.textContent = "ACTIVE";
+      statusElem.style.color = "#00ff66";
+    }
+
+    const certSearchInput = document.getElementById("certSearchInput");
+    const domainSearchInput = document.getElementById("domainSearchInput");
+    const activeSearchInput = certSearchInput || domainSearchInput;
+    if (activeSearchInput) {
+      activeSearchInput.value = "";
+      activeSearchInput.dispatchEvent(new Event("input"));
+    }
+
+    const filterIndicator = document.getElementById("activeFilterIndicator");
+    if (filterIndicator) filterIndicator.style.display = "none";
+  });
+  container.appendChild(allBtn);
+
+  // Top 10 Major Vendors
+  const topVendors = ["AWS", "OffSec", "Cisco", "ISC2", "GIAC", "Microsoft", "CompTIA", "Hack The Box", "Red Hat", "Check Point"];
+
+  topVendors.forEach(vKey => {
+    const marker = markers.find(m => m.key.toLowerCase() === vKey.toLowerCase());
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "globe-chip-btn";
+    btn.setAttribute("data-vendor", vKey);
+    btn.textContent = vKey;
+    btn.addEventListener("click", () => {
+      if (marker) {
+        selectVendorFromGlobe(marker);
+      } else {
+        selectVendorFromGlobe({ key: vKey, label: vKey });
+      }
+    });
+    container.appendChild(btn);
   });
 }
 
@@ -2016,21 +2201,40 @@ function initDomainRoadmap(requestedDomainName) {
   const domainCerts = getDomainOrTrackCerts(requestedDomainName);
   
   // 1. Update Domain Telemetry Stats
-  const statTotal = document.getElementById("statTotal");
-  if (statTotal) statTotal.textContent = `${domainCerts.length} / ${certDatabase.length}`;
-  
   const begCerts = domainCerts.filter(c => c.level === "beginner");
   const intCerts = domainCerts.filter(c => c.level === "intermediate");
   const expCerts = domainCerts.filter(c => c.level === "expert");
 
-  const statBeg = document.getElementById("statBeginner");
-  if (statBeg) statBeg.textContent = `${begCerts.length.toString().padStart(2, '0')} / ${certDatabase.filter(c => c.level === 'beginner').length.toString().padStart(2, '0')}`;
+  const statTotal = document.getElementById("domainTotalCount") || document.getElementById("statTotal");
+  if (statTotal) statTotal.textContent = domainCerts.length;
   
-  const statInt = document.getElementById("statIntermediate");
-  if (statInt) statInt.textContent = `${intCerts.length.toString().padStart(2, '0')} / ${certDatabase.filter(c => c.level === 'intermediate').length.toString().padStart(2, '0')}`;
+  const statBeg = document.getElementById("domainBeginnerCount") || document.getElementById("statBeginner");
+  if (statBeg) statBeg.textContent = begCerts.length;
   
-  const statExp = document.getElementById("statExpert");
-  if (statExp) statExp.textContent = `${expCerts.length.toString().padStart(2, '0')} / ${certDatabase.filter(c => c.level === 'expert').length.toString().padStart(2, '0')}`;
+  const statInt = document.getElementById("domainIntermediateCount") || document.getElementById("statIntermediate");
+  if (statInt) statInt.textContent = intCerts.length;
+  
+  const statExp = document.getElementById("domainExpertCount") || document.getElementById("statExpert");
+  if (statExp) statExp.textContent = expCerts.length;
+
+  // Update domain description
+  const domainDescElem = document.getElementById("domainDesc");
+  if (domainDescElem) {
+    const meta = domainsMetadata[requestedDomainName];
+    if (meta && meta.desc) {
+      domainDescElem.textContent = meta.desc;
+    } else {
+      const matchKey = Object.keys(domainsMetadata).find(k => 
+        k.toLowerCase().includes(requestedDomainName.toLowerCase().split("(")[0].trim()) || 
+        requestedDomainName.toLowerCase().includes(k.toLowerCase().split("(")[0].trim())
+      );
+      if (matchKey && domainsMetadata[matchKey].desc) {
+        domainDescElem.textContent = domainsMetadata[matchKey].desc;
+      } else if (domainCerts[0] && domainsMetadata[domainCerts[0].domain]) {
+        domainDescElem.textContent = domainsMetadata[domainCerts[0].domain].desc;
+      }
+    }
+  }
 
   // 2. Render Full Pathway Tree into #roadmapTree
   const treeContainer = document.getElementById("roadmapTree");
