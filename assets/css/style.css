@@ -4547,7 +4547,11 @@ html.lenis {
   .rec-btn,
   .mobile-menu-close,
   .expertise-banner,
-  .awards-row {
+  .awards-row,
+  .menu-option-link,
+  .nav-drawer,
+  .nav-drawer-overlay,
+  .page-wrapper-close {
     cursor: none !important;
   }
 }
@@ -4559,13 +4563,13 @@ html.lenis {
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 999999;
+  z-index: 10000000 !important;
   will-change: transform;
   display: none;
 }
 
 #custom-cursor-canvas {
-  z-index: 999998;
+  z-index: 9999999 !important;
   width: 100vw;
   height: 100vh;
 }
