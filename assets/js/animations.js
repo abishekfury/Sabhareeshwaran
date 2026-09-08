@@ -709,54 +709,278 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ===== INTRO HERO PARALLAX ===== */
-  function initIntroHeroParallax() {
-    const heroImgs = document.querySelectorAll('.intro-hero-bg img');
+  /* ===== HERO SEQUENCE SCROLL ANIMATION ===== */
+  function initHeroSequenceAnimation() {
+    const canvas = document.getElementById('heroSequenceCanvas');
+    const fallbackWrap = document.getElementById('heroFallbackWrap');
+    const fallbackImg = document.getElementById('heroFallbackImg');
+    const heroSection = document.querySelector('#intro-hero');
+    const scrollTrack = document.getElementById('heroScrollTrack');
+    if (!canvas || !heroSection) return;
 
-    if (heroImgs.length) {
-      // Parallax effect on hero images
-      gsap.to(heroImgs, {
-        yPercent: 25,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#intro-hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.2,
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const totalFrames = 236;
+    const framePaths = [];
+    for (let i = 1; i <= totalFrames; i++) {
+      framePaths.push(`assets/images/hero-sequence/ezgif-frame-${String(i).padStart(3, '0')}.jpg`);
+    }
+
+    const images = new Array(totalFrames);
+    const currentFrame = { index: 0 };
+    let isInitialDrawn = false;
+
+    // HUD Elements
+    const hudDegree = document.getElementById('hudDegreeVal');
+    const hudFill = document.getElementById('hudTrackFill');
+    const hudButtons = document.querySelectorAll('.hud-angle-btn');
+    const scrollHint = document.getElementById('heroScrollRotateHint');
+
+    // Responsive Canvas Sizing & High-DPI
+    function resizeCanvas() {
+      if (!canvas || !ctx) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const newWidth = Math.round(rect.width * dpr);
+      const newHeight = Math.round(rect.height * dpr);
+
+      if (canvas.width !== newWidth || canvas.height !== newHeight) {
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+      }
+      render(currentFrame.index);
+    }
+
+    // Cover-fit frame renderer with focal point
+    function render(index) {
+      if (!ctx || canvas.width === 0 || canvas.height === 0) return;
+
+      // Find nearest loaded image
+      let renderImg = images[index];
+      if (!renderImg || !renderImg.complete || renderImg.naturalWidth === 0) {
+        for (let offset = 1; offset < totalFrames; offset++) {
+          const prev = images[index - offset];
+          if (prev && prev.complete && prev.naturalWidth > 0) {
+            renderImg = prev;
+            break;
+          }
+          const next = images[index + offset];
+          if (next && next.complete && next.naturalWidth > 0) {
+            renderImg = next;
+            break;
+          }
         }
+      }
+
+      if (!renderImg || !renderImg.complete || renderImg.naturalWidth === 0) {
+        return;
+      }
+
+      const cw = canvas.width;
+      const ch = canvas.height;
+
+      const imgW = renderImg.naturalWidth || 2560;
+      const imgH = renderImg.naturalHeight || 1440;
+      const hRatio = cw / imgW;
+      const vRatio = ch / imgH;
+      const ratio = Math.max(hRatio, vRatio);
+
+      const drawW = imgW * ratio;
+      const drawH = imgH * ratio;
+
+      // Responsive focal centering:
+      // On mobile screens (<= 900px), Sab is centered (0.5)
+      // On desktop screens (> 900px), Sab is positioned at 0.54 (to the right of headline)
+      const isDesktop = window.innerWidth > 900;
+      const focalX = isDesktop ? 0.54 : 0.5;
+      const focalY = isDesktop ? 0.2 : 0.15;
+
+      const offsetX = (cw - drawW) * focalX;
+      const offsetY = (ch - drawH) * focalY;
+
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, cw, ch);
+      ctx.drawImage(renderImg, offsetX, offsetY, drawW, drawH);
+
+      if (!isInitialDrawn) {
+        isInitialDrawn = true;
+        if (fallbackWrap) fallbackWrap.classList.add('ready');
+        if (fallbackImg) fallbackImg.style.opacity = '0';
+      }
+    }
+
+    // Preload images progressively
+    function preloadImages() {
+      // Step 1: Load Frame 0 (ezgif-frame-001) first
+      const firstImg = new Image();
+      firstImg.src = framePaths[0];
+      firstImg.decoding = 'async';
+      firstImg.onload = () => {
+        images[0] = firstImg;
+        resizeCanvas();
+        render(0);
+      };
+      images[0] = firstImg;
+
+      // Step 2: Key milestones for quick scrub responsiveness
+      const milestones = [0, 30, 60, 90, 118, 145, 175, 205, 235];
+      milestones.forEach((idx) => {
+        if (idx !== 0) {
+          const img = new Image();
+          img.src = framePaths[idx];
+          img.decoding = 'async';
+          img.onload = () => {
+            images[idx] = img;
+            if (currentFrame.index === idx) render(idx);
+          };
+          images[idx] = img;
+        }
+      });
+
+      // Step 3: Progressive chunk loading for the rest
+      let chunkStart = 1;
+      const CHUNK_SIZE = 16;
+      function loadNextBatch() {
+        if (chunkStart >= totalFrames) return;
+        const end = Math.min(totalFrames, chunkStart + CHUNK_SIZE);
+        for (let i = chunkStart; i < end; i++) {
+          if (!images[i]) {
+            const img = new Image();
+            img.src = framePaths[i];
+            img.decoding = 'async';
+            img.onload = () => {
+              images[i] = img;
+              if (currentFrame.index === i) render(i);
+            };
+            images[i] = img;
+          }
+        }
+        chunkStart = end;
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadNextBatch, { timeout: 120 });
+        } else {
+          setTimeout(loadNextBatch, 30);
+        }
+      }
+      setTimeout(loadNextBatch, 80);
+    }
+
+    preloadImages();
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas, { passive: true });
+
+    // Update HUD & Perspective Indicators
+    function updatePerspectiveHud(progress) {
+      // Degree (-45° Left -> 0° Center -> +45° Right)
+      const deg = Math.round(-45 + progress * 90);
+      if (hudDegree) {
+        hudDegree.textContent = (deg > 0 ? '+' : '') + deg + '°';
+      }
+
+      // Progress bar fill
+      if (hudFill) {
+        hudFill.style.width = (progress * 100).toFixed(1) + '%';
+      }
+
+      // Active state on 3 buttons
+      let activeStep = 'left';
+      if (progress >= 0.35 && progress <= 0.65) {
+        activeStep = 'center';
+      } else if (progress > 0.65) {
+        activeStep = 'right';
+      }
+
+      if (hudButtons && hudButtons.length) {
+        hudButtons.forEach((btn) => {
+          const step = btn.getAttribute('data-target-step');
+          if (step === activeStep) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      // Scroll hint fade
+      if (scrollHint) {
+        if (progress > 0.08) {
+          scrollHint.classList.add('faded');
+        } else {
+          scrollHint.classList.remove('faded');
+        }
+      }
+    }
+
+    // Interactive button clicks
+    if (hudButtons && hudButtons.length) {
+      hudButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const step = btn.getAttribute('data-target-step');
+          let targetProgress = 0;
+          if (step === 'center') targetProgress = 0.5;
+          if (step === 'right') targetProgress = 0.96;
+
+          const triggerTarget = scrollTrack || heroSection;
+          const rect = triggerTarget.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || window.scrollY;
+          const trackTop = rect.top + scrollTop;
+          const maxScroll = (scrollTrack ? scrollTrack.offsetHeight : window.innerHeight * 2.2) - window.innerHeight;
+          const targetY = trackTop + maxScroll * targetProgress;
+
+          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+            window.lenis.scrollTo(targetY, { duration: 1.1 });
+          } else {
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        });
       });
     }
 
-    // Fade out hero content as user scrolls
+    // Scroll-driven animation with ScrollTrigger
+    const triggerTarget = scrollTrack || heroSection;
     const heroContent = document.querySelector('.intro-hero-content');
-    if (heroContent) {
-      gsap.to(heroContent, {
-        yPercent: -20,
-        opacity: 0.2,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#intro-hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
+    const heroBottom = document.querySelector('.intro-hero-bottom');
+    const heroTagline = document.querySelector('.intro-hero-tagline');
+
+    const heroTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: triggerTarget,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.25,
+        onUpdate: (self) => {
+          const frameIndex = Math.min(totalFrames - 1, Math.floor(self.progress * totalFrames));
+          if (frameIndex !== currentFrame.index) {
+            currentFrame.index = frameIndex;
+            render(frameIndex);
+          }
+          updatePerspectiveHud(self.progress);
         }
-      });
+      }
+    });
+
+    if (heroContent) {
+      heroTimeline.to(heroContent, {
+        opacity: 0.15,
+        y: -35,
+        ease: 'power1.inOut'
+      }, 0.7);
     }
 
-    // Fade bottom text
-    const heroBottom = document.querySelector('.intro-hero-bottom');
     if (heroBottom) {
-      gsap.to(heroBottom, {
-        y: -30,
+      heroTimeline.to(heroBottom, {
         opacity: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#intro-hero',
-          start: 'top top',
-          end: '50% top',
-          scrub: 1,
-        }
-      });
+        y: -25,
+        ease: 'power1.inOut'
+      }, 0.65);
+    }
+
+    if (heroTagline) {
+      heroTimeline.to(heroTagline, {
+        opacity: 0,
+        y: -20,
+        ease: 'power1.inOut'
+      }, 0.65);
     }
   }
 
@@ -1160,17 +1384,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set initial centering transform properties via GSAP
     gsap.set([dot, follower], { xPercent: -50, yPercent: -50 });
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let dotX = 0;
-    let dotY = 0;
-    let followerX = 0;
-    let followerY = 0;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let dotX = mouseX;
+    let dotY = mouseY;
+    let followerX = mouseX;
+    let followerY = mouseY;
+    let hasMoved = false;
 
     // Track mouse coordinates & spawn particles
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      if (!hasMoved) {
+        dotX = mouseX;
+        dotY = mouseY;
+        followerX = mouseX;
+        followerY = mouseY;
+        hasMoved = true;
+      }
       if (particles.length < maxParticles) {
         for (let i = 0; i < 2; i++) {
           particles.push(new Particle(mouseX, mouseY));
@@ -1184,13 +1416,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (follower.parentElement !== document.body) document.body.appendChild(follower);
       if (canvas.parentElement !== document.body) document.body.appendChild(canvas);
 
-      // Small center dot moves faster
-      dotX += (mouseX - dotX) * 0.35;
-      dotY += (mouseY - dotY) * 0.35;
+      // Center dot sticks directly to mouse for snappy precision
+      dotX = mouseX;
+      dotY = mouseY;
 
-      // Outer ring has a smooth delay
-      followerX += (mouseX - followerX) * 0.16;
-      followerY += (mouseY - followerY) * 0.16;
+      // Outer ring has a smooth responsive delay
+      followerX += (mouseX - followerX) * 0.22;
+      followerY += (mouseY - followerY) * 0.22;
 
       gsap.set(dot, { x: dotX, y: dotY });
       gsap.set(follower, { x: followerX, y: followerY });
@@ -1437,7 +1669,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize all hero animations
   // initHeroMagnifier();
-  initIntroHeroParallax();
+  initHeroSequenceAnimation();
   initHeroTypographyReveal();
   initHeroImageEffects();
   enhancePreloaderExit();

@@ -519,7 +519,7 @@ const domainsMetadata = {
     desc: "System defense design, cloud virtualization, *nix OS infrastructure, and industrial OT/ICS systems.",
     color: "#ff9100",
     filename: "roadmap-architecture-engineering.html",
-    subtracks: ["Asset Security", "Cloud / SysOps", "Linux / Unix", "ICS/IoT"],
+    subtracks: ["Cloud / SysOps", "Linux / Unix", "ICS/IoT"],
     vendors: ["AWS", "Microsoft", "Google", "Red Hat", "VMware", "Linux Foundation", "ISA", "TUV", "GIAC"]
   },
   "Asset Security": {
@@ -575,16 +575,15 @@ const domainsMetadata = {
 };
 
 /**
- * 15 Matrix Columns Configuration
+ * 14 Matrix Columns Configuration
  */
 const matrixColumnsConfig = [
   { title: "Comm & NetSec", domain: "Communication & Network Security", color: "#00e676", subtracks: ["Communication and Network Security"] },
   { title: "IAM", domain: "Identity & Access Management (IAM)", color: "#00e5ff", subtracks: ["IAM"] },
-  { title: "Architecture", domain: "Security Architecture & Engineering", color: "#ff9100", subtracks: ["Asset Security"] },
-  { title: "Cloud / SysOps", domain: "Security Architecture & Engineering", color: "#ffab00", subtracks: ["Cloud / SysOps"] },
-  { title: "*nix OS", domain: "Security Architecture & Engineering", color: "#ffd600", subtracks: ["Linux / Unix"] },
+  { title: "Cloud / SysOps", domain: "Security Architecture & Engineering", color: "#ff9100", subtracks: ["Cloud / SysOps"] },
+  { title: "*nix OS", domain: "Security Architecture & Engineering", color: "#ffab00", subtracks: ["Linux / Unix"] },
   { title: "ICS / IoT", domain: "Security Architecture & Engineering", color: "#ff6d00", subtracks: ["ICS/IoT"] },
-  { title: "Asset Security", domain: "Asset Security", color: "#aeea00", subtracks: ["Asset Security"] },
+  { title: "Asset Security", domain: "Asset Security", color: "#ffd600", subtracks: ["Asset Security"] },
   { title: "Risk & GRC", domain: "Security & Risk Management", color: "#b388ff", subtracks: ["GRC"] },
   { title: "Assessment", domain: "Security Assessment & Testing", color: "#d500f9", subtracks: ["Security Assessment and Testing"] },
   { title: "Software Sec", domain: "Software Security", color: "#2979ff", subtracks: ["Software Security"] },
@@ -1545,6 +1544,21 @@ function initMainRoadmap() {
     });
   }
 
+  // Setup Sort Control
+  const roadmapSortSelect = document.getElementById("roadmapSortSelect");
+  if (roadmapSortSelect) {
+    roadmapSortSelect.addEventListener("change", () => {
+      const sortMode = roadmapSortSelect.value;
+      renderFullRoadmapMatrix(sortMode);
+      renderDomainDashboardCards(sortMode);
+
+      const q = domainSearchInput ? domainSearchInput.value.toLowerCase().trim() : "";
+      if (q) {
+        filterRoadmapSearch(q);
+      }
+    });
+  }
+
   // View Switcher (Matrix vs Cards)
   setupViewSwitcher();
 
@@ -1555,44 +1569,153 @@ function initMainRoadmap() {
 }
 
 /**
+ * 8 Primary Domain Matrix Groups definition
+ */
+const matrixDomainGroups = [
+  {
+    title: "Communication & NetSec",
+    domainKey: "Communication & Network Security",
+    color: "#00e676",
+    link: "roadmap-communication-security.html",
+    columns: [
+      { title: "Comm & NetSec", domain: "Communication & Network Security", color: "#00e676", subtracks: ["Communication and Network Security"] }
+    ]
+  },
+  {
+    title: "IAM",
+    domainKey: "Identity & Access Management (IAM)",
+    color: "#00e5ff",
+    link: "roadmap-iam.html",
+    columns: [
+      { title: "IAM", domain: "Identity & Access Management (IAM)", color: "#00e5ff", subtracks: ["IAM"] }
+    ]
+  },
+  {
+    title: "Security Architecture & Engineering",
+    domainKey: "Security Architecture & Engineering",
+    color: "#ff9100",
+    link: "roadmap-architecture-engineering.html",
+    columns: [
+      { title: "Cloud / SysOps", domain: "Security Architecture & Engineering", color: "#ff9100", subtracks: ["Cloud / SysOps"] },
+      { title: "*nix OS", domain: "Security Architecture & Engineering", color: "#ffab00", subtracks: ["Linux / Unix"] },
+      { title: "ICS / IoT", domain: "Security Architecture & Engineering", color: "#ff6d00", subtracks: ["ICS/IoT"] }
+    ]
+  },
+  {
+    title: "Asset Security",
+    domainKey: "Asset Security",
+    color: "#ffd600",
+    link: "roadmap-asset-security.html",
+    columns: [
+      { title: "Asset Security", domain: "Asset Security", color: "#ffd600", subtracks: ["Asset Security"] }
+    ]
+  },
+  {
+    title: "Risk Management & GRC",
+    domainKey: "Security & Risk Management",
+    color: "#b388ff",
+    link: "roadmap-risk-management.html",
+    columns: [
+      { title: "Risk & GRC", domain: "Security & Risk Management", color: "#b388ff", subtracks: ["GRC"] }
+    ]
+  },
+  {
+    title: "Assessment & Testing",
+    domainKey: "Security Assessment & Testing",
+    color: "#d500f9",
+    link: "roadmap-assessment-testing.html",
+    columns: [
+      { title: "Assessment", domain: "Security Assessment & Testing", color: "#d500f9", subtracks: ["Security Assessment and Testing"] }
+    ]
+  },
+  {
+    title: "Software Security",
+    domainKey: "Software Development Security",
+    color: "#2979ff",
+    link: "roadmap-software-security.html",
+    columns: [
+      { title: "Software Sec", domain: "Software Security", color: "#2979ff", subtracks: ["Software Security"] }
+    ]
+  },
+  {
+    title: "Security Operations (SOC / Blue & Red)",
+    domainKey: "Security Operations (SOC / Blue & Red)",
+    color: "#ff1744",
+    link: "roadmap-security-operations.html",
+    columns: [
+      { title: "SecOps / Blue", domain: "Security Operations (SOC / Blue & Red)", color: "#ff1744", subtracks: ["Security Operations"] },
+      { title: "Incident Resp", domain: "Security Operations (SOC / Blue & Red)", color: "#f50057", subtracks: ["Incident Handling"] },
+      { title: "Forensics", domain: "Security Operations (SOC / Blue & Red)", color: "#d81b60", subtracks: ["Forensics"] },
+      { title: "Pen Testing", domain: "Security Operations (SOC / Blue & Red)", color: "#c2185b", subtracks: ["Penetration Testing"] },
+      { title: "Exploitation", domain: "Security Operations (SOC / Blue & Red)", color: "#880e4f", subtracks: ["Exploitation"] }
+    ]
+  }
+];
+
+/**
  * Render the 8-Domain Interactive Certification Matrix
  */
-function renderFullRoadmapMatrix() {
+function renderFullRoadmapMatrix(sortMode = "default") {
   const matrixContainer = document.getElementById("roadmapMatrixCanvas");
   if (!matrixContainer) return;
 
   matrixContainer.innerHTML = "";
 
+  // Copy and sort domain groups based on sortMode
+  let sortedGroups = [...matrixDomainGroups];
+  if (sortMode === "name-asc") {
+    sortedGroups.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sortMode === "name-desc") {
+    sortedGroups.sort((a, b) => b.title.localeCompare(a.title));
+  } else if (sortMode === "total-desc" || sortMode === "certs-desc") {
+    sortedGroups.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a.domainKey).length;
+      const countB = certDatabase.filter(c => c.domain === b.domainKey).length;
+      return countB - countA;
+    });
+  } else if (sortMode === "l3-desc") {
+    sortedGroups.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a.domainKey && c.level === "expert").length;
+      const countB = certDatabase.filter(c => c.domain === b.domainKey && c.level === "expert").length;
+      return countB - countA;
+    });
+  } else if (sortMode === "l2-desc") {
+    sortedGroups.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a.domainKey && c.level === "intermediate").length;
+      const countB = certDatabase.filter(c => c.domain === b.domainKey && c.level === "intermediate").length;
+      return countB - countA;
+    });
+  } else if (sortMode === "l1-desc") {
+    sortedGroups.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a.domainKey && c.level === "beginner").length;
+      const countB = certDatabase.filter(c => c.domain === b.domainKey && c.level === "beginner").length;
+      return countB - countA;
+    });
+  }
+
   // 1. Group Headers for the 8 primary domains
   const groupHeaderRow = document.createElement("div");
   groupHeaderRow.className = "matrix-group-headers-row";
-
-  const domainColumns = [
-    { title: "Communication & NetSec", span: 1, color: "#00e676", link: "roadmap-communication-security.html" },
-    { title: "IAM", span: 1, color: "#00e5ff", link: "roadmap-iam.html" },
-    { title: "Security Architecture & Engineering", span: 4, color: "#ff9100", link: "roadmap-architecture-engineering.html" },
-    { title: "Asset Security", span: 1, color: "#ffd600", link: "roadmap-asset-security.html" },
-    { title: "Risk Management & GRC", span: 1, color: "#b388ff", link: "roadmap-risk-management.html" },
-    { title: "Assessment & Testing", span: 1, color: "#d500f9", link: "roadmap-assessment-testing.html" },
-    { title: "Software Security", span: 1, color: "#2979ff", link: "roadmap-software-security.html" },
-    { title: "Security Operations (SOC / Blue & Red)", span: 5, color: "#ff1744", link: "roadmap-security-operations.html" }
-  ];
 
   const cornerHeader = document.createElement("div");
   cornerHeader.className = "matrix-corner-header";
   cornerHeader.innerHTML = `<span>DOMAIN / TRACK</span>`;
   groupHeaderRow.appendChild(cornerHeader);
 
-  domainColumns.forEach(col => {
+  const activeMatrixColumns = [];
+
+  sortedGroups.forEach(group => {
     const headerCell = document.createElement("a");
-    headerCell.href = col.link;
-    headerCell.className = `matrix-domain-group-header span-${col.span}`;
-    headerCell.style.setProperty("--domain-col-color", col.color);
+    headerCell.href = group.link;
+    headerCell.className = `matrix-domain-group-header span-${group.columns.length}`;
+    headerCell.style.setProperty("--domain-col-color", group.color);
     headerCell.innerHTML = `
-      <span class="group-title">${col.title}</span>
+      <span class="group-title">${group.title}</span>
       <svg class="group-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
     `;
     groupHeaderRow.appendChild(headerCell);
+
+    group.columns.forEach(col => activeMatrixColumns.push(col));
   });
   matrixContainer.appendChild(groupHeaderRow);
 
@@ -1605,7 +1728,7 @@ function renderFullRoadmapMatrix() {
   subtrackCorner.textContent = "TIER";
   subtrackHeaderRow.appendChild(subtrackCorner);
 
-  matrixColumnsConfig.forEach(colCfg => {
+  activeMatrixColumns.forEach(colCfg => {
     const subCol = document.createElement("div");
     subCol.className = "matrix-subtrack-header-cell";
     subCol.style.setProperty("--track-color", colCfg.color);
@@ -1633,7 +1756,7 @@ function renderFullRoadmapMatrix() {
     `;
     tierRow.appendChild(sideLabel);
 
-    matrixColumnsConfig.forEach(colCfg => {
+    activeMatrixColumns.forEach(colCfg => {
       const cell = document.createElement("div");
       cell.className = "matrix-track-cell";
       cell.style.setProperty("--track-color", colCfg.color);
@@ -1644,6 +1767,13 @@ function renderFullRoadmapMatrix() {
           certsInCell = certsInCell.concat(rawCertsByTrack[trackKey][tier.key]);
         }
       });
+
+      // Sort certs within cell
+      if (sortMode === "name-asc") {
+        certsInCell.sort((a, b) => a.localeCompare(b));
+      } else if (sortMode === "name-desc") {
+        certsInCell.sort((a, b) => b.localeCompare(a));
+      }
 
       certsInCell.forEach(certName => {
         const badge = document.createElement("button");
@@ -1671,13 +1801,45 @@ function renderFullRoadmapMatrix() {
 /**
  * Render 8 Domain Dashboard Cards
  */
-function renderDomainDashboardCards() {
+function renderDomainDashboardCards(sortMode = "default") {
   const gridContainer = document.getElementById("domainDashboardGrid");
   if (!gridContainer) return;
 
   gridContainer.innerHTML = "";
 
-  Object.keys(domainsMetadata).forEach((domKey) => {
+  let domainKeys = Object.keys(domainsMetadata);
+
+  if (sortMode === "name-asc") {
+    domainKeys.sort((a, b) => domainsMetadata[a].name.localeCompare(domainsMetadata[b].name));
+  } else if (sortMode === "name-desc") {
+    domainKeys.sort((a, b) => domainsMetadata[b].name.localeCompare(domainsMetadata[a].name));
+  } else if (sortMode === "total-desc" || sortMode === "certs-desc") {
+    domainKeys.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a).length;
+      const countB = certDatabase.filter(c => c.domain === b).length;
+      return countB - countA;
+    });
+  } else if (sortMode === "l3-desc") {
+    domainKeys.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a && c.level === "expert").length;
+      const countB = certDatabase.filter(c => c.domain === b && c.level === "expert").length;
+      return countB - countA;
+    });
+  } else if (sortMode === "l2-desc") {
+    domainKeys.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a && c.level === "intermediate").length;
+      const countB = certDatabase.filter(c => c.domain === b && c.level === "intermediate").length;
+      return countB - countA;
+    });
+  } else if (sortMode === "l1-desc") {
+    domainKeys.sort((a, b) => {
+      const countA = certDatabase.filter(c => c.domain === a && c.level === "beginner").length;
+      const countB = certDatabase.filter(c => c.domain === b && c.level === "beginner").length;
+      return countB - countA;
+    });
+  }
+
+  domainKeys.forEach((domKey) => {
     const dom = domainsMetadata[domKey];
     
     // Count certs in this domain
@@ -1832,6 +1994,13 @@ function setupViewSwitcher() {
     matrixSection.style.display = "none";
     cardsSection.style.display = "grid";
     
+    // Ensure cards are rendered if empty
+    const grid = document.getElementById("domainDashboardGrid");
+    if (grid && grid.children.length === 0) {
+      const sortSelect = document.getElementById("roadmapSortSelect");
+      renderDomainDashboardCards(sortSelect ? sortSelect.value : "default");
+    }
+
     // Initialize or resize 3D Globe when cards view becomes visible
     setTimeout(() => {
       if (!_mainGlobeInstance) {
@@ -2132,9 +2301,9 @@ function getDomainOrTrackCerts(query) {
   
   // 3. Normalized alias mapping table for all 15 subpages
   const aliasToTracks = {
-    "security architecture & engineering": ["Cloud / SysOps", "Linux / Unix", "ICS/IoT", "Asset Security"],
-    "security architecture and engineering": ["Cloud / SysOps", "Linux / Unix", "ICS/IoT", "Asset Security"],
-    "architecture & engineering": ["Cloud / SysOps", "Linux / Unix", "ICS/IoT", "Asset Security"],
+    "security architecture & engineering": ["Cloud / SysOps", "Linux / Unix", "ICS/IoT"],
+    "security architecture and engineering": ["Cloud / SysOps", "Linux / Unix", "ICS/IoT"],
+    "architecture & engineering": ["Cloud / SysOps", "Linux / Unix", "ICS/IoT"],
     "cloud & sysops security": ["Cloud / SysOps"],
     "cloud / sysops security": ["Cloud / SysOps"],
     "cloud / sysops": ["Cloud / SysOps"],
@@ -2369,141 +2538,213 @@ function initDomainRoadmap(requestedDomainName) {
 
 function setupMatrixDragScroll() {
   const slider = document.getElementById("roadmapMatrixWrapper") || document.querySelector(".roadmap-matrix-wrapper");
-  const track = document.getElementById("matrixScrollTrack");
-  const thumb = document.getElementById("matrixScrollThumb");
-  const btnLeft = document.getElementById("matrixScrollLeft");
-  const btnRight = document.getElementById("matrixScrollRight");
-
+  const navLeft = document.getElementById("matrixNavLeft");
+  const navRight = document.getElementById("matrixNavRight");
+  const topTrack = document.getElementById("matrixTopScrollbarTrack");
+  const topThumb = document.getElementById("matrixTopScrollbarThumb");
   if (!slider) return;
 
   let isDown = false;
   let startX = 0;
   let scrollLeft = 0;
   let hasDragged = false;
+  const dragThreshold = 6;
 
-  // Sync Top Scroll Thumb with table scroll
-  function updateThumbPosition() {
-    if (!track || !thumb) return;
-    const maxScroll = slider.scrollWidth - slider.clientWidth;
+  // 1. Sync Top Orange Scrollbar thumb position and width with slider scroll
+  function updateTopThumb() {
+    if (!topTrack || !topThumb) return;
+    const scrollWidth = slider.scrollWidth;
+    const clientWidth = slider.clientWidth;
+    const maxScroll = scrollWidth - clientWidth;
     if (maxScroll <= 0) {
-      thumb.style.transform = `translateX(0px)`;
+      topThumb.style.display = "none";
       return;
     }
-    const trackWidth = track.clientWidth;
-    const thumbWidth = thumb.clientWidth;
+    topThumb.style.display = "block";
+    const trackWidth = topTrack.clientWidth;
+    const thumbWidth = Math.max(48, (clientWidth / scrollWidth) * trackWidth);
+    topThumb.style.width = `${thumbWidth}px`;
     const availableTrack = trackWidth - thumbWidth;
     const ratio = Math.min(1, Math.max(0, slider.scrollLeft / maxScroll));
     const thumbLeft = ratio * availableTrack;
-    thumb.style.transform = `translateX(${thumbLeft}px)`;
+    topThumb.style.transform = `translateX(${thumbLeft}px)`;
+  }
+
+  // 2. Sync floating edge nav buttons visibility with scroll position
+  function updateNavVisibility() {
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    if (navLeft) {
+      if (slider.scrollLeft > 15) {
+        navLeft.classList.add("visible");
+      } else {
+        navLeft.classList.remove("visible");
+      }
+    }
+    if (navRight) {
+      if (maxScroll > 10 && slider.scrollLeft < maxScroll - 15) {
+        navRight.classList.add("visible");
+      } else {
+        navRight.classList.remove("visible");
+      }
+    }
+  }
+
+  function handleScrollSync() {
+    updateTopThumb();
+    updateNavVisibility();
   }
 
   slider.addEventListener("scroll", () => {
-    requestAnimationFrame(updateThumbPosition);
+    requestAnimationFrame(handleScrollSync);
   });
-
   window.addEventListener("resize", () => {
-    updateThumbPosition();
+    requestAnimationFrame(handleScrollSync);
   });
+  setTimeout(handleScrollSync, 150);
 
-  // Initial update
-  setTimeout(updateThumbPosition, 100);
+  // 3. Interactive Dragging on the Top Orange Thumb (Mouse & Touch)
+  if (topTrack && topThumb) {
+    let isThumbDragging = false;
+    let thumbStartX = 0;
+    let initialScrollLeft = 0;
 
-  // 1. Mouse Drag on Matrix Table
+    const onThumbStart = (clientX) => {
+      isThumbDragging = true;
+      topThumb.classList.add("active");
+      thumbStartX = clientX;
+      initialScrollLeft = slider.scrollLeft;
+      slider.style.scrollBehavior = "auto";
+    };
+
+    const onThumbMove = (clientX) => {
+      if (!isThumbDragging) return;
+      const deltaX = clientX - thumbStartX;
+      const trackWidth = topTrack.clientWidth;
+      const thumbWidth = topThumb.offsetWidth;
+      const availableTrack = trackWidth - thumbWidth;
+      if (availableTrack <= 0) return;
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      const deltaScroll = (deltaX / availableTrack) * maxScroll;
+      slider.scrollLeft = initialScrollLeft + deltaScroll;
+    };
+
+    const onThumbEnd = () => {
+      if (isThumbDragging) {
+        isThumbDragging = false;
+        topThumb.classList.remove("active");
+        slider.style.scrollBehavior = "smooth";
+      }
+    };
+
+    // Mouse drag on top thumb
+    topThumb.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onThumbStart(e.clientX);
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (isThumbDragging) {
+        e.preventDefault();
+        onThumbMove(e.clientX);
+      }
+    });
+
+    window.addEventListener("mouseup", onThumbEnd);
+
+    // Touch drag on top thumb (Mobile)
+    topThumb.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        onThumbStart(e.touches[0].clientX);
+      }
+    }, { passive: true });
+
+    window.addEventListener("touchmove", (e) => {
+      if (isThumbDragging && e.touches.length === 1) {
+        onThumbMove(e.touches[0].clientX);
+      }
+    }, { passive: true });
+
+    window.addEventListener("touchend", onThumbEnd);
+    window.addEventListener("touchcancel", onThumbEnd);
+
+    // Click anywhere on track jumps to position
+    topTrack.addEventListener("click", (e) => {
+      if (e.target === topThumb) return;
+      const rect = topTrack.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const trackWidth = topTrack.clientWidth;
+      const thumbWidth = topThumb.offsetWidth;
+      const targetThumbLeft = clickX - (thumbWidth / 2);
+      const availableTrack = trackWidth - thumbWidth;
+      if (availableTrack <= 0) return;
+      const ratio = Math.min(1, Math.max(0, targetThumbLeft / availableTrack));
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      slider.scrollTo({ left: ratio * maxScroll, behavior: "smooth" });
+    });
+  }
+
+  // 4. 1-Click floating buttons scroll by column group
+  if (navLeft) {
+    navLeft.addEventListener("click", (e) => {
+      e.preventDefault();
+      slider.scrollBy({ left: -380, behavior: "smooth" });
+    });
+  }
+  if (navRight) {
+    navRight.addEventListener("click", (e) => {
+      e.preventDefault();
+      slider.scrollBy({ left: 380, behavior: "smooth" });
+    });
+  }
+
+  // 5. Smooth universal mouse drag across canvas (including badges and empty space)
   slider.addEventListener("mousedown", (e) => {
-    // Ignore clicks on links or interactive buttons
-    if (e.target.closest("button") || e.target.closest("a") || e.target.closest(".matrix-cert-badge")) {
+    // Only primary mouse button
+    if (e.button !== 0) return;
+    // Don't drag if clicking navigation arrows, links, or top scrollbar
+    if (e.target.closest("a") || e.target.closest(".matrix-floating-nav") || e.target.closest(".matrix-top-scrollbar-track")) {
       return;
     }
     isDown = true;
     hasDragged = false;
     startX = e.pageX - slider.offsetLeft;
     scrollLeft = slider.scrollLeft;
+    slider.style.scrollBehavior = "auto";
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    const x = e.pageX - slider.offsetLeft;
+    const distance = Math.abs(x - startX);
+    if (distance > dragThreshold) {
+      hasDragged = true;
+      slider.classList.add("dragging");
+    }
+    if (hasDragged) {
+      e.preventDefault();
+      const walk = (x - startX) * 1.4;
+      slider.scrollLeft = scrollLeft - walk;
+    }
   });
 
   window.addEventListener("mouseup", () => {
     if (isDown) {
       isDown = false;
-      slider.classList.remove("dragging");
-      setTimeout(() => { hasDragged = false; }, 50);
+      slider.style.scrollBehavior = "smooth";
+      if (hasDragged) {
+        slider.classList.remove("dragging");
+        // Keep hasDragged true for 80ms so badge click event can be suppressed
+        setTimeout(() => { hasDragged = false; }, 80);
+      }
     }
   });
 
-  slider.addEventListener("mouseleave", () => {
-    if (isDown) {
-      isDown = false;
-      slider.classList.remove("dragging");
-    }
-  });
-
-  slider.addEventListener("mousemove", (e) => {
-    if (!isDown) return;
-    const x = e.pageX - slider.offsetLeft;
-    if (Math.abs(x - startX) > 5) {
-      hasDragged = true;
-      slider.classList.add("dragging");
-    }
-    const walk = (x - startX) * 1.5; // Drag speed multiplier
-    slider.scrollLeft = scrollLeft - walk;
-  });
-
-  // 2. Dragging on the Top Thumb
-  if (track && thumb) {
-    let isThumbDragging = false;
-    let thumbStartX = 0;
-    let initialThumbLeft = 0;
-
-    thumb.addEventListener("mousedown", (e) => {
+  // Capture phase: Suppress badge clicks if mouse was dragged
+  slider.addEventListener("click", (e) => {
+    if (hasDragged) {
       e.preventDefault();
       e.stopPropagation();
-      isThumbDragging = true;
-      thumb.classList.add("active");
-      thumbStartX = e.clientX;
-      const matrix = new DOMMatrixReadOnly(window.getComputedStyle(thumb).transform);
-      initialThumbLeft = matrix.m41 || 0;
-    });
-
-    window.addEventListener("mousemove", (e) => {
-      if (!isThumbDragging) return;
-      const deltaX = e.clientX - thumbStartX;
-      const trackWidth = track.clientWidth;
-      const thumbWidth = thumb.clientWidth;
-      const availableTrack = trackWidth - thumbWidth;
-      
-      let newLeft = Math.max(0, Math.min(availableTrack, initialThumbLeft + deltaX));
-      const ratio = availableTrack > 0 ? newLeft / availableTrack : 0;
-      const maxScroll = slider.scrollWidth - slider.clientWidth;
-      slider.scrollLeft = ratio * maxScroll;
-    });
-
-    window.addEventListener("mouseup", () => {
-      if (isThumbDragging) {
-        isThumbDragging = false;
-        thumb.classList.remove("active");
-      }
-    });
-
-    // Clicking anywhere on track jumps to position
-    track.addEventListener("click", (e) => {
-      if (e.target === thumb || thumb.contains(e.target)) return;
-      const rect = track.getBoundingClientRect();
-      const clickX = e.clientX - rect.left - (thumb.clientWidth / 2);
-      const availableTrack = track.clientWidth - thumb.clientWidth;
-      const ratio = Math.max(0, Math.min(1, clickX / availableTrack));
-      const maxScroll = slider.scrollWidth - slider.clientWidth;
-      slider.scrollTo({ left: ratio * maxScroll, behavior: "smooth" });
-    });
-  }
-
-  // 3. Left / Right Navigation Buttons
-  if (btnLeft) {
-    btnLeft.addEventListener("click", () => {
-      slider.scrollBy({ left: -380, behavior: "smooth" });
-    });
-  }
-
-  if (btnRight) {
-    btnRight.addEventListener("click", () => {
-      slider.scrollBy({ left: 380, behavior: "smooth" });
-    });
-  }
+    }
+  }, true);
 }

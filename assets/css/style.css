@@ -492,9 +492,34 @@ button {
   color: var(--red);
 }
 
-/* ===== SECTION 1: SPLIT HERO ===== */
+/* ===== SECTION 1: SPLIT HERO & 180° CANVAS SEQUENCE TRACK ===== */
 
-/* --- Outer container --- */
+/* --- Outer Scroll Track (Provides 160vh of scroll scrub travel) --- */
+.hero-scroll-track {
+  position: relative;
+  width: 100%;
+  height: 260vh;
+  background: var(--black);
+}
+
+@media (max-width: 768px) {
+  .hero-scroll-track {
+    height: 200vh;
+  }
+}
+
+/* --- Sticky Hero Container --- */
+.hero-scroll-track .split-hero {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  z-index: 5;
+}
+
 .split-hero {
   display: flex;
   height: 100vh;
@@ -502,11 +527,11 @@ button {
   overflow: hidden;
 }
 
-/* --- LEFT PANEL (orange) --- */
+/* --- LEFT PANEL (dark cyber character container) --- */
 .split-hero-left {
   flex: 1 1 0;
   position: relative;
-  background: var(--red);
+  background: #000000;
   overflow: hidden;
   min-height: 100vh;
   min-height: 100dvh;
@@ -528,21 +553,21 @@ button {
 
 .split-hero-cta {
   padding: 9px 24px;
-  border: 1.5px solid rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
   border-radius: 30px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--black);
+  color: var(--white);
   white-space: nowrap;
   transition: all 0.35s var(--ease-out-expo);
 }
 
 .split-hero-cta:hover {
-  background: var(--black);
-  color: var(--white);
-  border-color: var(--black);
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
 }
 
 .split-hero-menu-btn {
@@ -562,7 +587,7 @@ button {
   display: block;
   width: 100%;
   height: 1.5px;
-  background: var(--black);
+  background: var(--white);
   transition: transform 0.4s var(--ease-out-expo), opacity 0.3s ease;
   transform-origin: center;
 }
@@ -575,47 +600,261 @@ button {
   transform: translateY(-4.25px) rotate(-45deg);
 }
 
-/* Background slideshow */
+/* Hero Canvas Background */
 .intro-hero-bg {
   position: absolute;
   inset: 0;
   z-index: 1;
+  background: #000000;
+  overflow: hidden;
+}
+
+.hero-sequence-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-sequence-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.hero-sequence-fallback.ready {
+  opacity: 0;
+}
+
+.hero-sequence-fallback img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .intro-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 70% top;
-}
-
-.hero-zoom-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 3;
-  opacity: 0;
-  transform: scale(1.8);
-  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
-  clip-path: circle(120px at var(--mouse-x, 50%) var(--mouse-y, 50%));
-  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, clip-path;
-}
-
-.intro-hero-bg.is-zooming .hero-zoom-img {
-  opacity: 1;
+  object-position: center top;
 }
 
 .intro-hero-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 38%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.4) 100%),
+              radial-gradient(ellipse at 58% 35%, rgba(224, 90, 0, 0.08) 0%, transparent 65%);
   z-index: 2;
   pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .intro-hero-bg::after {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.8) 75%, rgba(0, 0, 0, 0.98) 100%);
+  }
+}
+
+/* Perspective HUD & Angle Controllers */
+.hero-name-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.hero-perspective-hud {
+  background: rgba(10, 10, 10, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10;
+}
+
+.hero-perspective-hud:hover {
+  border-color: rgba(224, 90, 0, 0.45);
+  box-shadow: 0 14px 40px rgba(224, 90, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.hero-perspective-hud .hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.hero-perspective-hud .hud-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red);
+  animation: hudDotPulse 1.8s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes hudDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.hero-perspective-hud .hud-title {
+  flex: 1;
+}
+
+.hero-perspective-hud .hud-degree {
+  color: var(--white);
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.05em;
+}
+
+.hero-perspective-hud .hud-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.hero-perspective-hud .hud-angle-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.hero-perspective-hud .hud-angle-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.hero-perspective-hud .hud-angle-btn.active {
+  background: rgba(224, 90, 0, 0.16);
+  border-color: var(--red);
+  color: var(--white);
+  box-shadow: 0 0 12px rgba(224, 90, 0, 0.35);
+}
+
+.hero-perspective-hud .hud-angle-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  opacity: 0.6;
+}
+
+.hero-perspective-hud .hud-angle-txt {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.hero-perspective-hud .hud-track-wrap {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-perspective-hud .hud-track-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--red), #ff7a1a);
+  box-shadow: 0 0 6px var(--red);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+/* Animated Scroll to Rotate Hint */
+.hero-scroll-rotate-hint {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.65);
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  user-select: none;
+}
+
+.hero-scroll-rotate-hint.faded {
+  opacity: 0;
+  transform: translate(-50%, 15px);
+}
+
+.scroll-rotate-mouse {
+  width: 18px;
+  height: 28px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.scroll-rotate-wheel {
+  width: 3px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 2px;
+  animation: mouseWheelScrub 1.6s ease-in-out infinite;
+}
+
+@keyframes mouseWheelScrub {
+  0% { transform: translateY(0); opacity: 1; }
+  75% { transform: translateY(8px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  .hero-name-wrap {
+    align-items: flex-start;
+  }
+  .hero-perspective-hud {
+    min-width: unset;
+    width: 100%;
+    max-width: 320px;
+  }
+  .hero-scroll-rotate-hint {
+    bottom: 92px;
+    font-size: 9px;
+  }
 }
 
 /* Each slide fills the panel and sits on top of each other */
@@ -4559,9 +4798,9 @@ html.lenis {
 .custom-cursor-dot,
 .custom-cursor-follower,
 #custom-cursor-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
   pointer-events: none;
   z-index: 10000000 !important;
   will-change: transform;
@@ -4590,6 +4829,9 @@ html.lenis {
   border-radius: 50%;
   transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
   box-shadow: 0 0 10px var(--red), 0 0 20px var(--red);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
 }
 
 .custom-cursor-follower {
@@ -4601,7 +4843,9 @@ html.lenis {
   align-items: center;
   justify-content: center;
   overflow: visible;
-  position: relative;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
   transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
     height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
     background-color 0.3s ease,
@@ -9524,8 +9768,13 @@ body.light-theme .mobile-theme-toggle:hover {
   will-change: transform;
 }
 
-.role-card-img[src*="about3"] {
-  object-position: center 55% !important;
+.role-card-img[src*="about3"],
+.role-card-img[src*="abou2"] {
+  object-position: 50% 25% !important;
+}
+
+.role-card-img[src*="abou1"] {
+  object-position: center 42% !important;
 }
 
 .role-card-img[src*="about10"] {

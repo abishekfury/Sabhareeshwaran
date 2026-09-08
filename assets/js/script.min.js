@@ -1956,7 +1956,7 @@ function initLazy3DGallery() {
         threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
         threeScript.onload = () => {
           const galleryScript = document.createElement('script');
-          galleryScript.src = 'assets/js/sphere-gallery.js?v=1.0';
+          galleryScript.src = 'assets/js/sphere-gallery.js?v=2.0';
           document.body.appendChild(galleryScript);
         };
         document.body.appendChild(threeScript);
@@ -2646,10 +2646,18 @@ function initCustomCursor() {
   let dotY = mouseY;
   let followerX = mouseX;
   let followerY = mouseY;
+  let hasMoved = false;
 
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    if (!hasMoved) {
+      dotX = mouseX;
+      dotY = mouseY;
+      followerX = mouseX;
+      followerY = mouseY;
+      hasMoved = true;
+    }
     if (particles.length < maxParticles) {
       for (let i = 0; i < 2; i++) {
         particles.push(new Particle(mouseX, mouseY));
@@ -2662,10 +2670,10 @@ function initCustomCursor() {
     if (follower.parentElement !== document.body) document.body.appendChild(follower);
     if (canvas.parentElement !== document.body) document.body.appendChild(canvas);
 
-    dotX += (mouseX - dotX) * 0.4;
-    dotY += (mouseY - dotY) * 0.4;
-    followerX += (mouseX - followerX) * 0.18;
-    followerY += (mouseY - followerY) * 0.18;
+    dotX = mouseX;
+    dotY = mouseY;
+    followerX += (mouseX - followerX) * 0.22;
+    followerY += (mouseY - followerY) * 0.22;
 
     dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
     follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;

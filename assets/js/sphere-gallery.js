@@ -1,9 +1,9 @@
 // 3D Sphere Gallery Engine using Three.js
 
 const GALLERY_IMAGES = [
-  { src: 'assets/images/about1.webp', title: 'Cybersecurity Professional', desc: 'Protecting assets, auditing ISMS systems, and securing architectures.' },
-  { src: 'assets/images/about2.webp', title: 'Cybersecurity Researcher', desc: 'Analyzing vulnerabilities, writing papers, and tracking zero-days.' },
-  { src: 'assets/images/about3.webp', title: 'Security Consultant', desc: 'Providing GRC services and risk mitigation strategies.' },
+  { src: 'assets/images/about2.webp', title: 'Cybersecurity Professional', desc: 'Protecting assets, auditing ISMS systems, and securing architectures.' },
+  { src: 'assets/images/abou1.jpeg', title: 'Cybersecurity Researcher', desc: 'Analyzing vulnerabilities, writing papers, and tracking zero-days.' },
+  { src: 'assets/images/abou2.png', title: 'Security Consultant', desc: 'Providing GRC services and risk mitigation strategies.' },
   { src: 'assets/images/about4.webp', title: 'Technical Trainer', desc: 'Delivering hands-on lab training on CCNA, CEH, and offensive security.' },
   { src: 'assets/images/about6.webp', title: 'Public Speaker', desc: 'Keynoting at cybersecurity conferences, colleges, and industry panels.' },
   { src: 'assets/images/about5.webp', title: 'Content Creator', desc: 'Developing lab walkthroughs, security guides, and career resources.' },
@@ -23,7 +23,7 @@ const GALLERY_IMAGES = [
   { src: 'assets/images/service4.webp', title: 'ISMS Compliance Consulting', desc: 'ISO 27001 implementation controls review.' },
   { src: 'assets/images/service05.webp', title: 'Incident Response Briefing', desc: 'Analyzing cyber threat entry points.' },
   { src: 'assets/images/service6.webp', title: 'Executive Cyber Briefing', desc: 'Presenting technical reports to stakeholders.' },
-  { src: 'assets/images/about.webp', title: 'Sab Profile Portrait', desc: 'Professional cybersecurity consultant portrait.' },
+  { src: 'assets/images/sab.jpeg', title: 'Sab Profile Portrait', desc: 'Professional cybersecurity consultant portrait.' },
   { src: 'assets/images/mentor.webp', title: 'Mentorship Session', desc: 'Training session with student groups.' }
 ];
 

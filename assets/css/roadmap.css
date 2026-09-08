@@ -154,19 +154,22 @@
   border: 1px solid rgba(255, 255, 255, 0.04);
   padding: 12px;
   border-radius: 8px;
-  font-family: monospace;
+  font-family: var(--font-main);
 }
 
 .globe-stat-label {
+  font-family: var(--font-main);
   font-size: 0.65rem;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
 }
 
 .globe-stat-value {
+  font-family: var(--font-mono);
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--white);
   margin-top: 4px;
 }
@@ -184,9 +187,12 @@
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-muted);
-  font-family: monospace;
-  font-size: 0.65rem;
-  padding: 4px 8px;
+  font-family: var(--font-main);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -213,7 +219,7 @@
   background: rgba(10, 10, 15, 0.94);
   border-radius: 8px;
   color: var(--white);
-  font-family: monospace;
+  font-family: var(--font-main);
   font-size: 0.75rem;
   z-index: 3000;
   pointer-events: none;
@@ -313,7 +319,7 @@
 }
 
 .tree-tier-badge {
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   padding: 4px 10px;
   border-radius: 30px;
@@ -412,7 +418,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 10px;
   margin-top: 8px;
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
 }
 
@@ -464,7 +470,7 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   color: var(--text-muted);
   opacity: 0.4;
@@ -521,7 +527,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding-top: 14px;
   margin-top: 10px;
-  font-family: monospace;
+  font-family: var(--font-mono);
 }
 
 .domain-metric-item {
@@ -531,11 +537,12 @@
 }
 
 .domain-metric-lbl {
-  font-family: monospace;
+  font-family: var(--font-main);
   font-size: 0.65rem;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .domain-metric-val {
@@ -627,6 +634,33 @@ body.light-theme .hud-search-input::placeholder {
 
 body.light-theme .hud-search-cursor {
   color: var(--red) !important;
+}
+
+/* Sort Container Light Theme */
+body.light-theme .hud-sort-container {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+body.light-theme .hud-sort-container:focus-within,
+body.light-theme .hud-sort-container:hover {
+  background: #ffffff !important;
+  border-color: var(--red) !important;
+  box-shadow: 0 0 15px rgba(224, 90, 0, 0.15) !important;
+}
+
+body.light-theme .hud-sort-select {
+  color: #0f1012 !important;
+}
+
+body.light-theme .hud-sort-select option {
+  background: #ffffff !important;
+  color: #0f1012 !important;
+}
+
+body.light-theme .hud-sort-arrow {
+  color: rgba(15, 16, 18, 0.5) !important;
 }
 
 /* Domain Dashboard Cards */
@@ -826,7 +860,7 @@ body.drawer-active .navbar {
 }
 
 .drawer-sys-lbl {
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--text-muted);
@@ -917,7 +951,7 @@ body.drawer-active .navbar {
 
 .drawer-sec-val.highlight-orange {
   color: var(--neon-amber);
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: bold;
 }
@@ -1128,6 +1162,105 @@ body.light-theme .telemetry-card.total.active {
   flex-wrap: wrap;
 }
 
+.hud-search-prompt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hud-search-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+/* ==========================================================================
+   ROADMAP VIEW CONTROLS & HUD SORT CONTAINER
+   ========================================================================== */
+.roadmap-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hud-sort-container {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 38px;
+  gap: 8px;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.hud-sort-container:focus-within,
+.hud-sort-container:hover {
+  border-color: var(--red);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(224, 90, 0, 0.15);
+}
+
+.hud-sort-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--red);
+  font-family: var(--font-main);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.hud-sort-select {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  padding: 4px 20px 4px 2px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.hud-sort-select option {
+  background: #0f1117;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 8px;
+}
+
+.hud-sort-arrow {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.hud-sort-container:focus-within .hud-sort-arrow,
+.hud-sort-container:hover .hud-sort-arrow {
+  color: var(--red);
+  transform: translateY(1px);
+}
+
 .roadmap-view-switcher {
   display: inline-flex;
   background: rgba(255, 255, 255, 0.03);
@@ -1135,16 +1268,18 @@ body.light-theme .telemetry-card.total.active {
   border-radius: 8px;
   padding: 4px;
   gap: 4px;
+  font-family: var(--font-main);
 }
 
 .view-tab-btn {
   background: transparent;
   border: none;
   color: var(--text-muted);
-  font-family: monospace;
-  font-size: 0.78rem;
+  font-family: var(--font-main);
+  font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
@@ -1166,9 +1301,11 @@ body.light-theme .telemetry-card.total.active {
 }
 
 .subtrack-pill {
-  font-family: monospace;
-  font-size: 0.65rem;
+  font-family: var(--font-main);
+  font-size: 0.68rem;
   font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   padding: 3px 8px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.04);
@@ -1181,19 +1318,124 @@ body.light-theme .telemetry-card.total.active {
 /* ==========================================================================
    INTERACTIVE 8-DOMAIN ROADMAP MATRIX
    ========================================================================== */
+.matrix-viewport-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.matrix-top-scrollbar-wrap {
+  width: 100%;
+  padding: 4px 0 14px 0;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.matrix-top-scrollbar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: height 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.matrix-top-scrollbar-track:hover {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 145, 0, 0.35);
+}
+
+.matrix-top-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15%;
+  min-width: 48px;
+  background: #ff9100;
+  border-radius: 4px;
+  cursor: grab;
+  box-shadow: 0 0 10px rgba(255, 145, 0, 0.5);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.matrix-top-scrollbar-thumb:hover,
+.matrix-top-scrollbar-thumb.active {
+  background: #ffab00;
+  cursor: grabbing;
+  box-shadow: 0 0 16px rgba(255, 145, 0, 0.85), 0 0 4px #ff9100;
+}
+
+.matrix-floating-nav {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  z-index: 35;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(12, 14, 18, 0.92);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  color: #00e5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 229, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.matrix-floating-nav.visible {
+  opacity: 0.9;
+  pointer-events: auto;
+}
+
+.matrix-floating-nav:hover {
+  opacity: 1;
+  background: rgba(20, 24, 32, 0.98);
+  border-color: #ff9100;
+  color: #ff9100;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(255, 145, 0, 0.4);
+}
+
+.matrix-floating-nav.prev {
+  left: 150px;
+  left: 12px;
+}
+
+.matrix-floating-nav.next {
+  right: 12px;
+}
+
 .roadmap-matrix-wrapper {
   width: 100%;
   overflow-x: auto;
   overflow-y: visible;
-  background: rgba(10, 11, 14, 0.85);
+  background: #0c0e13;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(14px);
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   padding-bottom: 8px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(224, 90, 0, 0.5) rgba(255, 255, 255, 0.02);
+  scrollbar-color: rgba(255, 145, 0, 0.5) rgba(255, 255, 255, 0.02);
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  cursor: grab;
+}
+
+.roadmap-matrix-wrapper.dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .roadmap-matrix-wrapper::-webkit-scrollbar {
@@ -1216,16 +1458,16 @@ body.light-theme .telemetry-card.total.active {
 .roadmap-matrix-canvas {
   display: flex;
   flex-direction: column;
-  min-width: 1750px;
+  min-width: 1960px;
   width: 100%;
 }
 
 /* 1. Group Headers Row (8 Primary Domains) */
 .matrix-group-headers-row {
   display: grid;
-  grid-template-columns: 140px repeat(15, minmax(105px, 1fr));
+  grid-template-columns: 140px repeat(14, minmax(130px, 1fr));
   border-bottom: 2px solid rgba(255, 255, 255, 0.12);
-  background: rgba(15, 17, 23, 0.95);
+  background: #0f1117;
   position: sticky;
   top: 0;
   z-index: 20;
@@ -1236,13 +1478,18 @@ body.light-theme .telemetry-card.total.active {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-family: var(--font-main);
+  font-size: 0.7rem;
+  font-weight: 800;
   color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 0.08em;
-  border-right: 2px solid rgba(255, 255, 255, 0.1);
-  background: rgba(12, 14, 18, 0.98);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-right: 2px solid rgba(255, 255, 255, 0.12);
+  background: #0c0e12;
+  position: sticky;
+  left: 0;
+  z-index: 25;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
 }
 
 .matrix-domain-group-header {
@@ -1291,9 +1538,9 @@ body.light-theme .telemetry-card.total.active {
 /* 2. Subtrack Column Headers Row */
 .matrix-subtrack-headers-row {
   display: grid;
-  grid-template-columns: 140px repeat(15, minmax(105px, 1fr));
+  grid-template-columns: 140px repeat(14, minmax(130px, 1fr));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(18, 20, 26, 0.85);
+  background: #12141a;
 }
 
 .matrix-subtrack-corner {
@@ -1301,18 +1548,26 @@ body.light-theme .telemetry-card.total.active {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: monospace;
-  font-size: 0.65rem;
+  font-family: var(--font-main);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: rgba(255, 255, 255, 0.35);
-  border-right: 2px solid rgba(255, 255, 255, 0.1);
-  background: rgba(12, 14, 18, 0.98);
+  border-right: 2px solid rgba(255, 255, 255, 0.12);
+  background: #0c0e12;
+  position: sticky;
+  left: 0;
+  z-index: 22;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
 }
 
 .matrix-subtrack-header-cell {
   padding: 8px 6px;
-  font-family: monospace;
-  font-size: 0.68rem;
+  font-family: var(--font-main);
+  font-size: 0.7rem;
   font-weight: 700;
+  letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
@@ -1325,7 +1580,7 @@ body.light-theme .telemetry-card.total.active {
 /* 3. Tier Rows (Expert, Intermediate, Beginner) */
 .matrix-tier-row {
   display: grid;
-  grid-template-columns: 140px repeat(15, minmax(105px, 1fr));
+  grid-template-columns: 140px repeat(14, minmax(130px, 1fr));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   min-height: 180px;
 }
@@ -1336,8 +1591,8 @@ body.light-theme .telemetry-card.total.active {
 
 .matrix-tier-side-label {
   padding: 16px 12px;
-  border-right: 2px solid rgba(255, 255, 255, 0.1);
-  background: rgba(12, 14, 18, 0.95);
+  border-right: 2px solid rgba(255, 255, 255, 0.12);
+  background: #0c0e12;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1346,35 +1601,37 @@ body.light-theme .telemetry-card.total.active {
   text-align: center;
   position: sticky;
   left: 0;
-  z-index: 10;
+  z-index: 15;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
 }
 
 .tier-badge-pill {
-  font-family: monospace;
-  font-size: 0.75rem;
+  font-family: var(--font-main);
+  font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 4px;
   border: 1px solid currentColor;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
 .tier-subtext {
-  font-family: monospace;
-  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   color: rgba(255, 255, 255, 0.4);
   line-height: 1.3;
 }
 
 .matrix-track-cell {
-  padding: 10px 6px;
+  padding: 10px 8px;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   flex-direction: column;
   gap: 6px;
   background: rgba(255, 255, 255, 0.008);
   transition: background 0.2s ease;
+  min-width: 0;
 }
 
 .matrix-track-cell:hover {
@@ -1385,14 +1642,14 @@ body.light-theme .telemetry-card.total.active {
 .matrix-cert-badge {
   display: block;
   width: 100%;
-  background: rgba(25, 28, 36, 0.85);
+  background: rgba(25, 28, 36, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-left: 3px solid var(--badge-color, #00e5ff);
-  color: rgba(255, 255, 255, 0.9);
-  padding: 6px 8px;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 7px 10px;
   border-radius: 4px;
-  font-family: monospace;
-  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 700;
   text-align: left;
   cursor: pointer;
@@ -1402,6 +1659,8 @@ body.light-theme .telemetry-card.total.active {
   text-overflow: ellipsis;
   line-height: 1.3;
   outline: none;
+  user-select: none;
+  box-sizing: border-box;
 }
 
 .matrix-cert-badge:hover {
@@ -1499,103 +1758,10 @@ body.light-theme .view-tab-btn:hover {
 }
 
 /* ==========================================================================
-   TOP HORIZONTAL DRAG NAVIGATOR & MOUSE DRAG-TO-SCROLL
+   INTERACTIVE MATRIX TABLE DRAG-TO-SCROLL
    ========================================================================== */
-.matrix-scroll-navigator {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(15, 17, 23, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: none;
-  border-radius: 12px 12px 0 0;
-  padding: 10px 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-  user-select: none;
-}
-
-.matrix-scroll-arrow {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--white);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-family: monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.matrix-scroll-arrow:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: #fff;
-  box-shadow: 0 0 12px rgba(224, 90, 0, 0.5);
-}
-
-.matrix-scroll-track {
-  flex: 1;
-  height: 28px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 6px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.matrix-scroll-thumb {
-  position: absolute;
-  top: 2px;
-  left: 0;
-  height: 22px;
-  width: 280px;
-  min-width: 140px;
-  background: linear-gradient(90deg, rgba(224, 90, 0, 0.85) 0%, rgba(255, 145, 0, 0.85) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: grab;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transition: transform 0.05s linear, background 0.2s ease;
-  touch-action: none;
-}
-
-.matrix-scroll-thumb:hover,
-.matrix-scroll-thumb.active {
-  cursor: grabbing;
-  background: linear-gradient(90deg, #ff5722 0%, #ff9800 100%);
-  box-shadow: 0 0 16px rgba(224, 90, 0, 0.7);
-}
-
-.thumb-drag-dots {
-  font-family: monospace;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
-  letter-spacing: 0.1em;
-}
-
-.thumb-drag-label {
-  font-family: monospace;
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-/* Enhancing Roadmap Matrix Wrapper with Drag Support */
 .roadmap-matrix-wrapper {
-  border-radius: 0 0 12px 12px !important;
+  border-radius: 12px !important;
   cursor: grab;
   overflow-x: auto;
   scroll-behavior: auto;
@@ -1609,23 +1775,6 @@ body.light-theme .view-tab-btn:hover {
 
 .roadmap-matrix-wrapper.dragging * {
   user-select: none !important;
-}
-
-/* Light Theme overrides for Drag Navigator */
-body.light-theme .matrix-scroll-navigator {
-  background: #f8f9fa;
-  border-color: rgba(0, 0, 0, 0.08);
-}
-
-body.light-theme .matrix-scroll-arrow {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.1);
-  color: #0f1012;
-}
-
-body.light-theme .matrix-scroll-track {
-  background: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.08);
 }
 
 
@@ -1713,9 +1862,9 @@ body.light-theme .matrix-scroll-track {
 }
 
 .domain-tier-tag {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-family: var(--font-main);
+  font-size: 0.7rem;
+  font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -1726,29 +1875,29 @@ body.light-theme .matrix-scroll-track {
   border-radius: 20px;
   padding: 3px 10px;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--white);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
 
 .domain-card-title {
   font-family: var(--font-main);
-  font-size: 1.28rem;
-  font-weight: 900;
+  font-size: 1.32rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--white);
-  line-height: 1.22;
+  line-height: 1.25;
   margin: 0 0 10px 0;
 }
 
 .domain-card-desc {
   font-family: var(--font-main);
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.65);
-  line-height: 1.62;
+  line-height: 1.65;
   margin: 0 0 16px 0;
 }
 
@@ -1764,17 +1913,18 @@ body.light-theme .matrix-scroll-track {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   padding: 4px 8px;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-family: var(--font-main);
+  font-size: 0.68rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   transition: all 0.2s ease;
 }
 
 .domain-roadmap-card:hover .subtrack-pill {
   border-color: rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .domain-tier-progress-row {
@@ -1795,19 +1945,20 @@ body.light-theme .matrix-scroll-track {
 }
 
 .tier-stat-lbl {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-family: var(--font-main);
+  font-size: 0.65rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
 }
 
 .tier-stat-val {
   font-family: var(--font-main);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 900;
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .domain-card-cta {
@@ -1819,10 +1970,10 @@ body.light-theme .matrix-scroll-track {
   background: rgba(224, 90, 0, 0.08);
   border: 1px solid rgba(224, 90, 0, 0.28);
   color: var(--red);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1885,3 +2036,34 @@ body.light-theme .domain-tier-progress-row {
 body.light-theme .tier-stat-lbl {
   color: rgba(15, 16, 18, 0.45) !important;
 }
+
+/* Responsive Mobile & Tablet Adjustments for Matrix */
+@media (max-width: 768px) {
+  .matrix-floating-nav {
+    display: none;
+  }
+
+  .matrix-corner-header,
+  .matrix-subtrack-corner,
+  .matrix-tier-side-label {
+    position: static !important;
+    box-shadow: none !important;
+    width: 90px !important;
+    padding: 8px 4px !important;
+  }
+
+  .matrix-group-headers-row,
+  .matrix-subtrack-headers-row,
+  .matrix-tier-row {
+    grid-template-columns: 90px repeat(14, minmax(120px, 1fr)) !important;
+  }
+
+  .roadmap-matrix-canvas {
+    min-width: 1770px;
+  }
+
+  .matrix-top-scrollbar-wrap {
+    padding: 2px 0 10px 0;
+  }
+}
+

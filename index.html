@@ -11,13 +11,13 @@
   <link rel="icon" type="image/webp" href="assets/images/favicon.webp?v=3.12">
 
   <!-- Preload Critical Assets -->
-  <link rel="preload" href="assets/css/style.css?v=11.0" as="style">
+  <link rel="preload" href="assets/css/style.css?v=14.0" as="style">
   <link rel="preload" href="assets/css/portfolio-page.css?v=12.0" as="style">
-  <link rel="preload" href="assets/images/hero.webp" as="image">
+  <link rel="preload" href="assets/images/hero-sequence/ezgif-frame-001.jpg" as="image">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+Tamil:wght@400;700;900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=11.0">
+  <link rel="stylesheet" href="assets/css/style.css?v=14.0">
   <link rel="stylesheet" href="assets/css/portfolio-page.css?v=12.0">
   <link rel="stylesheet" href="assets/css/sphere-gallery.css?v=2.5">
   <style>
@@ -421,130 +421,145 @@
     <div class="badge-text">Roadmap</div>
   </a>
 
-  <!-- HERO -->
-  <section class="split-hero" id="intro-hero">
-    <div class="split-hero-left">
-      <div class="split-hero-topbar">
-        <a href="#contact" class="split-hero-cta">Contact</a>
-        <button class="theme-toggle-btn" id="splitThemeToggleBtn" aria-label="Toggle theme">
-          <div class="theme-toggle-btn-inner">
-            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </div>
-        </button>
-        <button class="split-hero-menu-btn" id="splitMenuBtn"
-          aria-label="Toggle menu"><span></span><span></span></button>
-      </div>
-      <div class="intro-hero-bg">
-        <img src="assets/images/hero.webp" alt="Sabhareeshwaran SAB S" loading="lazy">
-      </div>
-      <!-- <canvas id="hero-matrix-canvas" class="hero-matrix-canvas"></canvas> (Disabled Matrix Animation) -->
-
-
-
-      <div class="intro-hero-content">
-        <div class="hero-split-layout">
-          <div class="hero-split-left">
-            <div class="intro-hero-subtitle">
-              <span class="hero-sub-line">INFORMATION SECURITY</span>
-              <span class="hero-sub-line amp-char">&amp;</span>
-              <span class="hero-sub-line">CYBER SECURITY</span>
-              <span class="hero-sub-line">PROFESSIONAL</span>
-              <span class="hero-sub-line dynamic-role-line"
-                style="color: var(--red); font-size: clamp(14px, 1.8vw, 24px); margin-top: 15px; letter-spacing: 0.1em; font-weight: 700; opacity: 1; transform: none;">
-                <span id="heroRoleValue">CYBERSECURITY PROFESSIONAL</span><span class="role-cursor">_</span>
-              </span>
+  <!-- HERO 180° PERSPECTIVE ROTATION SCROLL TRACK -->
+  <div class="hero-scroll-track" id="heroScrollTrack">
+    <section class="split-hero" id="intro-hero">
+      <div class="split-hero-left">
+        <div class="split-hero-topbar">
+          <a href="#contact" class="split-hero-cta">Contact</a>
+          <button class="theme-toggle-btn" id="splitThemeToggleBtn" aria-label="Toggle theme">
+            <div class="theme-toggle-btn-inner">
+              <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+              <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
             </div>
-            <div class="hero-ctas">
-              <a href="#contact" class="hero-cta-btn-primary">Get In Touch</a>
-              <a href="#certifications" class="hero-cta-btn-secondary">View Certifications</a>
+          </button>
+          <button class="split-hero-menu-btn" id="splitMenuBtn"
+            aria-label="Toggle menu"><span></span><span></span></button>
+        </div>
+
+        <!-- 180° Scrubbable Canvas Image Sequence -->
+        <div class="intro-hero-bg" id="heroCanvasBg">
+          <canvas id="heroSequenceCanvas" class="hero-sequence-canvas"></canvas>
+          <div class="hero-sequence-fallback" id="heroFallbackWrap">
+            <img src="assets/images/hero-sequence/ezgif-frame-001.jpg" alt="Sabhareeshwaran SAB S" id="heroFallbackImg">
+          </div>
+        </div>
+
+        <div class="intro-hero-content">
+          <div class="hero-split-layout">
+            <div class="hero-split-left">
+              <div class="intro-hero-subtitle">
+                <span class="hero-sub-line">INFORMATION SECURITY</span>
+                <span class="hero-sub-line amp-char">&amp;</span>
+                <span class="hero-sub-line">CYBER SECURITY</span>
+                <span class="hero-sub-line">PROFESSIONAL</span>
+                <span class="hero-sub-line dynamic-role-line"
+                  style="color: var(--red); font-size: clamp(14px, 1.8vw, 24px); margin-top: 15px; letter-spacing: 0.1em; font-weight: 700; opacity: 1; transform: none;">
+                  <span id="heroRoleValue">CYBERSECURITY PROFESSIONAL</span><span class="role-cursor">_</span>
+                </span>
+              </div>
+              <div class="hero-ctas">
+                <a href="#contact" class="hero-cta-btn-primary">Get In Touch</a>
+                <a href="#certifications" class="hero-cta-btn-secondary">View Certifications</a>
+              </div>
+            </div>
+            <div class="hero-split-right">
+              <div class="hero-name-wrap">
+                <h1 class="intro-hero-name">SAB<span class="hero-dot">.</span></h1>
+              </div>
             </div>
           </div>
-          <div class="hero-split-right">
-            <h1 class="intro-hero-name">SAB<span class="hero-dot">.</span></h1>
+        </div>
+
+        <!-- Scroll To Rotate Animated Hint -->
+        <div class="hero-scroll-rotate-hint" id="heroScrollRotateHint">
+          <div class="scroll-rotate-mouse">
+            <div class="scroll-rotate-wheel"></div>
+          </div>
+          <span class="scroll-rotate-text">SCROLL TO ROTATE</span>
+        </div>
+
+        <div class="intro-hero-tagline">
+          <span class="tagline-word">LEARN.</span>
+          <span class="tagline-sep">·</span>
+          <span class="tagline-word">SECURE.</span>
+          <span class="tagline-sep">·</span>
+          <span class="tagline-word">DEFEND.</span>
+          <span class="tagline-sep">·</span>
+          <span class="tagline-word tagline-accent">INNOVATE.</span>
+        </div>
+        <div class="intro-hero-bottom">
+          <span>ISO 27001:2022 LEAD AUDITOR • CEH • CCNA • SC-200</span>
+          <span>ASSISTANT MANAGER – IT INFRASTRUCTURE &amp; PMO @ EQUITAS SMALL FINANCE BANK</span>
+          <span>CHENNAI, TAMIL NADU, INDIA</span>
+        </div>
+      </div>
+      <div class="split-hero-right" id="splitHeroNav">
+        <button class="split-hero-close" id="splitNavClose" aria-label="Close menu">&#10005;</button>
+        <div class="split-nav-grid">
+          <div class="split-nav-col">
+            <div class="split-nav-col-header">
+              <span class="cyber-bracket">[</span>
+              <span class="header-text">01 // IDENTITY</span>
+              <span class="cyber-bracket">]</span>
+            </div>
+            <div class="split-nav-col-links">
+              <a href="#about" class="split-nav-link"><span class="link-num">01.</span> About</a>
+              <a href="#experience" class="split-nav-link"><span class="link-num">02.</span> Experience</a>
+              <a href="#skills" class="split-nav-link"><span class="link-num">03.</span> Skills</a>
+              <a href="#volunteering" class="split-nav-link"><span class="link-num">04.</span> Volunteering</a>
+              <a href="#contact" class="split-nav-link"><span class="link-num">05.</span> Contact</a>
+            </div>
+          </div>
+          <div class="split-nav-col">
+            <div class="split-nav-col-header">
+              <span class="cyber-bracket">[</span>
+              <span class="header-text">02 // WORK</span>
+              <span class="cyber-bracket">]</span>
+            </div>
+            <div class="split-nav-col-links">
+              <a href="#courses" class="split-nav-link"><span class="link-num">06.</span> Courses</a>
+            </div>
+          </div>
+          <div class="split-nav-col">
+            <div class="split-nav-col-header">
+              <span class="cyber-bracket">[</span>
+              <span class="header-text">03 // INTEL &amp; TESTIMONIALS</span>
+              <span class="cyber-bracket">]</span>
+            </div>
+            <div class="split-nav-col-links">
+              <a href="#education" class="split-nav-link"><span class="link-num">07.</span> Education</a>
+              <a href="#awards" class="split-nav-link"><span class="link-num">08.</span> Honors</a>
+              <a href="#recommendations" class="split-nav-link"><span class="link-num">09.</span> Testimonials</a>
+            </div>
+          </div>
+        </div>
+        <div class="split-nav-footer">
+          <div class="nav-footer-status">
+            <span class="status-indicator-dot animate-pulse"></span>
+            <span class="status-text">SYSTEM ACTIVE // CHENNAI, IN</span>
+          </div>
+          <div class="nav-footer-time">
+            <span class="clock-label">LCL TIME:</span> <span class="clock-time" data-tz="Asia/Kolkata">00:00:00</span>
           </div>
         </div>
       </div>
-      <div class="intro-hero-tagline">
-        <span class="tagline-word">LEARN.</span>
-        <span class="tagline-sep">·</span>
-        <span class="tagline-word">SECURE.</span>
-        <span class="tagline-sep">·</span>
-        <span class="tagline-word">DEFEND.</span>
-        <span class="tagline-sep">·</span>
-        <span class="tagline-word tagline-accent">INNOVATE.</span>
-      </div>
-      <div class="intro-hero-bottom">
-        <span>ISO 27001:2022 LEAD AUDITOR • CEH • CCNA • SC-200</span>
-        <span>ASSISTANT MANAGER – IT INFRASTRUCTURE &amp; PMO @ EQUITAS SMALL FINANCE BANK</span>
-        <span>CHENNAI, TAMIL NADU, INDIA</span>
-      </div>
-    </div>
-    <div class="split-hero-right" id="splitHeroNav">
-      <button class="split-hero-close" id="splitNavClose" aria-label="Close menu">&#10005;</button>
-      <div class="split-nav-grid">
-        <div class="split-nav-col">
-          <div class="split-nav-col-header">
-            <span class="cyber-bracket">[</span>
-            <span class="header-text">01 // IDENTITY</span>
-            <span class="cyber-bracket">]</span>
-          </div>
-          <div class="split-nav-col-links">
-            <a href="#about" class="split-nav-link"><span class="link-num">01.</span> About</a>
-            <a href="#experience" class="split-nav-link"><span class="link-num">02.</span> Experience</a>
-            <a href="#skills" class="split-nav-link"><span class="link-num">03.</span> Skills</a>
-            <a href="#volunteering" class="split-nav-link"><span class="link-num">04.</span> Volunteering</a>
-            <a href="#contact" class="split-nav-link"><span class="link-num">05.</span> Contact</a>
-          </div>
-        </div>
-        <div class="split-nav-col">
-          <div class="split-nav-col-header">
-            <span class="cyber-bracket">[</span>
-            <span class="header-text">02 // WORK</span>
-            <span class="cyber-bracket">]</span>
-          </div>
-          <div class="split-nav-col-links">
-            <a href="#courses" class="split-nav-link"><span class="link-num">06.</span> Courses</a>
-          </div>
-        </div>
-        <div class="split-nav-col">
-          <div class="split-nav-col-header">
-            <span class="cyber-bracket">[</span>
-            <span class="header-text">03 // INTEL &amp; TESTIMONIALS</span>
-            <span class="cyber-bracket">]</span>
-          </div>
-          <div class="split-nav-col-links">
-            <a href="#education" class="split-nav-link"><span class="link-num">07.</span> Education</a>
-            <a href="#awards" class="split-nav-link"><span class="link-num">08.</span> Honors</a>
-            <a href="#recommendations" class="split-nav-link"><span class="link-num">09.</span> Testimonials</a>
-          </div>
-        </div>
-      </div>
-      <div class="split-nav-footer">
-        <div class="nav-footer-status">
-          <span class="status-indicator-dot animate-pulse"></span>
-          <span class="status-text">SYSTEM ACTIVE // CHENNAI, IN</span>
-        </div>
-        <div class="nav-footer-time">
-          <span class="clock-label">LCL TIME:</span> <span class="clock-time" data-tz="Asia/Kolkata">00:00:00</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <!-- SOCIAL PROOF STRIP -->
   <section class="social-proof-strip">
@@ -607,7 +622,7 @@
     <div class="about-dot-pattern about-dot-tr"></div>
     <div class="about-dot-pattern about-dot-bl"></div>
     <div class="about-portrait">
-      <img src="assets/images/about.webp" alt="Sabhareeshwaran SAB S" loading="lazy">
+      <img src="assets/images/sab.jpeg" alt="Sabhareeshwaran SAB S" loading="lazy">
     </div>
     <div class="about-bio">
       <div class="about-mission-quote">"BRIDGING THE GAP BETWEEN ACADEMIC LEARNING AND REAL-WORLD CYBERSECURITY."</div>
@@ -630,7 +645,7 @@
           <!-- Card 1 -->
           <div class="role-card active" data-index="0">
             <div class="role-card-img-wrap">
-              <img src="assets/images/about1.webp" alt="Cybersecurity Professional" class="role-card-img"
+              <img src="assets/images/about2.webp" alt="Cybersecurity Professional" class="role-card-img"
                 loading="lazy">
               <div class="role-card-badge">SEC_PROF</div>
             </div>
@@ -645,7 +660,7 @@
           <!-- Card 2 -->
           <div class="role-card" data-index="1">
             <div class="role-card-img-wrap">
-              <img src="assets/images/about2.webp" alt="Cybersecurity Researcher" class="role-card-img" loading="lazy">
+              <img src="assets/images/abou1.jpeg" alt="Cybersecurity Researcher" class="role-card-img" loading="lazy">
               <div class="role-card-badge">SEC_RES</div>
             </div>
             <div class="role-card-details">
@@ -659,7 +674,7 @@
           <!-- Card 3 -->
           <div class="role-card" data-index="2">
             <div class="role-card-img-wrap">
-              <img src="assets/images/about3.webp" alt="Security Consultant" class="role-card-img" loading="lazy">
+              <img src="assets/images/abou2.png" alt="Security Consultant" class="role-card-img" loading="lazy">
               <div class="role-card-badge">SEC_CONS</div>
             </div>
             <div class="role-card-details">
@@ -2308,7 +2323,7 @@
 
 
   <script src="assets/js/script.js?v=5.0" defer></script>
-  <script src="assets/js/animations.min.js?v=5.0" defer></script>
+  <script src="assets/js/animations.min.js?v=6.0" defer></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
