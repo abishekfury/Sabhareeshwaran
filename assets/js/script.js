@@ -225,45 +225,35 @@ function initPreloader() {
 
   document.body.classList.add('no-scroll');
 
-  // Safety fallback timeout to prevent any stuck state if GSAP or assets hang
-  const safetyTimeout = setTimeout(() => {
-    if (!preloader.classList.contains('loaded')) {
-      preloader.classList.add('loaded');
-      document.body.classList.remove('no-scroll');
-      initIntroHeroAnimation();
-    }
-  }, 4500);
+  let isDismissed = false;
+  function finishPreloader() {
+    if (isDismissed) return;
+    isDismissed = true;
+    clearTimeout(safetyTimeout);
+    preloader.classList.add('loaded');
+    document.body.classList.remove('no-scroll');
+    initIntroHeroAnimation();
+  }
+
+  // Fast safety fallback timeout (1200ms)
+  const safetyTimeout = setTimeout(finishPreloader, 1200);
 
   try {
     if (typeof gsap === 'undefined') {
-      // Fallback count up simulation without GSAP
       let currentVal = 0;
       const percentEl = document.getElementById('preloader-percent');
       const lineEl = document.querySelector('.preloader-line');
 
       const interval = setInterval(() => {
-        currentVal += 2;
-        if (percentEl) percentEl.textContent = currentVal;
-        if (lineEl) lineEl.style.width = `${currentVal}%`;
+        currentVal += 10;
+        if (percentEl) percentEl.textContent = Math.min(100, currentVal);
+        if (lineEl) lineEl.style.width = `${Math.min(100, currentVal)}%`;
 
         if (currentVal >= 100) {
           clearInterval(interval);
-          clearTimeout(safetyTimeout);
-          // Split panels manually via CSS transition
-          const topPanel = document.querySelector('.panel-top');
-          const bottomPanel = document.querySelector('.panel-bottom');
-          const content = document.querySelector('.preloader-content');
-          if (content) content.style.opacity = '0';
-          if (topPanel) topPanel.style.transform = 'translateY(-100%)';
-          if (bottomPanel) bottomPanel.style.transform = 'translateY(100%)';
-
-          setTimeout(() => {
-            preloader.classList.add('loaded');
-            document.body.classList.remove('no-scroll');
-            initIntroHeroAnimation();
-          }, 800);
+          finishPreloader();
         }
-      }, 30);
+      }, 25);
       return;
     }
 
@@ -273,8 +263,8 @@ function initPreloader() {
 
     gsap.to(loaderObj, {
       val: 100,
-      duration: 2.2,
-      ease: 'power1.out',
+      duration: 0.6,
+      ease: 'power2.out',
       onUpdate: () => {
         const rounded = Math.floor(loaderObj.val);
         if (percentEl) percentEl.textContent = rounded;
@@ -283,48 +273,46 @@ function initPreloader() {
       onComplete: () => {
         clearTimeout(safetyTimeout);
 
-        // Shutter Exit Animation: Split panels top and bottom
+        // Shutter Exit Animation: Split panels top and bottom swiftly
         const exitTl = gsap.timeline({
           onComplete: () => {
-            preloader.classList.add('loaded');
-            document.body.classList.remove('no-scroll');
-            initIntroHeroAnimation();
+            finishPreloader();
           }
         });
 
         // 1. Fade out the text & line loader
         exitTl.to('.preloader-brand, .preloader-line-wrap, .preloader-counter', {
           opacity: 0,
-          duration: 0.3,
+          duration: 0.15,
           ease: 'power2.out'
         })
           // 2. Split top/bottom panels open
           .to('.panel-top', {
             yPercent: -100,
-            duration: 0.95,
+            duration: 0.4,
             ease: 'power3.inOut'
-          }, '-=0.15')
+          }, '-=0.05')
           .to('.panel-bottom', {
             yPercent: 100,
-            duration: 0.95,
+            duration: 0.4,
             ease: 'power3.inOut'
-          }, '-=0.95');
+          }, '-=0.4');
 
         // Website reveal parallax
         gsap.fromTo('.split-hero',
-          { y: -80 },
-          { y: 0, duration: 1.1, ease: 'power4.out', delay: 0.1 }
+          { y: -30 },
+          { y: 0, duration: 0.5, ease: 'power3.out' }
         );
         const isScrolled = window.scrollY > 60;
         if (isScrolled) {
           gsap.fromTo('.navbar',
-            { y: -60, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1.0, ease: 'power4.out', delay: 0.15, clearProps: 'opacity' }
+            { y: -40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', clearProps: 'opacity' }
           );
         } else {
           gsap.fromTo('.navbar',
-            { y: -60 },
-            { y: 0, duration: 1.0, ease: 'power4.out', delay: 0.15 }
+            { y: -40 },
+            { y: 0, duration: 0.5, ease: 'power3.out' }
           );
         }
       }
@@ -332,10 +320,7 @@ function initPreloader() {
 
   } catch (error) {
     console.error("initPreloader error: ", error);
-    clearTimeout(safetyTimeout);
-    preloader.classList.add('loaded');
-    document.body.classList.remove('no-scroll');
-    initIntroHeroAnimation();
+    finishPreloader();
   }
 }
 

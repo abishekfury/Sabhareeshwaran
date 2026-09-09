@@ -3309,30 +3309,42 @@ button {
 
   .intro-hero-bottom {
     flex-direction: column;
-    gap: 8px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    align-items: flex-start;
+    gap: 4px;
+    left: 16px;
+    right: 16px;
+    bottom: 12px;
+    align-items: center;
+    text-align: center;
+    font-size: 9px;
   }
 
   .intro-hero-bg::after {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.88) 100%) !important;
+    background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 32%,
+      rgba(0, 0, 0, 0.4) 44%,
+      rgba(0, 0, 0, 0.88) 56%,
+      rgba(0, 0, 0, 1) 75%) !important;
   }
 
-  .intro-hero-bg img {
-    object-position: center top;
+  .intro-hero-bg img,
+  .hero-sequence-fallback img {
+    object-position: center 8%;
+    object-fit: contain;
+    height: 56%;
   }
 
   .intro-hero-content {
     position: absolute;
-    top: 50%;
+    top: 47%;
+    top: 62%;
+    bottom: auto;
     left: 0;
     right: 0;
-    transform: translateY(-50%);
-    z-index: 2;
+    transform: none;
+    z-index: 4;
     text-align: center;
-    padding: 0 40px;
+    padding: 0 20px;
     max-width: none;
   }
 
@@ -3340,7 +3352,7 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 6px;
   }
 
   .hero-split-left,
@@ -3355,7 +3367,8 @@ button {
     display: block;
     border-left: none;
     padding-left: 0;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
+    margin-bottom: 4px;
     text-align: center;
     opacity: 0;
     transform: translateY(30px);
@@ -3370,8 +3383,10 @@ button {
   .hero-sub-line {
     display: inline;
     font-size: clamp(11px, 1.3vw, 18px);
+    font-size: clamp(10px, 1.2vw, 15px);
     font-weight: 800;
     letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     color: var(--white);
     text-transform: uppercase;
     opacity: 1 !important;
@@ -3385,17 +3400,46 @@ button {
 
   .hero-sub-line.amp-char {
     font-size: clamp(11px, 1.3vw, 18px);
+    font-size: clamp(10px, 1.2vw, 15px);
     font-weight: 800;
     color: var(--white);
     margin: 0;
   }
 
+  .dynamic-role-line {
+    display: block !important;
+    font-size: clamp(12px, 1.5vw, 16px) !important;
+    margin-top: 5px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .hero-ctas {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    gap: 10px;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+
+  .hero-ctas .hero-cta-btn-primary,
+  .hero-ctas .hero-cta-btn-secondary {
+    padding: 9px 16px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
   .intro-hero-name {
-    font-size: clamp(44px, 10vw, 160px);
+    font-size: clamp(34px, 8.5vw, 56px);
+    font-size: clamp(28px, 7.5vw, 46px);
     font-weight: 900;
-    line-height: 0.88;
+    line-height: 0.9;
     letter-spacing: -0.04em;
     text-align: center;
+    margin-top: 2px;
+    margin-bottom: 0;
   }
 
   .intro-hero-name .hero-dot {

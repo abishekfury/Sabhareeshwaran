@@ -177,13 +177,37 @@
       renderHeight = canvasWidth / imgRatio;
       renderX = 0;
       renderY = (canvasHeight - renderHeight) * focalY;
+    if (window.innerWidth <= 768) {
+      // Mobile Alignment:
+      // Frame Sab cleanly in upper ~54% of screen, leaving lower area for text & CTAs
+      const targetH = Math.min(canvasHeight * 0.54, Math.max(canvasHeight * 0.44, canvasWidth * 1.05));
+      const mobileRatio = targetH / imgHeight;
+      renderWidth = Math.round(imgWidth * mobileRatio);
+      renderHeight = Math.round(imgHeight * mobileRatio);
+      renderX = Math.round((canvasWidth - renderWidth) * 0.5);
+      renderY = Math.round(Math.max(14 * (window.devicePixelRatio || 1), canvasHeight * 0.04));
+    } else if (window.innerWidth <= 1024) {
+      // Tablet Alignment:
+      const ratio = Math.max(canvasWidth / imgWidth, canvasHeight / imgHeight);
+      renderWidth = imgWidth * ratio;
+      renderHeight = imgHeight * ratio;
+      renderX = (canvasWidth - renderWidth) * 0.52;
+      renderY = (canvasHeight - renderHeight) * 0.15;
     } else {
       renderHeight = canvasHeight;
       renderWidth = canvasHeight * imgRatio;
       renderX = (canvasWidth - renderWidth) * focalX;
       renderY = (canvasHeight - renderHeight) * focalY;
+      // Desktop Alignment:
+      const ratio = Math.max(canvasWidth / imgWidth, canvasHeight / imgHeight);
+      renderWidth = imgWidth * ratio;
+      renderHeight = imgHeight * ratio;
+      renderX = (canvasWidth - renderWidth) * 0.54;
+      renderY = (canvasHeight - renderHeight) * 0.2;
     }
 
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.drawImage(img, renderX, renderY, renderWidth, renderHeight);
   }
 
