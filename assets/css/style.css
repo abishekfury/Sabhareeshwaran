@@ -328,11 +328,11 @@ button {
 }
 
 .nav-menu-btn {
-  position: fixed;
-  top: 32px;
-  right: 40px;
+  position: relative;
+  top: auto;
+  right: auto;
   z-index: 1002;
-  transition: all 0.3s ease, top 0.4s ease;
+  transition: all 0.3s ease;
   width: 30px;
   height: 22px;
   display: flex;
@@ -343,10 +343,11 @@ button {
   background: none;
   border: none;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .nav-menu-btn.scrolled {
-  top: 26px;
+  top: auto;
 }
 
 .nav-menu-btn span {
@@ -549,6 +550,14 @@ button {
   justify-content: flex-end;
   gap: 16px;
   padding: 22px 28px;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.split-hero-topbar.hidden,
+body.scrolled .split-hero-topbar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }
 
 .split-hero-cta {
@@ -2350,7 +2359,7 @@ button {
 .experience {
   background: var(--black);
   color: var(--white);
-  padding: 100px 40px 120px;
+  padding: 80px 40px;
   overflow: hidden;
 }
 
@@ -2455,31 +2464,35 @@ button {
   position: relative;
   display: flex;
   align-items: flex-start;
-  min-height: 450px;
+  min-height: 540px;
   border-left: 1px solid var(--border-light);
   padding-left: 50px;
 }
 
 .exp-details-container {
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: start;
+  min-height: 540px;
 }
 
 .exp-details-content {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) translateY(20px);
+  grid-area: 1 / 1 / 2 / 2;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), visibility 0.4s;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  transform: translateY(15px);
   width: 100%;
 }
 
 .exp-details-content.active {
-  position: relative;
-  top: 0;
-  transform: translateY(0);
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .exp-details-role {
@@ -2570,12 +2583,19 @@ button {
     min-height: auto;
   }
 
+  .exp-details-container {
+    display: block;
+    min-height: auto;
+  }
+
   .exp-details-content {
+    grid-area: auto;
     position: relative;
     top: 0;
     transform: none;
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     display: none;
   }
 
@@ -5099,12 +5119,12 @@ html.lenis {
   }
 
   .nav-menu-btn {
-    top: 26px;
-    right: 20px;
+    top: auto;
+    right: auto;
   }
 
   .nav-menu-btn.scrolled {
-    top: 21px;
+    top: auto;
   }
 }
 

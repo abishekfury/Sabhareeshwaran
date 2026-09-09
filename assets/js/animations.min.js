@@ -37,9 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
       lenis.raf(time * 1000);
     });
 
-    // Restore default lag smoothing (500ms/33ms) so GSAP catches up gracefully
-    // on heavy frames instead of compounding lag
-    gsap.ticker.lagSmoothing(500, 33);
+    // Disable GSAP lag smoothing to prevent sudden scroll jumps during pinning/unpinning reflows with Lenis
+    gsap.ticker.lagSmoothing(0);
 
     lenis.on('scroll', (e) => {
       ScrollTrigger.update();
@@ -1105,7 +1104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== ENHANCED PRELOADER INTEGRATION ===== */
   function enhancePreloaderExit() {
-    // Synchronized with preloader timing from script.js
+    // Synchronized with 3.0s preloader timing from script.js
     setTimeout(() => {
       const introHero = document.querySelector('#intro-hero');
       if (introHero) {
@@ -1119,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         );
       }
-    }, 1200);
+    }, 3000);
   }
 
   /* ===== HERO SECTION SCALE ON SCROLL ===== */

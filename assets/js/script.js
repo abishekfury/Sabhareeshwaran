@@ -235,8 +235,8 @@ function initPreloader() {
     initIntroHeroAnimation();
   }
 
-  // Fast safety fallback timeout (1200ms)
-  const safetyTimeout = setTimeout(finishPreloader, 1200);
+  // Safety fallback timeout set to 4200ms to allow exact 3.0s preloader to finish
+  const safetyTimeout = setTimeout(finishPreloader, 4200);
 
   try {
     if (typeof gsap === 'undefined') {
@@ -245,15 +245,15 @@ function initPreloader() {
       const lineEl = document.querySelector('.preloader-line');
 
       const interval = setInterval(() => {
-        currentVal += 10;
+        currentVal += 1;
         if (percentEl) percentEl.textContent = Math.min(100, currentVal);
         if (lineEl) lineEl.style.width = `${Math.min(100, currentVal)}%`;
 
         if (currentVal >= 100) {
           clearInterval(interval);
-          finishPreloader();
+          setTimeout(finishPreloader, 600);
         }
-      }, 25);
+      }, 24);
       return;
     }
 
@@ -261,10 +261,11 @@ function initPreloader() {
     const percentEl = document.getElementById('preloader-percent');
     const lineEl = document.querySelector('.preloader-line');
 
+    // 2.4s counter progress + 0.6s shutter exit = exactly 3.0 seconds total display
     gsap.to(loaderObj, {
       val: 100,
-      duration: 0.6,
-      ease: 'power2.out',
+      duration: 2.4,
+      ease: 'power1.inOut',
       onUpdate: () => {
         const rounded = Math.floor(loaderObj.val);
         if (percentEl) percentEl.textContent = rounded;
@@ -273,7 +274,7 @@ function initPreloader() {
       onComplete: () => {
         clearTimeout(safetyTimeout);
 
-        // Shutter Exit Animation: Split panels top and bottom swiftly
+        // Shutter Exit Animation (0.6s): Split panels top and bottom
         const exitTl = gsap.timeline({
           onComplete: () => {
             finishPreloader();
@@ -283,36 +284,36 @@ function initPreloader() {
         // 1. Fade out the text & line loader
         exitTl.to('.preloader-brand, .preloader-line-wrap, .preloader-counter', {
           opacity: 0,
-          duration: 0.15,
+          duration: 0.2,
           ease: 'power2.out'
         })
           // 2. Split top/bottom panels open
           .to('.panel-top', {
             yPercent: -100,
-            duration: 0.4,
+            duration: 0.6,
             ease: 'power3.inOut'
-          }, '-=0.05')
+          }, '-=0.1')
           .to('.panel-bottom', {
             yPercent: 100,
-            duration: 0.4,
+            duration: 0.6,
             ease: 'power3.inOut'
-          }, '-=0.4');
+          }, '-=0.6');
 
         // Website reveal parallax
         gsap.fromTo('.split-hero',
           { y: -30 },
-          { y: 0, duration: 0.5, ease: 'power3.out' }
+          { y: 0, duration: 0.6, ease: 'power3.out' }
         );
         const isScrolled = window.scrollY > 60;
         if (isScrolled) {
           gsap.fromTo('.navbar',
             { y: -40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', clearProps: 'opacity' }
+            { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', clearProps: 'opacity' }
           );
         } else {
           gsap.fromTo('.navbar',
             { y: -40 },
-            { y: 0, duration: 0.5, ease: 'power3.out' }
+            { y: 0, duration: 0.6, ease: 'power3.out' }
           );
         }
       }
@@ -377,10 +378,19 @@ function initNavbar() {
   if (!navbar) return;
 
   function updateNavbar() {
-    if (window.scrollY > 60) {
+    const splitTopbar = document.querySelector('.split-hero-topbar');
+    if (window.scrollY > 40) {
       navbar.classList.add('scrolled');
+      document.body.classList.add('scrolled');
+      if (splitTopbar) {
+        splitTopbar.classList.add('hidden');
+      }
     } else {
       navbar.classList.remove('scrolled');
+      document.body.classList.remove('scrolled');
+      if (splitTopbar) {
+        splitTopbar.classList.remove('hidden');
+      }
     }
   }
 
@@ -569,14 +579,30 @@ function initNavDrawer() {
 
   // Open on all hamburger buttons
   menuBtns.forEach(btn => {
-    if (btn) btn.addEventListener('click', () => {
+    if (btn) btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       if (drawer.classList.contains('open')) closeDrawer();
       else openDrawer();
     });
   });
 
   // Close on X button
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  if (closeBtn) closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeDrawer();
+  });
+
+  // Close on split-hero nav close button
+  const splitNavClose = document.getElementById('splitNavClose');
+  if (splitNavClose) {
+    splitNavClose.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeDrawer();
+    });
+  }
 
   // Close on overlay click
   overlay.addEventListener('click', closeDrawer);
@@ -632,10 +658,11 @@ function initNavDrawer() {
     if (drawer.classList.contains('open')) closeDrawer();
   });
 
-  // Close on page wrapper click
+  // Close on page wrapper click (guard against hamburger menu buttons)
   const pageWrapper = document.getElementById('page-wrapper');
   if (pageWrapper) {
     pageWrapper.addEventListener('click', (e) => {
+      if (e.target.closest('#menuBtn') || e.target.closest('#splitMenuBtn')) return;
       if (document.body.classList.contains('menu-open')) {
         e.preventDefault();
         e.stopPropagation();
@@ -864,7 +891,9 @@ function initExperienceScroller() {
         start: 'top top',
         end: `+=${totalItems * 350}px`,
         pin: true,
-        scrub: 0.5,
+        anticipatePin: 1,
+        scrub: 0.4,
+        invalidateOnRefresh: true,
         id: 'expScrollTrigger',
         animation: gsap.to(scrollerList, {
           y: startY - totalTranslation,
