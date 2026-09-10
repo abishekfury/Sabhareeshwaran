@@ -2675,6 +2675,38 @@ window.addEventListener('load', () => {
   }, 400);
 });
 
+// Refresh once web fonts finish loading. Font swaps (FOUT) between the
+// fallback and final webfont can change text/element heights across the
+// page, which silently invalidates already-pinned ScrollTrigger start/end
+// positions (Experience scroller, Contact footer, etc.) if left unrefreshed.
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    if (lenis) lenis.resize();
+    ScrollTrigger.refresh();
+  });
+}
+
+// Safety net: auto-refresh ScrollTrigger whenever the overall document height
+// changes (late-loading lazy images, embedded content, dynamic text, etc.).
+// This keeps pinned/scrubbed sections in sync no matter how slow or uneven
+// asset loading is on a given visit, instead of relying solely on one-off
+// refreshes tied to 'load'/'DOMContentLoaded'.
+if ('ResizeObserver' in window) {
+  let lastBodyHeight = document.documentElement.scrollHeight;
+  let bodyRefreshTimer;
+  const bodyResizeObserver = new ResizeObserver(() => {
+    const newHeight = document.documentElement.scrollHeight;
+    if (Math.abs(newHeight - lastBodyHeight) < 2) return;
+    lastBodyHeight = newHeight;
+    clearTimeout(bodyRefreshTimer);
+    bodyRefreshTimer = setTimeout(() => {
+      if (lenis) lenis.resize();
+      ScrollTrigger.refresh();
+    }, 200);
+  });
+  bodyResizeObserver.observe(document.body);
+}
+
 // Cleanup on page unload
 window.addEventListener('beforeunload', () => {
   if (lenis) {

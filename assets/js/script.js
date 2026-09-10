@@ -230,13 +230,110 @@ function initPreloader() {
     if (isDismissed) return;
     isDismissed = true;
     clearTimeout(safetyTimeout);
+    // Force GSAP ScrollTrigger to remeasure the page RIGHT before the user is
+    // allowed to scroll. On a slow/first (uncached) load, fonts/images/CDN
+    // scripts can still be settling after the fixed-length preloader animation
+    // finishes, which previously left pinned/scrubbed sections (Experience,
+    // Contact footer) measured against stale/short document heights — causing
+    // the scrub to blow through too fast and the footer panel to appear stuck
+    // behind its dark background ("black screen"). Refreshing here (plus the
+    // asset-gating below) keeps that from happening.
+    if (typeof ScrollTrigger !== 'undefined') {
+      if (window.lenis) window.lenis.resize();
+      ScrollTrigger.refresh();
+    }
     preloader.classList.add('loaded');
     document.body.classList.remove('no-scroll');
     initIntroHeroAnimation();
   }
 
-  // Safety fallback timeout set to 4200ms to allow exact 3.0s preloader to finish
-  const safetyTimeout = setTimeout(finishPreloader, 4200);
+  // Safety fallback timeout: absolute upper bound so the site never stays
+  // locked behind the preloader if something above fails to resolve.
+  const safetyTimeout = setTimeout(finishPreloader, 6500);
+
+  // Real readiness: resolves once web fonts have finished loading AND the
+  // window "load" event has fired (all non-lazy images/scripts settled).
+  // This is what actually determines whether it's safe to reveal the page,
+  // independent of the purely cosmetic counter animation below.
+  let assetsReady = false;
+  let countdownDone = false;
+  let exitTriggered = false;
+
+  const fontsReadyPromise = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  const windowLoadPromise = document.readyState === 'complete'
+    ? Promise.resolve()
+    : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
+
+  Promise.all([fontsReadyPromise, windowLoadPromise]).then(() => {
+    assetsReady = true;
+    maybeStartExit();
+  });
+
+  // Grace cap: don't let a slow-loading asset delay the exit forever — once
+  // the counter animation is done, wait at most ~1.8s extra for assets.
+  let assetsGraceTimer = null;
+
+  function startExitAnimation() {
+    if (exitTriggered) return;
+    exitTriggered = true;
+    clearTimeout(safetyTimeout);
+    clearTimeout(assetsGraceTimer);
+
+    // Shutter Exit Animation (0.6s): Split panels top and bottom
+    const exitTl = gsap.timeline({
+      onComplete: () => {
+        finishPreloader();
+      }
+    });
+
+    // 1. Fade out the text & line loader
+    exitTl.to('.preloader-brand, .preloader-line-wrap, .preloader-counter', {
+      opacity: 0,
+      duration: 0.2,
+      ease: 'power2.out'
+    })
+      // 2. Split top/bottom panels open
+      .to('.panel-top', {
+        yPercent: -100,
+        duration: 0.6,
+        ease: 'power3.inOut'
+      }, '-=0.1')
+      .to('.panel-bottom', {
+        yPercent: 100,
+        duration: 0.6,
+        ease: 'power3.inOut'
+      }, '-=0.6');
+
+    // Website reveal parallax
+    gsap.fromTo('.split-hero',
+      { y: -30 },
+      { y: 0, duration: 0.6, ease: 'power3.out' }
+    );
+    const isScrolled = window.scrollY > 60;
+    if (isScrolled) {
+      gsap.fromTo('.navbar',
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', clearProps: 'opacity' }
+      );
+    } else {
+      gsap.fromTo('.navbar',
+        { y: -40 },
+        { y: 0, duration: 0.6, ease: 'power3.out' }
+      );
+    }
+  }
+
+  // Only start the shutter-exit once the cosmetic countdown has finished AND
+  // real assets (fonts + window load) are ready — whichever settles last,
+  // capped by a short grace period so slow connections don't hang forever.
+  function maybeStartExit() {
+    if (exitTriggered || !countdownDone) return;
+    if (assetsReady) {
+      startExitAnimation();
+    } else if (!assetsGraceTimer) {
+      assetsGraceTimer = setTimeout(startExitAnimation, 1800);
+    }
+  }
 
   try {
     if (typeof gsap === 'undefined') {
@@ -261,7 +358,10 @@ function initPreloader() {
     const percentEl = document.getElementById('preloader-percent');
     const lineEl = document.querySelector('.preloader-line');
 
-    // 2.4s counter progress + 0.6s shutter exit = exactly 3.0 seconds total display
+    // 2.4s counter progress + 0.6s shutter exit = ~3.0s total display when
+    // assets are already ready (e.g. cached repeat visits). On a slow first
+    // load, the exit waits (briefly) for fonts/images so pinned ScrollTrigger
+    // sections measure the final layout instead of a mid-load one.
     gsap.to(loaderObj, {
       val: 100,
       duration: 2.4,
@@ -272,50 +372,8 @@ function initPreloader() {
         if (lineEl) lineEl.style.width = `${rounded}%`;
       },
       onComplete: () => {
-        clearTimeout(safetyTimeout);
-
-        // Shutter Exit Animation (0.6s): Split panels top and bottom
-        const exitTl = gsap.timeline({
-          onComplete: () => {
-            finishPreloader();
-          }
-        });
-
-        // 1. Fade out the text & line loader
-        exitTl.to('.preloader-brand, .preloader-line-wrap, .preloader-counter', {
-          opacity: 0,
-          duration: 0.2,
-          ease: 'power2.out'
-        })
-          // 2. Split top/bottom panels open
-          .to('.panel-top', {
-            yPercent: -100,
-            duration: 0.6,
-            ease: 'power3.inOut'
-          }, '-=0.1')
-          .to('.panel-bottom', {
-            yPercent: 100,
-            duration: 0.6,
-            ease: 'power3.inOut'
-          }, '-=0.6');
-
-        // Website reveal parallax
-        gsap.fromTo('.split-hero',
-          { y: -30 },
-          { y: 0, duration: 0.6, ease: 'power3.out' }
-        );
-        const isScrolled = window.scrollY > 60;
-        if (isScrolled) {
-          gsap.fromTo('.navbar',
-            { y: -40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', clearProps: 'opacity' }
-          );
-        } else {
-          gsap.fromTo('.navbar',
-            { y: -40 },
-            { y: 0, duration: 0.6, ease: 'power3.out' }
-          );
-        }
+        countdownDone = true;
+        maybeStartExit();
       }
     });
 
