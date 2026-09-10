@@ -139,6 +139,24 @@
     }
 
     setTimeout(loadNextChunk, 80);
+    let hasStartedChunks = false;
+    function startChunks() {
+      if (hasStartedChunks) return;
+      hasStartedChunks = true;
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadNextChunk, { timeout: 1000 });
+      } else {
+        setTimeout(loadNextChunk, 500);
+      }
+    }
+
+    // Start background chunk loading only when user begins scrolling, or 2.5s after window load
+    window.addEventListener('scroll', startChunks, { once: true, passive: true });
+    if (document.readyState === 'complete') {
+      setTimeout(startChunks, 2500);
+    } else {
+      window.addEventListener('load', () => setTimeout(startChunks, 2500), { once: true });
+    }
   }
 
 

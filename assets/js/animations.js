@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
-      progressBar.style.width = progress + '%';
+      progressBar.style.transform = `scaleX(${progress / 100})`;
 
       // Add glow effect when scrolling
       if (progress > 0) {

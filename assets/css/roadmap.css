@@ -1261,6 +1261,39 @@ body.light-theme .telemetry-card.total.active {
   transform: translateY(1px);
 }
 
+/* Subpage Controls Row & Sort Container */
+.subpage-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.subpage-controls-row .hud-search-container {
+  flex: 1;
+  min-width: 240px;
+  margin-bottom: 0 !important;
+}
+
+.subpage-controls-row .hud-sort-container {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .subpage-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .subpage-controls-row .hud-search-container,
+  .subpage-controls-row .hud-sort-container {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 .roadmap-view-switcher {
   display: inline-flex;
   background: rgba(255, 255, 255, 0.03);

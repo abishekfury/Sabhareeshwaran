@@ -1544,11 +1544,60 @@ function initMainRoadmap() {
     });
   }
 
+  // Telemetry Cards Interactive Click Filter / Sort
+  const telemetryCards = document.querySelectorAll(".hud-telemetry-panel .telemetry-card");
+  function syncTelemetryActiveState(sortMode) {
+    telemetryCards.forEach(c => c.classList.remove("active"));
+    if (sortMode === "l1-desc" || sortMode === "beginner-first") {
+      const c = document.querySelector(".hud-telemetry-panel .telemetry-card.beginner");
+      if (c) c.classList.add("active");
+    } else if (sortMode === "l2-desc") {
+      const c = document.querySelector(".hud-telemetry-panel .telemetry-card.intermediate");
+      if (c) c.classList.add("active");
+    } else if (sortMode === "l3-desc" || sortMode === "expert-first") {
+      const c = document.querySelector(".hud-telemetry-panel .telemetry-card.expert");
+      if (c) c.classList.add("active");
+    } else if (sortMode === "total-desc") {
+      const c = document.querySelector(".hud-telemetry-panel .telemetry-card.total");
+      if (c) c.classList.add("active");
+    }
+  }
+
+  telemetryCards.forEach(card => {
+    card.addEventListener("click", () => {
+      let targetSort = "default";
+      if (card.classList.contains("beginner")) {
+        targetSort = card.classList.contains("active") ? "default" : "l1-desc";
+      } else if (card.classList.contains("intermediate")) {
+        targetSort = card.classList.contains("active") ? "default" : "l2-desc";
+      } else if (card.classList.contains("expert")) {
+        targetSort = card.classList.contains("active") ? "default" : "l3-desc";
+      } else if (card.classList.contains("total")) {
+        targetSort = card.classList.contains("active") ? "default" : "total-desc";
+      }
+
+      const roadmapSortSelect = document.getElementById("roadmapSortSelect");
+      if (roadmapSortSelect) {
+        roadmapSortSelect.value = targetSort;
+      }
+
+      syncTelemetryActiveState(targetSort);
+      renderFullRoadmapMatrix(targetSort);
+      renderDomainDashboardCards(targetSort);
+
+      const q = domainSearchInput ? domainSearchInput.value.toLowerCase().trim() : "";
+      if (q) {
+        filterRoadmapSearch(q);
+      }
+    });
+  });
+
   // Setup Sort Control
   const roadmapSortSelect = document.getElementById("roadmapSortSelect");
   if (roadmapSortSelect) {
     roadmapSortSelect.addEventListener("change", () => {
       const sortMode = roadmapSortSelect.value;
+      syncTelemetryActiveState(sortMode);
       renderFullRoadmapMatrix(sortMode);
       renderDomainDashboardCards(sortMode);
 
@@ -1738,11 +1787,31 @@ function renderFullRoadmapMatrix(sortMode = "default") {
   matrixContainer.appendChild(subtrackHeaderRow);
 
   // 3. Render 3 Tier Rows (Expert, Intermediate, Beginner)
-  const tiers = [
+  let tiers = [
     { key: "expert", title: "Expert", desc: "L3 | Mastery & Elite", color: "#ff1744" },
     { key: "intermediate", title: "Intermediate", desc: "L2 | Applied & Pro", color: "#ff9100" },
     { key: "beginner", title: "Beginner", desc: "L1 | Core & Foundation", color: "#00e5ff" }
   ];
+
+  if (sortMode === "l1-desc" || sortMode === "beginner-first") {
+    tiers = [
+      { key: "beginner", title: "Beginner", desc: "L1 | Core & Foundation", color: "#00e5ff" },
+      { key: "intermediate", title: "Intermediate", desc: "L2 | Applied & Pro", color: "#ff9100" },
+      { key: "expert", title: "Expert", desc: "L3 | Mastery & Elite", color: "#ff1744" }
+    ];
+  } else if (sortMode === "l2-desc") {
+    tiers = [
+      { key: "intermediate", title: "Intermediate", desc: "L2 | Applied & Pro", color: "#ff9100" },
+      { key: "expert", title: "Expert", desc: "L3 | Mastery & Elite", color: "#ff1744" },
+      { key: "beginner", title: "Beginner", desc: "L1 | Core & Foundation", color: "#00e5ff" }
+    ];
+  } else if (sortMode === "l3-desc" || sortMode === "expert-first") {
+    tiers = [
+      { key: "expert", title: "Expert", desc: "L3 | Mastery & Elite", color: "#ff1744" },
+      { key: "intermediate", title: "Intermediate", desc: "L2 | Applied & Pro", color: "#ff9100" },
+      { key: "beginner", title: "Beginner", desc: "L1 | Core & Foundation", color: "#00e5ff" }
+    ];
+  }
 
   tiers.forEach(tier => {
     const tierRow = document.createElement("div");
@@ -2405,16 +2474,92 @@ function initDomainRoadmap(requestedDomainName) {
     }
   }
 
-  // 2. Render Full Pathway Tree into #roadmapTree
+  // 2. Sort & Controls Injection for Subpage
+  const searchInput = document.getElementById("certSearchInput") || document.getElementById("domainSearchInput");
+  let sortSelect = document.getElementById("subpageSortSelect");
+
+  if (!sortSelect && searchInput) {
+    const searchContainer = searchInput.closest(".hud-search-container");
+    if (searchContainer) {
+      let controlsRow = searchContainer.closest(".subpage-controls-row");
+      if (!controlsRow) {
+        controlsRow = document.createElement("div");
+        controlsRow.className = "subpage-controls-row";
+        searchContainer.parentNode.insertBefore(controlsRow, searchContainer);
+        controlsRow.appendChild(searchContainer);
+      }
+
+      const sortContainer = document.createElement("div");
+      sortContainer.className = "hud-sort-container";
+      sortContainer.innerHTML = `
+        <label for="subpageSortSelect" class="hud-sort-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="14" y2="12"></line>
+            <line x1="4" y1="18" x2="8" y2="18"></line>
+          </svg>
+          <span>SORT:</span>
+        </label>
+        <select id="subpageSortSelect" class="hud-sort-select" aria-label="Sort pathway certifications">
+          <option value="expert-first">EXPERT (L3 &rarr; L1)</option>
+          <option value="intermediate-first">INTERMEDIATE (L2 FIRST)</option>
+          <option value="beginner-first">BEGINNER (L1 &rarr; L3)</option>
+          <option value="expert-only">EXPERT ONLY (L3)</option>
+          <option value="intermediate-only">INTERMEDIATE ONLY (L2)</option>
+          <option value="beginner-only">BEGINNER ONLY (L1)</option>
+          <option value="name-asc">NAME (A &rarr; Z)</option>
+          <option value="name-desc">NAME (Z &rarr; A)</option>
+          <option value="vendor-asc">VENDOR (A &rarr; Z)</option>
+        </select>
+        <span class="hud-sort-arrow" aria-hidden="true">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </span>
+      `;
+      controlsRow.appendChild(sortContainer);
+      sortSelect = sortContainer.querySelector("#subpageSortSelect");
+    }
+  }
+
+  // 3. Render Full Pathway Tree into #roadmapTree with dynamic sorting
   const treeContainer = document.getElementById("roadmapTree");
-  if (treeContainer) {
+
+  function renderDomainTree(sortMode = "expert-first") {
+    if (!treeContainer) return;
     treeContainer.innerHTML = "";
 
-    const tierConfigs = [
-      { key: "expert", title: "Expert", levelTag: "L3", certs: expCerts, color: "#ff1744" },
-      { key: "intermediate", title: "Intermediate", levelTag: "L2", certs: intCerts, color: "#ff9100" },
-      { key: "beginner", title: "Beginner", levelTag: "L1", certs: begCerts, color: "#00e5ff" }
+    let tierConfigs = [
+      { key: "expert", title: "Expert", levelTag: "L3", certs: [...expCerts], color: "#ff1744" },
+      { key: "intermediate", title: "Intermediate", levelTag: "L2", certs: [...intCerts], color: "#ff9100" },
+      { key: "beginner", title: "Beginner", levelTag: "L1", certs: [...begCerts], color: "#00e5ff" }
     ];
+
+    if (sortMode === "beginner-first") {
+      tierConfigs = [
+        { key: "beginner", title: "Beginner", levelTag: "L1", certs: [...begCerts], color: "#00e5ff" },
+        { key: "intermediate", title: "Intermediate", levelTag: "L2", certs: [...intCerts], color: "#ff9100" },
+        { key: "expert", title: "Expert", levelTag: "L3", certs: [...expCerts], color: "#ff1744" }
+      ];
+    } else if (sortMode === "intermediate-first") {
+      tierConfigs = [
+        { key: "intermediate", title: "Intermediate", levelTag: "L2", certs: [...intCerts], color: "#ff9100" },
+        { key: "expert", title: "Expert", levelTag: "L3", certs: [...expCerts], color: "#ff1744" },
+        { key: "beginner", title: "Beginner", levelTag: "L1", certs: [...begCerts], color: "#00e5ff" }
+      ];
+    } else if (sortMode === "expert-only") {
+      tierConfigs = [
+        { key: "expert", title: "Expert", levelTag: "L3", certs: [...expCerts], color: "#ff1744" }
+      ];
+    } else if (sortMode === "intermediate-only") {
+      tierConfigs = [
+        { key: "intermediate", title: "Intermediate", levelTag: "L2", certs: [...intCerts], color: "#ff9100" }
+      ];
+    } else if (sortMode === "beginner-only") {
+      tierConfigs = [
+        { key: "beginner", title: "Beginner", levelTag: "L1", certs: [...begCerts], color: "#00e5ff" }
+      ];
+    }
 
     tierConfigs.forEach(tier => {
       if (tier.certs.length === 0) return;
@@ -2439,7 +2584,12 @@ function initDomainRoadmap(requestedDomainName) {
         vendorGroups[c.vendor].push(c);
       });
 
-      Object.keys(vendorGroups).forEach(vendor => {
+      let vendorList = Object.keys(vendorGroups);
+      if (sortMode === "vendor-asc") {
+        vendorList.sort((a, b) => a.localeCompare(b));
+      }
+
+      vendorList.forEach(vendor => {
         const vendorSec = document.createElement("div");
         vendorSec.className = "vendor-section";
         vendorSec.setAttribute("data-vendor", vendor.toLowerCase());
@@ -2452,7 +2602,14 @@ function initDomainRoadmap(requestedDomainName) {
         const cardsGrid = document.createElement("div");
         cardsGrid.className = "cert-cards-grid";
 
-        vendorGroups[vendor].forEach(c => {
+        let certList = vendorGroups[vendor];
+        if (sortMode === "name-asc") {
+          certList = [...certList].sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortMode === "name-desc") {
+          certList = [...certList].sort((a, b) => b.name.localeCompare(a.name));
+        }
+
+        certList.forEach(c => {
           const detail = getCertDetails(c.name, tier.key, requestedDomainName);
           const card = document.createElement("div");
           card.className = "cert-card";
@@ -2486,39 +2643,96 @@ function initDomainRoadmap(requestedDomainName) {
     });
   }
 
-  // 3. Search input handler
-  const searchInput = document.getElementById("certSearchInput") || document.getElementById("domainSearchInput");
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const q = searchInput.value.toLowerCase().trim();
-      const cards = document.querySelectorAll(".cert-card");
-      cards.forEach(card => {
-        const name = card.getAttribute("data-cert-name") || "";
-        const vendor = card.getAttribute("data-vendor") || "";
-        const match = !q || name.includes(q) || vendor.includes(q);
-        card.style.display = match ? "flex" : "none";
-      });
+  // 4. Filter and Search Applicator
+  function applySubpageSearch() {
+    const q = searchInput ? searchInput.value.toLowerCase().trim() : "";
+    const cards = document.querySelectorAll("#roadmapTree .cert-card");
+    cards.forEach(card => {
+      const name = card.getAttribute("data-cert-name") || "";
+      const vendor = card.getAttribute("data-vendor") || "";
+      const match = !q || name.includes(q) || vendor.includes(q);
+      card.style.display = match ? "flex" : "none";
+    });
 
-      // Hide empty vendor sections
-      document.querySelectorAll(".vendor-section").forEach(sec => {
-        const visibleCards = sec.querySelectorAll(".cert-card:not([style*='display: none'])");
-        sec.style.display = visibleCards.length > 0 ? "flex" : "none";
-      });
+    // Hide empty vendor sections
+    document.querySelectorAll("#roadmapTree .vendor-section").forEach(sec => {
+      const visibleCards = sec.querySelectorAll(".cert-card:not([style*='display: none'])");
+      sec.style.display = visibleCards.length > 0 ? "flex" : "none";
+    });
 
-      // Hide empty tier blocks
-      document.querySelectorAll(".tree-tier-block").forEach(block => {
-        const visibleCards = block.querySelectorAll(".cert-card:not([style*='display: none'])");
-        block.style.display = visibleCards.length > 0 ? "block" : "none";
-      });
+    // Hide empty tier blocks
+    document.querySelectorAll("#roadmapTree .tree-tier-block").forEach(block => {
+      const visibleCards = block.querySelectorAll(".cert-card:not([style*='display: none'])");
+      block.style.display = visibleCards.length > 0 ? "block" : "none";
     });
   }
 
-  // 4. Initialize 3D Globe for Subpage
+  // 5. Telemetry Cards Interactive Click Filter / Sort
+  const subpageTelemetryCards = document.querySelectorAll(".subway-section .hud-telemetry-panel .telemetry-card");
+
+  function syncSubpageTelemetryActiveState(sortMode) {
+    subpageTelemetryCards.forEach(c => c.classList.remove("active"));
+    if (sortMode === "beginner-first" || sortMode === "beginner-only") {
+      const c = document.querySelector(".subway-section .hud-telemetry-panel .telemetry-card.beginner");
+      if (c) c.classList.add("active");
+    } else if (sortMode === "intermediate-first" || sortMode === "intermediate-only") {
+      const c = document.querySelector(".subway-section .hud-telemetry-panel .telemetry-card.intermediate");
+      if (c) c.classList.add("active");
+    } else if (sortMode === "expert-first" || sortMode === "expert-only") {
+      const c = document.querySelector(".subway-section .hud-telemetry-panel .telemetry-card.expert");
+      if (c) c.classList.add("active");
+    } else if (sortMode === "total") {
+      const c = document.querySelector(".subway-section .hud-telemetry-panel .telemetry-card.total");
+      if (c) c.classList.add("active");
+    }
+  }
+
+  subpageTelemetryCards.forEach(card => {
+    card.addEventListener("click", () => {
+      let targetSort = "expert-first";
+      if (card.classList.contains("beginner")) {
+        targetSort = card.classList.contains("active") ? "expert-first" : "beginner-first";
+      } else if (card.classList.contains("intermediate")) {
+        targetSort = card.classList.contains("active") ? "expert-first" : "intermediate-first";
+      } else if (card.classList.contains("expert")) {
+        targetSort = card.classList.contains("active") ? "beginner-first" : "expert-first";
+      } else if (card.classList.contains("total")) {
+        targetSort = "expert-first";
+      }
+
+      if (sortSelect) {
+        sortSelect.value = targetSort;
+      }
+      syncSubpageTelemetryActiveState(targetSort);
+      renderDomainTree(targetSort);
+      applySubpageSearch();
+    });
+  });
+
+  if (sortSelect) {
+    sortSelect.addEventListener("change", () => {
+      const sortMode = sortSelect.value;
+      syncSubpageTelemetryActiveState(sortMode);
+      renderDomainTree(sortMode);
+      applySubpageSearch();
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      applySubpageSearch();
+    });
+  }
+
+  // Initial tree render
+  renderDomainTree("expert-first");
+
+  // 6. Initialize 3D Globe for Subpage
   if (document.getElementById("roadmapGlobeContainer") && typeof InteractiveGlobe !== "undefined") {
     initMainGlobe();
   }
 
-  // 5. Vendor Filtering Integration
+  // 7. Vendor Filtering Integration
   const filterIndicator = document.getElementById("activeFilterIndicator");
   const filterVendorName = document.getElementById("filterVendorName");
   const resetFilterBtn = document.getElementById("resetFilterBtn");
@@ -2526,11 +2740,8 @@ function initDomainRoadmap(requestedDomainName) {
   if (resetFilterBtn) {
     resetFilterBtn.addEventListener("click", () => {
       if (filterIndicator) filterIndicator.style.display = "none";
-      const cards = document.querySelectorAll(".cert-card");
-      cards.forEach(c => c.style.display = "flex");
-      document.querySelectorAll(".vendor-section").forEach(sec => sec.style.display = "flex");
-      document.querySelectorAll(".tree-tier-block").forEach(b => b.style.display = "block");
       if (searchInput) searchInput.value = "";
+      applySubpageSearch();
     });
   }
 }
