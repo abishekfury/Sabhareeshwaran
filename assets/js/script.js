@@ -2025,7 +2025,7 @@ function initLazy3DGallery() {
         observer.disconnect();
 
         const threeScript = document.createElement('script');
-        threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        threeScript.src = 'assets/js/vendor/three.min.js';
         threeScript.onload = () => {
           const galleryScript = document.createElement('script');
           galleryScript.src = 'assets/js/sphere-gallery.js?v=2.0';
