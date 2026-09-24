@@ -1828,7 +1828,7 @@ html.lenis {
   position: absolute;
   left: 0;
   top: 0;
-  width: 63% !important;
+  width: 58% !important;
   height: 100% !important;
   z-index: 2;
 }
@@ -1836,9 +1836,9 @@ html.lenis {
 .award-images-two .award-img-wrapper:nth-child(2) {
   position: absolute;
   right: 0;
-  bottom: 0;
-  width: 34% !important;
-  height: 70% !important;
+  top: 4%;
+  width: 40% !important;
+  height: 92% !important;
   z-index: 3;
   border: 6px solid var(--black) !important;
   /* blends with white background */
