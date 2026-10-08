@@ -1918,6 +1918,7 @@ function initPageWrapper() {
     'navDrawerOverlay',
     'navDrawer',
     'whatsappFloat',
+    'linkedinFloat',
     'navbar',
     'srvLightbox',
     'custom-cursor-canvas',
@@ -1934,6 +1935,7 @@ function initPageWrapper() {
       child.classList.contains('nav-drawer') ||
       child.classList.contains('scroll-progress') ||
       child.classList.contains('whatsapp-float') ||
+      child.classList.contains('linkedin-float') ||
       child.classList.contains('side-badge') ||
       child.classList.contains('srv-lightbox') ||
       child.classList.contains('navbar') ||

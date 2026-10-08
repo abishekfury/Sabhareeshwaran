@@ -13,7 +13,7 @@
   <!-- Preconnect and Preload Critical Assets -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="assets/css/style.css?v=14.0" as="style">
+  <link rel="preload" href="assets/css/style.css?v=16.0" as="style">
   <link rel="preload" href="assets/css/portfolio-page.css?v=12.0" as="style">
   <link rel="preload" href="assets/images/hero-sequence/ezgif-frame-001.jpg" as="image">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;700&display=swap" as="style">
@@ -21,7 +21,7 @@
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;700&display=swap" rel="stylesheet">
   </noscript>
-  <link rel="stylesheet" href="assets/css/style.css?v=14.0">
+  <link rel="stylesheet" href="assets/css/style.css?v=16.0">
   <link rel="stylesheet" href="assets/css/portfolio-page.css?v=12.0">
   <style>
     body,
@@ -360,6 +360,7 @@
       <span class="nav-logo-short">SAB</span>
     </a>
     <div class="nav-right">
+      <a href="roadmap.html" class="nav-cta nav-cta-roadmap"><span class="nav-roadmap-pulse"></span>Roadmap ↗</a>
       <a href="services.html" class="nav-cta" style="margin-right: 12px;">Services</a>
       <a href="#contact" class="nav-cta">Contact</a>
       <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
@@ -391,6 +392,7 @@
     <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&#10005;</button>
     <div class="nav-drawer-content">
       <div class="menu-options-container">
+        <a href="roadmap.html" class="menu-option-link menu-option-roadmap" data-node="roadmap"><span class="roadmap-drawer-badge">MAP</span> ROADMAP ↗</a>
         <a href="index.html#about" class="menu-option-link" data-node="about">ABOUT</a>
         <a href="index.html#experience" class="menu-option-link" data-node="experience">EXPERIENCE</a>
         <a href="index.html#skills" class="menu-option-link" data-node="skills">SKILLS</a>
@@ -563,11 +565,11 @@
     <div class="social-proof-container">
       <div class="social-proof-stats">
         <div class="proof-stat-item">
-          <span class="proof-number" data-target="500">0<sup>+</sup></span>
+          <span class="proof-number" data-target="1000">0<sup>+</sup></span>
           <span class="proof-label">Students Trained</span>
         </div>
         <div class="proof-stat-item">
-          <span class="proof-number" data-target="25">0<sup>k+</sup></span>
+          <span class="proof-number" data-target="27">0<sup>k+</sup></span>
           <span class="proof-label">LinkedIn Followers</span>
         </div>
         <div class="proof-stat-item">
@@ -619,7 +621,7 @@
     <div class="about-dot-pattern about-dot-tr"></div>
     <div class="about-dot-pattern about-dot-bl"></div>
     <div class="about-portrait">
-      <img src="assets/images/sab.jpeg" alt="Sabhareeshwaran SAB S" loading="lazy">
+      <img src="assets/images/about.jpg" alt="Sabhareeshwaran SAB S" loading="lazy">
     </div>
     <div class="about-bio">
       <div class="about-mission-quote">"BRIDGING THE GAP BETWEEN ACADEMIC LEARNING AND REAL-WORLD CYBERSECURITY."</div>
@@ -919,7 +921,7 @@
     <div class="stats-dot-pattern"></div>
     <div class="stats-container">
       <div class="stat-row clickable" id="stat-linkedin" title="Go to LinkedIn Profile">
-        <div class="stat-number" data-target="25">0<sup>k+</sup></div>
+        <div class="stat-number" data-target="27">0<sup>k+</sup></div>
         <div class="stat-label">LinkedIn<br>Followers</div>
       </div>
       <div class="stat-divider"></div>
@@ -929,7 +931,7 @@
       </div>
       <div class="stat-divider"></div>
       <div class="stat-row">
-        <div class="stat-number" data-target="500">0<sup>+</sup></div>
+        <div class="stat-number" data-target="1000">0<sup>+</sup></div>
         <div class="stat-label">Students<br>Trained</div>
       </div>
       <div class="stat-divider"></div>
@@ -1751,8 +1753,8 @@
               </div>
               <div class="award-img-wrapper">
                 <div class="award-img-parallax">
-                  <img src="assets/images/about_7050.jpg?v=2" alt="STAR OF FISTOHIT 1" class="award-img"
-                    style="object-position: center 32%;" loading="lazy">
+                  <img src="assets/images/about_7050.jpg?v=3" alt="STAR OF FISTOHIT 1" class="award-img"
+                    style="object-position: center 22%;" loading="lazy">
                 </div>
               </div>
             </div>
@@ -2306,6 +2308,16 @@
     </div>
   </div>
 </div>
+
+  <!-- FLOATING LINKEDIN BUTTON -->
+  <a href="https://www.linkedin.com/in/sabhareeshwaran-s-699206262"
+    target="_blank" rel="noopener" class="linkedin-float" id="linkedinFloat" aria-label="Connect on LinkedIn">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+    <span class="linkedin-float-tooltip">Connect with SAB</span>
+  </a>
 
   <!-- FLOATING WHATSAPP BUTTON -->
   <a href="https://wa.me/919344675351?text=Hi%20Sab%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect."

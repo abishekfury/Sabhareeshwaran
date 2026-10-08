@@ -367,7 +367,79 @@ button {
   transform: translateY(-4.25px) rotate(-45deg);
 }
 
-/* ===== SIDE BADGE ===== */
+/* ===== ROADMAP VISIBILITY: OPTION 1 (NAVBAR & DRAWER) ===== */
+.nav-cta-roadmap {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 7px;
+  margin-right: 12px;
+  background: rgba(230, 0, 41, 0.1) !important;
+  border: 1px solid rgba(230, 0, 41, 0.5) !important;
+  color: #ffffff !important;
+  padding: 8px 16px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  transition: all 0.25s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-cta-roadmap:hover {
+  background: #e60029 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(230, 0, 41, 0.6);
+  border-color: #e60029 !important;
+  transform: translateY(-1px);
+}
+
+.nav-roadmap-pulse {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e60029;
+  box-shadow: 0 0 8px #e60029;
+  animation: hud-dot-pulse 1.8s infinite ease-in-out;
+}
+
+.nav-cta-roadmap:hover .nav-roadmap-pulse {
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff;
+}
+
+body.light-theme .nav-cta-roadmap {
+  background: rgba(230, 0, 41, 0.08) !important;
+  border-color: rgba(230, 0, 41, 0.4) !important;
+  color: #111111 !important;
+}
+
+body.light-theme .nav-cta-roadmap:hover {
+  background: #e60029 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 18px rgba(230, 0, 41, 0.35);
+}
+
+.menu-option-roadmap {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  color: var(--red) !important;
+}
+
+.roadmap-drawer-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 6px;
+  background: rgba(230, 0, 41, 0.2);
+  border: 1px solid var(--red);
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+}
+
+/* ===== SIDE BADGE (ORIGINAL DESIGN) ===== */
 .side-badge {
   position: fixed;
   right: 0;
@@ -7082,7 +7154,29 @@ body.light-theme .domain-tool-tag {
   background: var(--red-dark);
 }
 
-/* ===== FLOATING WHATSAPP ===== */
+/* ===== FLOATING WHATSAPP & LINKEDIN ===== */
+@keyframes float-pulse-whatsapp {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
+  }
+  50% {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(37, 211, 102, 0.7);
+  }
+}
+
+@keyframes float-pulse-linkedin {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 6px 25px rgba(10, 102, 194, 0.45);
+  }
+  50% {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(10, 102, 194, 0.7);
+  }
+}
+
 .whatsapp-float {
   position: fixed;
   bottom: 2rem;
@@ -7099,6 +7193,7 @@ body.light-theme .domain-tool-tag {
   box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
   transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
   text-decoration: none;
+  animation: float-pulse-whatsapp 3.2s infinite ease-in-out;
 }
 
 .whatsapp-float svg {
@@ -7107,8 +7202,9 @@ body.light-theme .domain-tool-tag {
 }
 
 .whatsapp-float:hover {
-  transform: scale(1.1) translateY(-2px);
-  box-shadow: 0 10px 35px rgba(37, 211, 102, 0.65);
+  animation: none;
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.75);
 }
 
 .whatsapp-float-tooltip {
@@ -7128,6 +7224,57 @@ body.light-theme .domain-tool-tag {
 }
 
 .whatsapp-float:hover .whatsapp-float-tooltip {
+  opacity: 1;
+}
+
+.linkedin-float {
+  position: fixed;
+  bottom: 7.2rem;
+  right: 2rem;
+  z-index: 9990;
+  width: 68px;
+  height: 68px;
+  background: #0A66C2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 6px 25px rgba(10, 102, 194, 0.45);
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+  text-decoration: none;
+  animation: float-pulse-linkedin 3.2s infinite ease-in-out;
+  animation-delay: 1.6s;
+}
+
+.linkedin-float svg {
+  width: 32px;
+  height: 32px;
+}
+
+.linkedin-float:hover {
+  animation: none;
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 35px rgba(10, 102, 194, 0.75);
+}
+
+.linkedin-float-tooltip {
+  position: absolute;
+  right: 78px;
+  background: rgba(0, 0, 0, 0.88);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.linkedin-float:hover .linkedin-float-tooltip {
   opacity: 1;
 }
 
@@ -7468,6 +7615,13 @@ body.light-theme .footer-form-group textarea:focus {
 
   .whatsapp-float {
     bottom: 1.5rem;
+    right: 1.5rem;
+    width: 60px;
+    height: 60px;
+  }
+
+  .linkedin-float {
+    bottom: 5.8rem;
     right: 1.5rem;
     width: 60px;
     height: 60px;
@@ -10221,3 +10375,4 @@ body.light-theme #skills .tool-cloud-item {
 body.light-theme #skills .tool-cloud-item span {
   color: #0f1012 !important;
 }
+
