@@ -2402,12 +2402,40 @@ body.scrolled .split-hero-topbar {
 .about-portrait {
   position: relative;
   z-index: 1;
-  width: clamp(280px, 38vw, 480px);
+  width: clamp(280px, 36vw, 440px);
   margin-bottom: 60px;
+  border-radius: 36px;
+  padding: 10px;
+  background: linear-gradient(145deg, rgba(224, 90, 0, 0.45) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(224, 90, 0, 0.25) 100%);
+  border: 1.5px solid rgba(224, 90, 0, 0.45);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(224, 90, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.about-portrait:hover {
+  transform: translateY(-4px);
+  border-color: rgba(224, 90, 0, 0.75);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 45px rgba(224, 90, 0, 0.35);
 }
 
 .about-portrait img {
   width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 26px;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.about-portrait:hover img {
+  transform: scale(1.02);
+}
+
+body.light-theme .about-portrait {
+  background: linear-gradient(145deg, rgba(224, 90, 0, 0.35) 0%, rgba(0, 0, 0, 0.06) 50%, rgba(224, 90, 0, 0.2) 100%);
+  border-color: rgba(224, 90, 0, 0.4);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12), 0 0 25px rgba(224, 90, 0, 0.15);
 }
 
 .about-bio {
